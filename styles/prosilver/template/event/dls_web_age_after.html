@@ -6,70 +6,67 @@
 	{% for zodiac in zodiac_data %}
 		{% set element = lang(zodiac.element) %}
 		{% if zodiac.stem %}
-			{% set element = lang('STEM', zodiac.stem) ~ ' ' ~ lang(zodiac.element) %}
+			{% set element = lang('STEM', zodiac.stem) ~ ' ' ~ element %}
 		{% endif %}
 		<dt>{{ lang(zodiac.name) ~ lang('COLON') }}</dt>
-		<dd class="profile-zodiac dls_dd">
+		<dd class="o-profile-zodiac c-details-pane">
 			<div class="dropdown-container">
 				{{ url({'href': '#', 'class': 'dropdown-trigger', 'title': lang(zodiac.sign)},
-					(element ? element ~ ' ') ~ lang(zodiac.sign) ~ icon('font', 'caret-down', 'fa-fw')|trim)
+					(element ? element ~ ' ') ~ lang(zodiac.sign) ~ icon('icon', 'caret-down fa-fw')|trim)
 				}}
 				<div class="dropdown dropdown-extended">
 					<div class="pointer"><div class="pointer-inner"></div></div>
-					<ul class="dropdown-contents dropdown-zodiac" role="menu">
-					<div class="header zhead">{{ lang(zodiac.name)~' '~lang('ZODIAC') }}</div>
-						<li class="zrow">
-							<strong>{{ icon('font', 'star', 'fa-fw', null, lang('SIGN') ~ lang('COLON')) }}</strong> {{ lang(zodiac.sign) }}
+					<ul class="dropdown-contents c-zodiac-list" role="menu">
+						<div class="header c-zodiac-head">{{ lang(zodiac.name)~' '~lang('ZODIAC') }}</div>
+						<li class="c-zodiac-item c-stat-item">
+							<strong>{{ icon('icon', 'star fa-fw', null, lang('SIGN') ~ lang('COLON')) }}</strong> {{ lang(zodiac.sign) }}
 						</li>
 
 					{% if element %}
-						<li class="zrow">
-							<strong>{{ icon('font', 'bolt', 'fa-fw', null, lang('ELEMENT') ~ lang('COLON')) }}</strong> {{ element }}
+						<li class="c-zodiac-item c-stat-item">
+							<strong>{{ icon('icon', 'bolt fa-fw', null, lang('ELEMENT') ~ lang('COLON')) }}</strong> {{ element }}
 						</li>
 					{% endif %}
 
 					{% if zodiac.symbol %}
-						<li class="zrow">
-							<strong>{{ icon('font', 'plus', 'fa-fw', null, lang('SYMBOL') ~ lang('COLON')) }}</strong> {{ lang(zodiac.symbol) }}
+						<li class="c-zodiac-item c-stat-item">
+							<strong>{{ icon('icon', 'plus fa-fw', null, lang('SYMBOL') ~ lang('COLON')) }}</strong> {{ lang(zodiac.symbol) }}
 						</li>
 					{% endif %}
 
 					{% if zodiac.plant %}
-						<li class="zrow">
-							<strong>{{ icon('font', 'tree', 'fa-fw', null, lang('PLANT') ~ lang('COLON')) }}</strong> {{ lang(zodiac.plant) }}
+						<li class="c-zodiac-item c-stat-item">
+							<strong>{{ icon('icon', 'tree fa-fw', null, lang('PLANT') ~ lang('COLON')) }}</strong> {{ lang(zodiac.plant) }}
 						</li>
 					{% endif %}
 
 					{% if zodiac.gem %}
-						<li class="zrow">
-							<strong>{{ icon('font', 'diamond', 'fa-fw', null, lang('STONE') ~ lang('COLON')) }}</strong> {{ lang(zodiac.gem) }}
+						<li class="c-zodiac-item c-stat-item">
+							<strong>{{ icon('icon', 'diamond fa-fw', null, lang('STONE') ~ lang('COLON')) }}</strong> {{ lang(zodiac.gem) }}
 						</li>
 					{% endif %}
 
 					{% if zodiac.ruler %}
-						<li class="zrow">
-							<strong>{{ icon('font', 'globe', 'fa-fw', null, lang('RULER') ~ lang('COLON')) }}</strong> {{ lang(zodiac.ruler) }}
+						<li class="c-zodiac-item c-stat-item">
+							<strong>{{ icon('icon', 'globe fa-fw', null, lang('RULER') ~ lang('COLON')) }}</strong> {{ lang(zodiac.ruler) }}
 						</li>
 					{% endif %}
 
 					{% if zodiac.extra %}
-						{% set extra = 'MOON' %}
-						{% set symbol = 'moon-o' %}
+						{% set extra, symbol = 'MOON', 'moon-o' %}
 						{% if zodiac.name === 'CHINESE' %}
-							{% set extra = 'SEASON' %}
-							{% set symbol = 'leaf' %}
+							{% set extra, symbol = 'SEASON', 'leaf' %}
 						{% elseif zodiac.name === 'MYANMAR' %}
-							{% set extra = 'WEEKDAY' %}
-							{% set symbol = 'calendar' %}
+							{% set extra, symbol = 'WEEKDAY', 'calendar' %}
 						{% endif %}
-						<li class="zrow">
-							<strong>{{ icon('font', symbol, 'fa-fw', null, lang(extra) ~ lang('COLON')) }}</strong> {{ lang(zodiac.extra) }}
+						<li class="c-zodiac-item c-stat-item">
+							<strong>{{ icon('icon', symbol ~ ' fa-fw', null, lang(extra) ~ lang('COLON')) }}</strong> {{ lang(zodiac.extra) }}
 						</li>
 					{% endif %}
 
 					{% if zodiac.dir %}
-						<li class="zrow">
-							<strong>{{ icon('font', 'compass', 'fa-fw', null, lang('DIRECTION') ~ lang('COLON')) }}</strong> {{ lang(zodiac.dir) }}
+						<li class="c-zodiac-item c-stat-item">
+							<strong>{{ icon('icon', 'compass fa-fw', null, lang('DIRECTION') ~ lang('COLON')) }}</strong> {{ lang(zodiac.dir) }}
 						</li>
 					{% endif %}
 					</ul>

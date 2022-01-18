@@ -6,6 +6,6 @@
 
 {% macro url(attributes, text) %}
 	{% spaceless %}
-	    <a{% for attr, value in attributes %} {{ attr }}="{{ value }}"{% endfor %}>{{ text }}</a>
+		<a{% for attr, value in attributes %} {{ attr }}="{{ value }}"{% endfor %}>{{ text }}</a>
 	{% endspaceless %}
 {% endmacro %}

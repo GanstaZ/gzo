@@ -4,7 +4,7 @@
 	{% block block_heading %}{{ lang('RECENT_TOPICS') }}{% endblock %}
 
 	{% block block_content %}
-		<ul class="no_style">
+		<ul class="t-no-style">
 		{% for recent in recent_topics %}
 			<li>{{ icon('fa', 'file-o fa-fw icon-red', null, lang('IN_TOPIC') ~ url({'href': recent.link}, recent.title)) }}</li>
 		{% endfor %}

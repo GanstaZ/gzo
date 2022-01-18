@@ -1,20 +1,28 @@
+{% from '@dls_web/macros/tags.html' import icon, url %}
+
 <form method="post" action="{{ S_PROFILE_ACTION }}" id="viewprofile">
 <div class="panel bg1{% if S_ONLINE %} online{% endif %}">
 	<div class="inner">
 
-	<dl class="left-box tabs tabs-profile">
+	<dl class="left-box c-tabs t-tabs-profile">
 		<dt class="profile-avatar">{% if AVATAR_IMG %}{{ AVATAR_IMG }}{% endif %}</dt>
 		{% EVENT memberlist_view_rank_avatar_before %}
 		{% if RANK_TITLE %}<dd>{{ RANK_TITLE }}</dd>{% endif %}
 		{% if RANK_IMG %}<dd>{{ RANK_IMG }}</dd>{% endif %}
 		{% EVENT memberlist_view_rank_avatar_after %}
-		<dd class="button ztab current" data-tab="tab-1"><span class="zicon"><i class="icon fa-user-circle fa-fw" aria-hidden="true"></i></span>{{ lang('INFORMATION') }}</dd>
-		<dd class="button ztab" data-tab="tab-2"><span class="zicon"><i class="icon fa-commenting-o fa-fw" aria-hidden="true"></i></span>{{ lang('CONTACT') }}</dd>
-		<dd class="button ztab" data-tab="tab-3"><span class="zicon"><i class="icon fa-bar-chart fa-fw" aria-hidden="true"></i></span>{{ lang('STATISTICS') }}</dd>
+		<dd class="button c-tab current" data-tab="tab-1">
+			<span class="c-tab-icon">{{ icon('icon', 'user-circle fa-fw') }}</span>{{ lang('INFORMATION') }}
+		</dd>
+		<dd class="button c-tab" data-tab="tab-2">
+			<span class="c-tab-icon">{{ icon('icon', 'commenting-o fa-fw') }}</span>{{ lang('CONTACT') }}
+		</dd>
+		<dd class="button c-tab" data-tab="tab-3">
+			<span class="c-tab-icon">{{ icon('icon', 'bar-chart fa-fw') }}</span>{{ lang('STATISTICS') }}
+		</dd>
 		{% EVENT dls_web_tablist_after %}
 	</dl>
 
-	<dl id="tab-1" class="left-box details profile-details tab-content current">
+	<dl class="left-box details profile-details c-tab-pane current" id="tab-1" >
 		<h3 class="capitalize">{{ lang('INFORMATION') }}</h3>
 		<dt>{{ lang('USERNAME') ~ lang('COLON') }}</dt>
 		<dd>
@@ -54,7 +62,7 @@
 		{% EVENT memberlist_view_zebra_after %}
 	</dl>
 
-	<dl id="tab-2" class="left-box details profile-details tab-content">
+	<dl class="left-box details profile-details c-tab-pane" id="tab-2" >
 		<h3 class="capitalize">{{ lang('CONTACT_USER') }}</h3>
 		{% EVENT memberlist_view_contact_before %}
 		{% if U_EMAIL %}<dt>{{ lang('EMAIL_ADDRESS') ~ lang('COLON') }}</dt> <dd><a href="{{ U_EMAIL }}">{{ lang('SEND_EMAIL_USER') }}</a></dd>{% endif %}
@@ -79,7 +87,7 @@
 		{% EVENT memberlist_view_contact_after %}
 	</dl>
 
-	<dl id="tab-3" class="left-box details profile-details tab-content">
+	<dl class="left-box details profile-details c-tab-pane" id="tab-3" >
 		<h3 class="capitalize">{{ lang('USER_FORUM') }}</h3>
 		{% EVENT memberlist_view_user_statistics_before %}
 		<dt>{{ lang('JOINED') ~ lang('COLON') }}</dt> <dd>{{ JOINED }}</dd>
@@ -118,4 +126,4 @@
 {% endif %}
 
 </form>
-<div class="panel dls_hide">
+<div class="c-dls-hide">

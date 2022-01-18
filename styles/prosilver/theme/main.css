@@ -1,16 +1,16 @@
 /* DLS Web Default Configurations
-----------------------------------*/
-.dls_wrap {
+----------------------------------------*/
+.c-dls-wrap {
 	display: -webkit-flex;
 	display: flex;
 }
 
-.dls_wrap_content {
+.c-dls-wrap-pane {
 	font-size: 1.1em;
 	margin: 15px 0 9px;
 }
 
-.dls_wrap_content h2 {
+.c-dls-wrap-pane h2 {
 	font-size: 1.3em;
 	color: #115098;
 	border-bottom: 1px solid #dbdee3;
@@ -18,21 +18,25 @@
 	margin: 2px 5px 7px;
 }
 
-.dls_row {
+.c-dls-row {
 	flex: 1;
 }
 
-.block {
+.c-block {
 	margin-bottom: 10px;
 }
 
+.c-inner-block {
+	padding: 0 2px 3px;
+}
+
 /* Post Middle Content
-----------------------------------*/
-.section_main {
+----------------------------------------*/
+.c-section-main {
 	flex: 3;
 }
 
-.section_main h3 {
+.c-section-main h3 {
 	margin-bottom: 2px;
 	font-size: 1.3em;
 	font-weight: bold;
@@ -41,67 +45,45 @@
 	margin-top: 0;
 }
 
-.dls_content {
-	font-size: 1.3em;
-}
-
-.section_main .avatar-container img {
+.c-section-main .avatar-container img {
 	max-width: 75px;
 	max-height: 75px;
 }
 
-.whos_p {
+.c-whos-p {
 	font-size: inherit;
 	margin-bottom: 0;
 }
 
-.dls_pagination {
+.c-dls-pagination {
 	margin-bottom: 48px;
 	padding-right: 8px;
 }
 
 /* Side Section
 ----------------------------------------*/
-.section_side {
+.c-section-side {
 	flex: 1;
 }
 
-.sec_left {
+.c-sec-left {
 	margin-right: 10px;
 }
-.sec_right {
+.c-sec-right {
 	margin-left: 10px;
 }
 
-.inner-block {
-	padding: 0 2px 3px;
-}
-
-.login_avatar {
+.c-login-avatar {
 	text-align: center;
 	margin-bottom: 10px;
 }
 
-.login_avatar img {
+.c-login-avatar img {
 	max-width: 100px;
 	max-height: 100px;
 }
 
-.no_style {
-	list-style: none;
-}
-
-li.head strong {
-	font-weight: normal;
-	color: #115098;
-}
-
-li.drow strong {
-	font-weight: normal;
-	color: #000033;
-}
-
-.progress_bar {
+.c-progress-bar {
 	width: 118px;
 	height: 16px;
 	border: 1px solid #000033;
@@ -110,13 +92,13 @@ li.drow strong {
 	overflow: hidden;
 }
 
-.progress_meter {
+.c-progress-meter {
 	max-width: 118px;
 	height: auto;
 	background: #deebfe;
 }
 
-.progress_center {
+.c-progress-center {
 	width: 118px;
 	text-align: center;
 	color: #000033;
@@ -142,6 +124,23 @@ li.drow strong {
 	font-size: 0.90em;
 }
 
+/* .icon.icon-blue, a:hover .icon.icon-blue {
+	color: #196db5;
+}
+
+.icon.icon-green, a:hover .icon.icon-green{
+	color: #1b9A1B;
+}
+
+.icon.icon-orange, a:hover .icon.icon-orange{
+	color: #FF6600;
+}
+
+.icon.icon-bluegray, a:hover .icon.icon-bluegray{
+	color: #536482;
+}
+ */
+
 .icon-gold {
 	color: rgb(255,215,0);
 }
@@ -153,48 +152,44 @@ li.drow strong {
 	display: inline;
 }
 
+.c-news-profile {
+	width: 18%;
+}
+
 @media (max-width: 700px) {
-	.section_main {
+	.c-section-main {
 		border: none;
 		margin: 0;
 		width: auto;
 		padding: 0 5px;
 	}
 
-	.section_main, .block {
+	.c-section-main, .c-block {
 		border-radius: 0;
 		margin-left: -5px;
 		margin-right: -5px;
 	}
 
-	.section_side {
+	.c-section-side {
 		display: none;
 	}
 }
 
-.tabs {
+/* DLS Tabs
+----------------------------------------*/
+.c-tabs {
 	margin: 0;
+	line-height: normal;
 }
 
-.tabs-profile {
-	padding-right: 5px;
-	border-right: 1.5px solid #FFF;
-}
-
-.tabs .ztab {
+.c-tabs .c-tab {
 	display: inherit;
 	padding: 2px 5px;
 	margin-top: 5px;
 	text-align: left;
 }
 
-.zicon {
-	border-right: 1px solid #C7C3BF;
-	margin-right: 9px;
-	padding-right: 2px;
-}
-
-.tab-content {
+.c-tab-pane {
 	display: none;
 	padding: 5px 15px;
 }
@@ -203,7 +198,24 @@ li.drow strong {
 	display: inherit;
 }
 
-.dls_hide {
+.c-tab-icon {
+	border-right: 1px solid #C7C3BF;
+	margin-right: 9px;
+	padding-right: 2px;
+}
+
+.t-tabs-profile {
+	padding-right: 5px;
+	border-right: 1.5px solid #FFF;
+}
+
+/* DLS Misc
+----------------------------------------*/
+.c-icon-size {
+	font-size: 10px;
+}
+
+.c-dls-hide {
 	display: none;
 }
 
@@ -211,23 +223,37 @@ li.drow strong {
 	text-transform: none;
 }
 
-dl.details dd.dls_dd {
+.c-stat-head strong {
+	font-weight: normal;
+	color: #115098;
+}
+
+.c-stat-item strong {
+	font-weight: normal;
+	color: #000033;
+}
+
+.details dd.c-details-pane {
 	overflow: visible;
 }
 
-.dropdown ul.dropdown-zodiac {
+.dropdown ul.c-zodiac-list {
 	width: 240px;
 }
 
-.dropdown div.zhead {
+.dropdown .c-zodiac-head {
 	line-height: 2em;
 }
 
-.dropdown li.zrow {
+.dropdown li.c-zodiac-item {
 	padding: 5px;
 }
 
-li.zrow strong {
-	font-weight: normal;
-	color: #000033;
+.t-no-style {
+	list-style: none;
+}
+
+.t-dls-pane {
+	width: inherit;
+	float: none;
 }

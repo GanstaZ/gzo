@@ -4,9 +4,9 @@
 	{% block block_heading %}{{ lang('RECENT_POSTS') }}{% endblock %}
 
 	{% block block_content %}
-		<ul class="no_style">
+		<ul class="t-no-style">
 		{% for recent in recent_posts %}
-			<li>{{ icon('fa', 'file-o fa-fw icon-red', null, lang('IN_TOPIC')) ~ url({'href': recent.link}, recent.title) }}</li>
+			<li>{{ icon('icon', 'file-o fa-fw icon-red', null, lang('IN_TOPIC')) ~ url({'href': recent.link}, recent.title) }}</li>
 		{% endfor %}
 		</ul>
 	{% endblock %}
