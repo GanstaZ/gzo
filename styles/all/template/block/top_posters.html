@@ -5,9 +5,9 @@
 
 	{% block block_content %}
 		<ul class="t-no-style">
-			<li class="c-stat-head"><strong>{{ lang('USERNAME') }}</strong><span class="right"><strong>{{ lang('POSTS') }}</strong></span></li>
+			<li class="c-stat-head"><strong>{{ lang('USERNAME') }}</strong><span class="t-heading-right"><strong>{{ lang('POSTS') }}</strong></span></li>
 		{% for posters in top_posters %}
-			<li>{{ loop.index ~ '.' ~ icon('fa', 'star fa-fw icon-gold', null, posters.top)|trim }}<span class="right">{{ posters.posts }}</span></li>
+			<li>{{ loop.index ~ '.' ~ icon('fa', 'star fa-fw icon-gold', null, posters.top)|trim }}<span class="t-heading-right">{{ posters.posts }}</span></li>
 		{% endfor %}
 		</ul>
 	{% endblock %}
