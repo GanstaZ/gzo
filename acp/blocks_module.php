@@ -1,17 +1,17 @@
 <?php
 /**
 *
-* DLS Web. An extension for the phpBB Forum Software package.
+* GZ Web. An extension for the phpBB Forum Software package.
 *
 * @copyright (c) 2021, GanstaZ, http://www.github.com/GanstaZ/
 * @license GNU General Public License, version 2 (GPL-2.0)
 *
 */
 
-namespace dls\web\acp;
+namespace ganstaz\web\acp;
 
 /**
-* DLS Web ACP blocks module
+* GZ Web ACP blocks module
 */
 class blocks_module
 {
@@ -23,13 +23,13 @@ class blocks_module
 	{
 		global $phpbb_container;
 
-		// Get an instance of the admin blocks controller
-		$admin_controller = $phpbb_container->get('dls.web.admin.block.controller');
-
 		$this->tpl_name = 'acp_blocks';
-		$this->page_title = $phpbb_container->get('language')->lang('ACP_DLS_BLOCKS_TITLE');
+		$this->page_title = $phpbb_container->get('language')->lang('ACP_GZ_BLOCKS_TITLE');
 
-		$admin_controller->set_page_url($this->u_action);
+		// Get an instance of the admin blocks controller
+		$admin_controller = $phpbb_container->get('ganstaz.web.admin.block.controller')
+			->set_page_url($this->u_action);
+
 		$admin_controller->display_blocks();
 	}
 }

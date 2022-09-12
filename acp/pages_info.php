@@ -11,17 +11,17 @@
 namespace ganstaz\web\acp;
 
 /**
-* GZ Web ACP blocks module info
+* GZ Web ACP pages module info
 */
-class blocks_info
+class pages_info
 {
 	public function module()
 	{
 		return [
-			'filename' => '\ganstaz\web\acp\blocks_module',
-			'title'	   => 'ACP_GZ_BLOCKS_TITLE',
+			'filename' => '\ganstaz\web\acp\pages_module',
+			'title'	   => 'ACP_GZ_PAGES_TITLE',
 			'modes'	   => [
-				'blocks' => ['title' => 'ACP_GZ_BLOCKS', 'auth' => 'ext_ganstaz/web && acl_a_board', 'cat' => ['ACP_GZ_BLOCKS_TITLE'],
+				'page' => ['title' => 'ACP_GZ_PAGES', 'auth' => 'ext_ganstaz/web && acl_a_board', 'cat' => ['ACP_GZ_PAGES_TITLE'],
 				],
 			],
 		];
