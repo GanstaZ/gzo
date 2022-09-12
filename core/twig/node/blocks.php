@@ -1,7 +1,7 @@
 <?php
 /**
 *
-* DLS Web. An extension for the phpBB Forum Software package.
+* GZ Web. An extension for the phpBB Forum Software package.
 *
 * @copyright (c) 2021, GanstaZ, http://www.github.com/GanstaZ/
 * @license GNU General Public License, version 2 (GPL-2.0)
@@ -12,7 +12,7 @@ namespace dls\web\core\twig\node;
 
 class blocks extends \Twig\Node\Node
 {
-	/** @var \Twig_Environment */
+	/** @var \Twig\Environment */
 	protected $environment;
 
 	public function __construct(\Twig\Node\Expression\AbstractExpression $expr, \phpbb\template\twig\environment $environment, $lineno, $tag = null)
@@ -27,7 +27,7 @@ class blocks extends \Twig\Node\Node
 	*
 	* @param \Twig\Compiler A Twig\Compiler instance
 	*/
-	public function compile(\Twig_Compiler $compiler)
+	public function compile(\Twig\Compiler $compiler)
 	{
 		$compiler->addDebugInfo($this);
 
