@@ -237,18 +237,6 @@
 	overflow: visible;
 }
 
-.dropdown ul.c-zodiac-list {
-	width: 240px;
-}
-
-.dropdown .c-zodiac-head {
-	line-height: 2em;
-}
-
-.dropdown li.c-zodiac-item {
-	padding: 5px;
-}
-
 .t-no-style {
 	list-style: none;
 }

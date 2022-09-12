@@ -179,6 +179,7 @@ class listener implements EventSubscriberInterface
 	*/
 	public function prepare_profile_data($event): void
 	{
+		#TODO: Remove/Migrate
 		$user_xp = $this->plugin->get('achievement')['level']->get_member_exp($event['data']['user_posts']);
 
 		$event['template_data'] = array_merge($event['template_data'], [
@@ -196,35 +197,7 @@ class listener implements EventSubscriberInterface
 	*/
 	public function view_profile_stats($event): void
 	{
-		$u_bday = $event['member']['user_birthday'];
-
-		if ($this->config['allow_birthdays'] && $u_bday && $this->config['dls_zodiac'])
-		{
-			$this->language->add_lang(['zodiac', 'astro'], 'dls/web');
-
-			// Format date
-			$u_bday = str_replace(' ', '', $u_bday);
-			$date = \DateTime::createFromFormat('d-m-Y', $u_bday);
-
-			foreach ($this->plugin->get('zodiac') as $service)
-			{
-				foreach ($service->load($date->format($service->get_format())) as $row)
-				{
-					$this->template->assign_block_vars('zodiac_data', [
-						'stem'	  => $row['stem'],
-						'sign'	  => $row['sign'],
-						'symbol'  => $row['symbol'],
-						'plant'	  => $row['plant'],
-						'gem'	  => $row['gem'],
-						'ruler'	  => $row['ruler'],
-						'extra'	  => $row['extra'],
-						'dir'	  => $row['dir'],
-						'element' => $row['element'],
-						'name'	  => $row['name'],
-					]);
-				}
-			}
-		}
+		#TODO: Remove/Migrate
 
 		$member = $event['member']['user_regdate'];
 		$memberdays = max(1, round((time() - $member) / 86400));
