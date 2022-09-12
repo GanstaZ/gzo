@@ -1,7 +1,7 @@
 <?php
 /**
 *
-* DLS Web. An extension for the phpBB Forum Software package.
+* GZ Web. An extension for the phpBB Forum Software package.
 *
 * @copyright (c) 2021, GanstaZ, http://www.github.com/GanstaZ/
 * @license GNU General Public License, version 2 (GPL-2.0)
@@ -34,12 +34,12 @@ class blocks extends \Twig\TokenParser\AbstractTokenParser
 	*
 	* @return \Twig\Node\Node A Twig\Node instance
 	*/
-	public function parse(\Twig_Token $token)
+	public function parse(\Twig\Token $token)
 	{
 		$expr = $this->parser->getExpressionParser()->parseExpression();
 
 		$stream = $this->parser->getStream();
-		$stream->expect(\Twig_Token::BLOCK_END_TYPE);
+		$stream->expect(\Twig\Token::BLOCK_END_TYPE);
 
 		return new \dls\web\core\twig\node\blocks($expr, $this->environment, $token->getLine(), $this->getTag());
 	}

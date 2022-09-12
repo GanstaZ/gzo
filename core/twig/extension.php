@@ -1,7 +1,7 @@
 <?php
 /**
 *
-* DLS Web. An extension for the phpBB Forum Software package.
+* GZ Web. An extension for the phpBB Forum Software package.
 *
 * @copyright (c) 2021, GanstaZ, http://www.github.com/GanstaZ/
 * @license GNU General Public License, version 2 (GPL-2.0)
@@ -15,7 +15,7 @@ use dls\web\core\blocks\event;
 use phpbb\group\helper as group;
 
 /**
-* DLS Web template loader extension for blocks
+* GZ Web template loader extension for blocks
 */
 class extension extends \Twig\Extension\AbstractExtension
 {
@@ -73,20 +73,20 @@ class extension extends \Twig\Extension\AbstractExtension
 	public function getFunctions()
 	{
 		return [
-			new \Twig_SimpleFunction('blocks', [$this, 'blocks'], ['needs_environment' => true, 'needs_context' => true]),
-			new \Twig_SimpleFunction('get_group_name', [$this, 'get_group_name']),
+			new \Twig\TwigFunction('blocks', [$this, 'blocks'], ['needs_environment' => true, 'needs_context' => true]),
+			new \Twig\TwigFunction('get_group_name', [$this, 'get_group_name']),
 		];
 	}
 
 	/**
 	* Load blocks
 	*
-	* @param \Twig_Environment $env		Twig_Environment instance
+	* @param \Twig\Environment $env		Twig_Environment instance
 	* @param string			   $context Current context
 	* @param string			   $section Section name
 	* @return mixed
 	*/
-	public function blocks(\Twig_Environment $env, $context, $section)
+	public function blocks(\Twig\Environment $env, $context, $section)
 	{
 		foreach ($this->get_block_loader($section) as $name => $path)
 		{
