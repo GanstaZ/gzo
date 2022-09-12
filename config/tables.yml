@@ -1,3 +1,3 @@
 parameters:
-    dls.web.tables.blocks: '%core.table_prefix%dls_blocks'
-    dls.web.tables.page: '%core.table_prefix%dls_pages'
+    ganstaz.web.tables.blocks: '%core.table_prefix%gz_blocks'
+    ganstaz.web.tables.pages: '%core.table_prefix%gz_pages'
