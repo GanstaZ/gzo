@@ -1,13 +1,10 @@
-## DLS Web (CMS)
-Content Management System extension for phpBB. It is still in development, so don't use on production environment!
+## GZ Web (CMS)
+GZ Web is a Content Management System extension for phpBB. It is still in development, so don't use on production environment!
 
 ## Installation
-Download/clone and move the repository into the folder phpbb_root/ext/dls/web
+Download/clone and move the repository into the folder phpbb_root/ext/ganstaz/web
 
-### Activate
-Go to admin panel -> tab customise -> Manage extensions -> enable DLS Web (CMS)
-
-### Disable
-Go to admin panel -> tab customise -> Manage extensions -> disable DLS Web (CMS)
+### Enable / Disable
+Go to admin panel / tab customise / Manage extensions -> enable / disable GZ Web (CMS)
 
 [![Build Status](https://github.com/GanstaZ/web/workflows/Tests/badge.svg)](https://github.com/GanstaZ/web)
