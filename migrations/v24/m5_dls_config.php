@@ -51,7 +51,6 @@ class m5_dls_config extends \phpbb\db\migration\migration
 			['config.add', ['dls_top', 0]],
 			['config.add', ['dls_bottom', 0]],
 			// Plugins
-			['config.add', ['dls_zodiac', 1]],
 			['config.add', ['dls_astro', 0]],
 			['config.add', ['dls_weather', 0]],
 			['config.add', ['dls_achievements', 0]],
