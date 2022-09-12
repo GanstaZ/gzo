@@ -1,18 +1,18 @@
-dls_web_news_base:
+ganstaz_web_news_base:
     path: /news/{id}
-    defaults: { _controller: dls.web.news.controller:handle, id: 3, page: 1 }
+    defaults: { _controller: ganstaz.web.news.controller:handle, id: 3, page: 1 }
     requirements:
         id: \d+
 
-dls_web_news_page:
+ganstaz_web_news_page:
     path: /news/{id}/page/{page}
-    defaults: { _controller: dls.web.news.controller:handle }
+    defaults: { _controller: ganstaz.web.news.controller:handle }
     requirements:
         id: \d+
         page: \d+
 
-dls_web_article:
+ganstaz_web_article:
     path: /article/{aid}
-    defaults: { _controller: dls.web.news.controller:article }
+    defaults: { _controller: ganstaz.web.news.controller:article }
     requirements:
         aid: \d+
