@@ -1,13 +1,13 @@
-{% from '@dls_web/macros/tags.html' import icon, url %}
+{% from '@ganstaz_web/macros/tags.html' import icon, url %}
 
-<div class="c-dls-wrap c-tabs">
-	<div class="c-dls-row button c-tab current" data-tab="tab-1">
+<div class="c-gz-wrap c-tabs">
+	<div class="c-gz-row button c-tab current" data-tab="tab-1">
 		<span class="c-tab-icon">{{ icon('icon', 'user-circle fa-fw') }}</span>{{ lang('WHO_IS_ONLINE') }}
 	</div>
-	<div class="c-dls-row button c-tab" data-tab="tab-2">
+	<div class="c-gz-row button c-tab" data-tab="tab-2">
 		<span class="c-tab-icon">{{ icon('icon', 'birthday-cake fa-fw') }}</span>{{ lang('BIRTHDAYS') }}
 	</div>
-	<div class="c-dls-row button c-tab" data-tab="tab-3">
+	<div class="c-gz-row button c-tab" data-tab="tab-3">
 		<span class="c-tab-icon">{{ icon('icon', 'pie-chart fa-fw') }}</span>{{ lang('STATISTICS') }}
 	</div>
 </div>
@@ -58,10 +58,10 @@
 	{% if new_user %}
 		<ul class="t-no-style">
 			<li>
-				{{ lang('TOTAL_POSTS_COUNT', dls_posts) }} &bull; {{ lang('TOTAL_TOPICS', dls_topics) }} &bull; {{ lang('TOTAL_USERS', dls_users) }} &bull; {{ lang('NEWEST_USER', new_user) }}
+				{{ lang('TOTAL_POSTS_COUNT', gz_posts) }} &bull; {{ lang('TOTAL_TOPICS', gz_topics) }} &bull; {{ lang('TOTAL_USERS', gz_users) }} &bull; {{ lang('NEWEST_USER', new_user) }}
 			</li>
 			<li>
-				{{ lang('DLS_PER_DAY', lang('POSTS'), ppd) }} &bull; {{ lang('DLS_PER_DAY', lang('TOPICS'), tpd) }} &bull; {{ lang('DLS_PER_DAY', lang('USERS'), upd) }}
+				{{ lang('GZ_PER_DAY', lang('POSTS'), ppd) }} &bull; {{ lang('GZ_PER_DAY', lang('TOPICS'), tpd) }} &bull; {{ lang('GZ_PER_DAY', lang('USERS'), upd) }}
 			</li>
 		</ul>
 	{% endif %}

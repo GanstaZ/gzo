@@ -1,16 +1,16 @@
-/* DLS Web Default Configurations
+/* GZ Web Default Configurations
 ----------------------------------------*/
-.c-dls-wrap {
+.c-gz-wrap {
 	display: -webkit-flex;
 	display: flex;
 }
 
-.c-dls-wrap-pane {
+.c-gz-wrap-pane {
 	font-size: 1.1em;
 	margin: 15px 0 9px;
 }
 
-.c-dls-wrap-pane h2 {
+.c-gz-wrap-pane h2 {
 	font-size: 1.3em;
 	color: #115098;
 	border-bottom: 1px solid #dbdee3;
@@ -18,7 +18,7 @@
 	margin: 2px 5px 7px;
 }
 
-.c-dls-row {
+.c-gz-row {
 	flex: 1;
 }
 
@@ -55,7 +55,7 @@
 	margin-bottom: 0;
 }
 
-.c-dls-pagination {
+.c-gz-pagination {
 	margin-bottom: 48px;
 	padding-right: 8px;
 }
@@ -145,7 +145,7 @@
 	color: rgb(255,215,0);
 }
 
-/* DLS Display
+/* GZ Display
 ----------------------------------------*/
 .t-heading-right {
 	float: right;
@@ -175,7 +175,7 @@
 	}
 }
 
-/* DLS Tabs
+/* GZ Tabs
 ----------------------------------------*/
 .c-tabs {
 	margin: 0;
@@ -209,13 +209,13 @@
 	border-right: 1.5px solid #FFF;
 }
 
-/* DLS Misc
+/* GZ Misc
 ----------------------------------------*/
 .c-icon-size {
 	font-size: 10px;
 }
 
-.c-dls-hide {
+.c-gz-hide {
 	display: none;
 }
 
@@ -241,7 +241,7 @@
 	list-style: none;
 }
 
-.t-dls-pane {
+.t-gz-pane {
 	width: inherit;
 	float: none;
 }

@@ -1,4 +1,4 @@
-{% from '@dls_web/macros/tags.html' import icon, url %}
+{% from '@ganstaz_web/macros/tags.html' import icon, url %}
 
 <form method="post" action="{{ S_PROFILE_ACTION }}" id="viewprofile">
 <div class="panel bg1{% if S_ONLINE %} online{% endif %}">
@@ -19,7 +19,7 @@
 		<dd class="button c-tab" data-tab="tab-3">
 			<span class="c-tab-icon">{{ icon('icon', 'bar-chart fa-fw') }}</span>{{ lang('STATISTICS') }}
 		</dd>
-		{% EVENT dls_web_tablist_after %}
+		{% EVENT ganstaz_web_tablist_after %}
 	</dl>
 
 	<dl class="left-box details profile-details c-tab-pane current" id="tab-1" >
@@ -35,7 +35,7 @@
 
 		{% if S_USER_INACTIVE %}<dt>{{ lang('USER_IS_INACTIVE') ~ lang('COLON') }}</dt> <dd>{{ USER_INACTIVE_REASON }}</dd>{% endif %}
 		{% if AGE is not empty %}<dt>{{ lang('AGE') ~ lang('COLON') }}</dt> <dd>{{ AGE }}</dd>{% endif %}
-		{% EVENT dls_web_age_after %}
+		{% EVENT ganstaz_web_age_after %}
 		{% if S_GROUP_OPTIONS %}<dt>{{ lang('USERGROUPS') ~ lang('COLON') }}</dt> <dd><select name="g">{{ S_GROUP_OPTIONS }}</select> <input type="submit" name="submit" value="{{ lang('GO') }}" class="button2" /></dd>{% endif %}
 		{% EVENT memberlist_view_non_contact_custom_fields_before %}
 		{% for cf in custom_fields %}
@@ -91,7 +91,7 @@
 		<h3 class="capitalize">{{ lang('USER_FORUM') }}</h3>
 		{% EVENT memberlist_view_user_statistics_before %}
 		<dt>{{ lang('JOINED') ~ lang('COLON') }}</dt> <dd>{{ JOINED }}</dd>
-		{% EVENT dls_web_joined_after %}
+		{% EVENT ganstaz_web_joined_after %}
 		<dt>{{ lang('LAST_ACTIVE') ~ lang('COLON') }}</dt> <dd>{{ LAST_ACTIVE }}</dd>
 		{% if S_WARNINGS %}
 		<dt>{{ lang('WARNINGS') ~ lang('COLON') }}</dt>
@@ -108,7 +108,7 @@
 		{% endif %}
 		{% EVENT memberlist_view_user_statistics_after %}
 	</dl>
-	{% EVENT dls_web_tabs_after %}
+	{% EVENT ganstaz_web_tabs_after %}
 
 	</div>
 </div>
@@ -126,4 +126,4 @@
 {% endif %}
 
 </form>
-<div class="c-dls-hide">
+<div class="c-gz-hide">
