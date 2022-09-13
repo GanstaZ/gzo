@@ -1,7 +1,7 @@
 <?php
 /**
 *
-* DLS Web. An extension for the phpBB Forum Software package.
+* GZ Web. An extension for the phpBB Forum Software package.
 *
 * @copyright (c) 2021, GanstaZ, http://www.github.com/GanstaZ/
 * @license GNU General Public License, version 2 (GPL-2.0)
@@ -35,22 +35,22 @@ $lang = array_merge($lang, [
 	'CHECK_TO'		=> 'Check to install ',
 
 	// Sections
-	'DLS_SPECIAL'	=> 'Special',
-	'DLS_RIGHT'		=> 'Right side',
-	'DLS_LEFT'		=> 'Left side',
-	'DLS_TOP'		=> 'Top',
-	'DLS_MIDDLE'	=> 'Middle',
-	'DLS_BOTTOM'	=> 'Bottom',
+	'GZ_SPECIAL'	=> 'Special',
+	'GZ_RIGHT'		=> 'Right side',
+	'GZ_LEFT'		=> 'Left side',
+	'GZ_TOP'		=> 'Top',
+	'GZ_MIDDLE'	    => 'Middle',
+	'GZ_BOTTOM'	    => 'Bottom',
 
 	// Blocks
-	'DLS_NEWS'			=> 'News',
-	'DLS_MINI_PROFILE'	=> 'Mini profile',
-	'DLS_INFORMATION'	=> 'Information',
-	'DLS_THE_TEAM'		=> 'The team',
-	'DLS_TOP_POSTERS'	=> 'Top posters',
-	'DLS_RECENT_POSTS'	=> 'Recent posts',
-	'DLS_RECENT_TOPICS' => 'Recent topics',
-	'DLS_WHOS_ONLINE'	=> 'Who is online',
+	'GZ_NEWS'			=> 'News',
+	'GZ_MINI_PROFILE'	=> 'Mini profile',
+	'GZ_INFORMATION'	=> 'Information',
+	'GZ_THE_TEAM'		=> 'The team',
+	'GZ_TOP_POSTERS'	=> 'Top posters',
+	'GZ_RECENT_POSTS'	=> 'Recent posts',
+	'GZ_RECENT_TOPICS'  => 'Recent topics',
+	'GZ_WHOS_ONLINE'	=> 'Who is online',
 
 	'BLOCKS'			=> ' block%s',
 	'BLOCK_POSITION'	=> 'Position',

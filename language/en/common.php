@@ -1,7 +1,7 @@
 <?php
 /**
 *
-* DLS Web. An extension for the phpBB Forum Software package.
+* GZ Web. An extension for the phpBB Forum Software package.
 *
 * @copyright (c) 2021, GanstaZ, http://www.github.com/GanstaZ/
 * @license GNU General Public License, version 2 (GPL-2.0)
@@ -34,12 +34,12 @@ $lang = array_merge($lang, [
 	'hour'	  => '%d hour',
 	'minute'  => '%d minute',
 	'second'  => '%d second',
-	'dls_ago' => [
+	'gz_ago' => [
 		1 => '%2$s ago',
 		2 => '%2$ss ago',
 	],
 
-	'DLS_PER_DAY' => '%s per day <strong>%s</strong>',
+	'GZ_PER_DAY' => '%s per day <strong>%s</strong>',
 
 	'LEADERS'		=> 'Top posters',
 	'RECENT_POSTS'	=> 'Recent posts',
