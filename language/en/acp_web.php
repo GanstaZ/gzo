@@ -1,7 +1,7 @@
 <?php
 /**
 *
-* DLS Web. An extension for the phpBB Forum Software package.
+* GZ Web. An extension for the phpBB Forum Software package.
 *
 * @copyright (c) 2021, GanstaZ, http://www.github.com/GanstaZ/
 * @license GNU General Public License, version 2 (GPL-2.0)
@@ -19,9 +19,9 @@ if (empty($lang) || !is_array($lang))
 }
 
 $lang = array_merge($lang, [
-	'DLS_VERSION'			 => 'Current version',
+	'GZ_VERSION'			 => 'Current version',
 	'NEWS_ID'				 => 'News id',
-	'DLS_PAGINATION'		 => 'Pagination',
+	'GZ_PAGINATION'		     => 'Pagination',
 	'LIMIT'					 => 'News limit',
 	'USER_LIMIT'			 => 'User limit',
 	'LIMIT_EXPLAIN'			 => 'Default 5 & Max 10',
@@ -29,13 +29,14 @@ $lang = array_merge($lang, [
 	'TITLE_LENGTH_EXPLAIN'	 => 'Default 26 & Max 50',
 	'CONTENT_LENGTH'		 => 'Trim text',
 	'CONTENT_LENGTH_EXPLAIN' => 'Default 150 & Max 250',
-	'DLS_SECTIONS'			 => 'Global blocks settings',
-	'DLS_BLOCKS'			 => 'Blocks',
-	'DLS_BLOCKS_EXPLAIN'	 => 'Will hide or show blocks, where blocks are autoloaded by page settings.<br>Manual loading of blocks is not affected.',
-	'DLS_SPECIAL'			 => 'Special',
-	'DLS_RIGHT'				 => 'Right',
-	'DLS_LEFT'				 => 'Left',
-	'DLS_MIDDLE'			 => 'Middle',
-	'DLS_TOP'				 => 'Top',
-	'DLS_BOTTOM'			 => 'Bottom',
+	// Blocks settings
+	'GZ_SECTIONS'			 => 'Global blocks settings',
+	'GZ_BLOCKS'			     => 'Blocks',
+	'GZ_BLOCKS_EXPLAIN'	     => 'Will hide or show blocks, where blocks are autoloaded by page settings.<br>Manual loading of blocks is not affected.',
+	'GZ_SPECIAL'			 => 'Special',
+	'GZ_RIGHT'				 => 'Right',
+	'GZ_LEFT'				 => 'Left',
+	'GZ_MIDDLE'			     => 'Middle',
+	'GZ_TOP'				 => 'Top',
+	'GZ_BOTTOM'			     => 'Bottom',
 ]);

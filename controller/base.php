@@ -1,21 +1,21 @@
 <?php
 /**
 *
-* DLS Web. An extension for the phpBB Forum Software package.
+* GZ Web. An extension for the phpBB Forum Software package.
 *
 * @copyright (c) 2021, GanstaZ, http://www.github.com/GanstaZ/
 * @license GNU General Public License, version 2 (GPL-2.0)
 *
 */
 
-namespace dls\web\controller;
+namespace ganstaz\web\controller;
 
 use phpbb\controller\helper;
 use phpbb\language\language;
-use dls\web\core\blocks\manager;
+use ganstaz\web\core\blocks\manager;
 
 /**
-* DLS Web base controller
+* GZ Web: base controller
 */
 abstract class base
 {

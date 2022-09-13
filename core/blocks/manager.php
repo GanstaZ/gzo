@@ -1,20 +1,20 @@
 <?php
 /**
 *
-* DLS Web. An extension for the phpBB Forum Software package.
+* GZ Web. An extension for the phpBB Forum Software package.
 *
 * @copyright (c) 2021, GanstaZ, http://www.github.com/GanstaZ/
 * @license GNU General Public License, version 2 (GPL-2.0)
 *
 */
 
-namespace dls\web\core\blocks;
+namespace ganstaz\web\core\blocks;
 
 use phpbb\db\driver\driver_interface;
 use phpbb\di\service_collection;
 
 /**
-* DLS Web blocks manager
+* GZ Web blocks manager
 */
 class manager
 {
@@ -31,7 +31,7 @@ class manager
 	protected $blocks_data;
 
 	/** @var array sections */
-	protected $sections = ['dls_special', 'dls_right', 'dls_bottom', 'dls_left', 'dls_top', 'dls_middle'];
+	protected $sections = ['gz_special', 'gz_right', 'gz_bottom', 'gz_left', 'gz_top', 'gz_middle'];
 
 	/** @var array type */
 	protected $type = ['section', 'name'];
@@ -166,7 +166,7 @@ class manager
 					'ext_name' => (string) $row['ext_name'],
 				];
 
-				$data['name'] = $this->is_dls($data);
+				$data['name'] = $this->is_vendor_ganstaz($data);
 				$this->event->set_data($row['section'], [$data['name'] => $data['ext_name']]);
 			}
 		}
@@ -226,7 +226,7 @@ class manager
 	*/
 	protected function is_special(string $section): bool
 	{
-		return $section === 'dls_special';
+		return $section === 'gz_special';
 	}
 
 	/**
@@ -384,16 +384,16 @@ class manager
 	}
 
 	/**
-	* If vendor name is dls, remove package
+	* If vendor name is ganstaz, remove package
 	*
 	* @param array $data Data array
 	* @return string
 	*/
-	public function is_dls(array $data): string
+	public function is_vendor_ganstaz(array $data): string
 	{
-		if ($this->get_vendor($data['ext_name']) === 'dls')
+		if ($this->get_vendor($data['ext_name']) === 'ganstaz')
 		{
-			$data['name'] = str_replace('dls_', '', $data['name']);
+			$data['name'] = str_replace('ganstaz_', '', $data['name']);
 		}
 
 		return $data['name'];

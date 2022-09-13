@@ -1,16 +1,16 @@
 <?php
 /**
 *
-* DLS Web. An extension for the phpBB Forum Software package.
+* GZ Web. An extension for the phpBB Forum Software package.
 *
 * @copyright (c) 2021, GanstaZ, http://www.github.com/GanstaZ/
 * @license GNU General Public License, version 2 (GPL-2.0)
 *
 */
 
-namespace dls\web\migrations\v24;
+namespace ganstaz\web\migrations\v24;
 
-class m1_dls_main extends \phpbb\db\migration\migration
+class m1_main extends \phpbb\db\migration\migration
 {
 	/**
 	* {@inheritdoc}
@@ -28,7 +28,7 @@ class m1_dls_main extends \phpbb\db\migration\migration
 	*/
 	public function check($name)
 	{
-		return $this->db_tools->sql_table_exists($this->table_prefix . 'dls_' . $name);
+		return $this->db_tools->sql_table_exists($this->table_prefix . 'gz_' . $name);
 	}
 
 	/**
@@ -36,7 +36,7 @@ class m1_dls_main extends \phpbb\db\migration\migration
 	*/
 	static public function depends_on()
 	{
-		return array('\phpbb\db\migration\data\v330\v330');
+		return array('\phpbb\db\migration\data\v33x\v335');
 	}
 
 	/**
@@ -49,7 +49,7 @@ class m1_dls_main extends \phpbb\db\migration\migration
 	{
 		return [
 			'add_tables' => [
-				$this->table_prefix . 'dls_blocks' => [
+				$this->table_prefix . 'gz_blocks' => [
 					'COLUMNS' => [
 						'id'	   => ['UINT', null, 'auto_increment'],
 						'name'	   => ['VCHAR', ''],
@@ -60,19 +60,19 @@ class m1_dls_main extends \phpbb\db\migration\migration
 					],
 					'PRIMARY_KEY' => ['id'],
 				],
-				$this->table_prefix . 'dls_pages' => [
+				$this->table_prefix . 'gz_pages' => [
 					'COLUMNS' => [
-						'id'		  => ['UINT', null, 'auto_increment'],
-						'name'		  => ['VCHAR', ''],
-						'active'	  => ['BOOL', 0],
-						'allow'		  => ['BOOL', 0],
-						'changeable'  => ['BOOL', 0],
-						'dls_special' => ['BOOL', 0],
-						'dls_right'	  => ['BOOL', 0],
-						'dls_left'	  => ['BOOL', 0],
-						'dls_middle'  => ['BOOL', 0],
-						'dls_top'	  => ['BOOL', 0],
-						'dls_bottom'  => ['BOOL', 0],
+						'id'		 => ['UINT', null, 'auto_increment'],
+						'name'		 => ['VCHAR', ''],
+						'active'	 => ['BOOL', 0],
+						'allow'		 => ['BOOL', 0],
+						'changeable' => ['BOOL', 0],
+						'gz_special' => ['BOOL', 0],
+						'gz_right'	 => ['BOOL', 0],
+						'gz_left'	 => ['BOOL', 0],
+						'gz_middle'  => ['BOOL', 0],
+						'gz_top'	 => ['BOOL', 0],
+						'gz_bottom'  => ['BOOL', 0],
 					],
 					'PRIMARY_KEY' => ['id'],
 				],
@@ -90,8 +90,8 @@ class m1_dls_main extends \phpbb\db\migration\migration
 	{
 		return [
 			'drop_tables' => [
-				$this->table_prefix . 'dls_blocks',
-				$this->table_prefix . 'dls_pages',
+				$this->table_prefix . 'gz_blocks',
+				$this->table_prefix . 'gz_pages',
 			],
 		];
 	}

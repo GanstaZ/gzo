@@ -1,14 +1,14 @@
 <?php
 /**
 *
-* DLS Web. An extension for the phpBB Forum Software package.
+* GZ Web. An extension for the phpBB Forum Software package.
 *
 * @copyright (c) 2021, GanstaZ, http://www.github.com/GanstaZ/
 * @license GNU General Public License, version 2 (GPL-2.0)
 *
 */
 
-namespace dls\web\core\blocks\type;
+namespace ganstaz\web\core\blocks\type;
 
 use phpbb\config\config;
 use phpbb\db\driver\driver_interface;
@@ -17,7 +17,7 @@ use phpbb\template\template;
 use phpbb\event\dispatcher;
 
 /**
-* DLS Web zodiac base class
+* GZ Web: base class for blocks
 */
 abstract class base implements block_interface
 {

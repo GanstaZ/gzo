@@ -1,16 +1,16 @@
-{% extends '@dls_web/layout/acp-base.html' %}
+{% extends '@ganstaz_web/layout/acp-base.html' %}
 
 {% block acp_heading %}
-	{{ lang('ACP_DLS_BLOCKS') }}
+	{{ lang('ACP_GZ_BLOCKS') }}
 {% endblock %}
 
-{% import '@dls_web/macros/forms.html' as form %}
-{% from '@dls_web/macros/tags.html' import icon %}
+{% import '@ganstaz_web/macros/forms.html' as form %}
+{% from '@ganstaz_web/macros/tags.html' import icon %}
 
 {% block acp_form_content %}
 
 	{% if error %}
-		{{ include('@dls_web/error/acp_add_blocks_table.html') }}
+		{{ include('@ganstaz_web/error/acp_add_blocks_table.html') }}
 	{% endif %}
 
 	{% if U_PURGE %}
@@ -20,7 +20,7 @@
 	{% endif %}
 
 	{% if install %}
-		{{ include('@dls_web/includes/install.html') }}
+		{{ include('@ganstaz_web/includes/install.html') }}
 	{% endif %}
 
 	<fieldset>
@@ -36,7 +36,7 @@
 					<tr>
 						<th>{{ lang('BLOCK') }}</th>
 						<th>{{ lang('ACTIONS') }}</th>
-						{% if section.section !== 'DLS_SPECIAL' %}
+						{% if section.section !== 'GZ_SPECIAL' %}
 							{% if section.in_count > 1 %}
 								<th>{{ lang('BLOCK_POSITION') }}</th>
 							{% endif %}
@@ -54,7 +54,7 @@
 						<td class="tabled">
 							{{ form.radio(block.active, block.s_activate, {'yes': lang('ENABLE'), 'no': lang('DISABLE')}) }}
 						</td>
-						{% if section.section !== 'DLS_SPECIAL' %}
+						{% if section.section !== 'GZ_SPECIAL' %}
 							{% if block.s_options > 1 %}
 								<td class="tabled">
 									{{ form.select(block.position, block.s_current, range(1, block.s_options)) }}

@@ -1,19 +1,19 @@
 services:
-    dls.web.plugin.collection:
+    ganstaz.web.plugin.collection:
         class: phpbb\di\service_collection
         arguments:
             - '@service_container'
         tags:
-            - { name: service_collection, tag: dls.web.plugin }
+            - { name: service_collection, tag: gz.web.plugin }
 
-    dls.web.plugin.manager:
-        class: dls\web\core\plugins\manager
+    ganstaz.web.plugin.manager:
+        class: ganstaz\web\core\plugins\manager
         arguments:
-            - '@dls.web.plugin.collection'
+            - '@ganstaz.web.plugin.collection'
 
-# ----- Dls Web Plugins -----
+# ----- GZ Web Plugins -----
 # Achievements
-    dls.web.plugin.level:
-        class: dls\web\core\plugins\user\level
+    ganstaz.web.plugin.level:
+        class: ganstaz\web\core\plugins\user\level
         tags:
-            - { name: dls.web.plugin }
+            - { name: gz.web.plugin }

@@ -1,17 +1,17 @@
 <?php
 /**
 *
-* DLS Web. An extension for the phpBB Forum Software package.
+* GZ Web. An extension for the phpBB Forum Software package.
 *
 * @copyright (c) 2021, GanstaZ, http://www.github.com/GanstaZ/
 * @license GNU General Public License, version 2 (GPL-2.0)
 *
 */
 
-namespace dls\web\controller;
+namespace ganstaz\web\controller;
 
 /**
-* DLS Web news controller
+* GZ Web: news controller
 */
 class news_controller extends base
 {
@@ -29,12 +29,12 @@ class news_controller extends base
 	public function handle(int $id, int $page): \Symfony\Component\HttpFoundation\Response
 	{
 		// Check if news is disabled
-		if ($this->disabled('dls_news'))
+		if ($this->disabled('ganstaz_news'))
 		{
 			throw new \phpbb\exception\http_exception(404, 'DISABLED');
 		}
 
-		$this->manager->get('dls_news')
+		$this->manager->get('ganstaz_news')
 			->set_page($page)
 			->trim_news(true)
 			->base($id);
@@ -52,12 +52,12 @@ class news_controller extends base
 	public function article(int $aid): \Symfony\Component\HttpFoundation\Response
 	{
 		// Check if news is disabled
-		if ($this->disabled('dls_news'))
+		if ($this->disabled('ganstaz_news'))
 		{
 			throw new \phpbb\exception\http_exception(404, 'DISABLED');
 		}
 
-		$this->manager->get('dls_news')
+		$this->manager->get('ganstaz_news')
 			->get_article($aid);
 
 		return $this->helper->render('article.html', $this->language->lang('VIEW_ARTICLE', $aid), 200, true);

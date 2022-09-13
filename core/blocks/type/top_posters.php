@@ -1,17 +1,17 @@
 <?php
 /**
 *
-* DLS Web. An extension for the phpBB Forum Software package.
+* GZ Web. An extension for the phpBB Forum Software package.
 *
 * @copyright (c) 2021, GanstaZ, http://www.github.com/GanstaZ/
 * @license GNU General Public License, version 2 (GPL-2.0)
 *
 */
 
-namespace dls\web\core\blocks\type;
+namespace ganstaz\web\core\blocks\type;
 
 /**
-* DLS Web Top Posters block
+* GZ Web: Top Posters
 */
 class top_posters extends base
 {
@@ -21,8 +21,8 @@ class top_posters extends base
 	public function get_block_data(): array
 	{
 		return [
-			'section'  => 'dls_right',
-			'ext_name' => 'dls_web',
+			'section'  => 'gz_right',
+			'ext_name' => 'ganstaz_web',
 		];
 	}
 
@@ -37,7 +37,7 @@ class top_posters extends base
 					AND user_type <> ' . (int) USER_IGNORE . '
 					AND user_posts > 0
 				ORDER BY user_posts DESC';
-		$result = $this->db->sql_query_limit($sql, (int) $this->config['dls_user_limit'], 0, 3600);
+		$result = $this->db->sql_query_limit($sql, (int) $this->config['gz_user_limit'], 0, 3600);
 
 		while ($row = $this->db->sql_fetchrow($result))
 		{

@@ -1,17 +1,17 @@
 <?php
 /**
 *
-* DLS Web. An extension for the phpBB Forum Software package.
+* GZ Web. An extension for the phpBB Forum Software package.
 *
 * @copyright (c) 2021, GanstaZ, http://www.github.com/GanstaZ/
 * @license GNU General Public License, version 2 (GPL-2.0)
 *
 */
 
-namespace dls\web\core\blocks;
+namespace ganstaz\web\core\blocks;
 
 /**
-* DLS Web blocks event class
+* GZ Web blocks event class
 */
 class event
 {

@@ -8,10 +8,10 @@
 *
 */
 
-namespace dls\web\core\twig;
+namespace ganstaz\web\core\twig;
 
 use phpbb\template\twig\environment;
-use dls\web\core\blocks\event;
+use ganstaz\web\core\blocks\event;
 use phpbb\group\helper as group;
 
 /**
@@ -61,7 +61,7 @@ class extension extends \Twig\Extension\AbstractExtension
 	public function getTokenParsers()
 	{
 		return [
-			new \dls\web\core\twig\tokenparser\blocks($this->environment),
+			new \ganstaz\web\core\twig\tokenparser\blocks($this->environment),
 		];
 	}
 

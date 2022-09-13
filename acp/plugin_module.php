@@ -1,17 +1,17 @@
 <?php
 /**
 *
-* DLS Web. An extension for the phpBB Forum Software package.
+* GZ Web. An extension for the phpBB Forum Software package.
 *
 * @copyright (c) 2021, GanstaZ, http://www.github.com/GanstaZ/
 * @license GNU General Public License, version 2 (GPL-2.0)
 *
 */
 
-namespace dls\web\acp;
+namespace ganstaz\web\acp;
 
 /**
-* DLS Web ACP plugin module
+* GZ Web ACP plugin module
 */
 class plugin_module
 {
@@ -24,10 +24,10 @@ class plugin_module
 		global $phpbb_container;
 
 		// Get an instance of the admin plugin controller
-		$admin_controller = $phpbb_container->get('dls.web.admin.plugin.controller');
+		$admin_controller = $phpbb_container->get('ganstaz.web.admin.plugin.controller');
 
 		$this->tpl_name = 'acp_plugins';
-		$this->page_title = $phpbb_container->get('language')->lang('ACP_DLS_PLUGIN_TITLE');
+		$this->page_title = $phpbb_container->get('language')->lang('ACP_GZ_PLUGIN_TITLE');
 
 		$admin_controller->set_page_url($this->u_action);
 		$admin_controller->display_plugin();

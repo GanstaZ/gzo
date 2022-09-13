@@ -1,14 +1,14 @@
 <?php
 /**
 *
-* DLS Web. An extension for the phpBB Forum Software package.
+* GZ Web. An extension for the phpBB Forum Software package.
 *
 * @copyright (c) 2021, GanstaZ, http://www.github.com/GanstaZ/
 * @license GNU General Public License, version 2 (GPL-2.0)
 *
 */
 
-namespace dls\web\controller;
+namespace ganstaz\web\controller;
 
 use phpbb\cache\service as cache;
 use phpbb\db\driver\driver_interface as driver;
@@ -17,7 +17,7 @@ use phpbb\request\request;
 use phpbb\template\template;
 
 /**
-* DLS Web admin page controller
+* GZ Web: admin page controller
 */
 class admin_page_controller
 {
@@ -77,12 +77,12 @@ class admin_page_controller
 	public function display_page(): void
 	{
 		// Add form key for form validation checks
-		add_form_key('dls/pages');
+		add_form_key('ganstaz/pages');
 
-		//$this->language->add_lang('acp_pages', 'dls/web');
+		//$this->language->add_lang('acp_pages', 'ganstaz/web');
 
 		// Get all pages
-		$sql = 'SELECT name, active, allow, changeable, dls_special, dls_right, dls_left, dls_middle, dls_top, dls_bottom
+		$sql = 'SELECT name, active, allow, changeable, gz_special, gz_right, gz_left, gz_middle, gz_top, gz_bottom
 				FROM ' . $this->page_data . '
 				ORDER BY id';
 		$result = $this->db->sql_query($sql);
@@ -91,16 +91,16 @@ class admin_page_controller
 		while ($row = $this->db->sql_fetchrow($result))
 		{
 			$pages[$row['name']] = [
-				'name'		  => $row['name'],
-				'active'	  => (bool) $row['active'],
-				'allow'		  => (bool) $row['allow'],
-				'changeable'  => (bool) $row['changeable'],
-				'dls_special' => (bool) $row['dls_special'],
-				'dls_right'	  => (bool) $row['dls_right'],
-				'dls_left'	  => (bool) $row['dls_left'],
-				'dls_middle'  => (bool) $row['dls_middle'],
-				'dls_top'	  => (bool) $row['dls_top'],
-				'dls_bottom'  => (bool) $row['dls_bottom'],
+				'name'		 => $row['name'],
+				'active'	 => (bool) $row['active'],
+				'allow'		 => (bool) $row['allow'],
+				'changeable' => (bool) $row['changeable'],
+				'gz_special' => (bool) $row['gz_special'],
+				'gz_right'	 => (bool) $row['gz_right'],
+				'gz_left'	 => (bool) $row['gz_left'],
+				'gz_middle'  => (bool) $row['gz_middle'],
+				'gz_top'	 => (bool) $row['gz_top'],
+				'gz_bottom'  => (bool) $row['gz_bottom'],
 			];
 		}
 		$this->db->sql_freeresult($result);
@@ -108,7 +108,7 @@ class admin_page_controller
 		// Is the form submitted
 		if ($this->request->is_set_post('submit'))
 		{
-			if (!check_form_key('dls/pages'))
+			if (!check_form_key('ganstaz/pages'))
 			{
 				trigger_error('FORM_INVALID');
 			}
@@ -116,10 +116,10 @@ class admin_page_controller
 			// If the form has been submitted, set all data and save it
 			$this->update_data($pages);
 
-			$this->cache->destroy('_dls_pages');
+			$this->cache->destroy('_ganstaz_pages');
 
 			// Show user confirmation of success and provide link back to the previous screen
-			trigger_error($this->language->lang('ACP_DLS_SETTINGS_SAVED') . adm_back_link($this->u_action));
+			trigger_error($this->language->lang('ACP_GZ_SETTINGS_SAVED') . adm_back_link($this->u_action));
 		}
 
 		// Set output vars for display in the template
@@ -127,7 +127,7 @@ class admin_page_controller
 
 		// Set template vars
 		$this->template->assign_vars([
-			'S_DLS_PAGE' => true,
+			'S_GZ_PAGE' => true,
 			'U_ACTION'	 => $this->u_action,
 		]);
 	}
@@ -145,14 +145,14 @@ class admin_page_controller
 			$page = $this->request->variable($data['name'], (bool) 0);
 
 			$page_data = [
-				'active'	  => $this->request->variable($data['name'] . '_active', (bool) 0),
-				'allow'		  => $this->request->variable($data['name'] . '_allow', (bool) 0),
-				'dls_special' => $this->request->variable($data['name'] . '_special', (bool) 0),
-				'dls_right'	  => $this->request->variable($data['name'] . '_right', (bool) 0),
-				'dls_left'	  => $this->request->variable($data['name'] . '_left', (bool) 0),
-				'dls_middle'  => $this->request->variable($data['name'] . '_middle', (bool) 0),
-				'dls_top'	  => $this->request->variable($data['name'] . '_top', (bool) 0),
-				'dls_bottom'  => $this->request->variable($data['name'] . '_bottom', (bool) 0),
+				'active'	 => $this->request->variable($data['name'] . '_active', (bool) 0),
+				'allow'		 => $this->request->variable($data['name'] . '_allow', (bool) 0),
+				'gz_special' => $this->request->variable($data['name'] . '_special', (bool) 0),
+				'gz_right'	 => $this->request->variable($data['name'] . '_right', (bool) 0),
+				'gz_left'	 => $this->request->variable($data['name'] . '_left', (bool) 0),
+				'gz_middle'  => $this->request->variable($data['name'] . '_middle', (bool) 0),
+				'gz_top'	 => $this->request->variable($data['name'] . '_top', (bool) 0),
+				'gz_bottom'  => $this->request->variable($data['name'] . '_bottom', (bool) 0),
 			];
 
 			if ($page)
@@ -180,12 +180,12 @@ class admin_page_controller
 				'name'		 => $page,
 				'active'	 => $data['active'],
 				'allow'		 => $data['allow'],
-				'special'	 => $data['dls_special'],
-				'right'		 => $data['dls_right'],
-				'left'		 => $data['dls_left'],
-				'middle'	 => $data['dls_middle'],
-				'top'		 => $data['dls_top'],
-				'bottom'	 => $data['dls_bottom'],
+				'special'	 => $data['gz_special'],
+				'right'		 => $data['gz_right'],
+				'left'		 => $data['gz_left'],
+				'middle'	 => $data['gz_middle'],
+				'top'		 => $data['gz_top'],
+				'bottom'	 => $data['gz_bottom'],
 				'changeable' => $data['changeable'],
 			]);
 		}

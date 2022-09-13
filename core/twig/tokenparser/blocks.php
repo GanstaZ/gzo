@@ -8,7 +8,7 @@
 *
 */
 
-namespace dls\web\core\twig\tokenparser;
+namespace ganstaz\web\core\twig\tokenparser;
 
 use phpbb\template\twig\environment;
 

@@ -1,7 +1,7 @@
 <?php
 /**
 *
-* DLS Web. An extension for the phpBB Forum Software package.
+* GZ Web. An extension for the phpBB Forum Software package.
 *
 * @copyright (c) 2021, GanstaZ, http://www.github.com/GanstaZ/
 * @license GNU General Public License, version 2 (GPL-2.0)
@@ -20,22 +20,22 @@ if (empty($lang) || !is_array($lang))
 
 $lang = array_merge($lang, [
 	// Web module
-	'ACP_DLS_WEB_TITLE'		  => 'DLS Web CMS',
-	'ACP_DLS_WEB'			  => 'DLS Web settings',
+	'ACP_GZ_WEB_TITLE'		  => 'GZ Web CMS',
+	'ACP_GZ_WEB'			  => 'GZ Web settings',
 
 	// Blocks module
-	'ACP_DLS_BLOCKS_TITLE'	  => 'DLS Blocks module',
-	'ACP_DLS_BLOCKS'		  => 'DLS blocks manager',
+	'ACP_GZ_BLOCKS_TITLE'	  => 'GZ Blocks module',
+	'ACP_GZ_BLOCKS'		      => 'GZ blocks manager',
 
 	// Blocks page module
-	'ACP_DLS_PAGE_TITLE'	  => 'DLS Page module',
-	'ACP_DLS_PAGE'			  => 'DLS page settings',
+	'ACP_GZ_PAGE_TITLE'	      => 'GZ Page module',
+	'ACP_GZ_PAGE'			  => 'GZ page settings',
 
 	// Plugin module
-	'ACP_DLS_PLUGIN_TITLE'	  => 'DLS Plugin module',
-	'ACP_DLS_PLUGIN'		  => 'DLS plugin manager',
+	'ACP_GZ_PLUGIN_TITLE'	  => 'GZ Plugin module',
+	'ACP_GZ_PLUGIN'		      => 'GZ plugin manager',
 
-	'ACP_DLS_SETTINGS_SAVED'  => 'Settings have been saved successfully!',
+	'ACP_GZ_SETTINGS_SAVED'   => 'Settings have been saved successfully!',
 
 	// News settings
 	'ACP_NEWS_LEGEND'		  => 'News settings',

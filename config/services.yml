@@ -4,54 +4,54 @@ imports:
     - { resource: tables.yml }
 
 services:
-    dls.web.helper:
-        class: dls\web\core\helper
+    ganstaz.web.helper:
+        class: ganstaz\web\core\helper
         arguments:
             - '@cache'
             - '@config'
             - '@dbal.conn'
             - '@user'
-            - '%dls.web.tables.page%'
+            - '%ganstaz.web.tables.pages%'
             - '%core.php_ext%'
 
-    dls.web.time:
-        class: dls\web\core\dls_time
+    ganstaz.web.time:
+        class: ganstaz\web\core\gz_time
         arguments:
             - '@language'
 
-    dls.web.listener:
-        class: dls\web\event\listener
+    ganstaz.web.listener:
+        class: ganstaz\web\event\listener
         arguments:
             - '@config'
             - '@controller.helper'
             - '@language'
             - '@request'
             - '@template'
-            - '@dls.web.helper'
-            - '@dls.web.plugin.manager'
-            - '@?dls.web.block.manager'
+            - '@ganstaz.web.helper'
+            - '@ganstaz.web.plugin.manager'
+            - '@?ganstaz.web.block.manager'
         tags:
             - { name: event.listener }
 
-    dls.web.extension:
-        class: dls\web\core\twig\extension
+    ganstaz.web.extension:
+        class: ganstaz\web\core\twig\extension
         arguments:
             - '@template.twig.environment'
-            - '@dls.web.block.event'
+            - '@ganstaz.web.block.event'
             - '@group_helper'
         tags:
             - { name: twig.extension }
 
 # ----- Controllers -----
-    dls.web.controller.base:
+    ganstaz.web.controller.base:
         abstract: true
         arguments:
             - '@controller.helper'
             - '@language'
-            - '@dls.web.block.manager'
+            - '@ganstaz.web.block.manager'
 
-    dls.web.admin.controller:
-        class: dls\web\controller\admin_controller
+    ganstaz.web.admin.controller:
+        class: ganstaz\web\controller\admin_controller
         arguments:
             - '@config'
             - '@dbal.conn'
@@ -59,27 +59,27 @@ services:
             - '@request'
             - '@template'
 
-    dls.web.admin.block.controller:
-        class: dls\web\controller\admin_block_controller
+    ganstaz.web.admin.block.controller:
+        class: ganstaz\web\controller\admin_block_controller
         arguments:
             - '@service_container'
             - '@dbal.conn'
             - '@language'
             - '@request'
             - '@template'
-            - '@dls.web.block.manager'
+            - '@ganstaz.web.block.manager'
 
-    dls.web.admin.page.controller:
-        class: dls\web\controller\admin_page_controller
+    ganstaz.web.admin.page.controller:
+        class: ganstaz\web\controller\admin_page_controller
         arguments:
             - '@cache'
             - '@dbal.conn'
             - '@language'
             - '@request'
             - '@template'
-            - '%dls.web.tables.page%'
+            - '%ganstaz.web.tables.pages%'
 
-    dls.web.news.controller:
-        class: dls\web\controller\news_controller
+    ganstaz.web.news.controller:
+        class: ganstaz\web\controller\news_controller
         shared: false
-        parent: dls.web.controller.base
+        parent: ganstaz.web.controller.base

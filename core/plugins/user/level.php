@@ -1,19 +1,19 @@
 <?php
 /**
 *
-* DLS Web. An extension for the phpBB Forum Software package.
+* GZ Web. An extension for the phpBB Forum Software package.
 *
 * @copyright (c) 2021, GanstaZ, http://www.github.com/GanstaZ/
 * @license GNU General Public License, version 2 (GPL-2.0)
 *
 */
 
-namespace dls\web\core\plugins\user;
+namespace ganstaz\web\core\plugins\user;
 
 /**
-* DLS Web level plugin
+* GZ Web: level plugin
 */
-class level implements \dls\web\core\plugins\plugin_interface
+class level implements \ganstaz\web\core\plugins\plugin_interface
 {
 	/**
 	* Constructor

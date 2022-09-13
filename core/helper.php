@@ -1,14 +1,14 @@
 <?php
 /**
 *
-* DLS Web. An extension for the phpBB Forum Software package.
+* GZ Web. An extension for the phpBB Forum Software package.
 *
 * @copyright (c) 2021, GanstaZ, http://www.github.com/GanstaZ/
 * @license GNU General Public License, version 2 (GPL-2.0)
 *
 */
 
-namespace dls\web\core;
+namespace ganstaz\web\core;
 
 use phpbb\cache\service as cache;
 use phpbb\config\config;
@@ -16,7 +16,7 @@ use phpbb\db\driver\driver_interface;
 use phpbb\user;
 
 /**
-* DLS Web helper class
+* GZ Web helper class
 */
 class helper
 {
@@ -141,7 +141,7 @@ class helper
 	public function get(string $name): array
 	{
 		$enabled = [];
-		foreach (['dls_special', 'dls_right', 'dls_left', 'dls_middle', 'dls_top', 'dls_bottom'] as $section)
+		foreach (['gz_special', 'gz_right', 'gz_left', 'gz_middle', 'gz_top', 'gz_bottom'] as $section)
 		{
 			if ($this->config[$section])
 			{
@@ -151,7 +151,7 @@ class helper
 
 		$enabled = implode($this->user->lang['COMMA_SEPARATOR'], $enabled);
 
-		if (($pages = $this->cache->get('_dls_pages')) === false)
+		if (($pages = $this->cache->get('_gz_pages')) === false)
 		{
 			$sql = 'SELECT name, ' . $enabled . '
 					FROM ' . $this->page_data . '
@@ -170,7 +170,7 @@ class helper
 			}
 			$this->db->sql_freeresult($result);
 
-			$this->cache->put('_dls_pages', $pages);
+			$this->cache->put('_gz_pages', $pages);
 		}
 
 		return $pages[$name] ?? [];

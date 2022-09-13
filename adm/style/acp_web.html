@@ -1,10 +1,10 @@
-{% extends '@dls_web/layout/acp-base.html' %}
+{% extends '@ganstaz_web/layout/acp-base.html' %}
 
 {% block acp_heading %}
-	{{ lang('ACP_DLS_WEB') }}
+	{{ lang('ACP_GZ_WEB') }}
 {% endblock %}
 
-{% import '@dls_web/macros/forms.html' as form %}
+{% import '@ganstaz_web/macros/forms.html' as form %}
 
 {% block acp_form_content %}
 
@@ -12,89 +12,89 @@
 		<legend>{{ lang('SETTINGS') }}</legend>
 
 		<dl>
-			<dt><label>{{ lang('DLS_VERSION') ~ lang('COLON') }}</label></dt>
-			<dd><strong>{{ DLS_VERSION }}</strong></dd>
+			<dt><label>{{ lang('GZ_VERSION') ~ lang('COLON') }}</label></dt>
+			<dd><strong>{{ GZ_VERSION }}</strong></dd>
 		</dl>
 
 		<dl>
-			<dt>{{ form.label('dls_pagination', lang('DLS_PAGINATION') ~ lang('COLON')) }}</dt>
-			<dd>{{ form.radio('dls_pagination', S_PAGINATION, {'yes': lang('ENABLE'), 'no': lang('DISABLE')}) }}</dd>
+			<dt>{{ form.label('gz_pagination', lang('GZ_PAGINATION') ~ lang('COLON')) }}</dt>
+			<dd>{{ form.radio('gz_pagination', S_PAGINATION, {'yes': lang('ENABLE'), 'no': lang('DISABLE')}) }}</dd>
 		</dl>
 
 		<dl>
-			<dt>{{ form.label('dls_news_fid', lang('NEWS_ID') ~ lang('COLON')) }}</dt>
+			<dt>{{ form.label('gz_news_fid', lang('NEWS_ID') ~ lang('COLON')) }}</dt>
 			{% if S_NEWS_CURRENT %}
-				<dd>{{ form.select('dls_news_fid', S_NEWS_CURRENT, DLS_NEWS_ID) }}</dd>
+				<dd>{{ form.select('gz_news_fid', S_NEWS_CURRENT, GZ_NEWS_ID) }}</dd>
 			{% endif %}
 		</dl>
 
 		<dl>
-			<dt>{{ form.label('dls_limit', lang('LIMIT') ~ lang('COLON')) }}<br>
+			<dt>{{ form.label('gz_limit', lang('LIMIT') ~ lang('COLON')) }}<br>
 				<span>{{ lang('LIMIT_EXPLAIN') }}</span>
 			</dt>
-			<dd>{{ form.input('dls_limit', DLS_LIMIT, '', {'type': 'number', 'min': 0, 'max': 10}) }}</dd>
+			<dd>{{ form.input('gz_limit', GZ_LIMIT, '', {'type': 'number', 'min': 0, 'max': 10}) }}</dd>
 		</dl>
 
 		<dl>
-			<dt>{{ form.label('dls_title_length', lang('TITLE_LENGTH') ~ lang('COLON')) }}<br>
+			<dt>{{ form.label('gz_title_length', lang('TITLE_LENGTH') ~ lang('COLON')) }}<br>
 				<span>{{ lang('TITLE_LENGTH_EXPLAIN') }}</span>
 			</dt>
-			<dd>{{ form.input('dls_title_length', MIN_TITLE_LENGTH, '', {'type': 'number', 'min': 0, 'max': 50}) }}</dd>
+			<dd>{{ form.input('gz_title_length', MIN_TITLE_LENGTH, '', {'type': 'number', 'min': 0, 'max': 50}) }}</dd>
 		</dl>
 
 		<dl>
-			<dt>{{ form.label('dls_content_length', lang('CONTENT_LENGTH') ~ lang('COLON')) }}<br>
+			<dt>{{ form.label('gz_content_length', lang('CONTENT_LENGTH') ~ lang('COLON')) }}<br>
 				<span>{{ lang('CONTENT_LENGTH_EXPLAIN') }}</span>
 			</dt>
-			<dd>{{ form.input('dls_content_length', MIN_CONTENT_LENGTH, '', {'type': 'number', 'min': 0, 'max': 250}) }}</dd>
+			<dd>{{ form.input('gz_content_length', MIN_CONTENT_LENGTH, '', {'type': 'number', 'min': 0, 'max': 250}) }}</dd>
 		</dl>
 
 		<dl>
-			<dt>{{ form.label('dls_user_limit', lang('USER_LIMIT') ~ lang('COLON')) }}<br>
+			<dt>{{ form.label('gz_user_limit', lang('USER_LIMIT') ~ lang('COLON')) }}<br>
 				<span>{{ lang('LIMIT_EXPLAIN') }}</span>
 			</dt>
-			<dd>{{ form.input('dls_user_limit', DLS_USER_LIMIT, '', {'type': 'number', 'min': 0, 'max': 10}) }}</dd>
+			<dd>{{ form.input('gz_user_limit', GZ_USER_LIMIT, '', {'type': 'number', 'min': 0, 'max': 10}) }}</dd>
 		</dl>
 	</fieldset>
 
 	<fieldset>
-		<legend>{{ lang('DLS_SECTIONS') }}</legend>
+		<legend>{{ lang('GZ_SECTIONS') }}</legend>
 
 		<dl>
-			<dt>{{ form.label('dls_blocks', lang('DLS_BLOCKS') ~ lang('COLON')) }}<br>
-				<span>{{ lang('DLS_BLOCKS_EXPLAIN') }}</span>
+			<dt>{{ form.label('gz_blocks', lang('GZ_BLOCKS') ~ lang('COLON')) }}<br>
+				<span>{{ lang('GZ_BLOCKS_EXPLAIN') }}</span>
 			</dt>
-			<dd>{{ form.radio('dls_blocks', S_BLOCKS, {'yes': lang('ENABLE'), 'no': lang('DISABLE')}) }}</dd>
+			<dd>{{ form.radio('gz_blocks', S_BLOCKS, {'yes': lang('ENABLE'), 'no': lang('DISABLE')}) }}</dd>
 		</dl>
 
 		<dl>
-			<dt>{{ form.label('dls_special', lang('DLS_SPECIAL') ~ lang('COLON')) }}</dt>
-			<dd>{{ form.radio('dls_special', S_SPECIAL, {'yes': lang('ENABLE'), 'no': lang('DISABLE')}) }}</dd>
+			<dt>{{ form.label('gz_special', lang('GZ_SPECIAL') ~ lang('COLON')) }}</dt>
+			<dd>{{ form.radio('gz_special', S_SPECIAL, {'yes': lang('ENABLE'), 'no': lang('DISABLE')}) }}</dd>
 		</dl>
 
 		<dl>
-			<dt>{{ form.label('dls_right', lang('DLS_RIGHT') ~ lang('COLON')) }}</dt>
-			<dd>{{ form.radio('dls_right', S_RIGHT, {'yes': lang('ENABLE'), 'no': lang('DISABLE')}) }}</dd>
+			<dt>{{ form.label('gz_right', lang('GZ_RIGHT') ~ lang('COLON')) }}</dt>
+			<dd>{{ form.radio('gz_right', S_RIGHT, {'yes': lang('ENABLE'), 'no': lang('DISABLE')}) }}</dd>
 		</dl>
 
 		<dl>
-			<dt>{{ form.label('dls_left', lang('DLS_LEFT') ~ lang('COLON')) }}</dt>
-			<dd>{{ form.radio('dls_left', S_LEFT, {'yes': lang('ENABLE'), 'no': lang('DISABLE')}) }}</dd>
+			<dt>{{ form.label('gz_left', lang('GZ_LEFT') ~ lang('COLON')) }}</dt>
+			<dd>{{ form.radio('gz_left', S_LEFT, {'yes': lang('ENABLE'), 'no': lang('DISABLE')}) }}</dd>
 		</dl>
 
 		<dl>
-			<dt>{{ form.label('dls_middle', lang('DLS_MIDDLE') ~ lang('COLON')) }}</dt>
-			<dd>{{ form.radio('dls_middle', S_MIDDLE, {'yes': lang('ENABLE'), 'no': lang('DISABLE')}) }}</dd>
+			<dt>{{ form.label('gz_middle', lang('GZ_MIDDLE') ~ lang('COLON')) }}</dt>
+			<dd>{{ form.radio('gz_middle', S_MIDDLE, {'yes': lang('ENABLE'), 'no': lang('DISABLE')}) }}</dd>
 		</dl>
 
 		<dl>
-			<dt>{{ form.label('dls_top', lang('DLS_TOP') ~ lang('COLON')) }}</dt>
-			<dd>{{ form.radio('dls_top', S_TOP, {'yes': lang('ENABLE'), 'no': lang('DISABLE')}) }}</dd>
+			<dt>{{ form.label('gz_top', lang('GZ_TOP') ~ lang('COLON')) }}</dt>
+			<dd>{{ form.radio('gz_top', S_TOP, {'yes': lang('ENABLE'), 'no': lang('DISABLE')}) }}</dd>
 		</dl>
 
 		<dl>
-			<dt>{{ form.label('dls_bottom', lang('DLS_BOTTOM') ~ lang('COLON')) }}</dt>
-			<dd>{{ form.radio('dls_bottom', S_BOTTOM, {'yes': lang('ENABLE'), 'no': lang('DISABLE')}) }}</dd>
+			<dt>{{ form.label('gz_bottom', lang('GZ_BOTTOM') ~ lang('COLON')) }}</dt>
+			<dd>{{ form.radio('gz_bottom', S_BOTTOM, {'yes': lang('ENABLE'), 'no': lang('DISABLE')}) }}</dd>
 		</dl>
 	</fieldset>
 

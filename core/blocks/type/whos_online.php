@@ -1,20 +1,20 @@
 <?php
 /**
 *
-* DLS Web. An extension for the phpBB Forum Software package.
+* GZ Web. An extension for the phpBB Forum Software package.
 *
 * @copyright (c) 2021, GanstaZ, http://www.github.com/GanstaZ/
 * @license GNU General Public License, version 2 (GPL-2.0)
 *
 */
 
-namespace dls\web\core\blocks\type;
+namespace ganstaz\web\core\blocks\type;
 
 use phpbb\auth\auth;
 use phpbb\user;
 
 /**
-* DLS Web Who's Online block
+* GZ Web: Who's Online
 */
 class whos_online extends base
 {
@@ -44,8 +44,8 @@ class whos_online extends base
 	public function get_block_data(): array
 	{
 		return [
-			'section'  => 'dls_bottom',
-			'ext_name' => 'dls_web',
+			'section'  => 'gz_bottom',
+			'ext_name' => 'ganstaz_web',
 		];
 	}
 
@@ -75,10 +75,10 @@ class whos_online extends base
 		$this->legend();
 
 		$this->template->assign_vars([
-			'dls_posts'	 => $total_posts,
-			'dls_topics' => $total_topics,
-			'dls_users'	 => $total_users,
-			'new_user'	 => get_username_string('full', (int) $this->config['newest_user_id'], $this->config['newest_username'], $this->config['newest_user_colour']),
+			'gz_posts'	=> $total_posts,
+			'gz_topics' => $total_topics,
+			'gz_users'  => $total_users,
+			'new_user'  => get_username_string('full', (int) $this->config['newest_user_id'], $this->config['newest_username'], $this->config['newest_user_colour']),
 
 			'ppd' => $posts_per_day,
 			'tpd' => $topics_per_day,
@@ -87,14 +87,14 @@ class whos_online extends base
 		]);
 
 		/**
-		* Event dls.web.main_blocks_after
+		* Event ganstaz.web.main_blocks_after
 		*
 		* You can use this event to load function files and initiate objects
 		*
-		* @event dls.web.main_blocks_after
+		* @event ganstaz.web.main_blocks_after
 		* @since 2.3.5
 		*/
-		$this->dispatcher->dispatch('dls.web.main_blocks_after');
+		$this->dispatcher->dispatch('ganstaz.web.main_blocks_after');
 	}
 
 	/**

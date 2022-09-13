@@ -1,4 +1,4 @@
-{% extends '@dls_web/layout/base.html' %}
+{% extends '@gz_web/layout/base.html' %}
 
 {% block top_content %}
 	<p class="{{ S_CONTENT_FLOW_END }} responsive-center time{{ S_USER_LOGGED_IN ? ' rightside' }}">
@@ -8,9 +8,9 @@
 {% endblock %}
 
 {% block section_left %}
-	{% if dls_left %}
+	{% if gz_left %}
 		<div class="c-section-side c-sec-left">
-			{% BLOCKS dls_left %}
+			{% BLOCKS gz_left %}
 		</div>
 	{% endif %}
 {% endblock %}
@@ -24,15 +24,15 @@
 	</div>
 
 	{% block mid_bottom %}
-		{% BLOCKS dls_middle %}
+		{% BLOCKS gz_middle %}
 	{% endblock %}
 
 {% endblock %}
 
 {% block section_right %}
-	{% if dls_right %}
+	{% if gz_right %}
 		<div class="c-section-side c-sec-right">
-			{% BLOCKS dls_right %}
+			{% BLOCKS gz_right %}
 		</div>
 	{% endif %}
 {% endblock %}

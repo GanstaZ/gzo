@@ -1,17 +1,17 @@
 <?php
 /**
 *
-* DLS Web. An extension for the phpBB Forum Software package.
+* GZ Web. An extension for the phpBB Forum Software package.
 *
 * @copyright (c) 2021, GanstaZ, http://www.github.com/GanstaZ/
 * @license GNU General Public License, version 2 (GPL-2.0)
 *
 */
 
-namespace dls\web\core\blocks\type;
+namespace ganstaz\web\core\blocks\type;
 
 /**
-* DLS Web Information block
+* GZ Web: Information
 */
 class information extends base
 {
@@ -21,8 +21,8 @@ class information extends base
 	public function get_block_data(): array
 	{
 		return [
-			'section'  => 'dls_right',
-			'ext_name' => 'dls_web',
+			'section'  => 'gz_right',
+			'ext_name' => 'ganstaz_web',
 		];
 	}
 
@@ -32,17 +32,17 @@ class information extends base
 	public function load(): void
 	{
 		/**
-		* Event dls.web.information_before
+		* Event ganstaz.web.information_before
 		*
-		* @event dls.web.information_before
+		* @event ganstaz.web.information_before
 		* @since 2.3.6-RC1
 		*/
-		$this->dispatcher->dispatch('dls.web.information_before');
+		$this->dispatcher->dispatch('ganstaz.web.information_before');
 
 		// Set template vars
 		$this->template->assign_vars([
 			'phpbb_version' => (string) $this->config['version'],
-			'core_stable'	=> (string) $this->config['dls_core_version'],
+			'core_stable'	=> (string) $this->config['gz_core_version'],
 		]);
 	}
 }
