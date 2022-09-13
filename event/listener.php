@@ -1,27 +1,27 @@
 <?php
 /**
 *
-* DLS Web. An extension for the phpBB Forum Software package.
+* GZ Web. An extension for the phpBB Forum Software package.
 *
 * @copyright (c) 2021, GanstaZ, http://www.github.com/GanstaZ/
 * @license GNU General Public License, version 2 (GPL-2.0)
 *
 */
 
-namespace dls\web\event;
+namespace ganstaz\web\event;
 
 use phpbb\config\config;
 use phpbb\controller\helper;
 use phpbb\language\language;
 use phpbb\request\request;
 use phpbb\template\template;
-use dls\web\core\helper as dls_helper;
-use dls\web\core\plugins\manager as plugins;
-use dls\web\core\blocks\manager;
+use ganstaz\web\core\helper as gz_helper;
+use ganstaz\web\core\plugins\manager as plugins;
+use ganstaz\web\core\blocks\manager;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
-* DLS Web Event listener
+* GZ Web Event listener
 */
 class listener implements EventSubscriberInterface
 {
@@ -40,8 +40,8 @@ class listener implements EventSubscriberInterface
 	/** @var template */
 	protected $template;
 
-	/** @var dls_helper */
-	protected $dls_helper;
+	/** @var gz_helper */
+	protected $gz_helper;
 
 	/** @var plugins */
 	protected $plugin;
@@ -52,14 +52,14 @@ class listener implements EventSubscriberInterface
 	/**
 	* Constructor
 	*
-	* @param config		$config		Config object
-	* @param helper		$helper		Controller helper object
-	* @param language	$language	Language object
-	* @param request	$request	Request object
-	* @param template	$template	Template object
-	* @param dls_helper $dls_helper Dls helper object
-	* @param plugins	$plugin		Plugin object
-	* @param manager	$manager	Blocks manager object
+	* @param config	   $config	  Config object
+	* @param helper    $helper	  Controller helper object
+	* @param language  $language  Language object
+	* @param request   $request	  Request object
+	* @param template  $template  Template object
+	* @param gz_helper $gz_helper GZ helper object
+	* @param plugins   $plugin	  Plugin object
+	* @param manager   $manager   Blocks manager object
 	*/
 	public function __construct(
 		config $config,
@@ -67,19 +67,19 @@ class listener implements EventSubscriberInterface
 		language $language,
 		request $request,
 		template $template,
-		dls_helper $dls_helper,
+		gz_helper $gz_helper,
 		plugins $plugin,
 		manager $manager = null
 	)
 	{
-		$this->config	  = $config;
-		$this->helper	  = $helper;
-		$this->language	  = $language;
-		$this->request	  = $request;
-		$this->template	  = $template;
-		$this->dls_helper = $dls_helper;
-		$this->plugin	  = $plugin;
-		$this->manager	  = $manager;
+		$this->config	 = $config;
+		$this->helper	 = $helper;
+		$this->language	 = $language;
+		$this->request	 = $request;
+		$this->template	 = $template;
+		$this->gz_helper = $gz_helper;
+		$this->plugin	 = $plugin;
+		$this->manager	 = $manager;
 	}
 
 	/**
@@ -92,7 +92,7 @@ class listener implements EventSubscriberInterface
 		return [
 			'core.user_setup'		=> 'add_language',
 			'core.user_setup_after' => 'add_manager_data',
-			'core.page_header'		=> 'add_dls_web_data',
+			'core.page_header'		=> 'add_gz_web_data',
 			'core.acp_manage_forums_request_data'  => 'web_manage_forums_request_data',
 			'core.acp_manage_forums_display_form'  => 'web_manage_forums_display_form',
 			'core.memberlist_prepare_profile_data' => 'prepare_profile_data',
@@ -107,8 +107,8 @@ class listener implements EventSubscriberInterface
 	*/
 	public function add_language($event): void
 	{
-		// Load a single language file from dls/web/language/en/common.php
-		$this->language->add_lang('common', 'dls/web');
+		// Load a single language file from ganstaz/web/language/en/common.php
+		$this->language->add_lang('common', 'ganstaz/web');
 	}
 
 	/**
@@ -118,10 +118,10 @@ class listener implements EventSubscriberInterface
 	*/
 	public function add_manager_data($event): void
 	{
-		if ($this->config['dls_blocks'] && $get_page_data = $this->dls_helper->get_page_data())
+		if ($this->config['gz_blocks'] && $get_page_data = $this->gz_helper->get_page_data())
 		{
 			// Set page var for template, so we know where we are
-			$this->template->assign_var('S_DLS_PAGE', true);
+			$this->template->assign_var('S_GZ_PAGE', true);
 
 			// Load available blocks
 			$this->manager->load($get_page_data);
@@ -141,10 +141,10 @@ class listener implements EventSubscriberInterface
 	*
 	* @param \phpbb\event\data $event The event object
 	*/
-	public function add_dls_web_data(): void
+	public function add_gz_web_data(): void
 	{
 		$this->template->assign_vars([
-			'U_NEWS' => $this->helper->route('dls_web_news_base'),
+			'U_NEWS' => $this->helper->route('ganstaz_web_news_base'),
 		]);
 	}
 
