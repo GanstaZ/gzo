@@ -10,7 +10,7 @@
 
 namespace ganstaz\web\migrations\v24;
 
-class m6_news_ids extends \phpbb\db\migration\migration
+class m5_news_ids extends \phpbb\db\migration\migration
 {
 	/**
 	* {@inheritdoc}

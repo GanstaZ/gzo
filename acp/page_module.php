@@ -13,7 +13,7 @@ namespace ganstaz\web\acp;
 /**
 * GZ Web ACP page module
 */
-class pages_module
+class page_module
 {
 	public $page_title;
 	public $tpl_name;

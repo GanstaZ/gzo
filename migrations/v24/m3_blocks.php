@@ -8,7 +8,7 @@
 *
 */
 
-namespace dls\web\migrations\v24;
+namespace ganstaz\web\migrations\v24;
 
 class m3_blocks extends \phpbb\db\migration\migration
 {

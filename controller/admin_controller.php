@@ -158,10 +158,12 @@ class admin_controller
 	* Set page url
 	*
 	* @param string $u_action Custom form action
-	* @return void
+	* @return self
 	*/
-	public function set_page_url($u_action): void
+	public function set_page_url(string $u_action): self
 	{
 		$this->u_action = $u_action;
+
+		return $this;
 	}
 }

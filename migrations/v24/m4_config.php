@@ -10,7 +10,7 @@
 
 namespace ganstaz\web\migrations\v24;
 
-class m5_config extends \phpbb\db\migration\migration
+class m4_config extends \phpbb\db\migration\migration
 {
 	/**
 	* {@inheritdoc}
