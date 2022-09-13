@@ -1,14 +1,14 @@
 <?php
 /**
 *
-* DLS Web. An extension for the phpBB Forum Software package.
+* GZ Web. An extension for the phpBB Forum Software package.
 *
 * @copyright (c) 2021, GanstaZ, http://www.github.com/GanstaZ/
 * @license GNU General Public License, version 2 (GPL-2.0)
 *
 */
 
-namespace dls\web\core\blocks\type;
+namespace ganstaz\web\core\blocks\type;
 
 use phpbb\auth\auth;
 use phpbb\language\language;
@@ -17,7 +17,7 @@ use phpbb\user;
 use phpbb\pagination;
 
 /**
-* DLS Web News block
+* GZ Web: News
 */
 class news extends base
 {
@@ -92,8 +92,8 @@ class news extends base
 	public function get_block_data(): array
 	{
 		return [
-			'section'  => 'dls_special',
-			'ext_name' => 'dls_web',
+			'section'  => 'gz_special',
+			'ext_name' => 'ganstaz_web',
 		];
 	}
 
@@ -101,11 +101,11 @@ class news extends base
 	* Set page start
 	*
 	* @param int $page
-	* @return \dls\web\core\blocks\block\news News object
+	* @return \ganstaz\web\core\blocks\block\news News object
 	*/
 	public function set_page(int $page)
 	{
-		$this->page = ($page - 1) * (int) $this->config['dls_limit'];
+		$this->page = ($page - 1) * (int) $this->config['gz_limit'];
 
 		return $this;
 	}
@@ -114,7 +114,7 @@ class news extends base
 	* Trim news [Set to true if you want news to be trimmed]
 	*
 	* @param bool $bool
-	* @return \dls\web\core\blocks\block\news News object
+	* @return \ganstaz\web\core\blocks\block\news News object
 	*/
 	public function trim_news(bool $bool)
 	{
@@ -148,12 +148,12 @@ class news extends base
 			/**
 			* Add category id/s
 			*
-			* @event dls.web.news_add_category
+			* @event ganstaz.web.news_add_category
 			* @var array default Array containing default category id/s
 			* @since 2.4.0-RC1
 			*/
 			$vars = ['default',];
-			extract($this->dispatcher->trigger_event('dls.web.news_add_category', compact($vars)));
+			extract($this->dispatcher->trigger_event('ganstaz.web.news_add_category', compact($vars)));
 
 			$default[] = (int) $this->config['dls_news_fid'];
 
@@ -200,12 +200,12 @@ class news extends base
 		}
 
 		// Assign breadcrumb
-		$this->assign_breadcrumb($category, 'dls_web_news_base', ['id' => $forum_id]);
+		$this->assign_breadcrumb($category, 'ganstaz_web_news_base', ['id' => $forum_id]);
 
 		// Do the sql thang
 		$sql_ary = $this->get_sql_data($forum_id);
 		$sql = $this->db->sql_build_query('SELECT', $sql_ary);
-		$result = $this->db->sql_query_limit($sql, (int) $this->config['dls_limit'], $this->page, 60);
+		$result = $this->db->sql_query_limit($sql, (int) $this->config['gz_limit'], $this->page, 60);
 
 		while ($row = $this->db->sql_fetchrow($result))
 		{
@@ -213,7 +213,7 @@ class news extends base
 		}
 		$this->db->sql_freeresult($result);
 
-		if ($this->config['dls_pagination'] && null !== $this->page)
+		if ($this->config['gz_pagination'] && null !== $this->page)
 		{
 			// Get total posts
 			$sql_ary['SELECT'] = 'COUNT(p.post_id) AS num_posts';
@@ -224,13 +224,13 @@ class news extends base
 
 			$base = [
 				'routes' => [
-					'dls_web_news_base',
-					'dls_web_news_page',
+					'ganstaz_web_news_base',
+					'ganstaz_web_news_page',
 				],
 				'params' => ['id' => $forum_id],
 			];
 
-			$this->pagination->generate_template_pagination($base, 'pagination', 'page', $total, (int) $this->config['dls_limit'], $this->page);
+			$this->pagination->generate_template_pagination($base, 'pagination', 'page', $total, (int) $this->config['gz_limit'], $this->page);
 
 			$this->template->assign_var('total_news', $total);
 		}
@@ -301,8 +301,8 @@ class news extends base
 
 		return [
 			'id'	  => $row['post_id'],
-			'link'	  => $this->controller->route('dls_web_article', ['aid' => $row['topic_id']]),
-			'title'	  => $this->truncate($row['topic_title'], $this->config['dls_title_length']),
+			'link'	  => $this->controller->route('ganstaz_web_article', ['aid' => $row['topic_id']]),
+			'title'	  => $this->truncate($row['topic_title'], $this->config['gz_title_length']),
 			'date'	  => $this->user->format_date($row['topic_time']),
 			'author'  => get_username_string('full', (int) $row['user_id'], $row['username'], $row['user_colour']),
 			'avatar'  => phpbb_get_user_avatar($poster),
@@ -325,11 +325,11 @@ class news extends base
 	{
 		$this->is_trimmed = false;
 
-		if (utf8_strlen($text) > (int) $this->config['dls_content_length'])
+		if (utf8_strlen($text) > (int) $this->config['gz_content_length'])
 		{
 			$this->is_trimmed = true;
 
-			$offset = ((int) $this->config['dls_content_length'] - 3) - utf8_strlen($text);
+			$offset = ((int) $this->config['gz_content_length'] - 3) - utf8_strlen($text);
 			$text	= utf8_substr($text, 0, utf8_strrpos($text, ' ', $offset));
 		}
 
@@ -356,7 +356,7 @@ class news extends base
 		}
 
 		// Assign breadcrumb
-		$this->assign_breadcrumb($this->get_template_data($row)['title'], 'dls_web_article', ['aid' => $topic_id]);
+		$this->assign_breadcrumb($this->get_template_data($row)['title'], 'ganstaz_web_article', ['aid' => $topic_id]);
 
 		$this->template->assign_block_vars('article', $this->get_template_data($row));
 
