@@ -16,7 +16,6 @@ use phpbb\language\language;
 use phpbb\request\request;
 use phpbb\template\template;
 use ganstaz\web\core\helper as gz_helper;
-use ganstaz\web\core\plugins\manager as plugins;
 use ganstaz\web\core\blocks\manager;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -43,9 +42,6 @@ class listener implements EventSubscriberInterface
 	/** @var gz_helper */
 	protected $gz_helper;
 
-	/** @var plugins */
-	protected $plugin;
-
 	/** @var manager */
 	protected $manager;
 
@@ -58,7 +54,6 @@ class listener implements EventSubscriberInterface
 	* @param request   $request	  Request object
 	* @param template  $template  Template object
 	* @param gz_helper $gz_helper GZ helper object
-	* @param plugins   $plugin	  Plugin object
 	* @param manager   $manager   Blocks manager object
 	*/
 	public function __construct(
@@ -68,7 +63,6 @@ class listener implements EventSubscriberInterface
 		request $request,
 		template $template,
 		gz_helper $gz_helper,
-		plugins $plugin,
 		manager $manager = null
 	)
 	{
@@ -78,7 +72,6 @@ class listener implements EventSubscriberInterface
 		$this->request	 = $request;
 		$this->template	 = $template;
 		$this->gz_helper = $gz_helper;
-		$this->plugin	 = $plugin;
 		$this->manager	 = $manager;
 	}
 
@@ -179,15 +172,6 @@ class listener implements EventSubscriberInterface
 	*/
 	public function prepare_profile_data($event): void
 	{
-		#TODO: Remove/Migrate
-		$user_xp = $this->plugin->get('achievement')['level']->get_member_exp($event['data']['user_posts']);
-
-		$event['template_data'] = array_merge($event['template_data'], [
-			'S_LEVEL'		  => ($user_xp['level'] === 1) ? true : false, // Will be fixed later (refactoring)
-			'U_LEVEL'		  => $user_xp['level'],
-			'U_LEVEL_PERCENT' => $user_xp['percent'],
-			'U_POINTS'		  => $user_xp['end'],
-		]);
 	}
 
 	/**
@@ -197,8 +181,6 @@ class listener implements EventSubscriberInterface
 	*/
 	public function view_profile_stats($event): void
 	{
-		#TODO: Remove/Migrate
-
 		$member = $event['member']['user_regdate'];
 		$memberdays = max(1, round((time() - $member) / 86400));
 

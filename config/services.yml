@@ -1,6 +1,5 @@
 imports:
     - { resource: blocks.yml }
-    - { resource: plugins.yml }
     - { resource: tables.yml }
 
 services:
@@ -28,7 +27,6 @@ services:
             - '@request'
             - '@template'
             - '@ganstaz.web.helper'
-            - '@ganstaz.web.plugin.manager'
             - '@?ganstaz.web.block.manager'
         tags:
             - { name: event.listener }
