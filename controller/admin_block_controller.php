@@ -1,24 +1,24 @@
 <?php
 /**
 *
-* DLS Web. An extension for the phpBB Forum Software package.
+* GZ Web. An extension for the phpBB Forum Software package.
 *
 * @copyright (c) 2021, GanstaZ, http://www.github.com/GanstaZ/
 * @license GNU General Public License, version 2 (GPL-2.0)
 *
 */
 
-namespace dls\web\controller;
+namespace ganstaz\web\controller;
 
 use Symfony\Component\DependencyInjection\ContainerInterface as container;
 use phpbb\db\driver\driver_interface as driver;
 use phpbb\language\language;
 use phpbb\request\request;
 use phpbb\template\template;
-use dls\web\core\blocks\manager;
+use ganstaz\web\core\blocks\manager;
 
 /**
-* DLS Web admin block controller
+* GZ Web: admin block controller
 */
 class admin_block_controller
 {
@@ -81,17 +81,17 @@ class admin_block_controller
 	public function display_blocks(): void
 	{
 		// Add form key for form validation checks
-		add_form_key('dls/blocks');
+		add_form_key('ganstaz/blocks');
 
-		$this->language->add_lang('acp_blocks', 'dls/web');
+		$this->language->add_lang('acp_blocks', 'ganstaz/web');
 
 		/**
 		* Add language
 		*
-		* @event dls.web.admin_block_add_language
+		* @event ganstaz.web.admin_block_add_language
 		* @since 2.4.0-dev
 		*/
-		$this->container->get('dispatcher')->dispatch('dls.web.admin_block_add_language');
+		$this->container->get('dispatcher')->dispatch('ganstaz.web.admin_block_add_language');
 
 		// Get all blocks
 		$sql = 'SELECT *
@@ -153,7 +153,7 @@ class admin_block_controller
 		// Is the form submitted
 		if ($this->request->is_set_post('submit'))
 		{
-			if (!check_form_key('dls/blocks'))
+			if (!check_form_key('ganstaz/blocks'))
 			{
 				trigger_error('FORM_INVALID');
 			}
@@ -164,7 +164,7 @@ class admin_block_controller
 			$this->container->get('cache')->purge();
 
 			// Show user confirmation of success and provide link back to the previous screen
-			trigger_error($this->language->lang('ACP_DLS_SETTINGS_SAVED') . adm_back_link($this->u_action));
+			trigger_error($this->language->lang('ACP_GZ_SETTINGS_SAVED') . adm_back_link($this->u_action));
 		}
 
 		// Remove special section from section options

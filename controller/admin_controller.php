@@ -1,14 +1,14 @@
 <?php
 /**
 *
-* DLS Web. An extension for the phpBB Forum Software package.
+* GZ Web. An extension for the phpBB Forum Software package.
 *
 * @copyright (c) 2021, GanstaZ, http://www.github.com/GanstaZ/
 * @license GNU General Public License, version 2 (GPL-2.0)
 *
 */
 
-namespace dls\web\controller;
+namespace ganstaz\web\controller;
 
 use phpbb\config\config;
 use phpbb\db\driver\driver_interface;
@@ -17,7 +17,7 @@ use phpbb\request\request;
 use phpbb\template\template;
 
 /**
-* DLS Web admin controller
+* GZ Web: admin controller
 */
 class admin_controller
 {
@@ -87,14 +87,14 @@ class admin_controller
 	public function display_web(): void
 	{
 		// Add form key for form validation checks
-		add_form_key('dls/web');
+		add_form_key('ganstaz/web');
 
-		$this->language->add_lang('acp_web', 'dls/web');
+		$this->language->add_lang('acp_web', 'ganstaz/web');
 
 		// Is the form submitted
 		if ($this->request->is_set_post('submit'))
 		{
-			if (!check_form_key('dls/web'))
+			if (!check_form_key('ganstaz/web'))
 			{
 				trigger_error('FORM_INVALID');
 			}
@@ -103,26 +103,26 @@ class admin_controller
 			$this->set_options();
 
 			// Show user confirmation of success and provide link back to the previous screen
-			trigger_error($this->language->lang('ACP_DLS_SETTINGS_SAVED') . adm_back_link($this->u_action));
+			trigger_error($this->language->lang('ACP_GZ_SETTINGS_SAVED') . adm_back_link($this->u_action));
 		}
 
 		// Set template vars
 		$this->template->assign_vars([
-			'DLS_VERSION'		 => $this->config['dls_core_version'],
-			'DLS_NEWS_ID'		 => $this->get_ids(),
-			'S_NEWS_CURRENT'	 => $this->config['dls_news_fid'],
-			'S_PAGINATION'		 => $this->config['dls_pagination'],
-			'DLS_LIMIT'			 => $this->config['dls_limit'],
-			'DLS_USER_LIMIT'	 => $this->config['dls_user_limit'],
-			'MIN_TITLE_LENGTH'	 => $this->config['dls_title_length'],
-			'MIN_CONTENT_LENGTH' => $this->config['dls_content_length'],
-			'S_BLOCKS'			 => $this->config['dls_blocks'],
-			'S_SPECIAL'			 => $this->config['dls_special'],
-			'S_RIGHT'			 => $this->config['dls_right'],
-			'S_LEFT'			 => $this->config['dls_left'],
-			'S_MIDDLE'			 => $this->config['dls_middle'],
-			'S_TOP'				 => $this->config['dls_top'],
-			'S_BOTTOM'			 => $this->config['dls_bottom'],
+			'GZ_VERSION'		 => $this->config['gz_core_version'],
+			'GZ_NEWS_ID'		 => $this->get_ids(),
+			'S_NEWS_CURRENT'	 => $this->config['gz_news_fid'],
+			'S_PAGINATION'		 => $this->config['gz_pagination'],
+			'GZ_LIMIT'			 => $this->config['gz_limit'],
+			'GZ_USER_LIMIT'	     => $this->config['gz_user_limit'],
+			'MIN_TITLE_LENGTH'	 => $this->config['gz_title_length'],
+			'MIN_CONTENT_LENGTH' => $this->config['gz_content_length'],
+			'S_BLOCKS'			 => $this->config['gz_blocks'],
+			'S_SPECIAL'			 => $this->config['gz_special'],
+			'S_RIGHT'			 => $this->config['gz_right'],
+			'S_LEFT'			 => $this->config['gz_left'],
+			'S_MIDDLE'			 => $this->config['gz_middle'],
+			'S_TOP'				 => $this->config['gz_top'],
+			'S_BOTTOM'			 => $this->config['gz_bottom'],
 			'U_ACTION'			 => $this->u_action,
 		]);
 	}
@@ -134,24 +134,24 @@ class admin_controller
 	*/
 	protected function set_options(): void
 	{
-		$this->config->set('dls_news_fid', $this->request->variable('dls_news_fid', (int) 0));
-		//$this->config->set('dls_the_team_fid', $this->request->variable('dls_the_team_fid', (int) 0));
-		//$this->config->set('dls_top_posters_fid', $this->request->variable('dls_top_posters_fid', (int) 0));
-		//$this->config->set('dls_recent_posts_fid', $this->request->variable('dls_recent_posts_fid', (int) 0));
-		//$this->config->set('dls_recent_topics_fid', $this->request->variable('dls_recent_topics_fid', (int) 0));
-		//$this->config->set('dls_profile_tabs', $this->request->variable('dls_profile_tabs', (bool) 0));
-		$this->config->set('dls_pagination', $this->request->variable('dls_pagination', (bool) 0));
-		$this->config->set('dls_title_length', $this->request->variable('dls_title_length', (int) 0));
-		$this->config->set('dls_content_length', $this->request->variable('dls_content_length', (int) 0));
-		$this->config->set('dls_limit', $this->request->variable('dls_limit', (int) 0));
-		$this->config->set('dls_user_limit', $this->request->variable('dls_user_limit', (int) 0));
-		$this->config->set('dls_blocks', $this->request->variable('dls_blocks', (bool) 0));
-		$this->config->set('dls_special', $this->request->variable('dls_special', (bool) 0));
-		$this->config->set('dls_right', $this->request->variable('dls_right', (bool) 0));
-		$this->config->set('dls_left', $this->request->variable('dls_left', (bool) 0));
-		$this->config->set('dls_middle', $this->request->variable('dls_middle', (bool) 0));
-		$this->config->set('dls_top', $this->request->variable('dls_top', (bool) 0));
-		$this->config->set('dls_bottom', $this->request->variable('dls_bottom', (bool) 0));
+		$this->config->set('gz_news_fid', $this->request->variable('gz_news_fid', (int) 0));
+		//$this->config->set('gz_the_team_fid', $this->request->variable('gz_the_team_fid', (int) 0));
+		//$this->config->set('gz_top_posters_fid', $this->request->variable('gz_top_posters_fid', (int) 0));
+		//$this->config->set('gz_recent_posts_fid', $this->request->variable('gz_recent_posts_fid', (int) 0));
+		//$this->config->set('gz_recent_topics_fid', $this->request->variable('gz_recent_topics_fid', (int) 0));
+		//$this->config->set('gz_profile_tabs', $this->request->variable('gz_profile_tabs', (bool) 0));
+		$this->config->set('gz_pagination', $this->request->variable('gz_pagination', (bool) 0));
+		$this->config->set('gz_title_length', $this->request->variable('gz_title_length', (int) 0));
+		$this->config->set('gz_content_length', $this->request->variable('gz_content_length', (int) 0));
+		$this->config->set('gz_limit', $this->request->variable('gz_limit', (int) 0));
+		$this->config->set('gz_user_limit', $this->request->variable('gz_user_limit', (int) 0));
+		$this->config->set('gz_blocks', $this->request->variable('gz_blocks', (bool) 0));
+		$this->config->set('gz_special', $this->request->variable('gz_special', (bool) 0));
+		$this->config->set('gz_right', $this->request->variable('gz_right', (bool) 0));
+		$this->config->set('gz_left', $this->request->variable('gz_left', (bool) 0));
+		$this->config->set('gz_middle', $this->request->variable('gz_middle', (bool) 0));
+		$this->config->set('gz_top', $this->request->variable('gz_top', (bool) 0));
+		$this->config->set('gz_bottom', $this->request->variable('gz_bottom', (bool) 0));
 	}
 
 	/**
