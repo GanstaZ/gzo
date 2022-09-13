@@ -141,22 +141,21 @@ class news extends base
 				AND news_fid_enable = 1',
 		];
 
-		if (is_string($this->db->sql_build_query('SELECT', $sql_ary)))
+		$forum_ary = $default = [];
+
+		/**
+		* Add category id/s
+		*
+		* @event ganstaz.web.news_add_category
+		* @var array default Array containing default category id/s
+		* @since 2.4.0-RC1
+		*/
+		$vars = ['default'];
+		extract($this->dispatcher->trigger_event('ganstaz.web.news_add_category', compact($vars)));
+
+		if ($default)
 		{
-			$default = [];
-
-			/**
-			* Add category id/s
-			*
-			* @event ganstaz.web.news_add_category
-			* @var array default Array containing default category id/s
-			* @since 2.4.0-RC1
-			*/
-			$vars = ['default',];
-			extract($this->dispatcher->trigger_event('ganstaz.web.news_add_category', compact($vars)));
-
-			$default[] = (int) $this->config['dls_news_fid'];
-
+			$default[] = (int) $this->config['gz_news_fid'];
 			$sql_ary['WHERE'] = 'forum_type = ' . FORUM_POST . ' AND ' . $this->db->sql_in_set('forum_id', $default);
 		}
 
