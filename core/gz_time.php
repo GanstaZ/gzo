@@ -1,21 +1,21 @@
 <?php
 /**
 *
-* DLS Web. An extension for the phpBB Forum Software package.
+* GZ Web. An extension for the phpBB Forum Software package.
 *
 * @copyright (c) 2021, GanstaZ, http://www.github.com/GanstaZ/
 * @license GNU General Public License, version 2 (GPL-2.0)
 *
 */
 
-namespace dls\web\core;
+namespace ganstaz\web\core;
 
 use phpbb\language\language;
 
 /**
-* DLS Web time ago
+* GZ Web time ago
 */
-class dls_time
+class gz_time
 {
 	/** @var language */
 	protected $language;
@@ -72,7 +72,7 @@ class dls_time
 		$uot = (string) key($unit);
 		$int = (int) $unit[$uot];
 
-		return $this->language->lang('dls_ago', $int, $this->language->lang($uot, $int));
+		return $this->language->lang('gz_ago', $int, $this->language->lang($uot, $int));
 	}
 
 	/**
