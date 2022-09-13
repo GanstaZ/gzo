@@ -8,7 +8,7 @@
 *
 */
 
-namespace dls\web\core\twig\node;
+namespace ganstaz\web\core\twig\node;
 
 class blocks extends \Twig\Node\Node
 {
@@ -32,7 +32,7 @@ class blocks extends \Twig\Node\Node
 		$compiler->addDebugInfo($this);
 
 		$block = $this->getNode('expr')->getAttribute('name');
-		$block_loader = $this->environment->getExtension('dls\web\core\twig\extension')->get_block_loader($block);
+		$block_loader = $this->environment->getExtension('ganstaz\web\core\twig\extension')->get_block_loader($block);
 
 		foreach ($block_loader as $name => $path)
 		{
