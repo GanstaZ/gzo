@@ -29,12 +29,12 @@ class news_controller extends base
 	public function handle(int $id, int $page): \Symfony\Component\HttpFoundation\Response
 	{
 		// Check if news is disabled
-		if ($this->disabled('gz_news'))
+		if ($this->disabled('ganstaz_news'))
 		{
 			throw new \phpbb\exception\http_exception(404, 'DISABLED');
 		}
 
-		$this->manager->get('gz_news')
+		$this->manager->get('ganstaz_news')
 			->set_page($page)
 			->trim_news(true)
 			->base($id);
@@ -52,12 +52,12 @@ class news_controller extends base
 	public function article(int $aid): \Symfony\Component\HttpFoundation\Response
 	{
 		// Check if news is disabled
-		if ($this->disabled('gz_news'))
+		if ($this->disabled('ganstaz_news'))
 		{
 			throw new \phpbb\exception\http_exception(404, 'DISABLED');
 		}
 
-		$this->manager->get('gz_news')
+		$this->manager->get('ganstaz_news')
 			->get_article($aid);
 
 		return $this->helper->render('article.html', $this->language->lang('VIEW_ARTICLE', $aid), 200, true);

@@ -43,14 +43,14 @@ $lang = array_merge($lang, [
 	'GZ_BOTTOM'	    => 'Bottom',
 
 	// Blocks
-	'GZ_NEWS'			=> 'News',
-	'GZ_MINI_PROFILE'	=> 'Mini profile',
-	'GZ_INFORMATION'	=> 'Information',
-	'GZ_THE_TEAM'		=> 'The team',
-	'GZ_TOP_POSTERS'	=> 'Top posters',
-	'GZ_RECENT_POSTS'	=> 'Recent posts',
-	'GZ_RECENT_TOPICS'  => 'Recent topics',
-	'GZ_WHOS_ONLINE'	=> 'Who is online',
+	'GANSTAZ_NEWS'			=> 'News',
+	'GANSTAZ_MINI_PROFILE'	=> 'Mini profile',
+	'GANSTAZ_INFORMATION'	=> 'Information',
+	'GANSTAZ_THE_TEAM'		=> 'The team',
+	'GANSTAZ_TOP_POSTERS'	=> 'Top posters',
+	'GANSTAZ_RECENT_POSTS'	=> 'Recent posts',
+	'GANSTAZ_RECENT_TOPICS' => 'Recent topics',
+	'GANSTAZ_WHOS_ONLINE'	=> 'Who is online',
 
 	'BLOCKS'			=> ' block%s',
 	'BLOCK_POSITION'	=> 'Position',
