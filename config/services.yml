@@ -40,13 +40,25 @@ services:
         tags:
             - { name: twig.extension }
 
+# ----- Page Models -----
+    ganstaz.web.news:
+        class: ganstaz\web\model\page\news
+        shared: false
+        parent: ganstaz.web.block.base
+        arguments:
+            - '@auth'
+            - '@language'
+            - '@text_formatter.renderer'
+            - '@user'
+            - '@pagination'
+
 # ----- Controllers -----
     ganstaz.web.controller.base:
         abstract: true
         arguments:
             - '@controller.helper'
             - '@language'
-            - '@ganstaz.web.block.manager'
+            - '@ganstaz.web.news'
 
     ganstaz.web.admin.controller:
         class: ganstaz\web\controller\admin_controller

@@ -8,13 +8,14 @@
 *
 */
 
-namespace ganstaz\web\core\blocks\type;
+namespace ganstaz\web\model\page;
 
 use phpbb\auth\auth;
 use phpbb\language\language;
 use phpbb\textformatter\s9e\renderer;
 use phpbb\user;
 use phpbb\pagination;
+use ganstaz\web\core\blocks\type\base;
 
 /**
 * GZ Web: News
@@ -84,17 +85,6 @@ class news extends base
 		{
 			include($this->get('root_path') . 'includes/functions_display.php');
 		}
-	}
-
-	/**
-	* {@inheritdoc}
-	*/
-	public function get_block_data(): array
-	{
-		return [
-			'section'  => 'gz_special',
-			'ext_name' => 'ganstaz_web',
-		];
 	}
 
 	/**

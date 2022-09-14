@@ -42,13 +42,6 @@ class m3_blocks extends \phpbb\db\migration\migration
 		{
 			$blocks_data = [
 				[
-					'name'	   => 'ganstaz_news',
-					'ext_name' => 'ganstaz_web',
-					'position' => 1,
-					'active'   => 1,
-					'section'  => 'gz_special',
-				],
-				[
 					'name'	   => 'ganstaz_mini_profile',
 					'ext_name' => 'ganstaz_web',
 					'position' => 1,
