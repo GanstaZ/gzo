@@ -167,9 +167,6 @@ class admin_block_controller
 			trigger_error($this->language->lang('ACP_GZ_SETTINGS_SAVED') . adm_back_link($this->u_action));
 		}
 
-		// Remove special section from section options
-		$this->manager->remove_section(0);
-
 		// Set output vars for display in the template
 		$this->template->assign_block_vars_array('install', $this->status('add'));
 		$this->assign_template_block_data($rowset, $count);

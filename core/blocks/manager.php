@@ -77,20 +77,6 @@ class manager
 	}
 
 	/**
-	* Remove section
-	*
-	* @param int $id Id of the section we want to remove
-	* @return void
-	*/
-	public function remove_section(int $id): void
-	{
-		if (isset($this->sections[$id]) || array_key_exists($id, $this->sections))
-		{
-			unset($this->sections[$id]);
-		}
-	}
-
-	/**
 	* Load blocks
 	*
 	* @param mixed	$name [string, array, default is null]
