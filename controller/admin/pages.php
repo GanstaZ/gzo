@@ -8,7 +8,7 @@
 *
 */
 
-namespace ganstaz\web\controller;
+namespace ganstaz\web\controller\admin;
 
 use phpbb\cache\service as cache;
 use phpbb\db\driver\driver_interface as driver;
@@ -17,9 +17,9 @@ use phpbb\request\request;
 use phpbb\template\template;
 
 /**
-* GZ Web: admin page controller
+* GZ Web: admin pages controller
 */
-class admin_page_controller
+class pages
 {
 	/** @var cache */
 	protected $cache;

@@ -8,7 +8,7 @@
 *
 */
 
-namespace ganstaz\web\controller;
+namespace ganstaz\web\controller\admin;
 
 use Symfony\Component\DependencyInjection\ContainerInterface as container;
 use phpbb\db\driver\driver_interface as driver;
@@ -18,9 +18,9 @@ use phpbb\template\template;
 use ganstaz\web\core\blocks\manager;
 
 /**
-* GZ Web: admin block controller
+* GZ Web: admin blocks controller
 */
-class admin_block_controller
+class blocks
 {
 	/** @var container */
 	protected $container;

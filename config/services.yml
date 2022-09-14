@@ -61,7 +61,7 @@ services:
             - '@ganstaz.web.news'
 
     ganstaz.web.admin.controller:
-        class: ganstaz\web\controller\admin_controller
+        class: ganstaz\web\controller\admin\settings
         arguments:
             - '@config'
             - '@dbal.conn'
@@ -70,7 +70,7 @@ services:
             - '@template'
 
     ganstaz.web.admin.block.controller:
-        class: ganstaz\web\controller\admin_block_controller
+        class: ganstaz\web\controller\admin\blocks
         arguments:
             - '@service_container'
             - '@dbal.conn'
@@ -80,7 +80,7 @@ services:
             - '@ganstaz.web.block.manager'
 
     ganstaz.web.admin.page.controller:
-        class: ganstaz\web\controller\admin_page_controller
+        class: ganstaz\web\controller\admin\pages
         arguments:
             - '@cache'
             - '@dbal.conn'
@@ -90,6 +90,6 @@ services:
             - '%ganstaz.web.tables.pages%'
 
     ganstaz.web.news.controller:
-        class: ganstaz\web\controller\news_controller
+        class: ganstaz\web\controller\news
         shared: false
         parent: ganstaz.web.controller.base

@@ -13,7 +13,7 @@ namespace ganstaz\web\controller;
 /**
 * GZ Web: news controller
 */
-class news_controller extends base
+class news extends base
 {
 	/**
 	* News controller for routes:

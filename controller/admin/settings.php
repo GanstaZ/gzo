@@ -8,7 +8,7 @@
 *
 */
 
-namespace ganstaz\web\controller;
+namespace ganstaz\web\controller\admin;
 
 use phpbb\config\config;
 use phpbb\db\driver\driver_interface;
@@ -17,9 +17,9 @@ use phpbb\request\request;
 use phpbb\template\template;
 
 /**
-* GZ Web: admin controller
+* GZ Web: admin settings controller
 */
-class admin_controller
+class settings
 {
 	/** @var config */
 	protected $config;
