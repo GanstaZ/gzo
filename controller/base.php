@@ -12,7 +12,7 @@ namespace ganstaz\web\controller;
 
 use phpbb\controller\helper;
 use phpbb\language\language;
-use ganstaz\web\core\blocks\manager;
+use ganstaz\web\model\news;
 
 /**
 * GZ Web: base controller
@@ -25,32 +25,20 @@ abstract class base
 	/** @var language */
 	protected $language;
 
-	/** @var manager */
-	protected $manager;
+	/** @var news */
+	protected $news;
 
 	/**
 	* Constructor
 	*
 	* @param helper	  $helper	Controller helper object
 	* @param language $language Language object
-	* @param manager  $manager	Manager object
+	* @param news     $news     News object
 	*/
-	public function __construct(helper $helper, language $language, manager $manager)
+	public function __construct(helper $helper, language $language, news $news)
 	{
 		$this->helper	= $helper;
 		$this->language = $language;
-		$this->manager	= $manager;
-	}
-
-	/**
-	* Will check, if our service is disabled
-	*
-	* @param string $name
-	* @throws \phpbb\exception\http_exception
-	* @return exeption, if any
-	*/
-	protected function disabled(string $name): bool
-	{
-		return !$this->manager->get($name) || !(array) $this->manager->get($name);
+		$this->news     = $news;
 	}
 }

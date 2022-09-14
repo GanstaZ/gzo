@@ -1,6 +1,5 @@
 imports:
     - { resource: blocks.yml }
-    - { resource: plugins.yml }
     - { resource: tables.yml }
 
 services:
@@ -28,7 +27,6 @@ services:
             - '@request'
             - '@template'
             - '@ganstaz.web.helper'
-            - '@ganstaz.web.plugin.manager'
             - '@?ganstaz.web.block.manager'
         tags:
             - { name: event.listener }
@@ -42,13 +40,25 @@ services:
         tags:
             - { name: twig.extension }
 
+# ----- Models -----
+    ganstaz.web.news:
+        class: ganstaz\web\model\news
+        shared: false
+        parent: ganstaz.web.block.base
+        arguments:
+            - '@auth'
+            - '@language'
+            - '@text_formatter.renderer'
+            - '@user'
+            - '@pagination'
+
 # ----- Controllers -----
     ganstaz.web.controller.base:
         abstract: true
         arguments:
             - '@controller.helper'
             - '@language'
-            - '@ganstaz.web.block.manager'
+            - '@ganstaz.web.news'
 
     ganstaz.web.admin.controller:
         class: ganstaz\web\controller\admin_controller

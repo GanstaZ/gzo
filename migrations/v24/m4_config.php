@@ -50,10 +50,6 @@ class m4_config extends \phpbb\db\migration\migration
 			['config.add', ['gz_middle', 1]],
 			['config.add', ['gz_top', 0]],
 			['config.add', ['gz_bottom', 0]],
-			// Plugins
-			['config.add', ['gz_astro', 0]],
-			['config.add', ['gz_weather', 0]],
-			['config.add', ['gz_achievements', 0]],
 		];
 	}
 }

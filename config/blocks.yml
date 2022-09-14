@@ -29,29 +29,12 @@ services:
             - '%core.php_ext%'
 
 # ----- Blocks -----
-    ganstaz.web.block.news:
-        class: ganstaz\web\core\blocks\type\news
-        shared: false
-        parent: ganstaz.web.block.base
-        arguments:
-            - '@auth'
-            - '@language'
-            - '@text_formatter.renderer'
-            - '@user'
-            - '@pagination'
-        calls:
-            - [set_active, [false]]
-            - [set_special, [true]]
-        tags:
-            - { name: gz.web.block }
-
     ganstaz.web.block.mini.profile:
         class: ganstaz\web\core\blocks\type\mini_profile
         shared: false
         parent: ganstaz.web.block.base
         calls:
             - [set_active, [false]]
-            - [set_special, [false]]
         tags:
             - { name: gz.web.block }
 
@@ -61,7 +44,6 @@ services:
         parent: ganstaz.web.block.base
         calls:
             - [set_active, [true]]
-            - [set_special, [true]]
         tags:
             - { name: gz.web.block }
 
@@ -71,7 +53,6 @@ services:
         parent: ganstaz.web.block.base
         calls:
             - [set_active, [true]]
-            - [set_special, [true]]
         tags:
             - { name: gz.web.block }
 
@@ -81,7 +62,6 @@ services:
         parent: ganstaz.web.block.base
         calls:
             - [set_active, [true]]
-            - [set_special, [true]]
         tags:
             - { name: gz.web.block }
 
@@ -91,7 +71,6 @@ services:
         parent: ganstaz.web.block.base
         calls:
             - [set_active, [true]]
-            - [set_special, [true]]
         tags:
             - { name: gz.web.block }
 
@@ -101,7 +80,6 @@ services:
         parent: ganstaz.web.block.base
         calls:
             - [set_active, [true]]
-            - [set_special, [true]]
         tags:
             - { name: gz.web.block }
 
@@ -114,6 +92,5 @@ services:
             - '@user'
         calls:
             - [set_active, [true]]
-            - [set_special, [false]]
         tags:
             - { name: gz.web.block }

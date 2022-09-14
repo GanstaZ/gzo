@@ -31,16 +31,13 @@ class manager
 	protected $blocks_data;
 
 	/** @var array sections */
-	protected $sections = ['gz_special', 'gz_right', 'gz_bottom', 'gz_left', 'gz_top', 'gz_middle'];
+	protected $sections = ['gz_right', 'gz_bottom', 'gz_left', 'gz_top', 'gz_middle'];
 
 	/** @var array type */
 	protected $type = ['section', 'name'];
 
 	/** @var array error */
 	protected $error = [];
-
-	/** @var array Contains validated block services */
-	protected static $blocks = false;
 
 	/**
 	* Constructor
@@ -56,17 +53,6 @@ class manager
 		$this->collection = $collection;
 		$this->blocks_data = $blocks_data;
 		$this->event = $event;
-	}
-
-	/**
-	* Get block service
-	*
-	* @param string $service Service name
-	* @return object
-	*/
-	public function get(string $service): object
-	{
-		return self::$blocks[$service] ?? (object) [];
 	}
 
 	/**
@@ -88,20 +74,6 @@ class manager
 	public function get_sections(): array
 	{
 		return $this->sections ?? [];
-	}
-
-	/**
-	* Remove section
-	*
-	* @param int $id Id of the section we want to remove
-	* @return void
-	*/
-	public function remove_section(int $id): void
-	{
-		if (isset($this->sections[$id]) || array_key_exists($id, $this->sections))
-		{
-			unset($this->sections[$id]);
-		}
 	}
 
 	/**
@@ -141,16 +113,10 @@ class manager
 				ORDER BY position';
 		$result = $this->db->sql_query($sql, 86400);
 
-		self::$blocks = $blocks_data = [];
+		$blocks_data = [];
 		while ($row = $this->db->sql_fetchrow($result))
 		{
 			$block = $this->collection[$this->get_service_name($row['name'], $row['ext_name'])];
-
-			// If is set as special, then we can call it with get method
-			if ($block->is_load_special())
-			{
-				self::$blocks[$row['name']] = $block;
-			}
 
 			// If is set as active, then load method will handle it
 			if ($block->is_load_active())
@@ -159,7 +125,7 @@ class manager
 			}
 
 			// This is for twig blocks tag
-			if (!$this->is_special($row['section']))
+			if ($row['section'])
 			{
 				$data = [
 					'name'	   => (string) $row['name'],
@@ -216,17 +182,6 @@ class manager
 	public function blocks_data(): string
 	{
 		return $this->blocks_data;
-	}
-
-	/**
-	* Check if our section name is special
-	*
-	* @param string $section Section
-	* @return bool Depending on whether or not the section is special
-	*/
-	protected function is_special(string $section): bool
-	{
-		return $section === 'gz_special';
 	}
 
 	/**

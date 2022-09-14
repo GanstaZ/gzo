@@ -24,22 +24,7 @@ interface block_interface
 	public function get_block_data();
 
 	/**
-	* Set as special to access block in controller [Default should be true, if block load function is not empty]
-	*
-	* @param bool $set to true or false
-	* @return void
-	*/
-	public function set_special(bool $set);
-
-	/**
-	* Check if block is allowed in controller [Default is false]
-	*
-	* @return bool
-	*/
-	public function is_load_special();
-
-	/**
-	* Set load to active [Default should be true, if block is not special & load function is not empty]
+	* Set load to active [Default should be true, if block load function is not empty]
 	*
 	* @param bool $set to true or false
 	* @return void
@@ -47,7 +32,7 @@ interface block_interface
 	public function set_active(bool $set);
 
 	/**
-	* Check if load method required [Default is true]
+	* Check if load method is required [Default is true]
 	*
 	* @return bool
 	*/

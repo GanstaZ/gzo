@@ -36,9 +36,6 @@ abstract class base implements block_interface
 	/** @var dispatcher */
 	protected $dispatcher;
 
-	/** @var bool special */
-	protected $special;
-
 	/** @var bool loading */
 	protected $loading;
 
@@ -69,22 +66,6 @@ abstract class base implements block_interface
 	/**
 	* {@inheritdoc}
 	*/
-	public function set_special(bool $set): void
-	{
-		$this->special = $set;
-	}
-
-	/**
-	* {@inheritdoc}
-	*/
-	public function is_load_special(): bool
-	{
-		return $this->special;
-	}
-
-	/**
-	* {@inheritdoc}
-	*/
 	public function set_active(bool $set): void
 	{
 		$this->loading = $set;
@@ -101,6 +82,14 @@ abstract class base implements block_interface
 	/**
 	* {@inheritdoc}
 	*/
+	public function get_block_data(): array
+	{
+		return [];
+	}
+
+	/**
+	* {@inheritdoc}
+	*/
 	public function load(): void
 	{
 	}
@@ -111,7 +100,7 @@ abstract class base implements block_interface
 	* @param string $name	Name of the breadcrumb
 	* @param string $route	Name of the route
 	* @param array	$params Additional params
-	* @return \dls\web\core\blocks\type\base object
+	* @return \ganstaz\web\core\blocks\type\base object
 	*/
 	public function assign_breadcrumb(string $name, string $route, array $params)
 	{

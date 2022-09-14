@@ -8,12 +8,14 @@
 *
 */
 
-namespace ganstaz\web\core\plugins\user;
+namespace ganstaz\web\model;
+
+use ganstaz\web\core\blocks\type\base;
 
 /**
-* GZ Web: level plugin
+* GZ Web: level
 */
-class level implements \ganstaz\web\core\plugins\plugin_interface
+class level extends base
 {
 	/**
 	* Constructor
@@ -21,22 +23,6 @@ class level implements \ganstaz\web\core\plugins\plugin_interface
 	*/
 	public function __construct()
 	{
-	}
-
-	/**
-	* {@inheritdoc}
-	*/
-	public function get_name(): string
-	{
-		return 'level';
-	}
-
-	/**
-	* {@inheritdoc}
-	*/
-	public function get_type(): string
-	{
-		return 'achievement';
 	}
 
 	/**

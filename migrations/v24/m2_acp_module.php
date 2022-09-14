@@ -57,13 +57,6 @@ class m2_acp_module extends \phpbb\db\migration\migration
 					'module_basename' => '\ganstaz\web\acp\page_module', 'modes' => ['page'],
 				],
 			]],
-			['module.add', [
-				'acp',
-				'ACP_GZ_WEB_TITLE',
-				[
-					'module_basename' => '\ganstaz\web\acp\plugin_module', 'modes' => ['plugin'],
-				],
-			]],
 		];
 	}
 }
