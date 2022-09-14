@@ -1,4 +1,8 @@
-ganstaz_web_news_base:
+ganstaz_web_index:
+    path: /
+    defaults: { _controller: ganstaz.web.index.controller:handle }
+
+ganstaz_web_news:
     path: /news/{id}
     defaults: { _controller: ganstaz.web.news.controller:handle, id: 3, page: 1 }
     requirements:
@@ -11,7 +15,7 @@ ganstaz_web_news_page:
         id: \d+
         page: \d+
 
-ganstaz_web_article:
+ganstaz_web_single_article:
     path: /article/{aid}
     defaults: { _controller: ganstaz.web.news.controller:article }
     requirements:

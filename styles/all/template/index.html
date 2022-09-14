@@ -1,0 +1,21 @@
+{% extends 'layout/app-base.html' %}
+
+{% block mid_top %}
+	{% if S_TOP_MID_CONTENT %}
+		<div class="post c-block mid-top-content bg1">
+			<h2>{{ WELCOME_SUBJECT }}</h2>
+			<section class="postbody t-gz-pane">
+				<div class="content">{{ lang('TOP_ANNOUNCEMENT') }}</div>
+			</section>
+		</div>
+	{# End Top Content #}
+	{% endif %}
+{% endblock %}
+
+{% block mid_content %}
+	{% if news %}
+		{% for news in loops.news %}
+			{{ include('includes/news-item.html') }}
+		{% endfor %}
+	{% endif %}
+{% endblock %}

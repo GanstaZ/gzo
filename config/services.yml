@@ -60,6 +60,18 @@ services:
             - '@language'
             - '@ganstaz.web.news'
 
+    ganstaz.web.index.controller:
+        class: ganstaz\web\controller\index
+        shared: false
+        parent: ganstaz.web.controller.base
+        arguments:
+            - '@config'
+
+    ganstaz.web.news.controller:
+        class: ganstaz\web\controller\news
+        shared: false
+        parent: ganstaz.web.controller.base
+
     ganstaz.web.admin.controller:
         class: ganstaz\web\controller\admin\settings
         arguments:
@@ -88,8 +100,3 @@ services:
             - '@request'
             - '@template'
             - '%ganstaz.web.tables.pages%'
-
-    ganstaz.web.news.controller:
-        class: ganstaz\web\controller\news
-        shared: false
-        parent: ganstaz.web.controller.base
