@@ -40,9 +40,9 @@ services:
         tags:
             - { name: twig.extension }
 
-# ----- Page Models -----
+# ----- Models -----
     ganstaz.web.news:
-        class: ganstaz\web\model\page\news
+        class: ganstaz\web\model\news
         shared: false
         parent: ganstaz.web.block.base
         arguments:

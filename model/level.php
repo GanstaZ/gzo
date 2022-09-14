@@ -8,7 +8,7 @@
 *
 */
 
-namespace ganstaz\web\model\special;
+namespace ganstaz\web\model;
 
 use ganstaz\web\core\blocks\type\base;
 

@@ -8,7 +8,7 @@
 *
 */
 
-namespace ganstaz\web\model\page;
+namespace ganstaz\web\model;
 
 use phpbb\auth\auth;
 use phpbb\language\language;

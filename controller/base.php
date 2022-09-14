@@ -12,7 +12,7 @@ namespace ganstaz\web\controller;
 
 use phpbb\controller\helper;
 use phpbb\language\language;
-use ganstaz\web\model\page\news;
+use ganstaz\web\model\news;
 
 /**
 * GZ Web: base controller
