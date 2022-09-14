@@ -116,7 +116,7 @@ class pages
 			// If the form has been submitted, set all data and save it
 			$this->update_data($pages);
 
-			$this->cache->destroy('_ganstaz_pages');
+			$this->cache->destroy('_gz_pages');
 
 			// Show user confirmation of success and provide link back to the previous screen
 			trigger_error($this->language->lang('ACP_GZ_SETTINGS_SAVED') . adm_back_link($this->u_action));
