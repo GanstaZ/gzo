@@ -65,6 +65,7 @@ services:
     ganstaz.web.controller.base:
         abstract: true
         arguments:
+            - '@config'
             - '@controller.helper'
             - '@language'
             - '@ganstaz.web.posts'
@@ -73,8 +74,6 @@ services:
         class: ganstaz\web\controller\index
         shared: false
         parent: ganstaz.web.controller.base
-        arguments:
-            - '@config'
 
     ganstaz.web.articles.controller:
         class: ganstaz\web\controller\articles

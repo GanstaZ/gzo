@@ -10,6 +10,7 @@
 
 namespace ganstaz\web\controller;
 
+use phpbb\config\config;
 use phpbb\controller\helper;
 use phpbb\language\language;
 use ganstaz\web\model\posts;
@@ -19,6 +20,9 @@ use ganstaz\web\model\posts;
 */
 abstract class base
 {
+	/** @var config */
+	protected $config;
+
 	/** @var controller helper */
 	protected $helper;
 
@@ -31,12 +35,14 @@ abstract class base
 	/**
 	* Constructor
 	*
+	* @param config   $config   Config object
 	* @param helper	  $helper	Controller helper object
 	* @param language $language Language object
 	* @param posts    $posts    Posts object
 	*/
-	public function __construct(helper $helper, language $language, posts $posts)
+	public function __construct(config $config, helper $helper, language $language, posts $posts)
 	{
+		$this->config   = $config;
 		$this->helper	= $helper;
 		$this->language = $language;
 		$this->posts    = $posts;

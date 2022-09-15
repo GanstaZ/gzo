@@ -10,28 +10,11 @@
 
 namespace ganstaz\web\controller;
 
-use phpbb\config\config;
-
 /**
 * GZ Web index controller
 */
 class index extends base
 {
-	/** @var config */
-	protected $config;
-
-	/**
-	* Constructor
-	*
-	* @param config $config Config object
-	*/
-	public function __construct($helper, $language, $posts, config $config)
-	{
-		parent::__construct($helper, $language, $posts);
-
-		$this->config = $config;
-	}
-
 	/**
 	* Index controller
 	*
