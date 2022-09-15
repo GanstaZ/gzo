@@ -20,6 +20,7 @@ if (empty($lang) || !is_array($lang))
 
 $lang = array_merge($lang, [
 	'GZ_VERSION'			 => 'Current version',
+	'MAIN_ID'				 => 'Main page id',
 	'NEWS_ID'				 => 'News id',
 	'ENABLE_NEWS_LINK'		 => 'News link in navigation',
 	'GZ_PAGINATION'		     => 'Pagination',

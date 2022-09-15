@@ -17,6 +17,13 @@
 		</dl>
 
 		<dl>
+			<dt>{{ form.label('gz_main_fid', lang('MAIN_ID') ~ lang('COLON')) }}</dt>
+			{% if S_MAIN_CURRENT %}
+				<dd>{{ form.select('gz_main_fid', S_MAIN_CURRENT, GZ_NEWS_ID) }}</dd>
+			{% endif %}
+		</dl>
+
+		<dl>
 			<dt>{{ form.label('gz_pagination', lang('GZ_PAGINATION') ~ lang('COLON')) }}</dt>
 			<dd>{{ form.radio('gz_pagination', S_PAGINATION, {'yes': lang('ENABLE'), 'no': lang('DISABLE')}) }}</dd>
 		</dl>

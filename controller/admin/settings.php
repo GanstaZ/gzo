@@ -110,6 +110,7 @@ class settings
 		$this->template->assign_vars([
 			'GZ_VERSION'		 => $this->config['gz_core_version'],
 			'GZ_NEWS_ID'		 => $this->get_ids(),
+			'S_MAIN_CURRENT'	 => $this->config['gz_main_fid'],
 			'S_NEWS_CURRENT'	 => $this->config['gz_news_fid'],
 			'S_ENABLE_NEWS_LINK' => $this->config['gz_enable_news_link'],
 			'S_PAGINATION'		 => $this->config['gz_pagination'],
