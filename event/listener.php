@@ -137,7 +137,7 @@ class listener implements EventSubscriberInterface
 	public function add_gz_web_data(): void
 	{
 		$this->template->assign_vars([
-			'U_NEWS' => $this->helper->route('ganstaz_web_news_base'),
+			'U_NEWS' => $this->helper->route('ganstaz_web_news'),
 		]);
 	}
 

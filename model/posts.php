@@ -11,37 +11,66 @@
 namespace ganstaz\web\model;
 
 use phpbb\auth\auth;
+use phpbb\config\config;
+use phpbb\db\driver\driver_interface;
+use phpbb\event\dispatcher;
+use phpbb\controller\helper as controller;
 use phpbb\language\language;
-use phpbb\textformatter\s9e\renderer;
-use phpbb\user;
 use phpbb\pagination;
-use ganstaz\web\core\blocks\type\base;
+use phpbb\textformatter\s9e\renderer;
+use phpbb\template\template;
+use phpbb\user;
+use ganstaz\web\core\helper;
 
 /**
-* GZ Web: News
+* GZ Web: Posts model
 */
-class news extends base
+class posts
 {
 	/** @var auth */
 	protected $auth;
 
+	/** @var config */
+	protected $config;
+
+	/** @var driver_interface */
+	protected $db;
+
+	/** @var dispatcher */
+	protected $dispatcher;
+
+	/** @var controller helper */
+	protected $controller;
+
 	/** @var language */
 	protected $language;
+
+	/** @var pagination */
+	protected $pagination;
 
 	/** @var s9e renderer */
 	protected $renderer;
 
+	/** @var template */
+	protected $template;
+
 	/** @var user */
 	protected $user;
 
-	/** @var pagination */
-	protected $pagination;
+	/** @var root_path */
+	protected $root_path;
+
+	/** @var php_ext */
+	protected $php_ext;
+
+	/** @var helper */
+	protected $helper;
 
 	/** @var int Page offset for pagination */
 	protected $page;
 
 	/** @var bool enable trim */
-	protected $trim_news = false;
+	protected $trim_messages = false;
 
 	/** @var bool is trimmed */
 	protected $is_trimmed;
@@ -52,38 +81,54 @@ class news extends base
 	/**
 	* Constructor
 	*
-	* @param auth		$auth		Auth object
-	* @param language	$language	Language object
-	* @param renderer	$renderer	s9e renderer object
-	* @param user		$user		User object
-	* @param pagination $pagination Pagination object
+	* @param auth             $auth       Auth object
+	* @param config			  $config	  Config object
+	* @param driver_interface $db		  Database object
+	* @param dispatcher		  $dispatcher Dispatcher object
+	* @param controller       $controller Controller helper object
+	* @param language         $language   Language object
+	* @param pagination       $pagination Pagination object
+	* @param renderer         $renderer   s9e renderer object
+	* @param template         $template   Template object
+	* @param user             $user       User object
+	* @param helper           $helper     Posts helper object
+	* @param string			  $root_path  Path to the phpbb includes directory
+	* @param string			  $php_ext	  PHP file extension
 	*/
-	public function __construct(
-		$config,
-		$db,
-		$controller,
-		$template,
-		$dispatcher,
-		$root_path,
-		$php_ext,
+	public function __construct
+	(
 		auth $auth,
+		config $config,
+		driver_interface $db,
+		dispatcher $dispatcher,
+		controller $controller,
 		language $language,
+		pagination $pagination,
 		renderer $renderer,
+		$template,
 		user $user,
-		pagination $pagination
+		helper $helper,
+		$root_path,
+		$php_ext
 	)
 	{
-		parent::__construct($config, $db, $controller, $template, $dispatcher, $root_path, $php_ext);
-
 		$this->auth		  = $auth;
+		$this->config     = $config;
+		$this->db         = $db;
+		$this->dispatcher = $dispatcher;
+		$this->controller = $controller;
 		$this->language	  = $language;
-		$this->renderer	  = $renderer;
-		$this->user		  = $user;
 		$this->pagination = $pagination;
+		$this->renderer	  = $renderer;
+		$this->template   = $template;
+		$this->user		  = $user;
+		$this->helper = $helper;
+		$this->root_path = $root_path;
+		$this->php_ext = $php_ext;
 
 		if (!function_exists('phpbb_get_user_rank'))
 		{
-			include($this->get('root_path') . 'includes/functions_display.php');
+			include($this->root_path . 'includes/functions_display.php');
 		}
 	}
 
@@ -101,14 +146,32 @@ class news extends base
 	}
 
 	/**
-	* Trim news [Set to true if you want news to be trimmed]
+	* Trim messages [Set to true if you want news to be trimmed]
 	*
 	* @param bool $bool
 	* @return \ganstaz\web\core\blocks\block\news News object
 	*/
-	public function trim_news(bool $bool)
+	public function trim_messages(bool $bool)
 	{
-		$this->trim_news = $bool;
+		$this->trim_messages = $bool;
+
+		return $this;
+	}
+
+	/**
+	* Assign breadcrumb
+	*
+	* @param string $name	Name of the breadcrumb
+	* @param string $route	Name of the route
+	* @param array	$params Additional params
+	* @return \ganstaz\web\core\blocks\type\base object
+	*/
+	public function assign_breadcrumb(string $name, string $route, array $params)
+	{
+		$this->template->assign_block_vars('navlinks', [
+			'FORUM_NAME'   => $name,
+			'U_VIEW_FORUM' => $this->controller->route($route, $params),
+		]);
 
 		return $this;
 	}
@@ -131,7 +194,8 @@ class news extends base
 				AND news_fid_enable = 1',
 		];
 
-		$forum_ary = $default = [];
+		$forum_ary = [];
+		$default   = [(int) $this->config['gz_main_fid'], (int) $this->config['gz_news_fid'],];
 
 		/**
 		* Add category id/s
@@ -145,7 +209,6 @@ class news extends base
 
 		if ($default)
 		{
-			$default[] = (int) $this->config['gz_news_fid'];
 			$sql_ary['WHERE'] = 'forum_type = ' . FORUM_POST . ' AND ' . $this->db->sql_in_set('forum_id', $default);
 		}
 
@@ -162,7 +225,7 @@ class news extends base
 	}
 
 	/**
-	* News base
+	* Articles base
 	*
 	* @param int $forum_id Forum id to fetch news data
 	* @return void
@@ -189,7 +252,7 @@ class news extends base
 		}
 
 		// Assign breadcrumb
-		$this->assign_breadcrumb($category, 'ganstaz_web_news_base', ['id' => $forum_id]);
+		$this->assign_breadcrumb($category, 'ganstaz_web_news', ['id' => $forum_id]);
 
 		// Do the sql thang
 		$sql_ary = $this->get_sql_data($forum_id);
@@ -213,7 +276,7 @@ class news extends base
 
 			$base = [
 				'routes' => [
-					'ganstaz_web_news_base',
+					'ganstaz_web_news',
 					'ganstaz_web_news_page',
 				],
 				'params' => ['id' => $forum_id],
@@ -290,16 +353,16 @@ class news extends base
 
 		return [
 			'id'	  => $row['post_id'],
-			'link'	  => $this->controller->route('ganstaz_web_article', ['aid' => $row['topic_id']]),
-			'title'	  => $this->truncate($row['topic_title'], $this->config['gz_title_length']),
+			'link'	  => $this->controller->route('ganstaz_web_single_article', ['aid' => $row['topic_id']]),
+			'title'	  => $this->helper->truncate($row['topic_title'], $this->config['gz_title_length']),
 			'date'	  => $this->user->format_date($row['topic_time']),
 			'author'  => get_username_string('full', (int) $row['user_id'], $row['username'], $row['user_colour']),
 			'avatar'  => phpbb_get_user_avatar($poster),
 			'rank'	  => $rank_title['title'],
 			'views'	  => $row['topic_views'],
 			'replies' => $row['topic_posts_approved'] - 1,
-			'text'	  => $this->trim_news ? $this->trim_message($text) : $text,
-			'topic_link' => append_sid("{$this->get('root_path')}viewtopic.{$this->get('php_ext')}", "f={$row['forum_id']}&amp;t={$row['topic_id']}"),
+			'text'	  => $this->trim_messages ? $this->trim_message($text) : $text,
+			'topic_link' => append_sid("{$this->root_path}viewtopic.{$this->php_ext}", "f={$row['forum_id']}&amp;t={$row['topic_id']}"),
 			'is_trimmed' => $this->is_trimmed,
 		];
 	}
@@ -326,12 +389,12 @@ class news extends base
 	}
 
 	/**
-	* Get article
+	* Get single article (without any comments)
 	*
 	* @param int $topic_id the id of the article
 	* @return void
 	*/
-	public function get_article($topic_id): void
+	public function get_single_article($topic_id): void
 	{
 		// Do the sql thang
 		$sql_ary = $this->get_sql_data($topic_id, 'topic');
@@ -345,7 +408,7 @@ class news extends base
 		}
 
 		// Assign breadcrumb
-		$this->assign_breadcrumb($this->get_template_data($row)['title'], 'ganstaz_web_article', ['aid' => $topic_id]);
+		$this->assign_breadcrumb($this->get_template_data($row)['title'], 'ganstaz_web_single_article', ['aid' => $topic_id]);
 
 		$this->template->assign_block_vars('article', $this->get_template_data($row));
 

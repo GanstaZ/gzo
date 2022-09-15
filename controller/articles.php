@@ -11,15 +11,15 @@
 namespace ganstaz\web\controller;
 
 /**
-* GZ Web: news controller
+* GZ Web: articles controller
 */
-class news extends base
+class articles extends base
 {
 	/**
-	* News controller for routes:
+	* Articles controller for routes:
 	*
-	*	 /news/{id}
-	*	 /news/{id}/page/{page}
+	*	 /articles/{id}
+	*	 /articles/{id}/page/{page}
 	*
 	* @param int $id
 	* @param int $page
@@ -28,8 +28,8 @@ class news extends base
 	*/
 	public function handle(int $id, int $page): \Symfony\Component\HttpFoundation\Response
 	{
-		$this->news->set_page($page)
-			->trim_news(true)
+		$this->posts->set_page($page)
+			->trim_messages(true)
 			->base($id);
 
 		return $this->helper->render('news.html', $this->language->lang('VIEW_NEWS', $id), 200, true);
@@ -44,7 +44,7 @@ class news extends base
 	*/
 	public function article(int $aid): \Symfony\Component\HttpFoundation\Response
 	{
-		$this->news->get_article($aid);
+		$this->posts->get_single_article($aid);
 
 		return $this->helper->render('article.html', $this->language->lang('VIEW_ARTICLE', $aid), 200, true);
 	}

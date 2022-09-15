@@ -5,6 +5,9 @@ imports:
 services:
     ganstaz.web.helper:
         class: ganstaz\web\core\helper
+
+    ganstaz.web.page_helper:
+        class: ganstaz\web\core\page_helper
         arguments:
             - '@cache'
             - '@config'
@@ -26,7 +29,7 @@ services:
             - '@language'
             - '@request'
             - '@template'
-            - '@ganstaz.web.helper'
+            - '@ganstaz.web.page_helper'
             - '@?ganstaz.web.block.manager'
         tags:
             - { name: event.listener }
@@ -41,16 +44,22 @@ services:
             - { name: twig.extension }
 
 # ----- Models -----
-    ganstaz.web.news:
-        class: ganstaz\web\model\news
-        shared: false
-        parent: ganstaz.web.block.base
+    ganstaz.web.posts:
+        class: ganstaz\web\model\posts
         arguments:
             - '@auth'
+            - '@config'
+            - '@dbal.conn'
+            - '@dispatcher'
+            - '@controller.helper'
             - '@language'
-            - '@text_formatter.renderer'
-            - '@user'
             - '@pagination'
+            - '@text_formatter.renderer'
+            - '@template'
+            - '@user'
+            - '@ganstaz.web.helper'
+            - '%core.root_path%'
+            - '%core.php_ext%'
 
 # ----- Controllers -----
     ganstaz.web.controller.base:
@@ -58,7 +67,7 @@ services:
         arguments:
             - '@controller.helper'
             - '@language'
-            - '@ganstaz.web.news'
+            - '@ganstaz.web.posts'
 
     ganstaz.web.index.controller:
         class: ganstaz\web\controller\index
@@ -67,8 +76,8 @@ services:
         arguments:
             - '@config'
 
-    ganstaz.web.news.controller:
-        class: ganstaz\web\controller\news
+    ganstaz.web.articles.controller:
+        class: ganstaz\web\controller\articles
         shared: false
         parent: ganstaz.web.controller.base
 

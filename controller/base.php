@@ -12,7 +12,7 @@ namespace ganstaz\web\controller;
 
 use phpbb\controller\helper;
 use phpbb\language\language;
-use ganstaz\web\model\news;
+use ganstaz\web\model\posts;
 
 /**
 * GZ Web: base controller
@@ -25,20 +25,20 @@ abstract class base
 	/** @var language */
 	protected $language;
 
-	/** @var news */
-	protected $news;
+	/** @var posts */
+	protected $posts;
 
 	/**
 	* Constructor
 	*
 	* @param helper	  $helper	Controller helper object
 	* @param language $language Language object
-	* @param news     $news     News object
+	* @param posts    $posts    Posts object
 	*/
-	public function __construct(helper $helper, language $language, news $news)
+	public function __construct(helper $helper, language $language, posts $posts)
 	{
 		$this->helper	= $helper;
 		$this->language = $language;
-		$this->news     = $news;
+		$this->posts    = $posts;
 	}
 }
