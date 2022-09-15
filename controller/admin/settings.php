@@ -111,6 +111,7 @@ class settings
 			'GZ_VERSION'		 => $this->config['gz_core_version'],
 			'GZ_NEWS_ID'		 => $this->get_ids(),
 			'S_NEWS_CURRENT'	 => $this->config['gz_news_fid'],
+			'S_ENABLE_NEWS_LINK' => $this->config['gz_enable_news_link'],
 			'S_PAGINATION'		 => $this->config['gz_pagination'],
 			'GZ_LIMIT'			 => $this->config['gz_limit'],
 			'GZ_USER_LIMIT'	     => $this->config['gz_user_limit'],
@@ -135,6 +136,7 @@ class settings
 	protected function set_options(): void
 	{
 		$this->config->set('gz_news_fid', $this->request->variable('gz_news_fid', (int) 0));
+		$this->config->set('gz_enable_news_link', $this->request->variable('gz_enable_news_link', (bool) 0));
 		//$this->config->set('gz_the_team_fid', $this->request->variable('gz_the_team_fid', (int) 0));
 		//$this->config->set('gz_top_posters_fid', $this->request->variable('gz_top_posters_fid', (int) 0));
 		//$this->config->set('gz_recent_posts_fid', $this->request->variable('gz_recent_posts_fid', (int) 0));

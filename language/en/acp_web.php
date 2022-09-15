@@ -21,6 +21,7 @@ if (empty($lang) || !is_array($lang))
 $lang = array_merge($lang, [
 	'GZ_VERSION'			 => 'Current version',
 	'NEWS_ID'				 => 'News id',
+	'ENABLE_NEWS_LINK'		 => 'News link in navigation',
 	'GZ_PAGINATION'		     => 'Pagination',
 	'LIMIT'					 => 'News limit',
 	'USER_LIMIT'			 => 'User limit',
@@ -29,6 +30,7 @@ $lang = array_merge($lang, [
 	'TITLE_LENGTH_EXPLAIN'	 => 'Default 26 & Max 50',
 	'CONTENT_LENGTH'		 => 'Trim text',
 	'CONTENT_LENGTH_EXPLAIN' => 'Default 150 & Max 250',
+
 	// Blocks settings
 	'GZ_SECTIONS'			 => 'Global blocks settings',
 	'GZ_BLOCKS'			     => 'Blocks',

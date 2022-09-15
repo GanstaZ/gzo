@@ -29,6 +29,11 @@
 		</dl>
 
 		<dl>
+			<dt>{{ form.label('gz_enable_news_link', lang('ENABLE_NEWS_LINK') ~ lang('COLON')) }}</dt>
+			<dd>{{ form.radio('gz_enable_news_link', S_ENABLE_NEWS_LINK, {'yes': lang('ENABLE'), 'no': lang('DISABLE')}) }}</dd>
+		</dl>
+
+		<dl>
 			<dt>{{ form.label('gz_limit', lang('LIMIT') ~ lang('COLON')) }}<br>
 				<span>{{ lang('LIMIT_EXPLAIN') }}</span>
 			</dt>
