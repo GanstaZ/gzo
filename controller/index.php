@@ -25,9 +25,9 @@ class index extends base
 	*
 	* @param config $config Config object
 	*/
-	public function __construct($helper, $language, $manager, config $config)
+	public function __construct($helper, $language, $posts, config $config)
 	{
-		parent::__construct($helper, $language, $manager);
+		parent::__construct($helper, $language, $posts);
 
 		$this->config = $config;
 	}
@@ -40,11 +40,11 @@ class index extends base
 	*/
 	public function handle(): \Symfony\Component\HttpFoundation\Response
 	{
-		// Set our news id
+		// Set main page id
 		$id = (int) $this->config['gz_main_fid'];
 
-		$this->news->trim_messages(true)
-			->articles($id);
+		$this->posts->trim_messages(true)
+			->base($id);
 
 		return $this->helper->render('index.html', $this->language->lang('MAIN', $id), 200, true);
 	}
