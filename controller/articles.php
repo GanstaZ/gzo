@@ -11,6 +11,8 @@
 namespace ganstaz\web\controller;
 
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+
 /**
 * GZ Web: articles controller
 */
@@ -37,7 +39,34 @@ class articles extends base
 	}
 
 	/**
-	* Article controller for route /article/{aid}
+	* Article controller for route /article-full/{aid}
+	*
+	* @param int $aid
+	* @throws \phpbb\exception\http_exception
+	* @return \Symfony\Component\HttpFoundation\RedirectResponse A Symfony Redirect Response object
+	*/
+	public function article(int $aid): RedirectResponse
+	{
+		$row = $this->posts->get_forum_id($aid);
+
+		if (!$row)
+		{
+			throw new \phpbb\exception\http_exception(404, 'NO_TOPICS', [$row]);
+		}
+
+		$params = [
+			'f' => (int) $row['forum_id'],
+			't' => $aid
+		];
+
+		$url = append_sid(generate_board_url() . "/viewtopic.{$this->php_ext}", $params, false);
+
+
+		return new RedirectResponse($url);
+	}
+
+	/**
+	* First post controller (without any replies) for route /article/{aid}
 	*
 	* @param int $aid
 	* @throws \phpbb\exception\http_exception
