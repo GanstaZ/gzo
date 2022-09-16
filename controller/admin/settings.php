@@ -58,15 +58,16 @@ class settings
 	}
 
 	/**
-	* Get options as forum_ids (Will be replaced)
+	* Get options as forum_ids
 	*
 	* @return array
 	*/
-	protected function get_ids(): array
+	protected function get_forum_ids(): array
 	{
 		$sql = 'SELECT forum_id
 				FROM ' . FORUMS_TABLE . '
-				WHERE forum_type = ' . FORUM_POST;
+				WHERE forum_type = ' . FORUM_POST . '
+				    AND news_fid_enable = 1';
 		$result = $this->db->sql_query($sql, 3600);
 
 		$forum_ids = [];
@@ -109,7 +110,8 @@ class settings
 		// Set template vars
 		$this->template->assign_vars([
 			'GZ_VERSION'		 => $this->config['gz_core_version'],
-			'GZ_NEWS_ID'		 => $this->get_ids(),
+			'GZ_NEWS_IDS'		 => $this->get_forum_ids(),
+			'S_NEWS_IDS'	     => count($this->get_forum_ids()) > 1,
 			'S_MAIN_CURRENT'	 => $this->config['gz_main_fid'],
 			'S_NEWS_CURRENT'	 => $this->config['gz_news_fid'],
 			'S_ENABLE_NEWS_LINK' => $this->config['gz_enable_news_link'],
