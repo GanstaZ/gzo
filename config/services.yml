@@ -69,6 +69,8 @@ services:
             - '@controller.helper'
             - '@language'
             - '@ganstaz.web.posts'
+            - '%core.root_path%'
+            - '%core.php_ext%'
 
     ganstaz.web.index.controller:
         class: ganstaz\web\controller\index
