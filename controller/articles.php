@@ -10,6 +10,7 @@
 
 namespace ganstaz\web\controller;
 
+use Symfony\Component\HttpFoundation\Response;
 /**
 * GZ Web: articles controller
 */
@@ -26,7 +27,7 @@ class articles extends base
 	* @throws \phpbb\exception\http_exception
 	* @return \Symfony\Component\HttpFoundation\Response A Symfony Response object
 	*/
-	public function handle(int $id, int $page): \Symfony\Component\HttpFoundation\Response
+	public function handle(int $id, int $page): Response
 	{
 		$this->posts->set_page($page)
 			->trim_messages(true)
@@ -42,9 +43,9 @@ class articles extends base
 	* @throws \phpbb\exception\http_exception
 	* @return \Symfony\Component\HttpFoundation\Response A Symfony Response object
 	*/
-	public function article(int $aid): \Symfony\Component\HttpFoundation\Response
+	public function first_post(int $aid): Response
 	{
-		$this->posts->get_single_article($aid);
+		$this->posts->get_first_post($aid);
 
 		return $this->helper->render('article.html', $this->language->lang('VIEW_ARTICLE', $aid), 200, true);
 	}

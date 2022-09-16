@@ -29,6 +29,6 @@ class index extends base
 		$this->posts->trim_messages(true)
 			->base($id);
 
-		return $this->helper->render('index.html', $this->language->lang('MAIN', $id), 200, true);
+		return $this->helper->render('index.html', $this->language->lang('HOME', $id), 200, true);
 	}
 }

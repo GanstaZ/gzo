@@ -15,8 +15,14 @@ ganstaz_web_news_page:
         id: \d+
         page: \d+
 
-ganstaz_web_single_article:
-    path: /article/{aid}
+ganstaz_web_article:
+    path: /article-full/{aid}
     defaults: { _controller: ganstaz.web.articles.controller:article }
+    requirements:
+        aid: \d+
+
+ganstaz_web_first_post:
+    path: /article/{aid}
+    defaults: { _controller: ganstaz.web.articles.controller:first_post }
     requirements:
         aid: \d+

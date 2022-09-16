@@ -85,9 +85,9 @@ class listener implements EventSubscriberInterface
 		return [
 			'core.user_setup'		=> 'add_language',
 			'core.user_setup_after' => 'add_manager_data',
-			'core.page_header'		=> 'add_gz_web_data',
-			'core.acp_manage_forums_request_data'  => 'web_manage_forums_request_data',
-			'core.acp_manage_forums_display_form'  => 'web_manage_forums_display_form',
+			'core.page_header'		=> 'add_web_data',
+			'core.acp_manage_forums_request_data'  => 'manage_forums_request_data',
+			'core.acp_manage_forums_display_form'  => 'manage_forums_display_form',
 			'core.memberlist_prepare_profile_data' => 'prepare_profile_data',
 			'core.memberlist_view_profile'		   => 'view_profile_stats',
 		];
@@ -149,7 +149,7 @@ class listener implements EventSubscriberInterface
 	*
 	* @param \phpbb\event\data $event The event object
 	*/
-	public function web_manage_forums_request_data($event): void
+	public function manage_forums_request_data($event): void
 	{
 		$forum_data = $event['forum_data'];
 		$forum_data['news_fid_enable'] = $this->request->variable('news_fid_enable', 0);
@@ -161,7 +161,7 @@ class listener implements EventSubscriberInterface
 	*
 	* @param \phpbb\event\data $event The event object
 	*/
-	public function web_manage_forums_display_form($event): void
+	public function manage_forums_display_form($event): void
 	{
 		$template_data = $event['template_data'];
 		$template_data['S_NEWS_FID'] = $event['forum_data']['news_fid_enable'];

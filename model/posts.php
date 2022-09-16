@@ -125,11 +125,6 @@ class posts
 		$this->helper = $helper;
 		$this->root_path = $root_path;
 		$this->php_ext = $php_ext;
-
-		if (!function_exists('phpbb_get_user_rank'))
-		{
-			include($this->root_path . 'includes/functions_display.php');
-		}
 	}
 
 	/**
@@ -340,6 +335,11 @@ class posts
 	*/
 	public function get_template_data(array $row): array
 	{
+		if (!function_exists('phpbb_get_user_rank'))
+		{
+			include("{$this->root_path}includes/functions_display.{$this->php_ext}");
+		}
+
 		$poster = [
 			'user_rank'		=> $row['user_rank'],
 			'avatar'		=> $row['user_avatar'],
@@ -389,12 +389,30 @@ class posts
 	}
 
 	/**
-	* Get single article (without any comments)
+	* Get forum id
+	*
+	* @param int $topic_id the id of the article
+	* @return array
+	*/
+	public function get_forum_id(int $topic_id): array
+	{
+		$sql = 'SELECT forum_id
+		        FROM ' . TOPICS_TABLE . '
+		        WHERE topic_id = ' . $topic_id;
+		$result = $this->db->sql_query($sql, 3600);
+		$row = $this->db->sql_fetchrow($result);
+		$this->db->sql_freeresult($result);
+
+		return $row;
+	}
+
+	/**
+	* Get first post (without any comments)
 	*
 	* @param int $topic_id the id of the article
 	* @return void
 	*/
-	public function get_single_article($topic_id): void
+	public function get_first_post(int $topic_id): void
 	{
 		// Do the sql thang
 		$sql_ary = $this->get_sql_data($topic_id, 'topic');
@@ -404,11 +422,11 @@ class posts
 
 		if (!$row)
 		{
-			throw new \phpbb\exception\http_exception(403, 'NO_TOPICS', [$row]);
+			throw new \phpbb\exception\http_exception(404, 'NO_TOPICS', [$row]);
 		}
 
 		// Assign breadcrumb
-		$this->assign_breadcrumb($this->get_template_data($row)['title'], 'ganstaz_web_single_article', ['aid' => $topic_id]);
+		$this->assign_breadcrumb($this->get_template_data($row)['title'], 'ganstaz_web_first_post', ['aid' => $topic_id]);
 
 		$this->template->assign_block_vars('article', $this->get_template_data($row));
 
