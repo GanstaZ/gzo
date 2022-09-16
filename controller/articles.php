@@ -10,9 +10,6 @@
 
 namespace ganstaz\web\controller;
 
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\RedirectResponse;
-
 /**
 * GZ Web: articles controller
 */
@@ -29,7 +26,7 @@ class articles extends base
 	* @throws \phpbb\exception\http_exception
 	* @return \Symfony\Component\HttpFoundation\Response A Symfony Response object
 	*/
-	public function handle(int $id, int $page): Response
+	public function handle(int $id, int $page): \Symfony\Component\HttpFoundation\Response
 	{
 		$this->posts->set_page($page)
 			->trim_messages(true)
@@ -45,7 +42,7 @@ class articles extends base
 	* @throws \phpbb\exception\http_exception
 	* @return \Symfony\Component\HttpFoundation\RedirectResponse A Symfony Redirect Response object
 	*/
-	public function article(int $aid): RedirectResponse
+	public function article(int $aid): \Symfony\Component\HttpFoundation\RedirectResponse
 	{
 		$row = $this->posts->get_forum_id($aid);
 
@@ -61,7 +58,6 @@ class articles extends base
 
 		$url = append_sid(generate_board_url() . "/viewtopic.{$this->php_ext}", $params, false);
 
-
 		return new RedirectResponse($url);
 	}
 
@@ -72,7 +68,7 @@ class articles extends base
 	* @throws \phpbb\exception\http_exception
 	* @return \Symfony\Component\HttpFoundation\Response A Symfony Response object
 	*/
-	public function first_post(int $aid): Response
+	public function first_post(int $aid): \Symfony\Component\HttpFoundation\Response
 	{
 		$this->posts->get_first_post($aid);
 
