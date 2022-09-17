@@ -68,6 +68,7 @@ services:
             - '@config'
             - '@controller.helper'
             - '@language'
+            - '@user'
             - '@ganstaz.web.posts'
             - '%core.root_path%'
             - '%core.php_ext%'
