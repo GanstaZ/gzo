@@ -138,6 +138,7 @@ class settings
 	*/
 	protected function set_options(): void
 	{
+		$this->config->set('gz_main_fid', $this->request->variable('gz_main_fid', (int) 0));
 		$this->config->set('gz_news_fid', $this->request->variable('gz_news_fid', (int) 0));
 		$this->config->set('gz_enable_news_link', $this->request->variable('gz_enable_news_link', (bool) 0));
 		//$this->config->set('gz_the_team_fid', $this->request->variable('gz_the_team_fid', (int) 0));
