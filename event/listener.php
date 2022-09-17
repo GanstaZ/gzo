@@ -134,7 +134,7 @@ class listener implements EventSubscriberInterface
 	*
 	* @param \phpbb\event\data $event The event object
 	*/
-	public function add_gz_web_data(): void
+	public function add_web_data(): void
 	{
 		if ($this->config['gz_enable_news_link'])
 		{
@@ -142,6 +142,37 @@ class listener implements EventSubscriberInterface
 				'U_NEWS' => $this->helper->route('ganstaz_web_news'),
 			]);
 		}
+	}
+
+	/**
+	* Redirect users from the forum to the right controller
+	*
+	* @param \phpbb\event\data $event The event object
+	* @return void
+	* @access public
+	*/
+	public function news_forum_redirect($event)
+	{
+		// Will redirect to our controller
+		if ((int) $event['forum_id'] === (int) $this->config['gz_news_fid'])
+		{
+			redirect($this->helper->route('ganstaz_web_news', ['id' => (int) $this->config['gz_news_fid']]));
+		}
+	}
+
+	/**
+	* Modify Special forum's posting page
+	*
+	* @param \phpbb\event\data $event The event object
+	*/
+	public function submit_post_template($event)
+	{
+		// Borrowed from Ideas extension (phpBB)
+		// Alter posting page breadcrumbs to link to the ideas controller
+		$this->template->alter_block_array('navlinks', [
+			'BREADCRUMB_NAME' => $this->language->lang('HOME'),
+			'U_BREADCRUMB'    => $this->helper->route('ganstaz_web_index'),
+		], false, 'change');
 	}
 
 	/**
