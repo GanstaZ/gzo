@@ -5,6 +5,8 @@ imports:
 services:
     ganstaz.web.helper:
         class: ganstaz\web\core\helper
+        arguments:
+            - '@dbal.conn'
 
     ganstaz.web.page_helper:
         class: ganstaz\web\core\page_helper
@@ -88,14 +90,15 @@ services:
         shared: false
         parent: ganstaz.web.controller.base
 
+# ----- Admin Controllers -----
     ganstaz.web.admin.controller:
         class: ganstaz\web\controller\admin\settings
         arguments:
             - '@config'
-            - '@dbal.conn'
             - '@language'
             - '@request'
             - '@template'
+            - '@ganstaz.web.helper'
 
     ganstaz.web.admin.block.controller:
         class: ganstaz\web\controller\admin\blocks
