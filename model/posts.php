@@ -249,6 +249,11 @@ class posts
 		// Assign breadcrumb
 		$this->assign_breadcrumb($category, 'ganstaz_web_news', ['id' => $forum_id]);
 
+		// Set template vars
+		$this->template->assign_vars([
+			'GZO_NEW_POST' => $this->controller->route('ganstaz_web_post_article', ['fid' => $forum_id]),
+		]);
+
 		// Do the sql thang
 		$sql_ary = $this->get_sql_data($forum_id);
 		$sql = $this->db->sql_build_query('SELECT', $sql_ary);

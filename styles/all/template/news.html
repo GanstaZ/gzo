@@ -1,7 +1,26 @@
 {% extends 'layout/app-base.html' %}
 
+{% block top_content %}
+    {% if news %}
+    	{% from '@ganstaz_web/macros/tags.html' import icon %}
+
+        <div class="action-bar bar-top">
+
+        	{% EVENT viewforum_buttons_top_before %}
+
+	        <a href="{{ GZO_NEW_POST }}" class="button" title="{{ lang('POST_ARTICLE') }}">
+			    <span>{{ lang('NEW_ARTICLE') }}</span> {{ icon('icon', 'pencil fa-fw') }}
+	        </a>
+
+	        {% EVENT viewforum_buttons_top_after %}
+        </div>
+
+    {% endif %}
+{% endblock %}
+
 {% block mid_content %}
 	{% if news %}
+
 		{% for news in loops.news %}
 			{{ include('includes/news-item.html') }}
 		{% endfor %}

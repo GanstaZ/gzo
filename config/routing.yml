@@ -26,3 +26,9 @@ ganstaz_web_first_post:
     defaults: { _controller: ganstaz.web.articles.controller:first_post }
     requirements:
         aid: \d+
+
+ganstaz_web_post_article:
+    path: /post/article/{fid}
+    defaults: { _controller: ganstaz.web.post.controller:post }
+    requirements:
+        fid: \d+
