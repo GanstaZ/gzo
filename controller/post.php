@@ -1,7 +1,7 @@
 <?php
 /**
 *
-* GZ Web. An extension for the phpBB Forum Software package.
+* GZO Web. An extension for the phpBB Forum Software package.
 *
 * @copyright (c) 2021, GanstaZ, http://www.github.com/GanstaZ/
 * @license GNU General Public License, version 2 (GPL-2.0)
@@ -14,19 +14,19 @@ use phpbb\exception\http_exception;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
 /**
-* GZ Web: post controller
+* GZO Web: post controller
 */
 class post extends base
 {
 	/**
-	* Controller for /post/article/fid
-	* Redirects to right forum's posting page.
+	* Post controller for /post/article{fid}
+	* Redirects to right forum's posting page
 	*
 	* @param int $forum_id
 	* @throws http_exception
 	* @return RedirectResponse A Symfony Response object
 	*/
-	public function post($fid): \Symfony\Component\HttpFoundation\RedirectResponse
+	public function post(int $fid): \Symfony\Component\HttpFoundation\RedirectResponse
 	{
 		// Borrowed from Ideas extension (phpBB)
 		if ($this->user->data['user_id'] == ANONYMOUS)
