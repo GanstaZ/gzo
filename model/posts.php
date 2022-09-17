@@ -159,7 +159,7 @@ class posts
 	* @param string $name	Name of the breadcrumb
 	* @param string $route	Name of the route
 	* @param array	$params Additional params
-	* @return \ganstaz\web\core\blocks\type\base object
+	* @return \ganstaz\web\model\posts object
 	*/
 	public function assign_breadcrumb(string $name, string $route, array $params)
 	{
@@ -204,7 +204,7 @@ class posts
 
 		if ($default)
 		{
-			$sql_ary['WHERE'] = 'forum_type = ' . FORUM_POST . ' AND ' . $this->db->sql_in_set('forum_id', $default);
+			$sql_ary['AND'] = $this->db->sql_in_set('forum_id', $default);
 		}
 
 		$sql = $this->db->sql_build_query('SELECT', $sql_ary);
