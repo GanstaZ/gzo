@@ -174,10 +174,9 @@ class posts
 	/**
 	* News categories
 	*
-	* @param int $fid
-	* @return string
+	* @return array
 	*/
-	public function categories(int $fid): string
+	public function categories(): array
 	{
 		$sql_ary = [
 			'SELECT' => 'forum_id, forum_name',
@@ -216,7 +215,7 @@ class posts
 		}
 		$this->db->sql_freeresult($result);
 
-		return $forum_ary[$fid] ?? '';
+		return $forum_ary ?? [];
 	}
 
 	/**
@@ -227,7 +226,7 @@ class posts
 	*/
 	public function base(int $forum_id): void
 	{
-		$category = $this->categories($forum_id);
+		$category = $this->categories()[$forum_id];
 
 		// Check news id
 		if (!$category)
@@ -249,9 +248,16 @@ class posts
 		// Assign breadcrumb
 		$this->assign_breadcrumb($category, 'ganstaz_web_news', ['id' => $forum_id]);
 
+		$categories = [];
+		foreach ($this->categories() as $cid => $cname)
+		{
+			$categories[$cname] = $this->controller->route('ganstaz_web_news', ['id' => $cid]);
+		}
+
 		// Set template vars
 		$this->template->assign_vars([
 			'GZO_NEW_POST' => $this->controller->route('ganstaz_web_post_article', ['fid' => $forum_id]),
+			'S_CATEGORIES' => $categories,
 		]);
 
 		// Do the sql thang

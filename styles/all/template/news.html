@@ -4,16 +4,41 @@
     {% if news %}
     	{% from '@ganstaz_web/macros/tags.html' import icon %}
 
-        <div class="action-bar bar-top">
+		<div role="navigation">
+			<div class="inner">
 
-        	{% EVENT viewforum_buttons_top_before %}
+			<ul id="nav-main" class="nav-main linklist" role="menubar">
 
-	        <a href="{{ GZO_NEW_POST }}" class="button" title="{{ lang('POST_ARTICLE') }}">
-			    <span>{{ lang('NEW_ARTICLE') }}</span> {{ icon('icon', 'pencil fa-fw') }}
-	        </a>
+				<li id="quick-links" class="quick-links dropdown-container responsive-menu" data-skip-responsive="true">
+					<a href="#" class="dropdown-trigger">
+						<i class="icon fa-bars fa-fw" aria-hidden="true"></i><span>{{ lang('CATEGORIES') }}</span>
+					</a>
+					<div class="dropdown">
+						<div class="pointer"><div class="pointer-inner"></div></div>
+						<ul class="dropdown-contents" role="menu">
 
-	        {% EVENT viewforum_buttons_top_after %}
-        </div>
+							<li class="separator"></li>
+							{% for cid, category in S_CATEGORIES %}
+								<li>
+									<a href="{{ category }}" role="menuitem">{{ cid }}</a>
+								</li>
+							{% endfor %}
+						</ul>
+					</div>
+				</li>
+
+				<li <!-- IF not S_USER_LOGGED_IN -->data-skip-responsive="true"<!-- ELSE -->data-last-responsive="true"<!-- ENDIF -->>
+					{% EVENT viewforum_buttons_top_before %}
+
+					<a href="{{ GZO_NEW_POST }}" class="button" title="{{ lang('POST_ARTICLE') }}">
+						<span>{{ lang('NEW_ARTICLE') }}</span> {{ icon('icon', 'pencil fa-fw') }}
+					</a>
+
+					{% EVENT viewforum_buttons_top_after %}
+				</li>
+			</ul>
+			</div>
+		</div>
 
     {% endif %}
 {% endblock %}

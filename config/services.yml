@@ -8,8 +8,8 @@ services:
         arguments:
             - '@dbal.conn'
 
-    ganstaz.web.page_helper:
-        class: ganstaz\web\core\page_helper
+    ganstaz.web.pages:
+        class: ganstaz\web\core\pages
         arguments:
             - '@cache'
             - '@config'
@@ -31,7 +31,8 @@ services:
             - '@language'
             - '@request'
             - '@template'
-            - '@ganstaz.web.page_helper'
+            - '@ganstaz.web.helper'
+            - '@ganstaz.web.pages'
             - '@?ganstaz.web.block.manager'
         tags:
             - { name: event.listener }
