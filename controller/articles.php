@@ -58,7 +58,7 @@ class articles extends base
 
 		$url = append_sid(generate_board_url() . "/viewtopic.{$this->php_ext}", $params, false);
 
-		return new RedirectResponse($url);
+		return new \Symfony\Component\HttpFoundation\RedirectResponse($url);
 	}
 
 	/**
