@@ -26,7 +26,7 @@ class post extends base
 	* @throws http_exception
 	* @return RedirectResponse A Symfony Response object
 	*/
-	public function post(int $fid): \Symfony\Component\HttpFoundation\RedirectResponse
+	public function handle(int $fid): \Symfony\Component\HttpFoundation\RedirectResponse
 	{
 		// Borrowed from Ideas extension (phpBB)
 		if ($this->user->data['user_id'] == ANONYMOUS)
