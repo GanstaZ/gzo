@@ -176,8 +176,6 @@ class listener implements EventSubscriberInterface
 	*/
 	public function submit_post_template($event)
 	{
-		//$this->controller->route('ganstaz_web_news', ['id' => (int) $this->config['gz_news_fid']]);
-
 		// Borrowed from Ideas extension (phpBB)
 		// Alter posting page breadcrumbs to link to the ideas controller
 		$this->template->alter_block_array('navlinks', [
