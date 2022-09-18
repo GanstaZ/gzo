@@ -32,3 +32,13 @@ ganstaz_web_post_article:
     defaults: { _controller: ganstaz.web.post.controller:handle }
     requirements:
         fid: \d+
+
+ganstaz_web_member:
+    path: /{username}
+    defaults:
+        _controller: ganstaz.web.profile.controller:handle
+
+ganstaz_web_member_tab:
+    path: /{username}/tab/{name}
+    defaults:
+        _controller: ganstaz.web.profile.controller:handle

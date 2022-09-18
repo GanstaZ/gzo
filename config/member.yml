@@ -1,0 +1,24 @@
+services:
+    ganstaz.web.profile:
+        class: ganstaz\web\model\member\profile
+        arguments:
+            - '@auth'
+            - '@config'
+            - '@dbal.conn'
+            - '@dispatcher'
+            - '@group_helper'
+            - '@controller.helper'
+            - '@language'
+            - '@profilefields.manager'
+            - '@template'
+            - '@user'
+            - '%core.root_path%'
+            - '%core.php_ext%'
+
+# ----- Controllers -----
+    ganstaz.web.profile.controller:
+        class: ganstaz\web\controller\member\profile
+        arguments:
+            - '@controller.helper'
+            - '@language'
+            - '@ganstaz.web.profile'
