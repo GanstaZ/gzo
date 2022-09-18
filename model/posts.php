@@ -122,9 +122,9 @@ class posts
 		$this->renderer	  = $renderer;
 		$this->template   = $template;
 		$this->user		  = $user;
-		$this->helper = $helper;
-		$this->root_path = $root_path;
-		$this->php_ext = $php_ext;
+		$this->helper     = $helper;
+		$this->root_path  = $root_path;
+		$this->php_ext    = $php_ext;
 	}
 
 	/**
@@ -174,9 +174,10 @@ class posts
 	/**
 	* News categories
 	*
-	* @return array
+	* @param int $fid
+	* @return string
 	*/
-	public function categories(): array
+	public function categories(int $fid): string
 	{
 		$sql_ary = [
 			'SELECT' => 'forum_id, forum_name',
@@ -184,38 +185,20 @@ class posts
 				FORUMS_TABLE => 'f',
 			],
 
-			'WHERE'	 => 'forum_type = ' . FORUM_POST . '
-				AND news_fid_enable = 1',
+			'WHERE'	 => 'forum_type = ' . FORUM_POST,
 		];
-
-		$forum_ary = [];
-		$default   = [(int) $this->config['gz_main_fid'], (int) $this->config['gz_news_fid'],];
-
-		/**
-		* Add category id/s
-		*
-		* @event ganstaz.web.news_add_category
-		* @var array default Array containing default category id/s
-		* @since 2.4.0-RC1
-		*/
-		$vars = ['default'];
-		extract($this->dispatcher->trigger_event('ganstaz.web.news_add_category', compact($vars)));
-
-		if ($default)
-		{
-			$sql_ary['AND'] = $this->db->sql_in_set('forum_id', $default);
-		}
 
 		$sql = $this->db->sql_build_query('SELECT', $sql_ary);
 		$result = $this->db->sql_query($sql, 86400);
 
+		$forum_ary = [];
 		while ($row = $this->db->sql_fetchrow($result))
 		{
 			$forum_ary[(int) $row['forum_id']] = (string) $row['forum_name'];
 		}
 		$this->db->sql_freeresult($result);
 
-		return $forum_ary ?? [];
+		return $forum_ary[$fid] ?? '';
 	}
 
 	/**
@@ -226,10 +209,22 @@ class posts
 	*/
 	public function base(int $forum_id): void
 	{
-		$category = $this->categories()[$forum_id];
+		$default = [(int) $this->config['gz_main_fid'], (int) $this->config['gz_news_fid'],];
+
+		/**
+		* Add category id/s
+		*
+		* @event ganstaz.web.posts_add_category
+		* @var array default Array containing default category id/s
+		* @since 2.4.0-RC1
+		*/
+		$vars = ['default'];
+		extract($this->dispatcher->trigger_event('ganstaz.web.posts_add_category', compact($vars)));
+
+		$category_ids = $this->helper->get_forum_ids();
 
 		// Check news id
-		if (!$category)
+		if (!in_array($forum_id, $category_ids) && !in_array($forum_id, $default))
 		{
 			throw new \phpbb\exception\http_exception(404, 'NO_FORUM', [$forum_id]);
 		}
@@ -245,13 +240,15 @@ class posts
 			login_box('', $this->language->lang('LOGIN_VIEWFORUM'));
 		}
 
+		$category = $this->categories($forum_id);
+
 		// Assign breadcrumb
 		$this->assign_breadcrumb($category, 'ganstaz_web_news', ['id' => $forum_id]);
 
 		$categories = [];
-		foreach ($this->categories() as $cid => $cname)
+		foreach ($category_ids as $cid)
 		{
-			$categories[$cname] = $this->controller->route('ganstaz_web_news', ['id' => $cid]);
+			$categories[$this->categories($cid)] = $this->controller->route('ganstaz_web_news', ['id' => $cid]);
 		}
 
 		// Set template vars
@@ -363,17 +360,16 @@ class posts
 		$text = $this->renderer->render($row['post_text']);
 
 		return [
-			'id'	  => $row['post_id'],
-			'link'	  => $this->controller->route('ganstaz_web_single_article', ['aid' => $row['topic_id']]),
-			'title'	  => $this->helper->truncate($row['topic_title'], $this->config['gz_title_length']),
-			'date'	  => $this->user->format_date($row['topic_time']),
-			'author'  => get_username_string('full', (int) $row['user_id'], $row['username'], $row['user_colour']),
-			'avatar'  => phpbb_get_user_avatar($poster),
-			'rank'	  => $rank_title['title'],
-			'views'	  => $row['topic_views'],
-			'replies' => $row['topic_posts_approved'] - 1,
-			'text'	  => $this->trim_messages ? $this->trim_message($text) : $text,
-			'topic_link' => append_sid("{$this->root_path}viewtopic.{$this->php_ext}", "f={$row['forum_id']}&amp;t={$row['topic_id']}"),
+			'id'	     => $row['post_id'],
+			'link'	     => $this->controller->route('ganstaz_web_article', ['aid' => $row['topic_id']]),
+			'title'	     => $this->helper->truncate($row['topic_title'], $this->config['gz_title_length']),
+			'date'	     => $this->user->format_date($row['topic_time']),
+			'author'     => get_username_string('full', (int) $row['user_id'], $row['username'], $row['user_colour']),
+			'avatar'     => phpbb_get_user_avatar($poster),
+			'rank'	     => $rank_title['title'],
+			'views'	     => $row['topic_views'],
+			'replies'    => $row['topic_posts_approved'] - 1,
+			'text'	     => $this->trim_messages ? $this->trim_message($text) : $text,
 			'is_trimmed' => $this->is_trimmed,
 		];
 	}
@@ -436,10 +432,22 @@ class posts
 			throw new \phpbb\exception\http_exception(404, 'NO_TOPICS', [$row]);
 		}
 
-		// Assign breadcrumb
-		$this->assign_breadcrumb($this->get_template_data($row)['title'], 'ganstaz_web_first_post', ['aid' => $topic_id]);
+		$template_data = $this->get_template_data($row);
 
-		$this->template->assign_block_vars('article', $this->get_template_data($row));
+		/**
+		* Add/Modify template data
+		*
+		* @event ganstaz.web.article_modify_template_data
+		* @var array template data Array containing template data
+		* @since 2.4.0-RC1
+		*/
+		$vars = ['template_data'];
+		extract($this->dispatcher->trigger_event('ganstaz.web.article_modify_template_data', compact($vars)));
+
+		// Assign breadcrumb
+		$this->assign_breadcrumb($template_data['title'], 'ganstaz_web_first_post', ['aid' => $topic_id]);
+
+		$this->template->assign_block_vars('article', $template_data);
 
 		$this->db->sql_freeresult($result);
 	}
