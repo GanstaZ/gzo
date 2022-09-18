@@ -31,7 +31,9 @@ class m4_config extends \phpbb\db\migration\migration
 		return [
 			// Add the config variables we want to be able to set
 			['config.add', ['gz_core_version', '2.4.0-dev']],
-			['config.add', ['gz_news_fid', 2]],
+			['config.add', ['gz_main_fid', 2]],
+			['config.add', ['gz_news_fid', 3]],
+			['config.add', ['gz_enable_news_link', 1]],
 			['config.add', ['gz_the_team_fid', 8]],
 			['config.add', ['gz_top_posters_fid', 0]],
 			['config.add', ['gz_recent_posts_fid', 0]],

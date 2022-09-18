@@ -11,11 +11,12 @@
 namespace ganstaz\web\event;
 
 use phpbb\config\config;
-use phpbb\controller\helper;
+use phpbb\controller\helper as controller;
 use phpbb\language\language;
 use phpbb\request\request;
 use phpbb\template\template;
-use ganstaz\web\core\helper as gz_helper;
+use ganstaz\web\core\helper;
+use ganstaz\web\core\pages;
 use ganstaz\web\core\blocks\manager;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -27,8 +28,8 @@ class listener implements EventSubscriberInterface
 	/** @var config */
 	protected $config;
 
-	/** @var helper */
-	protected $helper;
+	/** @var controller */
+	protected $controller;
 
 	/** @var language */
 	protected $language;
@@ -39,8 +40,11 @@ class listener implements EventSubscriberInterface
 	/** @var template */
 	protected $template;
 
-	/** @var gz_helper */
-	protected $gz_helper;
+	/** @var helper */
+	protected $helper;
+
+	/** @var pages */
+	protected $pages;
 
 	/** @var manager */
 	protected $manager;
@@ -48,31 +52,34 @@ class listener implements EventSubscriberInterface
 	/**
 	* Constructor
 	*
-	* @param config	   $config	  Config object
-	* @param helper    $helper	  Controller helper object
-	* @param language  $language  Language object
-	* @param request   $request	  Request object
-	* @param template  $template  Template object
-	* @param gz_helper $gz_helper GZ helper object
-	* @param manager   $manager   Blocks manager object
+	* @param config	    $config	    Config object
+	* @param controller $controller Controller helper object
+	* @param language   $language   Language object
+	* @param request    $request    Request object
+	* @param template   $template   Template object
+	* @param helper     $helper     Helper object
+	* @param pages      $pages      Pages object
+	* @param manager    $manager    Blocks manager object
 	*/
 	public function __construct(
 		config $config,
-		helper $helper,
+		controller $controller,
 		language $language,
 		request $request,
 		template $template,
-		gz_helper $gz_helper,
+		helper $helper,
+		pages $pages,
 		manager $manager = null
 	)
 	{
-		$this->config	 = $config;
-		$this->helper	 = $helper;
-		$this->language	 = $language;
-		$this->request	 = $request;
-		$this->template	 = $template;
-		$this->gz_helper = $gz_helper;
-		$this->manager	 = $manager;
+		$this->config	  = $config;
+		$this->controller = $controller;
+		$this->language	  = $language;
+		$this->request    = $request;
+		$this->template	  = $template;
+		$this->helper     = $helper;
+		$this->pages      = $pages;
+		$this->manager    = $manager;
 	}
 
 	/**
@@ -85,9 +92,11 @@ class listener implements EventSubscriberInterface
 		return [
 			'core.user_setup'		=> 'add_language',
 			'core.user_setup_after' => 'add_manager_data',
-			'core.page_header'		=> 'add_gz_web_data',
-			'core.acp_manage_forums_request_data'  => 'web_manage_forums_request_data',
-			'core.acp_manage_forums_display_form'  => 'web_manage_forums_display_form',
+			'core.page_header'		=> 'add_web_data',
+			'core.viewforum_get_topic_data'        => 'news_forum_redirect',
+			'core.posting_modify_template_vars'    => 'submit_post_template',
+			'core.acp_manage_forums_request_data'  => 'manage_forums_request_data',
+			'core.acp_manage_forums_display_form'  => 'manage_forums_display_form',
 			'core.memberlist_prepare_profile_data' => 'prepare_profile_data',
 			'core.memberlist_view_profile'		   => 'view_profile_stats',
 		];
@@ -111,7 +120,7 @@ class listener implements EventSubscriberInterface
 	*/
 	public function add_manager_data($event): void
 	{
-		if ($this->config['gz_blocks'] && $get_page_data = $this->gz_helper->get_page_data())
+		if ($this->config['gz_blocks'] && $get_page_data = $this->pages->get_page_data())
 		{
 			// Set page var for template, so we know where we are
 			$this->template->assign_var('S_GZ_PAGE', true);
@@ -134,11 +143,45 @@ class listener implements EventSubscriberInterface
 	*
 	* @param \phpbb\event\data $event The event object
 	*/
-	public function add_gz_web_data(): void
+	public function add_web_data(): void
 	{
-		$this->template->assign_vars([
-			'U_NEWS' => $this->helper->route('ganstaz_web_news_base'),
-		]);
+		if ($this->config['gz_enable_news_link'])
+		{
+			$this->template->assign_vars([
+				'U_NEWS' => $this->controller->route('ganstaz_web_news'),
+			]);
+		}
+	}
+
+	/**
+	* Redirect users from the forum to the right controller
+	*
+	* @param \phpbb\event\data $event The event object
+	*/
+	public function news_forum_redirect($event)
+	{
+		$forum_id = (int) $event['forum_id'];
+
+		// Will redirect to our controller
+		if (in_array($forum_id, $this->helper->get_forum_ids()) && $forum_id !== (int) $this->config['gz_main_fid'])
+		{
+			redirect($this->controller->route('ganstaz_web_news', ['id' => $forum_id]));
+		}
+	}
+
+	/**
+	* Modify Special forum's posting page
+	*
+	* @param \phpbb\event\data $event The event object
+	*/
+	public function submit_post_template($event)
+	{
+		// Borrowed from Ideas extension (phpBB)
+		// Alter posting page breadcrumbs to link to the ideas controller
+		$this->template->alter_block_array('navlinks', [
+			'BREADCRUMB_NAME' => $this->language->lang('HOME'),
+			'U_BREADCRUMB'    => $this->controller->route('ganstaz_web_index'),
+		], false, 'change');
 	}
 
 	/**
@@ -146,7 +189,7 @@ class listener implements EventSubscriberInterface
 	*
 	* @param \phpbb\event\data $event The event object
 	*/
-	public function web_manage_forums_request_data($event): void
+	public function manage_forums_request_data($event): void
 	{
 		$forum_data = $event['forum_data'];
 		$forum_data['news_fid_enable'] = $this->request->variable('news_fid_enable', 0);
@@ -158,7 +201,7 @@ class listener implements EventSubscriberInterface
 	*
 	* @param \phpbb\event\data $event The event object
 	*/
-	public function web_manage_forums_display_form($event): void
+	public function manage_forums_display_form($event): void
 	{
 		$template_data = $event['template_data'];
 		$template_data['S_NEWS_FID'] = $event['forum_data']['news_fid_enable'];

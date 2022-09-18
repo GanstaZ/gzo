@@ -1,18 +1,34 @@
-ganstaz_web_news_base:
+ganstaz_web_index:
+    path: /
+    defaults: { _controller: ganstaz.web.index.controller:handle }
+
+ganstaz_web_news:
     path: /news/{id}
-    defaults: { _controller: ganstaz.web.news.controller:handle, id: 3, page: 1 }
+    defaults: { _controller: ganstaz.web.articles.controller:handle, id: 3, page: 1 }
     requirements:
         id: \d+
 
 ganstaz_web_news_page:
     path: /news/{id}/page/{page}
-    defaults: { _controller: ganstaz.web.news.controller:handle }
+    defaults: { _controller: ganstaz.web.articles.controller:handle }
     requirements:
         id: \d+
         page: \d+
 
 ganstaz_web_article:
-    path: /article/{aid}
-    defaults: { _controller: ganstaz.web.news.controller:article }
+    path: /article-full/{aid}
+    defaults: { _controller: ganstaz.web.articles.controller:article }
     requirements:
         aid: \d+
+
+ganstaz_web_first_post:
+    path: /article/{aid}
+    defaults: { _controller: ganstaz.web.articles.controller:first_post }
+    requirements:
+        aid: \d+
+
+ganstaz_web_post_article:
+    path: /post/article/{fid}
+    defaults: { _controller: ganstaz.web.post.controller:handle }
+    requirements:
+        fid: \d+

@@ -17,15 +17,31 @@
 		</dl>
 
 		<dl>
+			<dt>{{ form.label('gz_main_fid', lang('MAIN_ID') ~ lang('COLON')) }}</dt>
+			{% if S_NEWS_IDS %}
+			    <dd>{{ form.select('gz_main_fid', S_MAIN_CURRENT, GZ_NEWS_IDS) }}</dd>
+			{% else %}
+			    <dd>{{ S_MAIN_CURRENT }}</dd>
+			{% endif %}
+		</dl>
+
+		<dl>
 			<dt>{{ form.label('gz_pagination', lang('GZ_PAGINATION') ~ lang('COLON')) }}</dt>
 			<dd>{{ form.radio('gz_pagination', S_PAGINATION, {'yes': lang('ENABLE'), 'no': lang('DISABLE')}) }}</dd>
 		</dl>
 
 		<dl>
 			<dt>{{ form.label('gz_news_fid', lang('NEWS_ID') ~ lang('COLON')) }}</dt>
-			{% if S_NEWS_CURRENT %}
-				<dd>{{ form.select('gz_news_fid', S_NEWS_CURRENT, GZ_NEWS_ID) }}</dd>
+			{% if S_NEWS_IDS %}
+			    <dd>{{ form.select('gz_news_fid', S_NEWS_CURRENT, GZ_NEWS_IDS) }}</dd>
+			{% else %}
+			    <dd>{{ S_NEWS_CURRENT }}</dd>
 			{% endif %}
+		</dl>
+
+		<dl>
+			<dt>{{ form.label('gz_enable_news_link', lang('ENABLE_NEWS_LINK') ~ lang('COLON')) }}</dt>
+			<dd>{{ form.radio('gz_enable_news_link', S_ENABLE_NEWS_LINK, {'yes': lang('ENABLE'), 'no': lang('DISABLE')}) }}</dd>
 		</dl>
 
 		<dl>

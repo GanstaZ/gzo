@@ -1,0 +1,13 @@
+{% extends 'layout/app-base.html' %}
+
+{% block mid_top %}
+	{% EVENT ganstaz_web_mid_top_index %}
+{% endblock %}
+
+{% block mid_content %}
+	{% if news %}
+		{% for news in loops.news %}
+			{{ include('includes/news-item.html') }}
+		{% endfor %}
+	{% endif %}
+{% endblock %}

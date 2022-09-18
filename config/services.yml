@@ -6,6 +6,11 @@ services:
     ganstaz.web.helper:
         class: ganstaz\web\core\helper
         arguments:
+            - '@dbal.conn'
+
+    ganstaz.web.pages:
+        class: ganstaz\web\core\pages
+        arguments:
             - '@cache'
             - '@config'
             - '@dbal.conn'
@@ -27,6 +32,7 @@ services:
             - '@request'
             - '@template'
             - '@ganstaz.web.helper'
+            - '@ganstaz.web.pages'
             - '@?ganstaz.web.block.manager'
         tags:
             - { name: event.listener }
@@ -41,33 +47,59 @@ services:
             - { name: twig.extension }
 
 # ----- Models -----
-    ganstaz.web.news:
-        class: ganstaz\web\model\news
-        shared: false
-        parent: ganstaz.web.block.base
+    ganstaz.web.posts:
+        class: ganstaz\web\model\posts
         arguments:
             - '@auth'
+            - '@config'
+            - '@dbal.conn'
+            - '@dispatcher'
+            - '@controller.helper'
             - '@language'
-            - '@text_formatter.renderer'
-            - '@user'
             - '@pagination'
+            - '@text_formatter.renderer'
+            - '@template'
+            - '@user'
+            - '@ganstaz.web.helper'
+            - '%core.root_path%'
+            - '%core.php_ext%'
 
 # ----- Controllers -----
     ganstaz.web.controller.base:
         abstract: true
         arguments:
+            - '@config'
             - '@controller.helper'
             - '@language'
-            - '@ganstaz.web.news'
+            - '@user'
+            - '@ganstaz.web.posts'
+            - '%core.root_path%'
+            - '%core.php_ext%'
 
+    ganstaz.web.index.controller:
+        class: ganstaz\web\controller\index
+        shared: false
+        parent: ganstaz.web.controller.base
+
+    ganstaz.web.articles.controller:
+        class: ganstaz\web\controller\articles
+        shared: false
+        parent: ganstaz.web.controller.base
+
+    ganstaz.web.post.controller:
+        class: ganstaz\web\controller\post
+        shared: false
+        parent: ganstaz.web.controller.base
+
+# ----- Admin Controllers -----
     ganstaz.web.admin.controller:
         class: ganstaz\web\controller\admin\settings
         arguments:
             - '@config'
-            - '@dbal.conn'
             - '@language'
             - '@request'
             - '@template'
+            - '@ganstaz.web.helper'
 
     ganstaz.web.admin.block.controller:
         class: ganstaz\web\controller\admin\blocks
@@ -88,8 +120,3 @@ services:
             - '@request'
             - '@template'
             - '%ganstaz.web.tables.pages%'
-
-    ganstaz.web.news.controller:
-        class: ganstaz\web\controller\news
-        shared: false
-        parent: ganstaz.web.controller.base

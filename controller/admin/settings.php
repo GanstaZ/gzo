@@ -11,10 +11,11 @@
 namespace ganstaz\web\controller\admin;
 
 use phpbb\config\config;
-use phpbb\db\driver\driver_interface;
+
 use phpbb\language\language;
 use phpbb\request\request;
 use phpbb\template\template;
+use ganstaz\web\core\helper;
 
 /**
 * GZ Web: admin settings controller
@@ -23,9 +24,6 @@ class settings
 {
 	/** @var config */
 	protected $config;
-
-	/** @var driver_interface */
-	protected $db;
 
 	/** @var language */
 	protected $language;
@@ -36,47 +34,28 @@ class settings
 	/** @var template */
 	protected $template;
 
+	/** @var helper */
+	protected $helper;
+
 	/** @var string Custom form action */
 	protected $u_action;
 
 	/**
 	* Constructor
 	*
-	* @param config			  $config	Config object
-	* @param driver_interface $db		Database object
-	* @param language		  $language Language object
-	* @param request		  $request	Request object
-	* @param template		  $template Template object
+	* @param config	  $config	Config object
+	* @param language $language Language object
+	* @param request  $request	Request object
+	* @param template $template Template object
+	* @param helper	  $helper   Helper object
 	*/
-	public function __construct(config $config, driver_interface $db, language $language, request $request, template $template)
+	public function __construct(config $config, language $language, request $request, template $template, helper $helper)
 	{
-		$this->config = $config;
-		$this->db = $db;
+		$this->config   = $config;
 		$this->language = $language;
-		$this->request = $request;
+		$this->request  = $request;
 		$this->template = $template;
-	}
-
-	/**
-	* Get options as forum_ids (Will be replaced)
-	*
-	* @return array
-	*/
-	protected function get_ids(): array
-	{
-		$sql = 'SELECT forum_id
-				FROM ' . FORUMS_TABLE . '
-				WHERE forum_type = ' . FORUM_POST;
-		$result = $this->db->sql_query($sql, 3600);
-
-		$forum_ids = [];
-		while ($row = $this->db->sql_fetchrow($result))
-		{
-			$forum_ids[] = (int) $row['forum_id'];
-		}
-		$this->db->sql_freeresult($result);
-
-		return $forum_ids ?? [];
+		$this->helper   = $helper;
 	}
 
 	/**
@@ -109,8 +88,11 @@ class settings
 		// Set template vars
 		$this->template->assign_vars([
 			'GZ_VERSION'		 => $this->config['gz_core_version'],
-			'GZ_NEWS_ID'		 => $this->get_ids(),
+			'GZ_NEWS_IDS'		 => $this->helper->get_forum_ids(),
+			'S_NEWS_IDS'	     => count($this->helper->get_forum_ids()) > 1,
+			'S_MAIN_CURRENT'	 => $this->config['gz_main_fid'],
 			'S_NEWS_CURRENT'	 => $this->config['gz_news_fid'],
+			'S_ENABLE_NEWS_LINK' => $this->config['gz_enable_news_link'],
 			'S_PAGINATION'		 => $this->config['gz_pagination'],
 			'GZ_LIMIT'			 => $this->config['gz_limit'],
 			'GZ_USER_LIMIT'	     => $this->config['gz_user_limit'],
@@ -134,7 +116,9 @@ class settings
 	*/
 	protected function set_options(): void
 	{
+		$this->config->set('gz_main_fid', $this->request->variable('gz_main_fid', (int) 0));
 		$this->config->set('gz_news_fid', $this->request->variable('gz_news_fid', (int) 0));
+		$this->config->set('gz_enable_news_link', $this->request->variable('gz_enable_news_link', (bool) 0));
 		//$this->config->set('gz_the_team_fid', $this->request->variable('gz_the_team_fid', (int) 0));
 		//$this->config->set('gz_top_posters_fid', $this->request->variable('gz_top_posters_fid', (int) 0));
 		//$this->config->set('gz_recent_posts_fid', $this->request->variable('gz_recent_posts_fid', (int) 0));

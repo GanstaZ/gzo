@@ -10,35 +10,57 @@
 
 namespace ganstaz\web\controller;
 
+use phpbb\config\config;
 use phpbb\controller\helper;
 use phpbb\language\language;
-use ganstaz\web\model\news;
+use phpbb\user;
+use ganstaz\web\model\posts;
 
 /**
 * GZ Web: base controller
 */
 abstract class base
 {
+	/** @var config */
+	protected $config;
+
 	/** @var controller helper */
 	protected $helper;
 
 	/** @var language */
 	protected $language;
 
-	/** @var news */
-	protected $news;
+	/** @var user */
+	protected $user;
+
+	/** @var posts */
+	protected $posts;
+
+	/** @var root_path */
+	protected $root_path;
+
+	/** @var php_ext */
+	protected $php_ext;
 
 	/**
 	* Constructor
 	*
-	* @param helper	  $helper	Controller helper object
-	* @param language $language Language object
-	* @param news     $news     News object
+	* @param config   $config    Config object
+	* @param helper	  $helper	 Controller helper object
+	* @param language $language  Language object
+	* @param user     $user      User object
+	* @param posts    $posts     Posts object
+	* @param string	  $root_path Path to the phpbb includes directory
+	* @param string	  $php_ext   PHP file extension
 	*/
-	public function __construct(helper $helper, language $language, news $news)
+	public function __construct(config $config, helper $helper, language $language, user $user, posts $posts, $root_path, $php_ext)
 	{
-		$this->helper	= $helper;
-		$this->language = $language;
-		$this->news     = $news;
+		$this->config    = $config;
+		$this->helper	 = $helper;
+		$this->language  = $language;
+		$this->user      = $user;
+		$this->posts     = $posts;
+		$this->root_path = $root_path;
+		$this->php_ext   = $php_ext;
 	}
 }

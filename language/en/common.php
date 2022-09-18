@@ -23,8 +23,11 @@ $lang = array_merge($lang, [
 	'ARTICLE' => 'Viewing article',
 	'READ_FULL' => 'Read full article',
 	'NEWS' => 'News',
-	'VIEW_NEWS'		=> 'News id - %s',
-	'VIEW_ARTICLE'	=> 'Article id - %s',
+	'CATEGORIES'   => 'Categories',
+	'NEW_ARTICLE'  => 'New article',
+	'POST_ARTICLE' => 'Post new article',
+	'VIEW_NEWS'	   => 'News id - %s',
+	'VIEW_ARTICLE' => 'Article id - %s',
 
 	'UNKNOWN' => 'Unknown',
 	'year'	  => '%d year',
