@@ -292,7 +292,6 @@ class profile
 			unset($row);
 		}
 
-
 		// Display a listing of board admins, moderators
 		if (!function_exists('display_user_activity'))
 		{
@@ -308,7 +307,6 @@ class profile
 		$memberdays = max(1, round((time() - $member['user_regdate']) / 86400));
 		$posts_per_day = $member['user_posts'] / $memberdays;
 		$percentage = ($this->config['num_posts']) ? min(100, ($member['user_posts'] / $this->config['num_posts']) * 100) : 0;
-
 
 		if ($member['user_sig'])
 		{
