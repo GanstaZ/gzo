@@ -492,7 +492,7 @@ class profile
 				break;
 			}
 
-			$template->assign_vars([
+			$this->template->assign_vars([
 				'S_USER_INACTIVE'		=> true,
 				'USER_INACTIVE_REASON'	=> $inactive_reason]
 			);
