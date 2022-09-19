@@ -34,11 +34,11 @@ ganstaz_web_post_article:
         fid: \d+
 
 ganstaz_web_member:
-    path: /{username}
+    path: /u/{username}
     defaults:
         _controller: ganstaz.web.profile.controller:handle
 
 ganstaz_web_member_tab:
-    path: /{username}/tab/{name}
+    path: /u/{username}/tab/{name}
     defaults:
         _controller: ganstaz.web.profile.controller:handle
