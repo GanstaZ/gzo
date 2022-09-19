@@ -62,6 +62,16 @@ class pages
 	}
 
 	/**
+	* Get current page
+	*
+	* @return array
+	*/
+	public function get_current_page()
+	{
+		return substr($this->user->page['page_name'], 0, strpos($this->user->page['page_name'], '.'));
+	}
+
+	/**
 	* Get page data for blocks loader
 	*
 	* @return array

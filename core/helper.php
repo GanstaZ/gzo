@@ -54,6 +54,24 @@ class helper
 	}
 
 	/**
+	* Get username
+	*
+	* @param int $user_id
+	* @return array
+	*/
+	public function get_user_name(int $user_id)
+	{
+		$sql = 'SELECT username
+		        FROM ' . USERS_TABLE . '
+		        WHERE user_id = ' . $user_id;
+	    $result = $this->db->sql_query($sql);
+	    $row = $this->db->sql_fetchrow($result);
+	    $this->db->sql_freeresult($result);
+
+		return $row['username'];
+	}
+
+	/**
 	* Truncate title
 	*
 	* @param string		 $title	 Truncate title

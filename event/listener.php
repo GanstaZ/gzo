@@ -93,12 +93,13 @@ class listener implements EventSubscriberInterface
 			'core.user_setup'		=> 'add_language',
 			'core.user_setup_after' => 'add_manager_data',
 			'core.page_header'		=> 'add_web_data',
-			'core.viewforum_get_topic_data'        => 'news_forum_redirect',
-			'core.posting_modify_template_vars'    => 'submit_post_template',
-			'core.acp_manage_forums_request_data'  => 'manage_forums_request_data',
-			'core.acp_manage_forums_display_form'  => 'manage_forums_display_form',
-			'core.memberlist_prepare_profile_data' => 'prepare_profile_data',
-			'core.memberlist_view_profile'		   => 'view_profile_stats',
+			'core.viewforum_get_topic_data'          => 'news_forum_redirect',
+			'core.posting_modify_template_vars'      => 'submit_post_template',
+			'core.acp_manage_forums_request_data'    => 'manage_forums_request_data',
+			'core.acp_manage_forums_display_form'    => 'manage_forums_display_form',
+			'core.memberlist_modify_viewprofile_sql' => 'redirect_profile',
+			'core.memberlist_prepare_profile_data'   => 'prepare_profile_data',
+			'core.memberlist_view_profile'		     => 'view_profile_stats',
 		];
 	}
 
@@ -206,6 +207,22 @@ class listener implements EventSubscriberInterface
 		$template_data = $event['template_data'];
 		$template_data['S_NEWS_FID'] = $event['forum_data']['news_fid_enable'];
 		$event['template_data'] = $template_data;
+	}
+
+	/**
+	* Event core.memberlist_modify_viewprofile_sql
+	*
+	* @param \phpbb\event\data $event The event object
+	*/
+	public function redirect_profile($event): void
+	{
+		if ($this->pages->get_current_page() === 'memberlist')
+		{
+			$url = $this->controller->route('ganstaz_web_member', ['username' => $this->helper->get_user_name((int) $event['user_id'])]);
+
+			$response = new \Symfony\Component\HttpFoundation\RedirectResponse($url);
+			$response->send();
+		}
 	}
 
 	/**
