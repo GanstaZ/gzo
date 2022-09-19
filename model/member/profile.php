@@ -398,19 +398,20 @@ class profile
 		// TODO: Change to lang
 		// Define the main array of vars to assign to memberlist_view.html
 		$template_ary = [
-			'L_POSTS_IN_QUEUE'			=> $this->user->lang('NUM_POSTS_IN_QUEUE', $member['posts_in_queue']),
+			'L_POSTS_IN_QUEUE'			=> $this->language->lang('NUM_POSTS_IN_QUEUE', $member['posts_in_queue']),
 
-			'POSTS_DAY'					=> $this->user->lang('POST_DAY', $posts_per_day),
-			'POSTS_PCT'					=> $this->user->lang('POST_PCT', $percentage),
+			'POSTS_DAY'					=> $this->language->lang('POST_DAY', $posts_per_day),
+			'POSTS_PCT'					=> $this->language->lang('POST_PCT', $percentage),
 
 			'SIGNATURE'					=> $member['user_sig'],
 			'POSTS_IN_QUEUE'			=> $member['posts_in_queue'],
 
-			'PM_IMG'					=> $this->user->img('icon_contact_pm', $this->user->lang['SEND_PRIVATE_MESSAGE']),
+			// TODO: Change icons to FA
+			'PM_IMG'					=> $this->user->img('icon_contact_pm', $this->language->lang('SEND_PRIVATE_MESSAGE')),
 			'L_SEND_EMAIL_USER'			=> $this->user->lang('SEND_EMAIL_USER', $member['username']),
-			'EMAIL_IMG'					=> $this->user->img('icon_contact_email', $this->user->lang['EMAIL']),
-			'JABBER_IMG'				=> $this->user->img('icon_contact_jabber', $this->user->lang['JABBER']),
-			'SEARCH_IMG'				=> $this->user->img('icon_user_search', $this->user->lang['SEARCH']),
+			'EMAIL_IMG'					=> $this->user->img('icon_contact_email', $this->language->lang('EMAIL')),
+			'JABBER_IMG'				=> $this->user->img('icon_contact_jabber', $this->language->lang('JABBER')),
+			'SEARCH_IMG'				=> $this->user->img('icon_user_search', $this->language->lang('SEARCH')),
 
 			'S_PROFILE_ACTION'			=> append_sid("{$this->root_path}memberlist.$this->php_ext", 'mode=group'),
 			'S_GROUP_OPTIONS'			=> $group_options,
@@ -418,6 +419,7 @@ class profile
 
 			// TODO: wrong link
 			'U_USER_ADMIN'				=> ($this->auth->acl_get('a_user')) ? append_sid("{$this->root_path}index.$this->php_ext", 'i=users&amp;mode=overview&amp;u=' . $user_id, true, $this->user->session_id) : '',
+
 			'U_USER_BAN'				=> ($this->auth->acl_get('m_ban') && $user_id != $this->user->data['user_id']) ? append_sid("{$this->root_path}mcp.$this->php_ext", 'i=ban&amp;mode=user&amp;u=' . $user_id, true, $this->user->session_id) : '',
 			'U_MCP_QUEUE'				=> ($this->auth->acl_getf_global('m_approve')) ? append_sid("{$this->root_path}mcp.$this->php_ext", 'i=queue', true, $this->user->session_id) : '',
 
@@ -432,6 +434,7 @@ class profile
 			'U_REMOVE_FRIEND'			=> ($friend && $friends_enabled) ? append_sid("{$this->root_path}ucp.$this->php_ext", 'i=zebra&amp;remove=1&amp;usernames[]=' . $user_id) : '',
 			'U_REMOVE_FOE'				=> ($foe && $foes_enabled) ? append_sid("{$this->root_path}ucp.$this->php_ext", 'i=zebra&amp;remove=1&amp;mode=foes&amp;usernames[]=' . $user_id) : '',
 
+			// TODO: WTF is this?
 			'U_CANONICAL'				=> generate_board_url() . '/' . append_sid("memberlist.$this->php_ext", 'mode=viewprofile&amp;u=' . $user_id, true, ''),
 		];
 
@@ -466,27 +469,26 @@ class profile
 		// Inactive reason/account?
 		if ($member['user_type'] == USER_INACTIVE)
 		{
-			// TODO: Change to lang
-			$this->user->add_lang('acp/common');
+			$this->language->add_lang('acp/common');
 
-			$inactive_reason = $this->user->lang['INACTIVE_REASON_UNKNOWN'];
+			$inactive_reason = $this->language->lang('INACTIVE_REASON_UNKNOWN');
 
 			switch ($member['user_inactive_reason'])
 			{
 				case INACTIVE_REGISTER:
-					$inactive_reason = $this->user->lang['INACTIVE_REASON_REGISTER'];
+					$inactive_reason = $this->language->lang('INACTIVE_REASON_REGISTER');
 				break;
 
 				case INACTIVE_PROFILE:
-					$inactive_reason = $this->user->lang['INACTIVE_REASON_PROFILE'];
+					$inactive_reason = $this->language->lang('INACTIVE_REASON_PROFILE');
 				break;
 
 				case INACTIVE_MANUAL:
-					$inactive_reason = $this->user->lang['INACTIVE_REASON_MANUAL'];
+					$inactive_reason = $this->language->lang('INACTIVE_REASON_MANUAL');
 				break;
 
 				case INACTIVE_REMIND:
-					$inactive_reason = $this->user->lang['INACTIVE_REASON_REMIND'];
+					$inactive_reason = $this->language->lang('INACTIVE_REASON_REMIND');
 				break;
 			}
 
