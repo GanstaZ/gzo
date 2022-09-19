@@ -498,18 +498,14 @@ class profile
 			);
 		}
 
-		// Now generate page title
-		$page_title = sprintf($this->user->lang['VIEWING_PROFILE'], $member['username']);
-		$template_html = 'memberlist_view.html';
-
-		$this->template->assign_block_vars('navlinks', array(
-			'BREADCRUMB_NAME'	=> $this->user->lang('MEMBERLIST'),
+		$this->template->assign_block_vars('navlinks', [
+			'BREADCRUMB_NAME'	=> $this->language->lang('MEMBERLIST'),
 			'U_BREADCRUMB'		=> append_sid("{$this->root_path}memberlist.$this->php_ext"),
-		));
-		$this->template->assign_block_vars('navlinks', array(
+		]);
+		$this->template->assign_block_vars('navlinks', [
 			'BREADCRUMB_NAME'	=> $member['username'],
-			'U_BREADCRUMB'		=> append_sid("{$this->root_path}memberlist.$this->php_ext", "mode=viewprofile&u=$user_id"),
-		));
+			'U_BREADCRUMB'		=> $this->controller->route('ganstaz_web_member', ['username' => $username]),
+		]);
 
 		make_jumpbox(append_sid("{$this->root_path}viewforum.$this->php_ext"));
 	}
