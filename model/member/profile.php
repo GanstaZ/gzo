@@ -20,6 +20,7 @@ use phpbb\language\language;
 use phpbb\profilefields\manager as cp;
 use phpbb\template\template;
 use phpbb\user;
+use phpbb\exception\http_exception;
 
 /**
 * GZO Web: Member profile model
@@ -66,8 +67,8 @@ class profile
 	* Constructor
 	*
 	* @param auth             $auth       Auth object
-	* @param config			  $config	  Config object
-	* @param driver_interface $db		  Database object
+	* @param config			  $config     Config object
+	* @param driver_interface $db         Database object
 	* @param dispatcher		  $dispatcher Dispatcher object
 	* @param group            $group      Group helper object
 	* @param controller       $controller Controller helper object
@@ -109,14 +110,13 @@ class profile
 	}
 
 	/**
-	* View
+	* Get user data
 	*
 	* @param string $username
-	* @return void
+	* @return array
 	*/
-	public function view($username): void
+	public function get_user_data($username): array
 	{
-		// Get user...
 		$sql_array = [
 			'SELECT'	=> 'u.*',
 			'FROM'		=> [
@@ -148,6 +148,30 @@ class profile
 		{
 			throw new http_exception(404, 'NO_USER');
 		}
+
+		return $member;
+	}
+
+	/**
+	* View profile
+	*
+	* @param string $username
+	* @return void
+	*/
+	public function view_profile($username): void
+	{
+		// Can this user view profiles/memberlist?
+		if (!$this->auth->acl_gets('u_viewprofile', 'a_user', 'a_useradd', 'a_userdel'))
+		{
+			if ($this->user->data['user_id'] != ANONYMOUS)
+			{
+				throw new http_exception(403, 'NO_VIEW_USERS');
+			}
+
+			login_box('', $this->language->lang('LOGIN_EXPLAIN_VIEWPROFILE'));
+		}
+
+		$member = $this->get_user_data($username);
 
 		// a_user admins and founder are able to view inactive users and bots to be able to manage them more easily
 		// Normal users are able to see at least users having only changed their profile settings but not yet reactivated.
@@ -395,7 +419,6 @@ class profile
 			$member['posts_in_queue'] = 0;
 		}
 
-		// TODO: Change to lang
 		// Define the main array of vars to assign to memberlist_view.html
 		$template_ary = [
 			'L_POSTS_IN_QUEUE'			=> $this->language->lang('NUM_POSTS_IN_QUEUE', $member['posts_in_queue']),
@@ -450,7 +473,7 @@ class profile
 		];
 		extract($this->dispatcher->trigger_event('core.memberlist_modify_view_profile_template_vars', compact($vars)));
 
-		// Assign vars to memberlist_view.html
+		// Assign vars to profile.twig
 		$this->template->assign_vars($template_ary);
 
 		if (!empty($profile_fields['row']))
@@ -507,6 +530,7 @@ class profile
 			'U_BREADCRUMB'		=> $this->controller->route('ganstaz_web_member', ['username' => $username]),
 		]);
 
+		// TODO: Remove it?
 		make_jumpbox(append_sid("{$this->root_path}viewforum.$this->php_ext"));
 	}
 }
