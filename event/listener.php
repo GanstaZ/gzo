@@ -18,6 +18,7 @@ use phpbb\template\template;
 use ganstaz\web\core\helper;
 use ganstaz\web\core\pages;
 use ganstaz\web\core\blocks\manager;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
@@ -220,7 +221,7 @@ class listener implements EventSubscriberInterface
 		{
 			$url = $this->controller->route('ganstaz_web_member', ['username' => $this->helper->get_user_name((int) $event['user_id'])]);
 
-			$response = new \Symfony\Component\HttpFoundation\RedirectResponse($url);
+			$response = new RedirectResponse($url);
 			$response->send();
 		}
 	}

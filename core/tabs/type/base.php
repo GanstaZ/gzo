@@ -83,7 +83,7 @@ class base implements tabs_interface
 	/**
 	* {@inheritdoc}
 	*/
-	public function get_name()
+	public function get_name(): string
 	{
 		return $this->name;
 	}
