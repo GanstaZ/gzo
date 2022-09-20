@@ -12,7 +12,7 @@ namespace ganstaz\web\controller\member;
 
 use phpbb\controller\helper as controller;
 use phpbb\language\language;
-use ganstaz\web\model\member\profile as model;
+use ganstaz\web\core\tabs\manager;
 
 /**
 * GZO Web: Member profile controller
@@ -25,25 +25,25 @@ class profile
 	/** @var language */
 	protected $language;
 
-	/** @var profile */
-	protected $model;
+	/** @var manager */
+	protected $manager;
 
 	/**
 	* Constructor
 	*
 	* @param controller $controller Controller helper object
-	* @param model      $model      Profile object
+	* @param manager    $manager    Profile object
 	*/
 	public function __construct
 	(
 		controller $controller,
 		language $language,
-		model $model,
+		manager $manager
 	)
 	{
 		$this->controller = $controller;
 		$this->language   = $language;
-		$this->model	  = $model;
+		$this->manager    = $manager;
 	}
 
 	/**
@@ -53,12 +53,14 @@ class profile
 	* @throws \phpbb\exception\http_exception
 	* @return \Symfony\Component\HttpFoundation\Response A Symfony Response object
 	*/
-	public function handle($username): \Symfony\Component\HttpFoundation\Response
+	public function handle($username, $tag): \Symfony\Component\HttpFoundation\Response
 	{
 		// Load language strings
 		$this->language->add_lang('memberlist');
 
-		$this->model->view_profile($username);
+		var_dump($this->manager->get_tabs());
+
+		$this->manager->get($tag)->load($username);
 
 		return $this->controller->render('profile.twig', $this->language->lang('VIEWING_PROFILE', $username), 200, true);
 	}
