@@ -1,19 +1,42 @@
 services:
-    ganstaz.web.profile:
-        class: ganstaz\web\model\member\profile
+    ganstaz.web.tabs.collection:
+        class: phpbb\di\service_collection
+        arguments:
+            - '@service_container'
+        tags:
+            - { name: service_collection, tag: gzo.web.tab }
+
+    ganstaz.web.tabs.manager:
+        class: ganstaz\web\core\tabs\manager
+        arguments:
+            - '@ganstaz.web.tabs.collection'
+
+    ganstaz.web.tab.base:
+        abstract: true
         arguments:
             - '@auth'
-            - '@config'
             - '@dbal.conn'
             - '@dispatcher'
-            - '@group_helper'
             - '@controller.helper'
             - '@language'
-            - '@profilefields.manager'
             - '@template'
+
+# ----- GZO Tabs -----
+    ganstaz.web.tab.profile:
+        class: ganstaz\web\core\tabs\type\profile
+        shared: false
+        parent: ganstaz.web.tab.base
+        arguments:
+            - '@config'
+            - '@group_helper'
+            - '@profilefields.manager'
             - '@user'
             - '%core.root_path%'
             - '%core.php_ext%'
+        calls:
+            - [set_name, [profile]]
+        tags:
+            - { name: gzo.web.tab }
 
 # ----- Controllers -----
     ganstaz.web.profile.controller:
@@ -21,4 +44,4 @@ services:
         arguments:
             - '@controller.helper'
             - '@language'
-            - '@ganstaz.web.profile'
+            - '@ganstaz.web.tabs.manager'
