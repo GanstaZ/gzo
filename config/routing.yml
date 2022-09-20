@@ -35,7 +35,7 @@ ganstaz_web_post_article:
 
 ganstaz_web_member:
     path: /u/{username}
-    defaults: { _controller: ganstaz.web.profile.controller:handle, tag: profile }
+    defaults: { _controller: ganstaz.web.profile.controller:handle, tab: profile }
 
 ganstaz_web_member_tab:
     path: /u/{username}/tab/{name}

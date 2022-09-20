@@ -53,14 +53,14 @@ class profile
 	* @throws \phpbb\exception\http_exception
 	* @return \Symfony\Component\HttpFoundation\Response A Symfony Response object
 	*/
-	public function handle($username, $tag): \Symfony\Component\HttpFoundation\Response
+	public function handle($username, $tab): \Symfony\Component\HttpFoundation\Response
 	{
 		// Load language strings
 		$this->language->add_lang('memberlist');
 
 		var_dump($this->manager->get_tabs());
 
-		$this->manager->get($tag)->load($username);
+		$this->manager->get($tab)->load($username);
 
 		return $this->controller->render('profile.twig', $this->language->lang('VIEWING_PROFILE', $username), 200, true);
 	}
