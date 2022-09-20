@@ -58,8 +58,6 @@ class profile
 		// Load language strings
 		$this->language->add_lang('memberlist');
 
-		var_dump($this->manager->get_tabs());
-
 		$this->manager->get($tab)->load($username);
 
 		return $this->controller->render('profile.twig', $this->language->lang('VIEWING_PROFILE', $username), 200, true);
