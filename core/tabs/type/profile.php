@@ -8,51 +8,26 @@
 *
 */
 
-namespace ganstaz\web\model\member;
+namespace ganstaz\web\core\tabs\type;
 
-use phpbb\auth\auth;
 use phpbb\config\config;
-use phpbb\db\driver\driver_interface;
-use phpbb\event\dispatcher;
 use phpbb\group\helper as group;
-use phpbb\controller\helper as controller;
-use phpbb\language\language;
 use phpbb\profilefields\manager as cp;
-use phpbb\template\template;
 use phpbb\user;
-use phpbb\exception\http_exception;
 
 /**
-* GZO Web: Member profile model
+* GZO Web: Member profile tab
 */
-class profile
+class profile extends base
 {
-	/** @var auth */
-	protected $auth;
-
 	/** @var config */
 	protected $config;
-
-	/** @var driver_interface */
-	protected $db;
-
-	/** @var dispatcher */
-	protected $dispatcher;
 
 	/** @var group */
 	protected $group;
 
-	/** @var controller helper */
-	protected $controller;
-
-	/** @var language */
-	protected $language;
-
 	/** @var profilefields manager */
 	protected $cp;
-
-	/** @var template */
-	protected $template;
 
 	/** @var user */
 	protected $user;
@@ -66,111 +41,44 @@ class profile
 	/**
 	* Constructor
 	*
-	* @param auth             $auth       Auth object
-	* @param config			  $config     Config object
-	* @param driver_interface $db         Database object
-	* @param dispatcher		  $dispatcher Dispatcher object
-	* @param group            $group      Group helper object
-	* @param controller       $controller Controller helper object
-	* @param language         $language   Language object
-	* @param cp               $cp         Profilefields manager object
-	* @param template         $template   Template object
-	* @param user             $user       User object
-	* @param string			  $root_path  Path to the phpbb includes directory
-	* @param string			  $php_ext	  PHP file extension
+	* @param config	$config    Config object
+	* @param group  $group     Group helper object
+	* @param cp     $cp        Profilefields manager object
+	* @param user   $user      User object
+	* @param string	$root_path Path to the phpbb includes directory
+	* @param string	$php_ext   PHP file extension
 	*/
 	public function __construct
 	(
-		auth $auth,
-		config $config,
-		driver_interface $db,
-		dispatcher $dispatcher,
-		group $group,
-		controller $controller,
-		language $language,
-		cp $cp,
+		$auth,
+		$db,
+		$dispatcher,
+		$controller,
+		$language,
 		$template,
-		user $user,
+		$config,
+		$group,
+		$cp,
+		$user,
 		$root_path,
 		$php_ext
 	)
 	{
-		$this->auth		  = $auth;
+		parent::__construct($auth, $db, $dispatcher, $controller, $language, $template);
+
 		$this->config     = $config;
-		$this->db         = $db;
-		$this->dispatcher = $dispatcher;
 		$this->group      = $group;
-		$this->controller = $controller;
-		$this->language	  = $language;
 		$this->cp         = $cp;
-		$this->template   = $template;
 		$this->user		  = $user;
 		$this->root_path  = $root_path;
 		$this->php_ext    = $php_ext;
 	}
 
 	/**
-	* Get user data
-	*
-	* @param string $username
-	* @return array
+	* {@inheritdoc}
 	*/
-	public function get_user_data($username): array
+	public function load(string $username): void
 	{
-		$sql_array = [
-			'SELECT'	=> 'u.*',
-			'FROM'		=> [
-				USERS_TABLE		=> 'u'
-			],
-			'WHERE'		=> "u.username_clean = '" . $this->db->sql_escape(utf8_clean_string($username)) . "'",
-		];
-
-		/**
-		* Modify user data SQL before member profile row is created
-		*
-		* @event core.memberlist_modify_viewprofile_sql
-		* @var string	username			The username
-		* @var array	sql_array			Array containing the main query
-		* @since 3.2.6-RC1
-		*/
-		$vars = [
-			'username',
-			'sql_array',
-		];
-		extract($this->dispatcher->trigger_event('core.memberlist_modify_viewprofile_sql', compact($vars)));
-
-		$sql = $this->db->sql_build_query('SELECT', $sql_array);
-		$result = $this->db->sql_query($sql);
-		$member = $this->db->sql_fetchrow($result);
-		$this->db->sql_freeresult($result);
-
-		if (!$member)
-		{
-			throw new http_exception(404, 'NO_USER');
-		}
-
-		return $member;
-	}
-
-	/**
-	* View profile
-	*
-	* @param string $username
-	* @return void
-	*/
-	public function view_profile($username): void
-	{
-		// Can this user view profiles/memberlist?
-		if (!$this->auth->acl_gets('u_viewprofile', 'a_user', 'a_useradd', 'a_userdel'))
-		{
-			if ($this->user->data['user_id'] != ANONYMOUS)
-			{
-				throw new http_exception(403, 'NO_VIEW_USERS');
-			}
-
-			login_box('', $this->language->lang('LOGIN_EXPLAIN_VIEWPROFILE'));
-		}
-
 		$member = $this->get_user_data($username);
 
 		// a_user admins and founder are able to view inactive users and bots to be able to manage them more easily
