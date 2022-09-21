@@ -91,6 +91,14 @@ class base implements tabs_interface
 	/**
 	* {@inheritdoc}
 	*/
+	public function namespace()
+	{
+		return '';
+	}
+
+	/**
+	* {@inheritdoc}
+	*/
 	public function load(string $username)
 	{
 	}

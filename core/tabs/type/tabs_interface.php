@@ -31,6 +31,13 @@ interface tabs_interface
 	public function get_name();
 
 	/**
+	* Returns the namespace
+	*
+	* @return string Twig namespace
+	*/
+	public function namespace();
+
+	/**
 	* Load current user
 	*
 	* @param string $username Name of the member

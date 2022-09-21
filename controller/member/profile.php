@@ -71,6 +71,6 @@ class profile
 
 		$this->manager->get($tab)->load($username);
 
-		return $this->controller->render("{$tab}.twig", $this->language->lang('VIEWING_PROFILE', $username), 200, true);
+		return $this->controller->render("{$current->namespace()}$tab.twig", $this->language->lang('VIEWING_PROFILE', $username), 200, true);
 	}
 }
