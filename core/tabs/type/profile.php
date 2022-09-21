@@ -83,7 +83,7 @@ class profile extends base
 
 		// a_user admins and founder are able to view inactive users and bots to be able to manage them more easily
 		// Normal users are able to see at least users having only changed their profile settings but not yet reactivated.
-		if (!$this->auth->acl_get('a_user') && $user->data['user_type'] != USER_FOUNDER)
+		if (!$this->auth->acl_get('a_user') && $this->user->data['user_type'] != USER_FOUNDER)
 		{
 			if ($member['user_type'] == USER_IGNORE)
 			{
@@ -186,14 +186,20 @@ class profile extends base
 		];
 		extract($this->dispatcher->trigger_event('core.modify_memberlist_viewprofile_group_data', compact($vars)));
 
-		#TODO: HTML
-		$group_options = '';
+		$group_current = '';
+		$group_options = [];
 		foreach ($group_sort as $group_id => $null)
 		{
 			$row = $group_data[$group_id];
 
-			$group_options .= '<option value="' . $row['group_id'] . '"' . (($row['group_id'] == $member['group_id']) ? ' selected="selected"' : '') . '>' . $row['group_name'] . '</option>';
+			if ($row['group_id'] == $member['group_id'])
+			{
+				$group_current = $row['group_id'];
+			}
+
+			$group_options[$row['group_id']] = $row['group_name'];
 		}
+
 		unset($group_data);
 		unset($group_sort);
 
@@ -336,16 +342,9 @@ class profile extends base
 
 			'SIGNATURE'					=> $member['user_sig'],
 			'POSTS_IN_QUEUE'			=> $member['posts_in_queue'],
-
-			// TODO: Change icons to FA
-			'PM_IMG'					=> $this->user->img('icon_contact_pm', $this->language->lang('SEND_PRIVATE_MESSAGE')),
-			'L_SEND_EMAIL_USER'			=> $this->user->lang('SEND_EMAIL_USER', $member['username']),
-			'EMAIL_IMG'					=> $this->user->img('icon_contact_email', $this->language->lang('EMAIL')),
-			'JABBER_IMG'				=> $this->user->img('icon_contact_jabber', $this->language->lang('JABBER')),
-			'SEARCH_IMG'				=> $this->user->img('icon_user_search', $this->language->lang('SEARCH')),
-
 			'S_PROFILE_ACTION'			=> append_sid("{$this->root_path}memberlist.$this->php_ext", 'mode=group'),
-			'S_GROUP_OPTIONS'			=> $group_options,
+			'S_GROUP_CURRENT'           => $group_current,
+			'S_GROUP_OPTIONS'           => $group_options,
 			'S_CUSTOM_FIELDS'			=> (isset($profile_fields['row']) && count($profile_fields['row'])) ? true : false,
 
 			// TODO: wrong link
@@ -364,9 +363,6 @@ class profile extends base
 			'U_ADD_FOE'					=> (!$friend && !$foe && $foes_enabled) ? append_sid("{$this->root_path}ucp.$this->php_ext", 'i=zebra&amp;mode=foes&amp;add=' . urlencode(html_entity_decode($member['username'], ENT_COMPAT))) : '',
 			'U_REMOVE_FRIEND'			=> ($friend && $friends_enabled) ? append_sid("{$this->root_path}ucp.$this->php_ext", 'i=zebra&amp;remove=1&amp;usernames[]=' . $user_id) : '',
 			'U_REMOVE_FOE'				=> ($foe && $foes_enabled) ? append_sid("{$this->root_path}ucp.$this->php_ext", 'i=zebra&amp;remove=1&amp;mode=foes&amp;usernames[]=' . $user_id) : '',
-
-			// TODO: WTF is this?
-			'U_CANONICAL'				=> generate_board_url() . '/' . append_sid("memberlist.$this->php_ext", 'mode=viewprofile&amp;u=' . $user_id, true, ''),
 		];
 
 		/**
