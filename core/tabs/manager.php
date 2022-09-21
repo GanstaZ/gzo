@@ -132,7 +132,7 @@ class manager
 		if ($tab !== 'profile')
 		{
 			$template->assign_block_vars('navlinks', [
-				'BREADCRUMB_NAME'	=> $tab,
+				'BREADCRUMB_NAME'	=> ucfirst($tab),
 				'U_BREADCRUMB'		=> $controller->route('ganstaz_web_member_tab', ['username' => $username, 'tab' => $tab]),
 			]);
 		}
