@@ -27,7 +27,7 @@ class manager
 	*/
 	public function __construct(service_collection $collection)
 	{
-		$this->register_tabs($collection);
+		$this->register_tab_types($collection);
 	}
 
 	/**
@@ -35,7 +35,7 @@ class manager
 	*
 	* @param Service collection of tabs
 	*/
-	protected function register_tabs($collection): void
+	protected function register_tab_types($collection): void
 	{
 		if (!empty($collection))
 		{
@@ -63,7 +63,7 @@ class manager
 	*
 	* @return array
 	*/
-	public function get_tabs(): array
+	public function available(): array
 	{
 		return array_keys(self::$tabs) ?? [];
 	}
@@ -79,6 +79,31 @@ class manager
 		if (isset(self::$tabs[$name]) || array_key_exists($name, self::$tabs))
 		{
 			unset(self::$tabs[$name]);
+		}
+	}
+
+	/**
+	* Generate menu for tabs
+	*
+	* @param string $username
+	* @param object $controller
+	* @param object $template
+	* @return void
+	*/
+	public function generate_tabs_menu(string $username, object $controller, object $template): void
+	{
+		foreach ($this->available() as $tab)
+		{
+			$route = $controller->route('ganstaz_web_member_tab', ['username' => $username, 'tab' => $tab]);
+			if ($tab === 'profile')
+			{
+				$route = $controller->route('ganstaz_web_member', ['username' => $username]);
+			}
+
+			$template->assign_block_vars('tabs', [
+				'title' => ucfirst($tab),
+				'link' => $route,
+			]);
 		}
 	}
 }
