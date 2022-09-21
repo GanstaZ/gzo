@@ -64,12 +64,14 @@ class profile
 	*/
 	public function handle($username, $tab): \Symfony\Component\HttpFoundation\Response
 	{
-		// Load language strings
+		// Load language
 		$this->language->add_lang('memberlist');
 
 		$this->manager->generate_tabs_menu($username, $this->controller, $this->template);
+		$this->manager->generate_tabs_breadcrumb($username, $this->controller, $this->language, $this->template, $tab);
 
-		$this->manager->get($tab)->load($username);
+		$current = $this->manager->get($tab);
+		$current->load($username);
 
 		return $this->controller->render("{$current->namespace()}$tab.twig", $this->language->lang('VIEWING_PROFILE', $username), 200, true);
 	}
