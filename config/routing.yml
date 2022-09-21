@@ -38,6 +38,6 @@ ganstaz_web_member:
     defaults: { _controller: ganstaz.web.profile.controller:handle, tab: profile }
 
 ganstaz_web_member_tab:
-    path: /u/{username}/tab/{name}
+    path: /u/{username}/tab/{tab}
     defaults:
         _controller: ganstaz.web.profile.controller:handle
