@@ -429,15 +429,6 @@ class profile extends base
 			);
 		}
 
-		$this->template->assign_block_vars('navlinks', [
-			'BREADCRUMB_NAME'	=> $this->language->lang('MEMBERLIST'),
-			'U_BREADCRUMB'		=> append_sid("{$this->root_path}memberlist.$this->php_ext"),
-		]);
-		$this->template->assign_block_vars('navlinks', [
-			'BREADCRUMB_NAME'	=> $member['username'],
-			'U_BREADCRUMB'		=> $this->controller->route('ganstaz_web_member', ['username' => $username]),
-		]);
-
 		// TODO: Remove it?
 		make_jumpbox(append_sid("{$this->root_path}viewforum.$this->php_ext"));
 	}

@@ -106,4 +106,35 @@ class manager
 			]);
 		}
 	}
+
+	/**
+	* Generate breadcrumb for tabs
+	*
+	* @param string $username
+	* @param object $controller
+	* @param object $language
+	* @param object $template
+	* @param string $tab
+	* @return void
+	*/
+	public function generate_tabs_breadcrumb(string $username, object $controller, object $language, object $template, string $tab): void
+	{
+		$template->assign_block_vars('navlinks', [
+			'BREADCRUMB_NAME'	=> $language->lang('MEMBERLIST'),
+			// TODO: Add route for members controller
+			'U_BREADCRUMB'		=> 'test', //append_sid("{$this->root_path}memberlist.$this->php_ext"),
+		]);
+		$template->assign_block_vars('navlinks', [
+			'BREADCRUMB_NAME'	=> $username,
+			'U_BREADCRUMB'		=> $controller->route('ganstaz_web_member', ['username' => $username]),
+		]);
+
+		if ($tab !== 'profile')
+		{
+			$template->assign_block_vars('navlinks', [
+				'BREADCRUMB_NAME'	=> $tab,
+				'U_BREADCRUMB'		=> $controller->route('ganstaz_web_member_tab', ['username' => $username, 'tab' => $tab]),
+			]);
+		}
+	}
 }
