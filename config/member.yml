@@ -44,4 +44,5 @@ services:
         arguments:
             - '@controller.helper'
             - '@language'
+            - '@template'
             - '@ganstaz.web.tabs.manager'

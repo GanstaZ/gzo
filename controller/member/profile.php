@@ -12,6 +12,7 @@ namespace ganstaz\web\controller\member;
 
 use phpbb\controller\helper as controller;
 use phpbb\language\language;
+use phpbb\template\template;
 use ganstaz\web\core\tabs\manager;
 
 /**
@@ -25,6 +26,9 @@ class profile
 	/** @var language */
 	protected $language;
 
+	/** @var template */
+	protected $template;
+
 	/** @var manager */
 	protected $manager;
 
@@ -32,24 +36,29 @@ class profile
 	* Constructor
 	*
 	* @param controller $controller Controller helper object
+	* @param language   $language   Language object
+	* @param template   $template   Template object
 	* @param manager    $manager    Profile object
 	*/
 	public function __construct
 	(
 		controller $controller,
 		language $language,
+		template $template,
 		manager $manager
 	)
 	{
 		$this->controller = $controller;
 		$this->language   = $language;
+		$this->template   = $template;
 		$this->manager    = $manager;
 	}
 
 	/**
 	* Profile controller
 	*
-	* @param string $username
+	* @param string $username Username
+	* @param string $tab      Tab name
 	* @throws \phpbb\exception\http_exception
 	* @return \Symfony\Component\HttpFoundation\Response A Symfony Response object
 	*/
@@ -58,8 +67,10 @@ class profile
 		// Load language strings
 		$this->language->add_lang('memberlist');
 
+		$this->manager->generate_tabs_menu($username, $this->controller, $this->template);
+
 		$this->manager->get($tab)->load($username);
 
-		return $this->controller->render('profile.twig', $this->language->lang('VIEWING_PROFILE', $username), 200, true);
+		return $this->controller->render("{$tab}.twig", $this->language->lang('VIEWING_PROFILE', $username), 200, true);
 	}
 }
