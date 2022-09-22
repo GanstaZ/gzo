@@ -20,14 +20,25 @@ class manager
 	/** @var array Contains all available tabs */
 	protected static $tabs = false;
 
+	/** @var root_path */
+	protected $root_path;
+
+	/** @var php_ext */
+	protected $php_ext;
+
 	/**
 	* Constructor
 	*
 	* @param service_collection $collection
+	* @param string	            $root_path  Path to the phpbb includes directory
+	* @param string	            $php_ext    PHP file extension
 	*/
-	public function __construct(service_collection $collection)
+	public function __construct(service_collection $collection, $root_path, $php_ext)
 	{
 		$this->register_tab_types($collection);
+
+		$this->root_path = $root_path;
+		$this->php_ext   = $php_ext;
 	}
 
 	/**
@@ -119,14 +130,16 @@ class manager
 	*/
 	public function generate_tabs_breadcrumb(string $username, object $controller, object $language, object $template, string $tab): void
 	{
-		$template->assign_block_vars('navlinks', [
-			'BREADCRUMB_NAME'	=> $language->lang('MEMBERLIST'),
-			// TODO: Add route for members controller
-			'U_BREADCRUMB'		=> 'test', //append_sid("{$this->root_path}memberlist.$this->php_ext"),
-		]);
-		$template->assign_block_vars('navlinks', [
-			'BREADCRUMB_NAME'	=> $username,
-			'U_BREADCRUMB'		=> $controller->route('ganstaz_web_member', ['username' => $username]),
+		$template->assign_block_vars_array('navlinks', [
+			[
+				'BREADCRUMB_NAME'	=> $language->lang('MEMBERLIST'),
+				// TODO: Add route for members controller
+				'U_BREADCRUMB'		=> append_sid("{$this->root_path}memberlist.$this->php_ext"),
+			],
+			[
+				'BREADCRUMB_NAME'	=> $username,
+				'U_BREADCRUMB'		=> $controller->route('ganstaz_web_member', ['username' => $username]),
+			],
 		]);
 
 		if ($tab !== 'profile')
