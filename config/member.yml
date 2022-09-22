@@ -48,4 +48,4 @@ services:
             - '@controller.helper'
             - '@language'
             - '@template'
-            - '@ganstaz.web.tabs.manager'
+            - '@?ganstaz.web.tabs.manager'
