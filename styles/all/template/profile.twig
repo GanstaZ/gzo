@@ -1,7 +1,8 @@
-{% extends 'layout/base.html' %}
+{% extends 'layout/profile-base.twig' %}
 
-{% block content %}
-    {% from '@ganstaz_web/macros/tags.html' import icon, url %}
+{% block mid_content %}
+
+	{% from 'macros/tags.html' import icon, url %}
 
 	<h2 class="memberlist-title">{{ PAGE_TITLE }}</h2>
 
@@ -52,7 +53,7 @@
 					{% EVENT ganstaz_web_age_after %}
 
 					{% if S_GROUP_OPTIONS %}
-						{% import '@ganstaz_web/macros/forms.html' as form %}
+						{% import 'macros/forms.html' as form %}
 
 						<dt>{{ lang('USERGROUPS') ~ lang('COLON') }}</dt>
 						<dd>

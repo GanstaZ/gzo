@@ -1,0 +1,7 @@
+{% from 'macros/tags.html' import icon %}
+
+<li data-last-responsive="true">
+	<a href="{{ tab.link }}" class="button" title="{{ lang(tab.title) }}">
+		<span>{{ lang(tab.title) }}</span> {{ icon('icon', 'bug fa-fw') }}
+	</a>
+</li>
