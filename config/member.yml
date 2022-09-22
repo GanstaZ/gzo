@@ -31,6 +31,7 @@ services:
             - '@group_helper'
             - '@profilefields.manager'
             - '@user'
+            - '%core.adm_relative_path%'
             - '%core.root_path%'
             - '%core.php_ext%'
         calls:

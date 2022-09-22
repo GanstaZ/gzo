@@ -32,6 +32,9 @@ class profile extends base
 	/** @var user */
 	protected $user;
 
+	/** @var string phpBB admin path */
+	protected $admin_path;
+
 	/** @var root_path */
 	protected $root_path;
 
@@ -41,12 +44,13 @@ class profile extends base
 	/**
 	* Constructor
 	*
-	* @param config	$config    Config object
-	* @param group  $group     Group helper object
-	* @param cp     $cp        Profilefields manager object
-	* @param user   $user      User object
-	* @param string	$root_path Path to the phpbb includes directory
-	* @param string	$php_ext   PHP file extension
+	* @param config	$config     Config object
+	* @param group  $group      Group helper object
+	* @param cp     $cp         Profilefields manager object
+	* @param user   $user       User object
+	* @param string $admin_path phpBB admin path
+	* @param string	$root_path  Path to the phpbb includes directory
+	* @param string	$php_ext    PHP file extension
 	*/
 	public function __construct
 	(
@@ -60,6 +64,7 @@ class profile extends base
 		$group,
 		$cp,
 		$user,
+		$admin_path,
 		$root_path,
 		$php_ext
 	)
@@ -70,6 +75,7 @@ class profile extends base
 		$this->group      = $group;
 		$this->cp         = $cp;
 		$this->user		  = $user;
+		$this->admin_path = $admin_path;
 		$this->root_path  = $root_path;
 		$this->php_ext    = $php_ext;
 	}
@@ -347,8 +353,7 @@ class profile extends base
 			'S_GROUP_OPTIONS'           => $group_options,
 			'S_CUSTOM_FIELDS'			=> (isset($profile_fields['row']) && count($profile_fields['row'])) ? true : false,
 
-			// TODO: wrong link
-			'U_USER_ADMIN'				=> ($this->auth->acl_get('a_user')) ? append_sid("{$this->root_path}index.$this->php_ext", 'i=users&amp;mode=overview&amp;u=' . $user_id, true, $this->user->session_id) : '',
+			'U_USER_ADMIN'				=> ($this->auth->acl_get('a_user')) ? append_sid(generate_board_url() . "/{$this->admin_path}index.$this->php_ext", 'i=users&amp;mode=overview&amp;u=' . $user_id, true, $this->user->session_id) : '',
 
 			'U_USER_BAN'				=> ($this->auth->acl_get('m_ban') && $user_id != $this->user->data['user_id']) ? append_sid("{$this->root_path}mcp.$this->php_ext", 'i=ban&amp;mode=user&amp;u=' . $user_id, true, $this->user->session_id) : '',
 			'U_MCP_QUEUE'				=> ($this->auth->acl_getf_global('m_approve')) ? append_sid("{$this->root_path}mcp.$this->php_ext", 'i=queue', true, $this->user->session_id) : '',
