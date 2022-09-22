@@ -40,7 +40,7 @@ class helper
 		$sql = 'SELECT forum_id
 				FROM ' . FORUMS_TABLE . '
 				WHERE forum_type = ' . FORUM_POST . '
-				    AND news_fid_enable = 1';
+					AND news_fid_enable = 1';
 		$result = $this->db->sql_query($sql, 3600);
 
 		$forum_ids = [];
@@ -51,6 +51,24 @@ class helper
 		$this->db->sql_freeresult($result);
 
 		return $forum_ids ?? [];
+	}
+
+	/**
+	* Get username
+	*
+	* @param int $user_id
+	* @return array
+	*/
+	public function get_user_name(int $user_id)
+	{
+		$sql = 'SELECT username
+				FROM ' . USERS_TABLE . '
+				WHERE user_id = ' . $user_id;
+		$result = $this->db->sql_query($sql);
+		$row = $this->db->sql_fetchrow($result);
+		$this->db->sql_freeresult($result);
+
+		return $row['username'];
 	}
 
 	/**

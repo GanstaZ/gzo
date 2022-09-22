@@ -1,0 +1,25 @@
+{% extends 'layout/base.html' %}
+
+{% block top_content %}
+
+	<div role="navigation">
+		<div class="inner">
+			<ul id="nav-main" class="nav-main linklist" role="menubar">
+				{% for tab in tabs %}
+   					{{ include('includes/tab-item.twig') }}
+    			{% endfor %}
+			</ul>
+		</div>
+	</div>
+
+{% endblock %}
+
+{% block content %}
+
+	{% block mid_top %}{% endblock %}
+
+	<div class="inner mid-content">
+		{% block mid_content %}{% endblock %}
+	</div>
+
+{% endblock %}
