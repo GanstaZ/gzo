@@ -207,8 +207,11 @@
 	border-right: 1.5px solid #FFF;
 }
 
-/* GZO Misc
-----------------------------------------*/
+/* GZO Misc */
+.rank-img img {
+	width: 160px;
+}
+
 .c-icon-size {
 	font-size: 10px;
 }

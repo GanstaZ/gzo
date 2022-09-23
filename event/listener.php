@@ -167,7 +167,10 @@ class listener implements EventSubscriberInterface
 		// Will redirect to our controller
 		if (in_array($forum_id, $this->helper->get_forum_ids()) && $forum_id !== (int) $this->config['gz_main_fid'])
 		{
-			redirect($this->controller->route('ganstaz_web_news', ['id' => $forum_id]));
+			$url = $this->controller->route('ganstaz_web_news', ['id' => $forum_id]);
+
+			$response = new RedirectResponse($url);
+			$response->send();
 		}
 	}
 
