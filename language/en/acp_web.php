@@ -24,6 +24,7 @@ $lang = array_merge($lang, [
 	'NEWS_ID'				 => 'News id',
 	'ENABLE_NEWS_LINK'		 => 'News link in navigation',
 	'GZ_PAGINATION'		     => 'Pagination',
+	'ENABLE_PROFILE_TABS'    => 'Profile tabs',
 	'LIMIT'					 => 'News limit',
 	'USER_LIMIT'			 => 'User limit',
 	'LIMIT_EXPLAIN'			 => 'Default 5 & Max 10',

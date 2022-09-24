@@ -45,6 +45,11 @@
 		</dl>
 
 		<dl>
+			<dt>{{ form.label('gz_profile_tabs', lang('ENABLE_PROFILE_TABS') ~ lang('COLON')) }}</dt>
+			<dd>{{ form.radio('gz_profile_tabs', S_PROFILE_TABS, {'yes': lang('ENABLE'), 'no': lang('DISABLE')}) }}</dd>
+		</dl>
+
+		<dl>
 			<dt>{{ form.label('gz_limit', lang('LIMIT') ~ lang('COLON')) }}<br>
 				<span>{{ lang('LIMIT_EXPLAIN') }}</span>
 			</dt>
