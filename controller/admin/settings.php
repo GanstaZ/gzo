@@ -93,6 +93,7 @@ class settings
 			'S_MAIN_CURRENT'	 => $this->config['gz_main_fid'],
 			'S_NEWS_CURRENT'	 => $this->config['gz_news_fid'],
 			'S_ENABLE_NEWS_LINK' => $this->config['gz_enable_news_link'],
+			'S_PROFILE_TABS'     => $this->config['gz_profile_tabs'],
 			'S_PAGINATION'		 => $this->config['gz_pagination'],
 			'GZ_LIMIT'			 => $this->config['gz_limit'],
 			'GZ_USER_LIMIT'	     => $this->config['gz_user_limit'],
@@ -123,7 +124,7 @@ class settings
 		//$this->config->set('gz_top_posters_fid', $this->request->variable('gz_top_posters_fid', (int) 0));
 		//$this->config->set('gz_recent_posts_fid', $this->request->variable('gz_recent_posts_fid', (int) 0));
 		//$this->config->set('gz_recent_topics_fid', $this->request->variable('gz_recent_topics_fid', (int) 0));
-		//$this->config->set('gz_profile_tabs', $this->request->variable('gz_profile_tabs', (bool) 0));
+		$this->config->set('gz_profile_tabs', $this->request->variable('gz_profile_tabs', (bool) 0));
 		$this->config->set('gz_pagination', $this->request->variable('gz_pagination', (bool) 0));
 		$this->config->set('gz_title_length', $this->request->variable('gz_title_length', (int) 0));
 		$this->config->set('gz_content_length', $this->request->variable('gz_content_length', (int) 0));
