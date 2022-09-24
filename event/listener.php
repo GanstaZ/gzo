@@ -99,8 +99,6 @@ class listener implements EventSubscriberInterface
 			'core.acp_manage_forums_request_data'    => 'manage_forums_request_data',
 			'core.acp_manage_forums_display_form'    => 'manage_forums_display_form',
 			'core.memberlist_modify_viewprofile_sql' => 'redirect_profile',
-			'core.memberlist_prepare_profile_data'   => 'prepare_profile_data',
-			'core.memberlist_view_profile'		     => 'view_profile_stats',
 		];
 	}
 
@@ -227,30 +225,5 @@ class listener implements EventSubscriberInterface
 			$response = new RedirectResponse($url);
 			$response->send();
 		}
-	}
-
-	/**
-	* Event core.memberlist_prepare_profile_data
-	*
-	* @param \phpbb\event\data $event The event object
-	*/
-	public function prepare_profile_data($event): void
-	{
-	}
-
-	/**
-	* Event core.memberlist_view_profile
-	*
-	* @param \phpbb\event\data $event The event object
-	*/
-	public function view_profile_stats($event): void
-	{
-		$member = $event['member']['user_regdate'];
-		$memberdays = max(1, round((time() - $member) / 86400));
-
-		$this->template->assign_vars([
-			'S_MEMBER_DAYS' => ($memberdays == 1) ? true : false,
-			'MEMBER_DAYS'	=> $memberdays,
-		]);
 	}
 }
