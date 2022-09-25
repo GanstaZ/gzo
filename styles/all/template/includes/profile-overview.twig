@@ -1,8 +1,13 @@
 {% from 'macros/tags.html' import icon, url %}
 
-<div class="c-gz-wrap c-gzo-container-fluid">
+<div class="c-gzo-flex c-gzo-container-fluid">
 	<aside class="c-section-side">
-		{% if AVATAR_IMG %}<div class="t-gzo-rounded">{{ AVATAR_IMG }}</div>{% endif %}
+		{% if AVATAR_IMG %}
+		    <div class="c-gzo-avatar-wrap t-gzo-rounded">
+			    {{ AVATAR_IMG }}
+				<div class="c-gzo-avatar-badge"></div>
+			</div>
+		{% endif %}
 
 		<h1 class="t-gzo-mr0 t-gzo-vc-username">
 			{% if USER_COLOR %}<span style="color: {{ USER_COLOR }}; font-weight: bold;">{% else %}<span class="t-gzo-vc-muted">{% endif %}{{ USERNAME }}</span>
@@ -75,7 +80,7 @@
 	</aside>
 
 	<div class="c-section-main">
-		<div class="card card-body t-gzo-border t-gzo-mb {% if S_ONLINE %} online{% endif %}">
+		<div class="c-gzo-card c-gzo-card-body t-gzo-border t-gzo-mb{% if S_ONLINE %} online{% endif %}">
 			<dl class="left-box details profile-details">
 				<h3 class="capitalize">{{ lang('INFORMATION') }}</h3>
 
@@ -131,7 +136,7 @@
 			</dl>
 		</div>
 
-		<div class="card card-body t-gzo-border t-gzo-mb">
+		<div class="c-gzo-card c-gzo-card-body t-gzo-border t-gzo-mb">
 
 			<dl class="left-box details profile-details">
 				<h3 class="capitalize">{{ lang('USER_FORUM') }}</h3>
@@ -186,7 +191,7 @@
 		</div>
 
 		{% if SIGNATURE %}
-			<div class="card card-body t-gzo-border ">
+			<div class="c-gzo-card c-gzo-card-body t-gzo-border ">
 				<div class="inner">
 
 					<h3 class="capitalize">{{ lang('SIGNATURE') }}</h3>

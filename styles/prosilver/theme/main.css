@@ -1,10 +1,10 @@
 /* GZO Web Default Configurations */
-.c-gz-wrap {
+.c-gzo-flex {
 	display: flex;
 }
 
-.c-gzo-flex {
-	display: flex;
+.c-gzo-flex-wrap {
+	flex-wrap: wrap;
 }
 
 .c-gzo-flex-colum {
@@ -25,7 +25,7 @@
 	border-bottom: 1px solid #d0d7de;
 }
 
-.card {
+.c-gzo-card {
 	position: relative;
 	display: flex;
 	flex-direction: column;
@@ -37,10 +37,9 @@
 	border-radius: .25rem;
 }
 
-.card-body {
+.c-gzo-card-body {
 	flex: 1 1 auto;
 	padding: 15px;
-	/* color: var(--bs-card-color); */
 }
 
 .c-gzo-nav {
@@ -75,12 +74,12 @@ dl.details dd.c-gzo-ddp {
 	padding-left: 0px;
 }
 
-.c-gz-wrap-pane {
+.c-gzo-wrap-pane {
 	/* font-size: 1.1em; */
 	margin: 15px 0 9px;
 }
 
-.c-gz-wrap-pane h2 {
+.c-gzo-wrap-pane h2 {
 	font-size: 1.3em;
 	color: #115098;
 	/* border-bottom: 1px solid #dbdee3; */
@@ -266,6 +265,27 @@ dl.details dd.c-gzo-ddp {
 .rank-img img {
 	min-width: 100px;
 	max-width: 200px;
+}
+
+.c-gzo-avatar-wrap {
+	position: relative;
+	display: flex;
+	margin-right: 12px;
+}
+
+.c-gzo-avatar-badge {
+	position: absolute;
+	right: 0px;
+	bottom: 0px;
+	margin-bottom: 6%;
+	margin-right: 34%;
+	width: 25px;
+	height: 25px;
+	border-radius: 50%;
+	z-index: 2;
+	background-color: #ffffff;
+	border: 1px solid #d0d7de;
+	border-radius: 2em;
 }
 
 .c-icon-size {
