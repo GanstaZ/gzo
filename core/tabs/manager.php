@@ -11,12 +11,24 @@
 namespace ganstaz\web\core\tabs;
 
 use phpbb\di\service_collection;
+use phpbb\controller\helper as controller;
+use phpbb\language\language;
+use phpbb\template\template;
 
 /**
 * GZO Web: tabs manager
 */
 class manager
 {
+	/** @var controller helper */
+	protected $controller;
+
+	/** @var language */
+	protected $language;
+
+	/** @var template */
+	protected $template;
+
 	/** @var array Contains all available tabs */
 	protected static $tabs = false;
 
@@ -29,16 +41,22 @@ class manager
 	/**
 	* Constructor
 	*
-	* @param service_collection $collection
+	* @param service_collection $collection Our tabs
+	* @param controller         $controller Controller helper object
+	* @param language           $language   Language object
+	* @param template           $template   Template object
 	* @param string	            $root_path  Path to the phpbb includes directory
 	* @param string	            $php_ext    PHP file extension
 	*/
-	public function __construct(service_collection $collection, $root_path, $php_ext)
+	public function __construct(service_collection $collection, controller $controller, language $language, template $template,$root_path, $php_ext)
 	{
 		$this->register_tab_types($collection);
 
-		$this->root_path = $root_path;
-		$this->php_ext   = $php_ext;
+		$this->controller = $controller;
+		$this->language   = $language;
+		$this->template   = $template;
+		$this->root_path  = $root_path;
+		$this->php_ext    = $php_ext;
 	}
 
 	/**
@@ -97,22 +115,21 @@ class manager
 	* Generate menu for tabs
 	*
 	* @param string $username
-	* @param object $controller
-	* @param object $template
+	* @param string $tab
 	* @return void
 	*/
-	public function generate_tabs_menu(string $username, object $controller, object $template): void
+	public function generate_tabs_menu(string $username, string $tab): void
 	{
 		foreach ($this->available() as $tab)
 		{
-			$route = $controller->route('ganstaz_web_member_tab', ['username' => $username, 'tab' => $tab]);
+			$route = $this->controller->route('ganstaz_web_member_tab', ['username' => $username, 'tab' => $tab]);
 			if ($tab === 'profile')
 			{
-				$route = $controller->route('ganstaz_web_member', ['username' => $username]);
+				$route = $this->controller->route('ganstaz_web_member', ['username' => $username]);
 			}
 
-			$template->assign_block_vars('tabs', [
-				'title' => ucfirst($tab),
+			$this->template->assign_block_vars('tabs', [
+				'title' => $this->language->lang('GZO_' . strtoupper($tab)),
 				'link' => $route,
 			]);
 		}
@@ -122,31 +139,28 @@ class manager
 	* Generate breadcrumb for tabs
 	*
 	* @param string $username
-	* @param object $controller
-	* @param object $language
-	* @param object $template
 	* @param string $tab
 	* @return void
 	*/
-	public function generate_tabs_breadcrumb(string $username, object $controller, object $language, object $template, string $tab): void
+	public function generate_tabs_breadcrumb(string $username, string $tab): void
 	{
-		$template->assign_block_vars_array('navlinks', [
+		$this->template->assign_block_vars_array('navlinks', [
 			[
-				'BREADCRUMB_NAME'	=> $language->lang('MEMBERLIST'),
+				'BREADCRUMB_NAME'	=> $this->language->lang('MEMBERLIST'),
 				// TODO: Add route for members controller
 				'U_BREADCRUMB'		=> append_sid("{$this->root_path}memberlist.$this->php_ext"),
 			],
 			[
 				'BREADCRUMB_NAME'	=> $username,
-				'U_BREADCRUMB'		=> $controller->route('ganstaz_web_member', ['username' => $username]),
+				'U_BREADCRUMB'		=> $this->controller->route('ganstaz_web_member', ['username' => $username]),
 			],
 		]);
 
 		if ($tab !== 'profile')
 		{
-			$template->assign_block_vars('navlinks', [
+			$this->template->assign_block_vars('navlinks', [
 				'BREADCRUMB_NAME'	=> ucfirst($tab),
-				'U_BREADCRUMB'		=> $controller->route('ganstaz_web_member_tab', ['username' => $username, 'tab' => $tab]),
+				'U_BREADCRUMB'		=> $this->controller->route('ganstaz_web_member_tab', ['username' => $username, 'tab' => $tab]),
 			]);
 		}
 	}

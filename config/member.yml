@@ -10,6 +10,9 @@ services:
         class: ganstaz\web\core\tabs\manager
         arguments:
             - '@ganstaz.web.tabs.collection'
+            - '@controller.helper'
+            - '@language'
+            - '@template'
             - '%core.root_path%'
             - '%core.php_ext%'
 

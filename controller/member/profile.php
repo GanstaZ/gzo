@@ -67,11 +67,11 @@ class profile
 		// Load language
 		$this->language->add_lang('memberlist');
 
+		$this->manager->generate_tabs_menu($username, $tab);
+		$this->manager->generate_tabs_breadcrumb($username, $tab);
+
 		$current = $this->manager->get($tab);
 		$current->load($username);
-
-		$this->manager->generate_tabs_menu($username, $this->controller, $this->template);
-		$this->manager->generate_tabs_breadcrumb($username, $this->controller, $this->language, $this->template, $tab);
 
 		$title = $tab !== 'profile' ? $this->language->lang(ucfirst($tab)) : $username;
 
