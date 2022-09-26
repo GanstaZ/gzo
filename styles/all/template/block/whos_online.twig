@@ -1,4 +1,4 @@
-{% from 'macros/tags.html' import icon, url %}
+{% from 'macros/tags.twig' import icon, url %}
 
 <div class="c-gzo-flex c-tabs">
 	<div class="c-gzo-row button c-tab current" data-tab="tab-1">
@@ -54,6 +54,7 @@
 		</p>
 	{% endif %}
 	</div>
+
 	<div class="c-tab-pane" id="tab-3">
 	{% if new_user %}
 		<ul class="t-no-style">
