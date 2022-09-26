@@ -42,6 +42,8 @@ $lang = array_merge($lang, [
 		2 => '%2$ss ago',
 	],
 
+	'GZO_PROFILE' => 'Overview',
+
 	'GZ_PER_DAY' => '%s per day <strong>%s</strong>',
 
 	'LEADERS'		=> 'Top posters',
