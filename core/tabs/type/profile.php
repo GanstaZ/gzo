@@ -87,6 +87,8 @@ class profile extends base
 	{
 		$member = $this->get_user_data($username);
 
+		$this->language->add_lang('profile', 'ganstaz/web');
+
 		// a_user admins and founder are able to view inactive users and bots to be able to manage them more easily
 		// Normal users are able to see at least users having only changed their profile settings but not yet reactivated.
 		if (!$this->auth->acl_get('a_user') && $this->user->data['user_type'] != USER_FOUNDER)
