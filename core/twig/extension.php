@@ -1,9 +1,9 @@
 <?php
 /**
 *
-* GZ Web. An extension for the phpBB Forum Software package.
+* GZO Web. An extension for the phpBB Forum Software package.
 *
-* @copyright (c) 2021, GanstaZ, http://www.github.com/GanstaZ/
+* @copyright (c) 2022, GanstaZ, http://www.github.com/GanstaZ/
 * @license GNU General Public License, version 2 (GPL-2.0)
 *
 */
@@ -15,7 +15,7 @@ use ganstaz\web\core\blocks\event;
 use phpbb\group\helper as group;
 
 /**
-* GZ Web template loader extension for blocks
+* GZO Web: template loader extension for blocks
 */
 class extension extends \Twig\Extension\AbstractExtension
 {
@@ -92,9 +92,9 @@ class extension extends \Twig\Extension\AbstractExtension
 		{
 			$path = $path . '/block';
 
-			if ($env->getLoader()->exists("@{$path}/{$name}.html"))
+			if ($env->getLoader()->exists("@{$path}/{$name}.twig"))
 			{
-				$env->loadTemplate("@{$path}/{$name}.html")->display($context);
+				$env->loadTemplate("@{$path}/{$name}.twig")->display($context);
 			}
 		}
 	}
