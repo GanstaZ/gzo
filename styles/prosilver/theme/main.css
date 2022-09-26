@@ -56,7 +56,7 @@
 }
 
 .c-gzo-hero-content {
-	flex: 1
+	flex: 1;
 }
 
 .left-box.profile-details {
@@ -97,7 +97,7 @@ dl.details dd.c-gzo-ddp {
 	margin: 2px 5px 7px;
 }
 
-.c-gz-row {
+.c-gzo-row {
 	flex: 1;
 }
 
