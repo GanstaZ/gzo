@@ -1,7 +1,7 @@
 {% from 'macros/tags.html' import icon, url %}
 
-<div class="c-gzo-flex c-gzo-container-fluid">
-	<aside class="c-section-side">
+<div class="c-gzo-flex c-gzo-container-fluid c-gzo-flex-wrap">
+	<aside class="c-gzo-hero">
 		{% if AVATAR_IMG %}
 		    <div class="c-gzo-avatar-wrap t-gzo-rounded">
 			    {{ AVATAR_IMG }}
@@ -79,7 +79,7 @@
 
 	</aside>
 
-	<div class="c-section-main">
+	<div class="c-gzo-hero-content">
 		<div class="c-gzo-card c-gzo-card-body t-gzo-border t-gzo-mb{% if S_ONLINE %} online{% endif %}">
 			<dl class="left-box details profile-details">
 				<h3 class="capitalize">{{ lang('INFORMATION') }}</h3>

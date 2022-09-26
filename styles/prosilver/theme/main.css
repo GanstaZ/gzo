@@ -50,6 +50,15 @@
 	list-style: none;
 }
 
+.c-gzo-hero {
+	width: 300px;
+	padding-bottom: 15px;
+}
+
+.c-gzo-hero-content {
+	flex: 1
+}
+
 .left-box.profile-details {
 	width: 100%;
 }
@@ -68,6 +77,7 @@ dl.details dd {
 
 dl.details dt.c-gzo-dtw {
 	width: 8%;
+	color: #536482;
 }
 
 dl.details dd.c-gzo-ddp {
