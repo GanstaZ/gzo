@@ -1,5 +1,5 @@
 {% if config('gz_enable_news_link') %}
-	{% from '@ganstaz_web/macros/tags.html' import icon, url %}
+	{% from 'macros/tags.twig' import icon, url %}
 
 	<li data-last-responsive="true">
 		{{ url({'href': U_NEWS, 'title': lang('NEWS')}, icon('icon', 'newspaper-o fa-fw', null, lang('NEWS'))) }}
