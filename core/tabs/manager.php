@@ -48,7 +48,7 @@ class manager
 	* @param string	            $root_path  Path to the phpbb includes directory
 	* @param string	            $php_ext    PHP file extension
 	*/
-	public function __construct(service_collection $collection, controller $controller, language $language, template $template,$root_path, $php_ext)
+	public function __construct(service_collection $collection, controller $controller, language $language, template $template, $root_path, $php_ext)
 	{
 		$this->register_tab_types($collection);
 
