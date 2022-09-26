@@ -2,14 +2,12 @@
 
 {% block top_content %}
 
-	<div role="navigation">
-		<div class="inner">
-			<ul id="nav-main" class="nav-main linklist" role="menubar">
-				{% for tab in tabs %}
-   					{{ include('includes/tab-item.twig') }}
-    			{% endfor %}
-			</ul>
-		</div>
+	<div class="c-gzo-flex c-gzo-border-bottom" role="navigation">
+		<ul id="nav-main" class="c-gzo-nav linklist c-gzo-nav-ml" role="menubar">
+			{% for tab in tabs %}
+   				{{ include('includes/tab-item.twig') }}
+    		{% endfor %}
+		</ul>
 	</div>
 
 {% endblock %}
