@@ -1,9 +1,9 @@
 <?php
 /**
 *
-* GZ Web. An extension for the phpBB Forum Software package.
+* GZO Web. An extension for the phpBB Forum Software package.
 *
-* @copyright (c) 2021, GanstaZ, http://www.github.com/GanstaZ/
+* @copyright (c) 2022, GanstaZ, http://www.github.com/GanstaZ/
 * @license GNU General Public License, version 2 (GPL-2.0)
 *
 */
@@ -11,7 +11,7 @@
 namespace ganstaz\web\controller;
 
 /**
-* GZ Web: articles controller
+* GZO Web: articles controller
 */
 class articles extends base
 {
@@ -32,7 +32,7 @@ class articles extends base
 			->trim_messages(true)
 			->base($id);
 
-		return $this->helper->render('news.html', $this->language->lang('VIEW_NEWS', $id), 200, true);
+		return $this->helper->render('news.twig', $this->language->lang('VIEW_NEWS', $id), 200, true);
 	}
 
 	/**
@@ -72,6 +72,6 @@ class articles extends base
 	{
 		$this->posts->get_first_post($aid);
 
-		return $this->helper->render('article.html', $this->language->lang('VIEW_ARTICLE', $aid), 200, true);
+		return $this->helper->render('article.twig', $this->language->lang('VIEW_ARTICLE', $aid), 200, true);
 	}
 }

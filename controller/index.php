@@ -1,9 +1,9 @@
 <?php
 /**
 *
-* GZ Web. An extension for the phpBB Forum Software package.
+* GZO Web. An extension for the phpBB Forum Software package.
 *
-* @copyright (c) 2021, GanstaZ, http://www.github.com/GanstaZ/
+* @copyright (c) 2022, GanstaZ, http://www.github.com/GanstaZ/
 * @license GNU General Public License, version 2 (GPL-2.0)
 *
 */
@@ -11,7 +11,7 @@
 namespace ganstaz\web\controller;
 
 /**
-* GZ Web index controller
+* GZO Web: index controller
 */
 class index extends base
 {
@@ -29,6 +29,6 @@ class index extends base
 		$this->posts->trim_messages(true)
 			->base($id);
 
-		return $this->helper->render('index.html', $this->language->lang('HOME', $id), 200, true);
+		return $this->helper->render('index.twig', $this->language->lang('HOME', $id), 200, true);
 	}
 }
