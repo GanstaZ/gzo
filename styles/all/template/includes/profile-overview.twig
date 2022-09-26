@@ -1,4 +1,4 @@
-{% from 'macros/tags.html' import icon, url %}
+{% from 'macros/tags.twig' import icon, url %}
 
 <div class="c-gzo-flex c-gzo-container-fluid c-gzo-flex-wrap">
 	<aside class="c-gzo-hero">
@@ -98,7 +98,7 @@
 				{% EVENT ganstaz_web_age_after %}
 
 				{% if S_GROUP_OPTIONS %}
-					{% import 'macros/forms.html' as form %}
+					{% import 'macros/forms.twig' as form %}
 
 					<dt>{{ lang('USERGROUPS') ~ lang('COLON') }}</dt>
 					<dd>
