@@ -17,12 +17,8 @@
 	width: 100%;
 }
 
-.c-gzo-jc-center {
-	justify-content: center !important;
-}
-
-.c-gzo-border-bottom {
-	border-bottom: 1px solid #d0d7de;
+.c-gzo-row {
+	flex: 1;
 }
 
 .c-gzo-card {
@@ -51,20 +47,14 @@
 }
 
 .c-gzo-wrap-pane {
-	/* font-size: 1.1em; */
 	margin: 15px 0 9px;
 }
 
 .c-gzo-wrap-pane h2 {
 	font-size: 1.3em;
 	color: #115098;
-	/* border-bottom: 1px solid #dbdee3; */
 	padding: 2px 0;
 	margin: 2px 5px 7px;
-}
-
-.c-gzo-row {
-	flex: 1;
 }
 
 .c-block {
@@ -82,7 +72,6 @@
 
 .c-section-main h3 {
 	margin-bottom: 2px;
-	/* font-size: 1.3em; */
 	font-weight: bold;
 	border-bottom: none;
 	text-transform: none;
@@ -98,7 +87,7 @@
 	margin-bottom: 0;
 }
 
-.c-gz-pagination {
+.c-gzo-pagination {
 	margin-bottom: 48px;
 	padding-right: 8px;
 }
@@ -224,31 +213,16 @@ dl.details dd.c-gzo-ddp {
 	position: relative;
 	top: 5px;
 	left: 4.5px;
-	/* right: 2.5px;
-	bottom: 3px;
-	font-size: 2.6em; */
 }
 
-.t-gzo-vc-username {
+.c-gzo-vc-username {
 	font-size: 20px;
 	font-style: normal;
 	font-weight: 300;
 	line-height: 24px;
 }
 
-.c-icon-size {
-	font-size: 10px;
-}
-
-.c-gz-hide {
-	display: none;
-}
-
-.capitalize {
-	text-transform: none;
-}
-
-.t-gzo-vc-muted {
+.c-gzo-vc-muted {
 	color: #57606a;
 }
 
@@ -275,7 +249,11 @@ dl.details dd.c-gzo-ddp {
 }
 
 /* GZO Display */
-.t-heading-right {
+.c-gzo-hide {
+	display: none;
+}
+
+.c-heading-right {
 	float: right;
 	display: inline;
 }
@@ -337,9 +315,17 @@ dl.details dd.c-gzo-ddp {
 	padding-right: 2px;
 }
 
-.t-tabs-profile {
+.c-tabs-profile {
 	padding-right: 5px;
-	border-right: 1.5px solid #FFF;
+	border-right: 1.5px solid #ffffff;
+}
+
+.c-gzo-jc-center {
+	justify-content: center !important;
+}
+
+.c-gzo-border-bottom {
+	border-bottom: 1px solid #d0d7de;
 }
 
 /* GZO Misc */
@@ -347,73 +333,125 @@ dl.details dd.c-gzo-ddp {
 	max-width: 200px;
 }
 
-.t-gzo-rounded {
+.c-gzo-rounded {
 	border-radius: 50%;
 }
 
-.t-gzo-rounded img {
+.c-gzo-rounded img {
 	border-radius: 50%;
 	border-style: none;
 }
 
-.t-gzo-border {
+.c-gzo-border {
 	border: 1px solid #d0d7de;
 	border-radius: 5px;
 }
 
-.t-gzo-text-left {
-	text-align: left;
-}
-
-.t-gzo-text-right {
-	text-align: right;
-}
-
-.t-gzo-text-center {
-	text-align: center;
-}
-
-.t-no-style {
-	font-size: 1.1em;
+.c-no-style {
 	list-style: none;
 }
 
-.t-gz-pane {
+.c-gzo-pane {
 	width: inherit;
 	float: none;
 }
 
-.t-gzo-f-size {
+/* GZO Text */
+.c-gzo-text-left {
+	text-align: left;
+}
+
+.c-gzo-text-right {
+	text-align: right;
+}
+
+.c-gzo-text-center {
+	text-align: center;
+}
+
+.c-icon-size {
+	font-size: 10px;
+}
+
+.c-gzo-f-size {
 	font-size: 14px;
 }
 
+.capitalize {
+	text-transform: none;
+}
+
 /* GZO Margin */
-.t-gzo-ms1 {
+.c-gzo-ms1 {
 	margin: 0px 2px;
 }
 
-.t-gzo-mt-2{
+.c-gzo-mt-2{
 	margin-top: 10px;
 }
 
-.t-gzo-mt-3 {
+.c-gzo-mt-3 {
 	margin-top: 15px;
 }
 
-.t-gzo-mt-4 {
+.c-gzo-mt-4 {
 	margin-top: 20px;
 }
 
-.t-gzo-mr0{
+.c-gzo-mr0{
 	margin-right: 0px;
 }
 
-.t-gzo-mb {
+.c-gzo-mb {
 	margin-bottom: 10px;
 }
 
-/* TODO: To be removed */
 .c-stat-head {
 	font-weight: normal;
 	color: #115098;
+}
+
+/* GZO Prosilver Specific */
+.t-gzo-wrap-pane {
+	font-size: 1.1em;
+}
+
+.t-gzo-wrap-pane h2 {
+	font-size: 1.3em;
+	color: #115098;
+	border-bottom: 1px solid #dbdee3;
+}
+
+.t-section-main h3 {
+	font-size: 1.3em;
+}
+
+.t-progress-bar {
+	width: 118px;
+	border: 1px solid #000033;
+	margin-top: 5px;
+	background: #fff;
+	overflow: hidden;
+}
+
+.t-progress-meter {
+	max-width: 118px;
+	height: auto;
+	background: #deebfe;
+}
+
+.t-progress-center {
+	width: 118px;
+	text-align: center;
+	color: #000033;
+}
+
+.icon.t-gzo-avatar-badge-inner {
+	right: 2.5px;
+	bottom: 3px;
+	font-size: 2.6em;
+}
+
+.t-no-style {
+	font-size: 1.1em;
 }
