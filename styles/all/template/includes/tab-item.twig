@@ -1,7 +1,7 @@
-{% from 'macros/tags.html' import icon %}
+{% from 'macros/tags.twig' import icon %}
 
 <li class="t-gzo-ms1" data-last-responsive="true">
 	<a href="{{ tab.link }}" title="{{ lang(tab.title) }}">
-		<span>{{ lang(tab.title) }}</span> {{ icon('icon', 'bug fa-fw') }}
+		{{ icon('icon', 'bug fa-fw') }}<span>{{ lang(tab.title) }}</span>
 	</a>
 </li>

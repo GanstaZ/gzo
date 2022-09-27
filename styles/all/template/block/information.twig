@@ -1,0 +1,21 @@
+{% embed '@ganstaz_web/includes/block-item.twig' %}
+
+	{% block block_heading %}{{ lang('INFORMATION') }}{% endblock %}
+
+	{% block block_content %}
+		<dl class="c-gzo-info">
+
+			<dt>{{ lang('PORTAL_VERSION') }}</dt>
+			<dd><span class="green">{{ core_stable }}</span></dd>
+
+			<dt>{{ lang('PHPBB_VERSION') }}</dt>
+			<dd><span class="green">{{ phpbb_version }}</span></dd>
+
+			<dt>{{ lang('PORTAL_STYLE') }}</dt>
+			<dd>{{ T_TEMPLATE_NAME }}</dd>
+
+			{% EVENT ganstaz_web_info_after %}
+		</dl>
+	{% endblock %}
+
+{% endembed %}

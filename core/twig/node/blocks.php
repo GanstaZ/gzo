@@ -1,9 +1,9 @@
 <?php
 /**
 *
-* GZ Web. An extension for the phpBB Forum Software package.
+* GZO Web. An extension for the phpBB Forum Software package.
 *
-* @copyright (c) 2021, GanstaZ, http://www.github.com/GanstaZ/
+* @copyright (c) 2022, GanstaZ, http://www.github.com/GanstaZ/
 * @license GNU General Public License, version 2 (GPL-2.0)
 *
 */
@@ -38,10 +38,10 @@ class blocks extends \Twig\Node\Node
 		{
 			$path = $path . '/block';
 
-			if ($this->environment->isDebug() || $this->environment->getLoader()->exists("@{$path}/{$name}.html"))
+			if ($this->environment->isDebug() || $this->environment->getLoader()->exists("@{$path}/{$name}.twig"))
 			{
 				$compiler
-					->write("\$this->env->loadTemplate('@{$path}/{$name}.html')->display(\$context);\n")
+					->write("\$this->env->loadTemplate('@{$path}/{$name}.twig')->display(\$context);\n")
 				;
 			}
 		}

@@ -1,9 +1,9 @@
-{% extends 'layout/app-base.html' %}
+{% extends 'layout/app-base.twig' %}
 
 {% block mid_content %}
 	{% if article %}
 		{% for news in article %}
-			{{ include('includes/news-item.html') }}
+			{{ include('includes/news-item.twig') }}
 		{% endfor %}
 	{% endif %}
 {% endblock %}
