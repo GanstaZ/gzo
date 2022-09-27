@@ -49,12 +49,12 @@ class info
 	/**
 	* Constructor
 	*
-	* @param auth             $auth       Auth object
+	* @param auth			  $auth		  Auth object
 	* @param config			  $config	  Config object
 	* @param driver_interface $db		  Database object
 	* @param dispatcher		  $dispatcher Dispatcher object
-	* @param template         $template   Template object
-	* @param user             $user       User object
+	* @param template		  $template	  Template object
+	* @param user			  $user		  User object
 	* @param string			  $root_path  Path to the phpbb includes directory
 	* @param string			  $php_ext	  PHP file extension
 	*/
@@ -70,14 +70,14 @@ class info
 		$php_ext
 	)
 	{
-		$this->auth		    = $auth;
-		$this->config       = $config;
-		$this->db           = $db;
-		$this->dispatcher   = $dispatcher;
-		$this->template     = $template;
-		$this->user		    = $user;
-		$this->root_path    = $root_path;
-		$this->php_ext      = $php_ext;
+		$this->auth			= $auth;
+		$this->config		= $config;
+		$this->db			= $db;
+		$this->dispatcher	= $dispatcher;
+		$this->template		= $template;
+		$this->user			= $user;
+		$this->root_path	= $root_path;
+		$this->php_ext		= $php_ext;
 	}
 
 	/**
@@ -115,17 +115,17 @@ class info
 				AND u.user_type IN (" . USER_NORMAL . ', ' . USER_FOUNDER . ')',
 		]);
 
-	    /**
-	    * Event to modify the SQL query to get birthdays data
-	    *
-	    * @event core.index_modify_birthdays_sql
-	    * @var	array	now			The assoc array with the 'now' local timestamp data
-	    * @var	array	sql_ary		The SQL array to get the birthdays data
-	    * @var	object	time		The user related Datetime object
-	    * @since 3.1.7-RC1
-	    */
-	    $vars = array('now', 'sql_ary', 'time');
-	    extract($this->dispatcher->trigger_event('core.index_modify_birthdays_sql', compact($vars)));
+		/**
+		* Event to modify the SQL query to get birthdays data
+		*
+		* @event core.index_modify_birthdays_sql
+		* @var	array	now			The assoc array with the 'now' local timestamp data
+		* @var	array	sql_ary		The SQL array to get the birthdays data
+		* @var	object	time		The user related Datetime object
+		* @since 3.1.7-RC1
+		*/
+		$vars = array('now', 'sql_ary', 'time');
+		extract($this->dispatcher->trigger_event('core.index_modify_birthdays_sql', compact($vars)));
 
 		$result = $this->db->sql_query($sql_ary);
 		$rows = $this->db->sql_fetchrowset($result);
@@ -143,16 +143,16 @@ class info
 			];
 		}
 
-	    /**
-	    * Event to modify the birthdays list
-	    *
-	    * @event core.index_modify_birthdays_list
-	    * @var	array	birthdays		Array with the users birthdays data
-	    * @var	array	rows			Array with the birthdays SQL query result
-	    * @since 3.1.7-RC1
-	    */
-	    $vars = ['birthdays', 'rows'];
-	    extract($this->dispatcher->trigger_event('core.index_modify_birthdays_list', compact($vars)));
+		/**
+		* Event to modify the birthdays list
+		*
+		* @event core.index_modify_birthdays_list
+		* @var	array	birthdays		Array with the users birthdays data
+		* @var	array	rows			Array with the birthdays SQL query result
+		* @since 3.1.7-RC1
+		*/
+		$vars = ['birthdays', 'rows'];
+		extract($this->dispatcher->trigger_event('core.index_modify_birthdays_list', compact($vars)));
 
 		$this->template->assign_block_vars_array('birthdays', $birthdays);
 	}
