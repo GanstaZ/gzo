@@ -119,7 +119,6 @@ dl.c-gzo-info dt {
 	clear: left;
 	width: auto;
 	text-align: right;
-	color: #000000;
 	display: block;
 }
 
@@ -134,22 +133,18 @@ dl.c-gzo-info dd {
 
 .c-progress-bar {
 	width: 118px;
-	border: 1px solid #000033;
 	margin-top: 5px;
-	background: #fff;
 	overflow: hidden;
 }
 
 .c-progress-meter {
 	max-width: 118px;
 	height: auto;
-	background: #deebfe;
 }
 
 .c-progress-center {
 	width: 118px;
 	text-align: center;
-	color: #000033;
 }
 
 /* GZO Profile */
@@ -427,22 +422,15 @@ dl.details dd.c-gzo-ddp {
 }
 
 .t-progress-bar {
-	width: 118px;
 	border: 1px solid #000033;
-	margin-top: 5px;
 	background: #fff;
-	overflow: hidden;
 }
 
 .t-progress-meter {
-	max-width: 118px;
-	height: auto;
 	background: #deebfe;
 }
 
 .t-progress-center {
-	width: 118px;
-	text-align: center;
 	color: #000033;
 }
 
