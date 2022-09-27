@@ -1,6 +1,6 @@
 {% if S_REGISTERED_USER %}
-	{% embed 'includes/block-item.twig' %}
-		{% from 'macros/tags.twig' import url %}
+	{% embed '@ganstaz_web/includes/block-item.twig' %}
+		{% from '@ganstaz_web/macros/tags.twig' import url %}
 
 		{% block block_heading %}{{ lang('WELCOME') ~ S_USERNAME }}{% endblock %}
 

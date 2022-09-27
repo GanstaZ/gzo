@@ -1,11 +1,11 @@
-{% embed 'includes/block-item.twig' %}
-	{% from 'macros/tags.twig' import icon %}
+{% embed '@ganstaz_web/includes/block-item.twig' %}
+	{% from '@ganstaz_web/macros/tags.twig' import icon %}
 
 	{% block block_heading %}{{ lang('THE_TEAM') }}{% endblock %}
 
 	{% block block_content %}
 		<ul class="t-no-style">
-			<li class="c-stat-head"><strong>{{ get_group_name(team_name) }}</strong></li>
+			<li class="c-stat-head">{{ get_group_name(team_name) }}</li>
 		{% for team in the_team %}
 			<li>{{ icon('fa', 'user-circle fa-fw', null, team.member) }}</li>
 		{% endfor %}

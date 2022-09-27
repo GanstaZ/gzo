@@ -1,15 +1,22 @@
-{% embed 'includes/block-item.twig' %}
-	{% from 'macros/tags.twig' import icon %}
+{% embed '@ganstaz_web/includes/block-item.twig' %}
+	{% from '@ganstaz_web/macros/tags.twig' import icon %}
 
 	{% block block_heading %}{{ lang('LEADERS') }}{% endblock %}
 
 	{% block block_content %}
-		<ul class="t-no-style">
-			<li class="c-stat-head"><strong>{{ lang('USERNAME') }}</strong><span class="t-heading-right"><strong>{{ lang('POSTS') }}</strong></span></li>
-		{% for posters in top_posters %}
-			<li>{{ loop.index ~ '.' ~ icon('fa', 'star fa-fw icon-gold', null, posters.top)|trim }}<span class="t-heading-right">{{ posters.posts }}</span></li>
-		{% endfor %}
-		</ul>
+		<dl class="c-gzo-info">
+
+			<dt class="c-stat-head">{{ lang('USERNAME') }}</dt>
+			<dd class="t-gzo-text-right c-stat-head">{{ lang('POSTS') }}</dd>
+
+		    {% for posters in top_posters %}
+
+			    <dt>{{ loop.index ~ '.' ~ icon('fa', 'star fa-fw icon-gold', null, posters.top)|trim }}</dt>
+				<dd class="t-gzo-text-right">{{ posters.posts }}</dd>
+
+		    {% endfor %}
+
+		</dl>
 	{% endblock %}
 
 {% endembed %}
