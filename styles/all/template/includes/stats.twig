@@ -1,11 +1,9 @@
-<div>
-	<h2>{{ lang('STATISTICS') }}</h2>
-	<ul class="no_style">
-		<li>
-			{{ lang('TOTAL_POSTS_COUNT', gz_posts) }} &bull; {{ lang('TOTAL_TOPICS', gz_topics) }} &bull; {{ lang('TOTAL_USERS', gz_users) }} &bull; {{ lang('NEWEST_USER', new_user) }}
-		</li>
-		<li>
-			{{ lang('GZ_PER_DAY', lang('POSTS'), ppd) }} &bull; {{ lang('GZ_PER_DAY', lang('TOPICS'), tpd) }} &bull; {{ lang('GZ_PER_DAY', lang('USERS'), upd) }}
-		</li>
-	</ul>
+<div class="stat-block statistics">
+	<p>
+		{% EVENT index_body_block_stats_prepend %}
+
+			{{ lang('TOTAL_POSTS_COUNT', TOTAL_POSTS) }} &bull; {{ lang('TOTAL_TOPICS', TOTAL_TOPICS) }} &bull; {{ lang('TOTAL_USERS',TOTAL_USERS) }} &bull; {{ lang('NEWEST_USER', NEWEST_USER) }}
+
+		{% EVENT index_body_block_stats_append %}
+	</p>
 </div>
