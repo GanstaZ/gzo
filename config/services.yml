@@ -9,6 +9,18 @@ services:
         arguments:
             - '@dbal.conn'
 
+    ganstaz.web.info:
+        class: ganstaz\web\core\info
+        arguments:
+            - '@auth'
+            - '@config'
+            - '@dbal.conn'
+            - '@dispatcher'
+            - '@template'
+            - '@user'
+            - '%core.root_path%'
+            - '%core.php_ext%'
+
     ganstaz.web.pages:
         class: ganstaz\web\core\pages
         arguments:
