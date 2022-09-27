@@ -3,14 +3,14 @@
 <div class="c-gzo-flex c-gzo-container-fluid c-gzo-flex-wrap">
 	<aside class="c-gzo-hero">
 		{% if AVATAR_IMG %}
-		    <div class="c-gzo-avatar-wrap t-gzo-rounded">
-			    {{ AVATAR_IMG }}
-				<div class="c-gzo-avatar-badge">{{ icon('icon c-gzo-avatar-badge-inner', 'user-circle-o fa-fw') }}</div>
+			<div class="c-gzo-avatar-wrap c-gzo-rounded">
+				{{ AVATAR_IMG }}
+				<div class="c-gzo-avatar-badge t-gzo-avatar-badge">{{ icon('icon c-gzo-avatar-badge-inner', 'user-circle-o fa-fw') }}</div>
 			</div>
 		{% endif %}
 
-		<h1 class="t-gzo-mr0 t-gzo-vc-username">
-			{% if USER_COLOR %}<span style="color: {{ USER_COLOR }}; font-weight: bold;">{% else %}<span class="t-gzo-vc-muted">{% endif %}{{ USERNAME }}</span>
+		<h1 class="c-gzo-mr0 c-gzo-vc-username t-gzo-vs-username">
+			{% if USER_COLOR %}<span style="color: {{ USER_COLOR }}; font-weight: bold;">{% else %}<span class="c-gzo-vc-muted t-gzo-vs-muted">{% endif %}{{ USERNAME }}</span>
 		</h1>
 
 		{% EVENT memberlist_view_rank_avatar_before %}
@@ -22,14 +22,14 @@
 
 		<div class="c-gzo-flex c-gzo-flex-colum">
 			{% if U_EDIT_SELF %}
-				<div class="t-gzo-mt-3">
+				<div class="c-gzo-mt-3">
 					<a href="{{ U_EDIT_SELF }}" class="button" title="{{ lang('EDIT_PROFILE') }}">
 						<span>{{ lang('EDIT_PROFILE') }}</span> {{ icon('icon', 'bug fa-fw') }}
 					</a>
 				</div>
 			{% endif %}
 
-			<div class="t-gzo-mt-3">
+			<div class="c-gzo-mt-3">
 
 				<dl class="left-box details profile-details">
 					<h3 class="capitalize">{{ lang('CONTACT_USER') }}</h3>
@@ -80,7 +80,7 @@
 	</aside>
 
 	<div class="c-gzo-hero-content">
-		<div class="c-gzo-card c-gzo-card-body t-gzo-border t-gzo-mb{% if S_ONLINE %} online{% endif %}">
+		<div class="c-gzo-card c-gzo-card-body c-gzo-border c-gzo-mb{% if S_ONLINE %} online{% endif %}">
 			<dl class="left-box details profile-details">
 				<h3 class="capitalize">{{ lang('INFORMATION') }}</h3>
 
@@ -136,7 +136,7 @@
 			</dl>
 		</div>
 
-		<div class="c-gzo-card c-gzo-card-body t-gzo-border t-gzo-mb">
+		<div class="c-gzo-card c-gzo-card-body c-gzo-border c-gzo-mb">
 
 			<dl class="left-box details profile-details">
 				<h3 class="capitalize">{{ lang('USER_FORUM') }}</h3>
@@ -191,7 +191,7 @@
 		</div>
 
 		{% if SIGNATURE %}
-			<div class="c-gzo-card c-gzo-card-body t-gzo-border ">
+			<div class="c-gzo-card c-gzo-card-body c-gzo-border ">
 				<div class="inner">
 
 					<h3 class="capitalize">{{ lang('SIGNATURE') }}</h3>
