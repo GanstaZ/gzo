@@ -430,6 +430,10 @@ dl.details dd.c-gzo-ddp {
 	background: #deebfe;
 }
 
+dl.t-gzo-info dt {
+	color: #000000;
+}
+
 .t-progress-center {
 	color: #000033;
 }
