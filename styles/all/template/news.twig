@@ -1,8 +1,8 @@
 {% extends 'layout/app-base.twig' %}
 
 {% block top_content %}
-    {% if news %}
-    	{% from 'macros/tags.twig' import icon %}
+	{% if news %}
+		{% from 'macros/tags.twig' import icon %}
 
 		<div role="navigation">
 			<div class="inner">
@@ -40,7 +40,7 @@
 			</div>
 		</div>
 
-    {% endif %}
+	{% endif %}
 {% endblock %}
 
 {% block mid_content %}
@@ -51,7 +51,7 @@
 		{% endfor %}
 
 		{% if pagination %}
-			<div class="gz_pagination">
+			<div class="c-gzo-pagination">
 				<div class="pagination">
 					{{ lang('TOTAL_POSTS_COUNT', total_news) }} &bull; {{ PAGE_NUMBER }} {{ include('includes/pagination.twig') }}
 				</div>

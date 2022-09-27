@@ -14,58 +14,64 @@
 
 <div class="post c-block mid-bottom-content bg1">
 	<div class="c-tab-pane current" id="tab-1">
-	{% if S_DISPLAY_ONLINE_LIST %}
-		<ul class="t-no-style">
-			<li>{{ TOTAL_USERS_ONLINE }} ({{ L_ONLINE_EXPLAIN }})</li>
-			<li>{{ RECORD_USERS }}</li>
-			{% if U_VIEWONLINE %}
-			<li><br></li>
-			<li>{{ LOGGED_IN_USER_LIST }}</li>
-			{% if legend %}
-			<li><em>{{ lang('LEGEND') ~ lang('COLON') }}
-				{% for item in legend %}
-					{% set color = item.color ? 'color:#' ~ item.color : '' %}
-					{% if item.not_authed %}
-						<span {{ color }}>{{ get_group_name(item.name) }}</span>
-					{% else %}
-						{{ url({'href': item.link, 'style': color}, get_group_name(item.name)) }}
-					{% endif %}{{ not loop.last ? ', ' }}
-				{% endfor %}
-				</em>
-			</li>
-			{% endif %}
-			{% endif %}
-		</ul>
-	{% endif %}
-	</div>
-	<div class="c-tab-pane" id="tab-2">
-	{% if s_birthday_list %}
-		<p class="c-whos-p">
-		{% if birthdays %}
-			{{ lang('CONGRATULATIONS') ~ lang('COLON') }}
-			<strong>
-			{% for item in birthdays %}
-				{{ item.member ~ (item.age ? ' (' ~ item.age ~ ')') }}{{ not loop.last ? ', ' }}
-			{% endfor %}
-			</strong>
-		{% else %}
-			{{ lang('NO_BIRTHDAYS') }}
+
+		{% if S_DISPLAY_ONLINE_LIST %}
+			<ul class="c-no-style t-no-style">
+				<li>{{ TOTAL_USERS_ONLINE }} ({{ L_ONLINE_EXPLAIN }})</li>
+				<li>{{ RECORD_USERS }}</li>
+
+				{% if U_VIEWONLINE %}
+					<li><br></li>
+					<li>{{ LOGGED_IN_USER_LIST }}</li>
+
+					{% if legend %}
+						<li><em>{{ lang('LEGEND') ~ lang('COLON') }}
+							{% for item in legend %}
+								{% set color = item.color ? 'color:#' ~ item.color : '' %}
+
+								{% if item.not_authed %}
+									<span {{ color }}>{{ get_group_name(item.name) }}</span>
+								{% else %}
+									{{ url({'href': item.link, 'style': color}, get_group_name(item.name)) }}
+								{% endif %}{{ not loop.last ? ', ' }}
+							{% endfor %}
+						</em></li>
+					{% endif %}
+				{% endif %}
+			</ul>
 		{% endif %}
-		</p>
-	{% endif %}
+
+	</div>
+
+	<div class="c-tab-pane" id="tab-2">
+		{% if s_birthday_list %}
+			<p class="c-whos-p">
+				{% if birthdays %}
+					{{ lang('CONGRATULATIONS') ~ lang('COLON') }}
+					<strong>
+						{% for item in birthdays %}
+							{{ item.member ~ (item.age ? ' (' ~ item.age ~ ')') }}{{ not loop.last ? ', ' }}
+						{% endfor %}
+					</strong>
+				{% else %}
+					{{ lang('NO_BIRTHDAYS') }}
+				{% endif %}
+			</p>
+		{% endif %}
 	</div>
 
 	<div class="c-tab-pane" id="tab-3">
-	{% if new_user %}
-		<ul class="t-no-style">
-			<li>
-				{{ lang('TOTAL_POSTS_COUNT', gz_posts) }} &bull; {{ lang('TOTAL_TOPICS', gz_topics) }} &bull; {{ lang('TOTAL_USERS', gz_users) }} &bull; {{ lang('NEWEST_USER', new_user) }}
-			</li>
-			<li>
-				{{ lang('GZ_PER_DAY', lang('POSTS'), ppd) }} &bull; {{ lang('GZ_PER_DAY', lang('TOPICS'), tpd) }} &bull; {{ lang('GZ_PER_DAY', lang('USERS'), upd) }}
-			</li>
-		</ul>
-	{% endif %}
+		{% if new_user %}
+			<ul class="c-no-style t-no-style">
+				<li>
+					{{ lang('TOTAL_POSTS_COUNT', gz_posts) }} &bull; {{ lang('TOTAL_TOPICS', gz_topics) }} &bull; {{ lang('TOTAL_USERS', gz_users) }} &bull; {{ lang('NEWEST_USER', new_user) }}
+				</li>
+				<li>
+					{{ lang('GZ_PER_DAY', lang('POSTS'), ppd) }} &bull; {{ lang('GZ_PER_DAY', lang('TOPICS'), tpd) }} &bull; {{ lang('GZ_PER_DAY', lang('USERS'), upd) }}
+				</li>
+			</ul>
+		{% endif %}
 	</div>
+
 </div>
 {# End Bottom Content #}
