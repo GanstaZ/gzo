@@ -31,7 +31,7 @@ class post extends base
 		// Borrowed from Ideas extension (phpBB)
 		if ($this->user->data['user_id'] == ANONYMOUS)
 		{
-			throw new http_exception(404, 'LOGGED_OUT');
+			throw new http_exception(404, 'LOGIN_REQUIRED');
 		}
 
 		$params = [
