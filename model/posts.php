@@ -1,9 +1,9 @@
 <?php
 /**
 *
-* GZ Web. An extension for the phpBB Forum Software package.
+* GZO Web. An extension for the phpBB Forum Software package.
 *
-* @copyright (c) 2021, GanstaZ, http://www.github.com/GanstaZ/
+* @copyright (c) 2022, GanstaZ, http://www.github.com/GanstaZ/
 * @license GNU General Public License, version 2 (GPL-2.0)
 *
 */
@@ -23,7 +23,7 @@ use phpbb\user;
 use ganstaz\web\core\helper;
 
 /**
-* GZ Web: Posts model
+* GZO Web: Posts model
 */
 class posts
 {
@@ -81,17 +81,17 @@ class posts
 	/**
 	* Constructor
 	*
-	* @param auth             $auth       Auth object
+	* @param auth			  $auth		  Auth object
 	* @param config			  $config	  Config object
 	* @param driver_interface $db		  Database object
 	* @param dispatcher		  $dispatcher Dispatcher object
-	* @param controller       $controller Controller helper object
-	* @param language         $language   Language object
-	* @param pagination       $pagination Pagination object
-	* @param renderer         $renderer   s9e renderer object
-	* @param template         $template   Template object
-	* @param user             $user       User object
-	* @param helper           $helper     Posts helper object
+	* @param controller		  $controller Controller helper object
+	* @param language		  $language	  Language object
+	* @param pagination		  $pagination Pagination object
+	* @param renderer		  $renderer	  s9e renderer object
+	* @param template		  $template	  Template object
+	* @param user			  $user		  User object
+	* @param helper			  $helper	  Posts helper object
 	* @param string			  $root_path  Path to the phpbb includes directory
 	* @param string			  $php_ext	  PHP file extension
 	*/
@@ -113,18 +113,18 @@ class posts
 	)
 	{
 		$this->auth		  = $auth;
-		$this->config     = $config;
-		$this->db         = $db;
+		$this->config	  = $config;
+		$this->db		  = $db;
 		$this->dispatcher = $dispatcher;
 		$this->controller = $controller;
 		$this->language	  = $language;
 		$this->pagination = $pagination;
 		$this->renderer	  = $renderer;
-		$this->template   = $template;
+		$this->template	  = $template;
 		$this->user		  = $user;
-		$this->helper     = $helper;
+		$this->helper	  = $helper;
 		$this->root_path  = $root_path;
-		$this->php_ext    = $php_ext;
+		$this->php_ext	  = $php_ext;
 	}
 
 	/**
@@ -253,8 +253,9 @@ class posts
 
 		// Set template vars
 		$this->template->assign_vars([
-			'GZO_NEW_POST' => $this->controller->route('ganstaz_web_post_article', ['fid' => $forum_id]),
-			'S_CATEGORIES' => $categories,
+			'GZO_NEW_POST'		  => $this->controller->route('ganstaz_web_post_article', ['fid' => $forum_id]),
+			'S_DISPLAY_POST_INFO' => $this->auth->acl_get('f_post', $forum_id) || $this->user->data['user_id'] === ANONYMOUS,
+			'S_CATEGORIES'		  => $categories,
 		]);
 
 		// Do the sql thang
@@ -360,16 +361,16 @@ class posts
 		$text = $this->renderer->render($row['post_text']);
 
 		return [
-			'id'	     => $row['post_id'],
-			'link'	     => $this->controller->route('ganstaz_web_article', ['aid' => $row['topic_id']]),
-			'title'	     => $this->helper->truncate($row['topic_title'], $this->config['gz_title_length']),
-			'date'	     => $this->user->format_date($row['topic_time']),
-			'author'     => get_username_string('full', (int) $row['user_id'], $row['username'], $row['user_colour']),
-			'avatar'     => phpbb_get_user_avatar($poster),
-			'rank'	     => $rank_title['title'],
-			'views'	     => $row['topic_views'],
-			'replies'    => $row['topic_posts_approved'] - 1,
-			'text'	     => $this->trim_messages ? $this->trim_message($text) : $text,
+			'id'		 => $row['post_id'],
+			'link'		 => $this->controller->route('ganstaz_web_article', ['aid' => $row['topic_id']]),
+			'title'		 => $this->helper->truncate($row['topic_title'], $this->config['gz_title_length']),
+			'date'		 => $this->user->format_date($row['topic_time']),
+			'author'	 => get_username_string('full', (int) $row['user_id'], $row['username'], $row['user_colour']),
+			'avatar'	 => phpbb_get_user_avatar($poster),
+			'rank'		 => $rank_title['title'],
+			'views'		 => $row['topic_views'],
+			'replies'	 => $row['topic_posts_approved'] - 1,
+			'text'		 => $this->trim_messages ? $this->trim_message($text) : $text,
 			'is_trimmed' => $this->is_trimmed,
 		];
 	}
@@ -404,8 +405,8 @@ class posts
 	public function get_forum_id(int $topic_id): array
 	{
 		$sql = 'SELECT forum_id
-		        FROM ' . TOPICS_TABLE . '
-		        WHERE topic_id = ' . $topic_id;
+				FROM ' . TOPICS_TABLE . '
+				WHERE topic_id = ' . $topic_id;
 		$result = $this->db->sql_query($sql, 3600);
 		$row = $this->db->sql_fetchrow($result);
 		$this->db->sql_freeresult($result);
