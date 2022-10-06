@@ -9,6 +9,18 @@ services:
         arguments:
             - '@dbal.conn'
 
+    ganstaz.web.info:
+        class: ganstaz\web\core\info
+        arguments:
+            - '@auth'
+            - '@config'
+            - '@dbal.conn'
+            - '@dispatcher'
+            - '@template'
+            - '@user'
+            - '%core.root_path%'
+            - '%core.php_ext%'
+
     ganstaz.web.pages:
         class: ganstaz\web\core\pages
         arguments:
@@ -48,6 +60,22 @@ services:
             - { name: twig.extension }
 
 # ----- Models -----
+    ganstaz.web.main:
+        class: ganstaz\web\model\main
+        arguments:
+            - '@auth'
+            - '@config'
+            - '@dispatcher'
+            - '@controller.helper'
+            - '@language'
+            - '@notification_manager'
+            - '@request'
+            - '@template'
+            - '@user'
+            - '@ganstaz.web.info'
+            - '%core.root_path%'
+            - '%core.php_ext%'
+
     ganstaz.web.posts:
         class: ganstaz\web\model\posts
         arguments:
@@ -86,6 +114,14 @@ services:
         class: ganstaz\web\controller\articles
         shared: false
         parent: ganstaz.web.controller.base
+
+    ganstaz.web.forum.controller:
+        class: ganstaz\web\controller\forum
+        shared: false
+        parent: ganstaz.web.controller.base
+        arguments:
+            - '@dispatcher'
+            - '@ganstaz.web.main'
 
     ganstaz.web.post.controller:
         class: ganstaz\web\controller\post

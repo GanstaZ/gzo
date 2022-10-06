@@ -2,6 +2,10 @@ ganstaz_web_index:
     path: /
     defaults: { _controller: ganstaz.web.index.controller:handle }
 
+ganstaz_web_forum:
+    path: /forum
+    defaults: { _controller: ganstaz.web.forum.controller:handle }
+
 ganstaz_web_news:
     path: /news/{id}
     defaults: { _controller: ganstaz.web.articles.controller:handle, id: 3, page: 1 }

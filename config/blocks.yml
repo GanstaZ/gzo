@@ -88,8 +88,7 @@ services:
         shared: false
         parent: ganstaz.web.block.base
         arguments:
-            - '@auth'
-            - '@user'
+            - '@ganstaz.web.info'
         calls:
             - [set_active, [true]]
         tags:

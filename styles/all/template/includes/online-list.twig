@@ -1,0 +1,31 @@
+{% from '@ganstaz_web/macros/tags.twig' import url %}
+
+<div class="stat-block online-list">
+	<p>
+		{% EVENT index_body_block_online_prepend %}
+
+		{{ TOTAL_USERS_ONLINE }} ({{ L_ONLINE_EXPLAIN }})<br />{{ RECORD_USERS }}<br />
+
+		{% if U_VIEWONLINE %}
+			<br />{{ LOGGED_IN_USER_LIST }}
+
+			{% if legend %}
+				<br /><em>{{ lang('LEGEND') ~ lang('COLON') }}
+					{% for item in legend %}
+						{% set color = item.color ? 'color:#' ~ item.color : '' %}
+
+						{% if item.not_authed %}
+							<span {{ color }}>{{ get_group_name(item.name) }}</span>
+						{% else %}
+							{{ url({'href': item.link, 'style': color}, get_group_name(item.name)) }}
+						{% endif %}{{ not loop.last ? ', ' }}
+					{% endfor %}
+				</em>
+			{% endif %}
+
+		{% endif %}
+
+		{% EVENT index_body_block_online_append %}
+
+	</p>
+</div>

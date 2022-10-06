@@ -1,9 +1,9 @@
 <?php
 /**
 *
-* GZ Web. An extension for the phpBB Forum Software package.
+* GZO Web. An extension for the phpBB Forum Software package.
 *
-* @copyright (c) 2021, GanstaZ, http://www.github.com/GanstaZ/
+* @copyright (c) 2022, GanstaZ, http://www.github.com/GanstaZ/
 * @license GNU General Public License, version 2 (GPL-2.0)
 *
 */
@@ -22,7 +22,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
-* GZ Web Event listener
+* GZO Web: Event listener
 */
 class listener implements EventSubscriberInterface
 {
@@ -53,14 +53,14 @@ class listener implements EventSubscriberInterface
 	/**
 	* Constructor
 	*
-	* @param config	    $config	    Config object
+	* @param config		$config		Config object
 	* @param controller $controller Controller helper object
-	* @param language   $language   Language object
-	* @param request    $request    Request object
-	* @param template   $template   Template object
-	* @param helper     $helper     Helper object
-	* @param pages      $pages      Pages object
-	* @param manager    $manager    Blocks manager object
+	* @param language	$language	Language object
+	* @param request	$request	Request object
+	* @param template	$template	Template object
+	* @param helper		$helper		Helper object
+	* @param pages		$pages		Pages object
+	* @param manager	$manager	Blocks manager object
 	*/
 	public function __construct(
 		config $config,
@@ -76,11 +76,11 @@ class listener implements EventSubscriberInterface
 		$this->config	  = $config;
 		$this->controller = $controller;
 		$this->language	  = $language;
-		$this->request    = $request;
+		$this->request	  = $request;
 		$this->template	  = $template;
-		$this->helper     = $helper;
-		$this->pages      = $pages;
-		$this->manager    = $manager;
+		$this->helper	  = $helper;
+		$this->pages	  = $pages;
+		$this->manager	  = $manager;
 	}
 
 	/**
@@ -91,13 +91,14 @@ class listener implements EventSubscriberInterface
 	public static function getSubscribedEvents(): array
 	{
 		return [
-			'core.user_setup'		=> 'add_language',
-			'core.user_setup_after' => 'add_manager_data',
-			'core.page_header'		=> 'add_web_data',
-			'core.viewforum_get_topic_data'          => 'news_forum_redirect',
-			'core.posting_modify_template_vars'      => 'submit_post_template',
-			'core.acp_manage_forums_request_data'    => 'manage_forums_request_data',
-			'core.acp_manage_forums_display_form'    => 'manage_forums_display_form',
+			'core.user_setup'		 => 'add_language',
+			'core.user_setup_after'	 => 'add_manager_data',
+			'core.page_header'		 => 'add_web_data',
+			'core.page_header_after' => 'change_index',
+			'core.viewforum_get_topic_data'			 => 'news_forum_redirect',
+			'core.posting_modify_template_vars'		 => 'submit_post_template',
+			'core.acp_manage_forums_request_data'	 => 'manage_forums_request_data',
+			'core.acp_manage_forums_display_form'	 => 'manage_forums_display_form',
 			'core.memberlist_modify_viewprofile_sql' => 'redirect_profile',
 		];
 	}
@@ -145,12 +146,32 @@ class listener implements EventSubscriberInterface
 	*/
 	public function add_web_data(): void
 	{
+		if ($this->pages->get_current_page() === 'index')
+		{
+			$url = $this->controller->route('ganstaz_web_forum');
+
+			$response = new RedirectResponse($url);
+			$response->send();
+		}
+
 		if ($this->config['gz_enable_news_link'])
 		{
 			$this->template->assign_vars([
 				'U_NEWS' => $this->controller->route('ganstaz_web_news'),
 			]);
 		}
+	}
+
+	/**
+	* Event core.page_header_after
+	*
+	* @param \phpbb\event\data $event The event object
+	*/
+	public function change_index(): void
+	{
+		$this->template->assign_vars([
+			'U_INDEX' => $this->controller->route('ganstaz_web_forum'),
+		]);
 	}
 
 	/**
@@ -183,7 +204,7 @@ class listener implements EventSubscriberInterface
 		// Alter posting page breadcrumbs to link to the ideas controller
 		$this->template->alter_block_array('navlinks', [
 			'BREADCRUMB_NAME' => $this->language->lang('HOME'),
-			'U_BREADCRUMB'    => $this->controller->route('ganstaz_web_index'),
+			'U_BREADCRUMB'	  => $this->controller->route('ganstaz_web_index'),
 		], false, 'change');
 	}
 

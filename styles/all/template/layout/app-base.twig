@@ -24,7 +24,9 @@
 	</div>
 
 	{% block mid_bottom %}
-		{% BLOCKS gz_middle %}
+	    {% if gz_middle %}
+			{% BLOCKS gz_middle %}
+	    {% endif %}
 	{% endblock %}
 
 {% endblock %}
