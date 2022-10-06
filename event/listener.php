@@ -100,6 +100,7 @@ class listener implements EventSubscriberInterface
 			'core.acp_manage_forums_request_data'	 => 'manage_forums_request_data',
 			'core.acp_manage_forums_display_form'	 => 'manage_forums_display_form',
 			'core.memberlist_modify_viewprofile_sql' => 'redirect_profile',
+			'core.modify_username_string'			 => 'modify_username_string'
 		];
 	}
 
@@ -245,6 +246,31 @@ class listener implements EventSubscriberInterface
 
 			$response = new RedirectResponse($url);
 			$response->send();
+		}
+	}
+
+	/**
+	* Event core.modify_username_string
+	*
+	* @param \phpbb\event\data $event The event object
+	*/
+	public function modify_username_string($event): void
+	{
+		if ($event['mode'] === 'full')
+		{
+			$user  = $event['username'];
+			$color = $event['username_colour'];
+			$route = $this->controller->route('ganstaz_web_member', ['username' => $user]);
+
+			// TODO: remove this html ASAP
+			// Can be removed/modified when html part will be removed from phpBB
+			$username_string = '<a href="' . $route . '" class="username">' . $user . '</a>';
+			if ($color)
+			{
+				$username_string = '<a href="' . $route . '" style="color:' . $color . ';" class="username-coloured">' . $user . '</a>';
+			}
+
+			$event['username_string'] = $username_string;
 		}
 	}
 }
