@@ -47,15 +47,15 @@ class settings
 	* @param language $language Language object
 	* @param request  $request	Request object
 	* @param template $template Template object
-	* @param helper	  $helper   Helper object
+	* @param helper	  $helper	Helper object
 	*/
 	public function __construct(config $config, language $language, request $request, template $template, helper $helper)
 	{
-		$this->config   = $config;
+		$this->config	= $config;
 		$this->language = $language;
-		$this->request  = $request;
+		$this->request	= $request;
 		$this->template = $template;
-		$this->helper   = $helper;
+		$this->helper	= $helper;
 	}
 
 	/**
@@ -70,6 +70,8 @@ class settings
 
 		$this->language->add_lang('acp_web', 'ganstaz/web');
 
+		$s_forum_ids = count($this->helper->get_forum_ids()) > 1;
+
 		// Is the form submitted
 		if ($this->request->is_set_post('submit'))
 		{
@@ -79,6 +81,12 @@ class settings
 			}
 
 			// If the form has been submitted, set all data and save it
+			if ($s_forum_ids)
+			{
+				$this->config->set('gz_main_fid', $this->request->variable('gz_main_fid', (int) 0));
+				$this->config->set('gz_news_fid', $this->request->variable('gz_news_fid', (int) 0));
+			}
+
 			$this->set_options();
 
 			// Show user confirmation of success and provide link back to the previous screen
@@ -89,14 +97,14 @@ class settings
 		$this->template->assign_vars([
 			'GZ_VERSION'		 => $this->config['gz_core_version'],
 			'GZ_NEWS_IDS'		 => $this->helper->get_forum_ids(),
-			'S_NEWS_IDS'	     => count($this->helper->get_forum_ids()) > 1,
+			'S_NEWS_IDS'		 => $s_forum_ids,
 			'S_MAIN_CURRENT'	 => $this->config['gz_main_fid'],
 			'S_NEWS_CURRENT'	 => $this->config['gz_news_fid'],
 			'S_ENABLE_NEWS_LINK' => $this->config['gz_enable_news_link'],
-			'S_PROFILE_TABS'     => $this->config['gz_profile_tabs'],
+			'S_PROFILE_TABS'	 => $this->config['gz_profile_tabs'],
 			'S_PAGINATION'		 => $this->config['gz_pagination'],
 			'GZ_LIMIT'			 => $this->config['gz_limit'],
-			'GZ_USER_LIMIT'	     => $this->config['gz_user_limit'],
+			'GZ_USER_LIMIT'		 => $this->config['gz_user_limit'],
 			'MIN_TITLE_LENGTH'	 => $this->config['gz_title_length'],
 			'MIN_CONTENT_LENGTH' => $this->config['gz_content_length'],
 			'S_BLOCKS'			 => $this->config['gz_blocks'],
@@ -117,8 +125,6 @@ class settings
 	*/
 	protected function set_options(): void
 	{
-		$this->config->set('gz_main_fid', $this->request->variable('gz_main_fid', (int) 0));
-		$this->config->set('gz_news_fid', $this->request->variable('gz_news_fid', (int) 0));
 		$this->config->set('gz_enable_news_link', $this->request->variable('gz_enable_news_link', (bool) 0));
 		//$this->config->set('gz_the_team_fid', $this->request->variable('gz_the_team_fid', (int) 0));
 		//$this->config->set('gz_top_posters_fid', $this->request->variable('gz_top_posters_fid', (int) 0));
