@@ -12,7 +12,7 @@ services:
         arguments:
             - '@service_container'
         tags:
-            - { name: service_collection, tag: gz.web.block }
+            - { name: service_collection, tag: gzo.web.block }
 
     ganstaz.web.block.event:
         class: ganstaz\web\core\blocks\event
@@ -36,7 +36,7 @@ services:
         calls:
             - [set_active, [false]]
         tags:
-            - { name: gz.web.block }
+            - { name: gzo.web.block }
 
     ganstaz.web.block.information:
         class: ganstaz\web\core\blocks\type\information
@@ -45,7 +45,7 @@ services:
         calls:
             - [set_active, [true]]
         tags:
-            - { name: gz.web.block }
+            - { name: gzo.web.block }
 
     ganstaz.web.block.the.team:
         class: ganstaz\web\core\blocks\type\the_team
@@ -54,7 +54,7 @@ services:
         calls:
             - [set_active, [true]]
         tags:
-            - { name: gz.web.block }
+            - { name: gzo.web.block }
 
     ganstaz.web.block.top.posters:
         class: ganstaz\web\core\blocks\type\top_posters
@@ -63,7 +63,7 @@ services:
         calls:
             - [set_active, [true]]
         tags:
-            - { name: gz.web.block }
+            - { name: gzo.web.block }
 
     ganstaz.web.block.recent.posts:
         class: ganstaz\web\core\blocks\type\recent_posts
@@ -72,7 +72,7 @@ services:
         calls:
             - [set_active, [true]]
         tags:
-            - { name: gz.web.block }
+            - { name: gzo.web.block }
 
     ganstaz.web.block.recent.topics:
         class: ganstaz\web\core\blocks\type\recent_topics
@@ -81,7 +81,7 @@ services:
         calls:
             - [set_active, [true]]
         tags:
-            - { name: gz.web.block }
+            - { name: gzo.web.block }
 
     ganstaz.web.block.whos.online:
         class: ganstaz\web\core\blocks\type\whos_online
@@ -92,4 +92,4 @@ services:
         calls:
             - [set_active, [true]]
         tags:
-            - { name: gz.web.block }
+            - { name: gzo.web.block }
