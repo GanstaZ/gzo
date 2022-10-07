@@ -1,9 +1,9 @@
 <?php
 /**
 *
-* GZ Web. An extension for the phpBB Forum Software package.
+* GZO Web. An extension for the phpBB Forum Software package.
 *
-* @copyright (c) 2021, GanstaZ, http://www.github.com/GanstaZ/
+* @copyright (c) 2022, GanstaZ, http://www.github.com/GanstaZ/
 * @license GNU General Public License, version 2 (GPL-2.0)
 *
 */
@@ -30,28 +30,28 @@ class m4_config extends \phpbb\db\migration\migration
 	{
 		return [
 			// Add the config variables we want to be able to set
-			['config.add', ['gz_core_version', '2.4.0-dev']],
-			['config.add', ['gz_main_fid', 2]],
-			['config.add', ['gz_news_fid', 3]],
-			['config.add', ['gz_enable_news_link', 1]],
-			['config.add', ['gz_the_team_fid', 8]],
-			['config.add', ['gz_top_posters_fid', 0]],
-			['config.add', ['gz_recent_posts_fid', 0]],
-			['config.add', ['gz_recent_topics_fid', 0]],
-			['config.add', ['gz_profile_tabs', 1]],
-			['config.add', ['gz_pagination', 1]],
-			['config.add', ['gz_title_length', 26]],
-			['config.add', ['gz_content_length', 150]],
-			['config.add', ['gz_limit', 5]],
-			['config.add', ['gz_user_limit', 5]],
+			['config.add', ['gzo_core_version', '2.4.0-dev']],
+			['config.add', ['gzo_main_fid', 2]],
+			['config.add', ['gzo_news_fid', 3]],
+			['config.add', ['gzo_enable_news_link', 1]],
+			['config.add', ['gzo_the_team_fid', 8]],
+			['config.add', ['gzo_top_posters_fid', 0]],
+			['config.add', ['gzo_recent_posts_fid', 0]],
+			['config.add', ['gzo_recent_topics_fid', 0]],
+			['config.add', ['gzo_profile_tabs', 1]],
+			['config.add', ['gzo_pagination', 1]],
+			['config.add', ['gzo_title_length', 26]],
+			['config.add', ['gzo_content_length', 150]],
+			['config.add', ['gzo_limit', 5]],
+			['config.add', ['gzo_user_limit', 5]],
 			// Blocks
-			['config.add', ['gz_blocks', 1]],
-			['config.add', ['gz_special', 1]],
-			['config.add', ['gz_right', 1]],
-			['config.add', ['gz_left', 0]],
-			['config.add', ['gz_middle', 1]],
-			['config.add', ['gz_top', 0]],
-			['config.add', ['gz_bottom', 0]],
+			['config.add', ['gzo_blocks', 1]],
+			['config.add', ['gzo_special', 1]],
+			['config.add', ['gzo_right', 1]],
+			['config.add', ['gzo_left', 0]],
+			['config.add', ['gzo_middle', 1]],
+			['config.add', ['gzo_top', 0]],
+			['config.add', ['gzo_bottom', 0]],
 		];
 	}
 }

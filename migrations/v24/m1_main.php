@@ -1,9 +1,9 @@
 <?php
 /**
 *
-* GZ Web. An extension for the phpBB Forum Software package.
+* GZO Web. An extension for the phpBB Forum Software package.
 *
-* @copyright (c) 2021, GanstaZ, http://www.github.com/GanstaZ/
+* @copyright (c) 2022, GanstaZ, http://www.github.com/GanstaZ/
 * @license GNU General Public License, version 2 (GPL-2.0)
 *
 */
@@ -28,7 +28,7 @@ class m1_main extends \phpbb\db\migration\migration
 	*/
 	public function check($name)
 	{
-		return $this->db_tools->sql_table_exists($this->table_prefix . 'gz_' . $name);
+		return $this->db_tools->sql_table_exists($this->table_prefix . 'gzo_' . $name);
 	}
 
 	/**
@@ -49,7 +49,7 @@ class m1_main extends \phpbb\db\migration\migration
 	{
 		return [
 			'add_tables' => [
-				$this->table_prefix . 'gz_blocks' => [
+				$this->table_prefix . 'gzo_blocks' => [
 					'COLUMNS' => [
 						'id'	   => ['UINT', null, 'auto_increment'],
 						'name'	   => ['VCHAR', ''],
@@ -60,19 +60,19 @@ class m1_main extends \phpbb\db\migration\migration
 					],
 					'PRIMARY_KEY' => ['id'],
 				],
-				$this->table_prefix . 'gz_pages' => [
+				$this->table_prefix . 'gzo_pages' => [
 					'COLUMNS' => [
 						'id'		 => ['UINT', null, 'auto_increment'],
 						'name'		 => ['VCHAR', ''],
 						'active'	 => ['BOOL', 0],
 						'allow'		 => ['BOOL', 0],
 						'changeable' => ['BOOL', 0],
-						'gz_special' => ['BOOL', 0],
-						'gz_right'	 => ['BOOL', 0],
-						'gz_left'	 => ['BOOL', 0],
-						'gz_middle'  => ['BOOL', 0],
-						'gz_top'	 => ['BOOL', 0],
-						'gz_bottom'  => ['BOOL', 0],
+						'gzo_special' => ['BOOL', 0],
+						'gzo_right'	 => ['BOOL', 0],
+						'gzo_left'	 => ['BOOL', 0],
+						'gzo_middle' => ['BOOL', 0],
+						'gzo_top'	 => ['BOOL', 0],
+						'gzo_bottom' => ['BOOL', 0],
 					],
 					'PRIMARY_KEY' => ['id'],
 				],
@@ -90,8 +90,8 @@ class m1_main extends \phpbb\db\migration\migration
 	{
 		return [
 			'drop_tables' => [
-				$this->table_prefix . 'gz_blocks',
-				$this->table_prefix . 'gz_pages',
+				$this->table_prefix . 'gzo_blocks',
+				$this->table_prefix . 'gzo_pages',
 			],
 		];
 	}

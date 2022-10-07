@@ -1,9 +1,9 @@
 <?php
 /**
 *
-* GZ Web. An extension for the phpBB Forum Software package.
+* GZO Web. An extension for the phpBB Forum Software package.
 *
-* @copyright (c) 2021, GanstaZ, http://www.github.com/GanstaZ/
+* @copyright (c) 2022, GanstaZ, http://www.github.com/GanstaZ/
 * @license GNU General Public License, version 2 (GPL-2.0)
 *
 */
@@ -38,7 +38,7 @@ class m3_blocks extends \phpbb\db\migration\migration
 	*/
 	public function add_blocks()
 	{
-		if ($this->db_tools->sql_table_exists($this->table_prefix . 'gz_blocks'))
+		if ($this->db_tools->sql_table_exists($this->table_prefix . 'gzo_blocks'))
 		{
 			$blocks_data = [
 				[
@@ -46,53 +46,53 @@ class m3_blocks extends \phpbb\db\migration\migration
 					'ext_name' => 'ganstaz_web',
 					'position' => 1,
 					'active'   => 1,
-					'section'  => 'gz_right',
+					'section'  => 'gzo_right',
 				],
 				[
 					'name'	   => 'ganstaz_information',
 					'ext_name' => 'ganstaz_web',
 					'position' => 2,
 					'active'   => 1,
-					'section'  => 'gz_right',
+					'section'  => 'gzo_right',
 				],
 				[
 					'name'	   => 'ganstaz_the_team',
 					'ext_name' => 'ganstaz_web',
 					'position' => 3,
 					'active'   => 1,
-					'section'  => 'gz_right',
+					'section'  => 'gzo_right',
 				],
 				[
 					'name'	   => 'ganstaz_top_posters',
 					'ext_name' => 'ganstaz_web',
 					'position' => 4,
 					'active'   => 1,
-					'section'  => 'gz_right',
+					'section'  => 'gzo_right',
 				],
 				[
 					'name'	   => 'ganstaz_recent_posts',
 					'ext_name' => 'ganstaz_web',
 					'position' => 5,
 					'active'   => 1,
-					'section'  => 'gz_right',
+					'section'  => 'gzo_right',
 				],
 				[
 					'name'	   => 'ganstaz_recent_topics',
 					'ext_name' => 'ganstaz_web',
-					'position' => 6,
+					'position' => 1,
 					'active'   => 0,
-					'section'  => 'gz_left',
+					'section'  => 'gzo_left',
 				],
 				[
 					'name'	   => 'ganstaz_whos_online',
 					'ext_name' => 'ganstaz_web',
 					'position' => 1,
 					'active'   => 1,
-					'section'  => 'gz_middle',
+					'section'  => 'gzo_middle',
 				],
 			];
 
-			$insert_buffer = new \phpbb\db\sql_insert_buffer($this->db, $this->table_prefix . 'gz_blocks');
+			$insert_buffer = new \phpbb\db\sql_insert_buffer($this->db, $this->table_prefix . 'gzo_blocks');
 
 			foreach ($blocks_data as $row)
 			{
