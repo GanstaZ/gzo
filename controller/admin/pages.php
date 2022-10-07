@@ -82,7 +82,7 @@ class pages
 		//$this->language->add_lang('acp_pages', 'ganstaz/web');
 
 		// Get all pages
-		$sql = 'SELECT name, active, allow, gzo_right, gzo_left, gzo_middle, gzo_top, gzo_bottom
+		$sql = 'SELECT name, active, allow, changeable, gzo_right, gzo_left, gzo_middle, gzo_top, gzo_bottom
 				FROM ' . $this->page_data . '
 				ORDER BY id';
 		$result = $this->db->sql_query($sql);
@@ -94,6 +94,7 @@ class pages
 				'name'		 => $row['name'],
 				'active'	 => (bool) $row['active'],
 				'allow'		 => (bool) $row['allow'],
+				'changeable' => (bool) $row['changeable'],
 				'gzo_right'	 => (bool) $row['gzo_right'],
 				'gzo_left'	 => (bool) $row['gzo_left'],
 				'gzo_middle' => (bool) $row['gzo_middle'],
@@ -182,6 +183,7 @@ class pages
 				'middle'	 => $data['gzo_middle'],
 				'top'		 => $data['gzo_top'],
 				'bottom'	 => $data['gzo_bottom'],
+				'changeable' => $data['changeable'],
 			]);
 		}
 	}
