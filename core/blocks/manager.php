@@ -1,9 +1,9 @@
 <?php
 /**
 *
-* GZ Web. An extension for the phpBB Forum Software package.
+* GZO Web. An extension for the phpBB Forum Software package.
 *
-* @copyright (c) 2021, GanstaZ, http://www.github.com/GanstaZ/
+* @copyright (c) 2022, GanstaZ, http://www.github.com/GanstaZ/
 * @license GNU General Public License, version 2 (GPL-2.0)
 *
 */
@@ -14,7 +14,7 @@ use phpbb\db\driver\driver_interface;
 use phpbb\di\service_collection;
 
 /**
-* GZ Web blocks manager
+* GZO Web: blocks manager
 */
 class manager
 {
@@ -31,7 +31,7 @@ class manager
 	protected $blocks_data;
 
 	/** @var array sections */
-	protected $sections = ['gz_right', 'gz_bottom', 'gz_left', 'gz_top', 'gz_middle'];
+	protected $sections = ['gzo_right', 'gzo_bottom', 'gzo_left', 'gzo_top', 'gzo_middle'];
 
 	/** @var array type */
 	protected $type = ['section', 'name'];

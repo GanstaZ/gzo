@@ -1,9 +1,9 @@
 <?php
 /**
 *
-* GZ Web. An extension for the phpBB Forum Software package.
+* GZO Web. An extension for the phpBB Forum Software package.
 *
-* @copyright (c) 2021, GanstaZ, http://www.github.com/GanstaZ/
+* @copyright (c) 2022, GanstaZ, http://www.github.com/GanstaZ/
 * @license GNU General Public License, version 2 (GPL-2.0)
 *
 */
@@ -11,7 +11,7 @@
 namespace ganstaz\web\core\blocks\type;
 
 /**
-* GZ Web: Information
+* GZO Web: Information
 */
 class information extends base
 {
@@ -21,7 +21,7 @@ class information extends base
 	public function get_block_data(): array
 	{
 		return [
-			'section'  => 'gz_right',
+			'section'  => 'gzo_right',
 			'ext_name' => 'ganstaz_web',
 		];
 	}
@@ -42,7 +42,7 @@ class information extends base
 		// Set template vars
 		$this->template->assign_vars([
 			'phpbb_version' => (string) $this->config['version'],
-			'core_stable'	=> (string) $this->config['gz_core_version'],
+			'core_stable'	=> (string) $this->config['gzo_core_version'],
 		]);
 	}
 }

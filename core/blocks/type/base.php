@@ -1,9 +1,9 @@
 <?php
 /**
 *
-* GZ Web. An extension for the phpBB Forum Software package.
+* GZO Web. An extension for the phpBB Forum Software package.
 *
-* @copyright (c) 2021, GanstaZ, http://www.github.com/GanstaZ/
+* @copyright (c) 2022, GanstaZ, http://www.github.com/GanstaZ/
 * @license GNU General Public License, version 2 (GPL-2.0)
 *
 */
@@ -17,7 +17,7 @@ use phpbb\template\template;
 use phpbb\event\dispatcher;
 
 /**
-* GZ Web: base class for blocks
+* GZO Web: base class for blocks
 */
 abstract class base implements block_interface
 {
@@ -39,15 +39,18 @@ abstract class base implements block_interface
 	/** @var bool loading */
 	protected $loading;
 
-	/** @var array Contains phpBB vars */
-	protected $phpbb_vars;
+	/** @var root_path */
+	protected $root_path;
+
+	/** @var php_ext */
+	protected $php_ext;
 
 	/**
 	* Constructor
 	*
 	* @param config			  $config	  Config object
 	* @param driver_interface $db		  Database object
-	* @param controller       $controller Controller helper object
+	* @param controller		  $controller Controller helper object
 	* @param template		  $template	  Template object
 	* @param dispatcher		  $dispatcher Dispatcher object
 	* @param string			  $root_path  Path to the phpbb includes directory
@@ -55,12 +58,13 @@ abstract class base implements block_interface
 	*/
 	public function __construct(config $config, driver_interface $db, controller $controller, template $template, dispatcher $dispatcher, $root_path, $php_ext)
 	{
-		$this->config = $config;
-		$this->db = $db;
+		$this->config	  = $config;
+		$this->db		  = $db;
 		$this->controller = $controller;
 		$this->dispatcher = $dispatcher;
-		$this->template = $template;
-		$this->phpbb_vars = ['root_path' => $root_path, 'php_ext' => $php_ext];
+		$this->template	  = $template;
+		$this->root_path  = $root_path;
+		$this->php_ext	  = $php_ext;
 	}
 
 	/**
@@ -92,16 +96,6 @@ abstract class base implements block_interface
 	*/
 	public function load(): void
 	{
-	}
-
-	/**
-	* Get $phpbb_root_path or php_ext
-	*
-	* @return string
-	*/
-	public function get(string $var): ?string
-	{
-		return $this->phpbb_vars[$var] ?? null;
 	}
 
 	/**
