@@ -1,9 +1,9 @@
 <?php
 /**
 *
-* GZ Web. An extension for the phpBB Forum Software package.
+* GZO Web. An extension for the phpBB Forum Software package.
 *
-* @copyright (c) 2021, GanstaZ, http://www.github.com/GanstaZ/
+* @copyright (c) 2022, GanstaZ, http://www.github.com/GanstaZ/
 * @license GNU General Public License, version 2 (GPL-2.0)
 *
 */
@@ -11,7 +11,7 @@
 namespace ganstaz\web\core\blocks\type;
 
 /**
-* GZ Web: The Team
+* GZO Web: The Team
 */
 class the_team extends base
 {
@@ -21,7 +21,7 @@ class the_team extends base
 	public function get_block_data(): array
 	{
 		return [
-			'section'  => 'gz_right',
+			'section'  => 'gzo_right',
 			'ext_name' => 'ganstaz_web',
 		];
 	}
@@ -33,7 +33,7 @@ class the_team extends base
 	{
 		$sql = 'SELECT group_name, group_type
 				FROM ' . GROUPS_TABLE . '
-				WHERE group_id = ' . (int) $this->config['gz_the_team_fid'];
+				WHERE group_id = ' . (int) $this->config['gzo_the_team_fid'];
 		$result = $this->db->sql_query($sql, 3600);
 		$row = $this->db->sql_fetchrow($result);
 		$this->db->sql_freeresult($result);
@@ -44,7 +44,7 @@ class the_team extends base
 				FROM ' . USER_GROUP_TABLE . ' ug, ' . USERS_TABLE . ' u
 				WHERE ug.user_id = u.user_id
 					AND ug.user_pending = 0
-					AND ug.group_id = ' . (int) $this->config['gz_the_team_fid'];
+					AND ug.group_id = ' . (int) $this->config['gzo_the_team_fid'];
 		$result = $this->db->sql_query($sql, 3600);
 
 		while ($row = $this->db->sql_fetchrow($result))

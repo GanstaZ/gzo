@@ -3,7 +3,7 @@
 *
 * GZO Web. An extension for the phpBB Forum Software package.
 *
-* @copyright (c) 2021, GanstaZ, http://www.github.com/GanstaZ/
+* @copyright (c) 2022, GanstaZ, http://www.github.com/GanstaZ/
 * @license GNU General Public License, version 2 (GPL-2.0)
 *
 */
@@ -25,9 +25,9 @@ class whos_online extends base
 	*
 	* @param info $info Forum info helper object
 	*/
-	public function __construct($config, $db, $controller, $template, $dispatcher, $root_path, $php_ext, info $info)
+	public function __construct($config, $db, $controller, $template, $dispatcher, $helper, $root_path, $php_ext, info $info)
 	{
-		parent::__construct($config, $db, $controller, $template, $dispatcher, $root_path, $php_ext);
+		parent::__construct($config, $db, $controller, $template, $dispatcher, $helper, $root_path, $php_ext);
 
 		$this->info = $info;
 	}
@@ -38,7 +38,7 @@ class whos_online extends base
 	public function get_block_data(): array
 	{
 		return [
-			'section'  => 'gz_bottom',
+			'section'  => 'gzo_bottom',
 			'ext_name' => 'ganstaz_web',
 		];
 	}

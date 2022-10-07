@@ -1,9 +1,9 @@
 <?php
 /**
 *
-* GZ Web. An extension for the phpBB Forum Software package.
+* GZO Web. An extension for the phpBB Forum Software package.
 *
-* @copyright (c) 2021, GanstaZ, http://www.github.com/GanstaZ/
+* @copyright (c) 2022, GanstaZ, http://www.github.com/GanstaZ/
 * @license GNU General Public License, version 2 (GPL-2.0)
 *
 */
@@ -17,7 +17,7 @@ use phpbb\request\request;
 use phpbb\template\template;
 
 /**
-* GZ Web: admin pages controller
+* GZO Web: admin pages controller
 */
 class pages
 {
@@ -82,7 +82,7 @@ class pages
 		//$this->language->add_lang('acp_pages', 'ganstaz/web');
 
 		// Get all pages
-		$sql = 'SELECT name, active, allow, changeable, gz_special, gz_right, gz_left, gz_middle, gz_top, gz_bottom
+		$sql = 'SELECT name, active, allow, changeable, gzo_right, gzo_left, gzo_middle, gzo_top, gzo_bottom
 				FROM ' . $this->page_data . '
 				ORDER BY id';
 		$result = $this->db->sql_query($sql);
@@ -95,12 +95,11 @@ class pages
 				'active'	 => (bool) $row['active'],
 				'allow'		 => (bool) $row['allow'],
 				'changeable' => (bool) $row['changeable'],
-				'gz_special' => (bool) $row['gz_special'],
-				'gz_right'	 => (bool) $row['gz_right'],
-				'gz_left'	 => (bool) $row['gz_left'],
-				'gz_middle'  => (bool) $row['gz_middle'],
-				'gz_top'	 => (bool) $row['gz_top'],
-				'gz_bottom'  => (bool) $row['gz_bottom'],
+				'gzo_right'	 => (bool) $row['gzo_right'],
+				'gzo_left'	 => (bool) $row['gzo_left'],
+				'gzo_middle' => (bool) $row['gzo_middle'],
+				'gzo_top'	 => (bool) $row['gzo_top'],
+				'gzo_bottom' => (bool) $row['gzo_bottom'],
 			];
 		}
 		$this->db->sql_freeresult($result);
@@ -116,10 +115,10 @@ class pages
 			// If the form has been submitted, set all data and save it
 			$this->update_data($pages);
 
-			$this->cache->destroy('_gz_pages');
+			$this->cache->destroy('_gzo_pages');
 
 			// Show user confirmation of success and provide link back to the previous screen
-			trigger_error($this->language->lang('ACP_GZ_SETTINGS_SAVED') . adm_back_link($this->u_action));
+			trigger_error($this->language->lang('ACP_GZO_SETTINGS_SAVED') . adm_back_link($this->u_action));
 		}
 
 		// Set output vars for display in the template
@@ -127,7 +126,7 @@ class pages
 
 		// Set template vars
 		$this->template->assign_vars([
-			'S_GZ_PAGE' => true,
+			'S_GZO_PAGE' => true,
 			'U_ACTION'	 => $this->u_action,
 		]);
 	}
@@ -147,12 +146,11 @@ class pages
 			$page_data = [
 				'active'	 => $this->request->variable($data['name'] . '_active', (bool) 0),
 				'allow'		 => $this->request->variable($data['name'] . '_allow', (bool) 0),
-				'gz_special' => $this->request->variable($data['name'] . '_special', (bool) 0),
-				'gz_right'	 => $this->request->variable($data['name'] . '_right', (bool) 0),
-				'gz_left'	 => $this->request->variable($data['name'] . '_left', (bool) 0),
-				'gz_middle'  => $this->request->variable($data['name'] . '_middle', (bool) 0),
-				'gz_top'	 => $this->request->variable($data['name'] . '_top', (bool) 0),
-				'gz_bottom'  => $this->request->variable($data['name'] . '_bottom', (bool) 0),
+				'gzo_right'	 => $this->request->variable($data['name'] . '_right', (bool) 0),
+				'gzo_left'	 => $this->request->variable($data['name'] . '_left', (bool) 0),
+				'gzo_middle' => $this->request->variable($data['name'] . '_middle', (bool) 0),
+				'gzo_top'	 => $this->request->variable($data['name'] . '_top', (bool) 0),
+				'gzo_bottom' => $this->request->variable($data['name'] . '_bottom', (bool) 0),
 			];
 
 			if ($page)
@@ -180,12 +178,11 @@ class pages
 				'name'		 => $page,
 				'active'	 => $data['active'],
 				'allow'		 => $data['allow'],
-				'special'	 => $data['gz_special'],
-				'right'		 => $data['gz_right'],
-				'left'		 => $data['gz_left'],
-				'middle'	 => $data['gz_middle'],
-				'top'		 => $data['gz_top'],
-				'bottom'	 => $data['gz_bottom'],
+				'right'		 => $data['gzo_right'],
+				'left'		 => $data['gzo_left'],
+				'middle'	 => $data['gzo_middle'],
+				'top'		 => $data['gzo_top'],
+				'bottom'	 => $data['gzo_bottom'],
 				'changeable' => $data['changeable'],
 			]);
 		}

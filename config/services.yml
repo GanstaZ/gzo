@@ -32,7 +32,7 @@ services:
             - '%core.php_ext%'
 
     ganstaz.web.time:
-        class: ganstaz\web\core\gz_time
+        class: ganstaz\web\core\time
         arguments:
             - '@language'
 

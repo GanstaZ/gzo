@@ -1,9 +1,9 @@
 <?php
 /**
 *
-* GZ Web. An extension for the phpBB Forum Software package.
+* GZO Web. An extension for the phpBB Forum Software package.
 *
-* @copyright (c) 2021, GanstaZ, http://www.github.com/GanstaZ/
+* @copyright (c) 2022, GanstaZ, http://www.github.com/GanstaZ/
 * @license GNU General Public License, version 2 (GPL-2.0)
 *
 */
@@ -11,7 +11,7 @@
 namespace ganstaz\web\acp;
 
 /**
-* GZ Web ACP settings module
+* GZO Web: ACP settings module
 */
 class web_module
 {
@@ -24,7 +24,7 @@ class web_module
 		global $phpbb_container;
 
 		$this->tpl_name = 'acp_web';
-		$this->page_title = $phpbb_container->get('language')->lang('ACP_GZ_WEB_TITLE');
+		$this->page_title = $phpbb_container->get('language')->lang('ACP_GZO_WEB_TITLE');
 
 		// Get an instance of the admin controller
 		$admin_controller = $phpbb_container->get('ganstaz.web.admin.controller')

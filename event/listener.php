@@ -122,10 +122,10 @@ class listener implements EventSubscriberInterface
 	*/
 	public function add_manager_data($event): void
 	{
-		if ($this->config['gz_blocks'] && $get_page_data = $this->pages->get_page_data())
+		if ($this->config['gzo_blocks'] && $get_page_data = $this->pages->get_page_data())
 		{
 			// Set page var for template, so we know where we are
-			$this->template->assign_var('S_GZ_PAGE', true);
+			$this->template->assign_var('S_GZO_PAGE', true);
 
 			// Load available blocks
 			$this->manager->load($get_page_data);
@@ -155,7 +155,7 @@ class listener implements EventSubscriberInterface
 			$response->send();
 		}
 
-		if ($this->config['gz_enable_news_link'])
+		if ($this->config['gzo_news_link'])
 		{
 			$this->template->assign_vars([
 				'U_NEWS' => $this->controller->route('ganstaz_web_news'),
@@ -185,7 +185,7 @@ class listener implements EventSubscriberInterface
 		$forum_id = (int) $event['forum_id'];
 
 		// Will redirect to our controller
-		if (in_array($forum_id, $this->helper->get_forum_ids()) && $forum_id !== (int) $this->config['gz_main_fid'])
+		if (in_array($forum_id, $this->helper->get_forum_ids()) && $forum_id !== (int) $this->config['gzo_main_fid'])
 		{
 			$url = $this->controller->route('ganstaz_web_news', ['id' => $forum_id]);
 

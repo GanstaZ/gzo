@@ -135,7 +135,7 @@ class posts
 	*/
 	public function set_page(int $page)
 	{
-		$this->page = ($page - 1) * (int) $this->config['gz_limit'];
+		$this->page = ($page - 1) * (int) $this->config['gzo_limit'];
 
 		return $this;
 	}
@@ -209,7 +209,7 @@ class posts
 	*/
 	public function base(int $forum_id): void
 	{
-		$default = [(int) $this->config['gz_main_fid'], (int) $this->config['gz_news_fid'],];
+		$default = [(int) $this->config['gzo_main_fid'], (int) $this->config['gzo_news_fid'],];
 
 		/**
 		* Add category id/s
@@ -261,7 +261,7 @@ class posts
 		// Do the sql thang
 		$sql_ary = $this->get_sql_data($forum_id);
 		$sql = $this->db->sql_build_query('SELECT', $sql_ary);
-		$result = $this->db->sql_query_limit($sql, (int) $this->config['gz_limit'], $this->page, 60);
+		$result = $this->db->sql_query_limit($sql, (int) $this->config['gzo_limit'], $this->page, 60);
 
 		while ($row = $this->db->sql_fetchrow($result))
 		{
@@ -269,7 +269,7 @@ class posts
 		}
 		$this->db->sql_freeresult($result);
 
-		if ($this->config['gz_pagination'] && null !== $this->page)
+		if ($this->config['gzo_pagination'] && null !== $this->page)
 		{
 			// Get total posts
 			$sql_ary['SELECT'] = 'COUNT(p.post_id) AS num_posts';
@@ -286,7 +286,7 @@ class posts
 				'params' => ['id' => $forum_id],
 			];
 
-			$this->pagination->generate_template_pagination($base, 'pagination', 'page', $total, (int) $this->config['gz_limit'], $this->page);
+			$this->pagination->generate_template_pagination($base, 'pagination', 'page', $total, (int) $this->config['gzo_limit'], $this->page);
 
 			$this->template->assign_var('total_news', $total);
 		}
@@ -363,7 +363,7 @@ class posts
 		return [
 			'id'		 => $row['post_id'],
 			'link'		 => $this->controller->route('ganstaz_web_article', ['aid' => $row['topic_id']]),
-			'title'		 => $this->helper->truncate($row['topic_title'], $this->config['gz_title_length']),
+			'title'		 => $this->helper->truncate($row['topic_title'], $this->config['gzo_title_length']),
 			'date'		 => $this->user->format_date($row['topic_time']),
 			'author'	 => get_username_string('full', (int) $row['user_id'], $row['username'], $row['user_colour']),
 			'avatar'	 => phpbb_get_user_avatar($poster),
@@ -385,11 +385,11 @@ class posts
 	{
 		$this->is_trimmed = false;
 
-		if (utf8_strlen($text) > (int) $this->config['gz_content_length'])
+		if (utf8_strlen($text) > (int) $this->config['gzo_content_length'])
 		{
 			$this->is_trimmed = true;
 
-			$offset = ((int) $this->config['gz_content_length'] - 3) - utf8_strlen($text);
+			$offset = ((int) $this->config['gzo_content_length'] - 3) - utf8_strlen($text);
 			$text	= utf8_substr($text, 0, utf8_strrpos($text, ' ', $offset));
 		}
 
