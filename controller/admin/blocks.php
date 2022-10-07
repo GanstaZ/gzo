@@ -1,9 +1,9 @@
 <?php
 /**
 *
-* GZ Web. An extension for the phpBB Forum Software package.
+* GZO Web. An extension for the phpBB Forum Software package.
 *
-* @copyright (c) 2021, GanstaZ, http://www.github.com/GanstaZ/
+* @copyright (c) 2022, GanstaZ, http://www.github.com/GanstaZ/
 * @license GNU General Public License, version 2 (GPL-2.0)
 *
 */
@@ -18,7 +18,7 @@ use phpbb\template\template;
 use ganstaz\web\core\blocks\manager;
 
 /**
-* GZ Web: admin blocks controller
+* GZO Web: admin blocks controller
 */
 class blocks
 {
@@ -164,7 +164,7 @@ class blocks
 			$this->container->get('cache')->purge();
 
 			// Show user confirmation of success and provide link back to the previous screen
-			trigger_error($this->language->lang('ACP_GZ_SETTINGS_SAVED') . adm_back_link($this->u_action));
+			trigger_error($this->language->lang('ACP_GZO_SETTINGS_SAVED') . adm_back_link($this->u_action));
 		}
 
 		// Set output vars for display in the template

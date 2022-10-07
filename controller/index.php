@@ -24,7 +24,7 @@ class index extends base
 	public function handle(): \Symfony\Component\HttpFoundation\Response
 	{
 		// Set main page id
-		$id = (int) $this->config['gz_main_fid'];
+		$id = (int) $this->config['gzo_main_fid'];
 
 		$this->posts->trim_messages(true)
 			->base($id);
