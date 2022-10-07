@@ -38,7 +38,7 @@ class m4_config extends \phpbb\db\migration\migration
 			['config.add', ['gzo_top_posters_fid', 0]],
 			['config.add', ['gzo_recent_posts_fid', 0]],
 			['config.add', ['gzo_recent_topics_fid', 0]],
-			['config.add', ['gzo_profile_tabs', 1]],
+			['config.add', ['gzo_profile_tabs', 0]],
 			['config.add', ['gzo_pagination', 1]],
 			['config.add', ['gzo_title_length', 26]],
 			['config.add', ['gzo_content_length', 150]],
