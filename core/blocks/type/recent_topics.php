@@ -42,7 +42,7 @@ class recent_topics extends base
 		{
 			$this->template->assign_block_vars('recent_topics', [
 				'link'	=> append_sid("{$this->root_path}viewtopic.{$this->php_ext}", 't=' . $row['topic_id']),
-				'title' => $this->truncate($row['topic_title'], $this->config['gz_title_length']),
+				'title' => $this->helper->truncate($row['topic_title'], $this->config['gz_title_length']),
 			]);
 		}
 		$this->db->sql_freeresult($result);

@@ -25,6 +25,7 @@ services:
             - '@controller.helper'
             - '@template'
             - '@dispatcher'
+            - '@ganstaz.web.helper'
             - '%core.root_path%'
             - '%core.php_ext%'
 

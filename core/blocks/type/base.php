@@ -15,6 +15,7 @@ use phpbb\db\driver\driver_interface;
 use phpbb\controller\helper as controller;
 use phpbb\template\template;
 use phpbb\event\dispatcher;
+use ganstaz\web\core\helper;
 
 /**
 * GZO Web: base class for blocks
@@ -39,6 +40,9 @@ abstract class base implements block_interface
 	/** @var bool loading */
 	protected $loading;
 
+	/** @var helper */
+	protected $helper;
+
 	/** @var root_path */
 	protected $root_path;
 
@@ -53,16 +57,18 @@ abstract class base implements block_interface
 	* @param controller		  $controller Controller helper object
 	* @param template		  $template	  Template object
 	* @param dispatcher		  $dispatcher Dispatcher object
+	* @param helper			  $helper	  Helper object
 	* @param string			  $root_path  Path to the phpbb includes directory
 	* @param string			  $php_ext	  PHP file extension
 	*/
-	public function __construct(config $config, driver_interface $db, controller $controller, template $template, dispatcher $dispatcher, $root_path, $php_ext)
+	public function __construct(config $config, driver_interface $db, controller $controller, template $template, dispatcher $dispatcher, helper $helper, $root_path, $php_ext)
 	{
 		$this->config	  = $config;
 		$this->db		  = $db;
 		$this->controller = $controller;
 		$this->dispatcher = $dispatcher;
 		$this->template	  = $template;
+		$this->helper	  = $helper;
 		$this->root_path  = $root_path;
 		$this->php_ext	  = $php_ext;
 	}
@@ -96,18 +102,5 @@ abstract class base implements block_interface
 	*/
 	public function load(): void
 	{
-	}
-
-	/**
-	* Truncate title
-	*
-	* @param string		 $title	 Truncate title
-	* @param int		 $length Max length of the string
-	* @param null|string $ellips Language ellips
-	* @return string
-	*/
-	public function truncate(string $title, int $length, $ellips = null): string
-	{
-		return truncate_string(censor_text($title), $length, 255, false, $ellips ?? '...');
 	}
 }

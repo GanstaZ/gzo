@@ -28,7 +28,7 @@ $lang = array_merge($lang, [
 	'ACP_GZO_BLOCKS'		  => 'GZO blocks manager',
 
 	// Blocks page module
-	'ACP_GZO_PAGE_TITLE'		  => 'GZO Page module',
+	'ACP_GZO_PAGE_TITLE'	  => 'GZO Page module',
 	'ACP_GZO_PAGE'			  => 'GZO page settings',
 
 	'ACP_GZO_SETTINGS_SAVED'  => 'Settings have been saved successfully!',

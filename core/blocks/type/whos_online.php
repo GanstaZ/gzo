@@ -25,9 +25,9 @@ class whos_online extends base
 	*
 	* @param info $info Forum info helper object
 	*/
-	public function __construct($config, $db, $controller, $template, $dispatcher, $root_path, $php_ext, info $info)
+	public function __construct($config, $db, $controller, $template, $dispatcher, $helper, $root_path, $php_ext, info $info)
 	{
-		parent::__construct($config, $db, $controller, $template, $dispatcher, $root_path, $php_ext);
+		parent::__construct($config, $db, $controller, $template, $dispatcher, $helper, $root_path, $php_ext);
 
 		$this->info = $info;
 	}
