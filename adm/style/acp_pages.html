@@ -1,7 +1,7 @@
 {% extends '@ganstaz_web/layout/acp-base.twig' %}
 
 {% block acp_heading %}
-	{{ lang('ACP_GZ_PAGE') }}
+	{{ lang('ACP_GZO_PAGE') }}
 {% endblock %}
 
 {% import '@ganstaz_web/macros/forms.twig' as form %}
@@ -35,22 +35,22 @@
 						<td class="tabled {{ not page.changeable ? 'acp_no_click'}}">
 							{{ form.radio(name ~ '_allow', page.allow, {'yes': lang('YES'), 'no': lang('NO')}) }}
 						</td>
-						<td class="tabled {{ not config('gz_' ~ inactive.0) ? 'acp_no_click'}}">
+						<td class="tabled {{ not config('gzo_' ~ inactive.0) ? 'acp_no_click'}}">
 							{{ form.radio(name ~ '_special', page.special, {'yes': lang('YES'), 'no': lang('NO')}) }}
 						</td>
-						<td class="tabled {{ not config('gz_' ~ inactive.1) ? 'acp_no_click'}}">
+						<td class="tabled {{ not config('gzo_' ~ inactive.1) ? 'acp_no_click'}}">
 							{{ form.radio(name ~ '_right', page.right, {'yes': lang('YES'), 'no': lang('NO')}) }}
 						</td>
-						<td class="tabled {{ not config('gz_' ~ inactive.2) ? 'acp_no_click'}}">
+						<td class="tabled {{ not config('gzo_' ~ inactive.2) ? 'acp_no_click'}}">
 							{{ form.radio(name ~ '_left', page.left, {'yes': lang('YES'), 'no': lang('NO')}) }}
 						</td>
-						<td class="tabled {{ not config('gz_' ~ inactive.3) ? 'acp_no_click'}}">
+						<td class="tabled {{ not config('gzo_' ~ inactive.3) ? 'acp_no_click'}}">
 							{{ form.radio(name ~ '_middle', page.middle, {'yes': lang('YES'), 'no': lang('NO')}) }}
 						</td>
-						<td class="tabled {{ not config('gz_' ~ inactive.4) ? 'acp_no_click'}}">
+						<td class="tabled {{ not config('gzo_' ~ inactive.4) ? 'acp_no_click'}}">
 							{{ form.radio(name ~ '_top', page.top, {'yes': lang('YES'), 'no': lang('NO')}) }}
 						</td>
-						<td class="tabled {{ not config('gz_' ~ inactive.5) ? 'acp_no_click'}}">
+						<td class="tabled {{ not config('gzo_' ~ inactive.5) ? 'acp_no_click'}}">
 							{{ form.radio(name ~ '_bottom', page.bottom, {'yes': lang('YES'), 'no': lang('NO')}) }}
 						</td>
 					</tr>
