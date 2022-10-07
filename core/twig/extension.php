@@ -15,7 +15,7 @@ use ganstaz\web\core\blocks\event;
 use phpbb\group\helper as group;
 
 /**
-* GZO Web: template loader extension for blocks
+* GZO Web: twig extension
 */
 class extension extends \Twig\Extension\AbstractExtension
 {
