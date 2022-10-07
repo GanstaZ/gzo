@@ -31,10 +31,6 @@ $lang = array_merge($lang, [
 	'ACP_GZO_PAGE_TITLE'		  => 'GZO Page module',
 	'ACP_GZO_PAGE'			  => 'GZO page settings',
 
-	// Plugin module
-	'ACP_GZO_PLUGIN_TITLE'	  => 'GZO Plugin module',
-	'ACP_GZO_PLUGIN'		  => 'GZO plugin manager',
-
 	'ACP_GZO_SETTINGS_SAVED'  => 'Settings have been saved successfully!',
 
 	// News settings

@@ -82,7 +82,7 @@ class pages
 		//$this->language->add_lang('acp_pages', 'ganstaz/web');
 
 		// Get all pages
-		$sql = 'SELECT name, active, allow, changeable, gzo_special, gzo_right, gzo_left, gzo_middle, gzo_top, gzo_bottom
+		$sql = 'SELECT name, active, allow, gzo_right, gzo_left, gzo_middle, gzo_top, gzo_bottom
 				FROM ' . $this->page_data . '
 				ORDER BY id';
 		$result = $this->db->sql_query($sql);
@@ -94,8 +94,6 @@ class pages
 				'name'		 => $row['name'],
 				'active'	 => (bool) $row['active'],
 				'allow'		 => (bool) $row['allow'],
-				'changeable' => (bool) $row['changeable'],
-				'gzo_special' => (bool) $row['gzo_special'],
 				'gzo_right'	 => (bool) $row['gzo_right'],
 				'gzo_left'	 => (bool) $row['gzo_left'],
 				'gzo_middle' => (bool) $row['gzo_middle'],
@@ -147,12 +145,11 @@ class pages
 			$page_data = [
 				'active'	 => $this->request->variable($data['name'] . '_active', (bool) 0),
 				'allow'		 => $this->request->variable($data['name'] . '_allow', (bool) 0),
-				'gzo_special' => $this->request->variable($data['name'] . '_special', (bool) 0),
 				'gzo_right'	 => $this->request->variable($data['name'] . '_right', (bool) 0),
 				'gzo_left'	 => $this->request->variable($data['name'] . '_left', (bool) 0),
-				'gzo_middle'  => $this->request->variable($data['name'] . '_middle', (bool) 0),
+				'gzo_middle' => $this->request->variable($data['name'] . '_middle', (bool) 0),
 				'gzo_top'	 => $this->request->variable($data['name'] . '_top', (bool) 0),
-				'gzo_bottom'  => $this->request->variable($data['name'] . '_bottom', (bool) 0),
+				'gzo_bottom' => $this->request->variable($data['name'] . '_bottom', (bool) 0),
 			];
 
 			if ($page)
@@ -180,13 +177,11 @@ class pages
 				'name'		 => $page,
 				'active'	 => $data['active'],
 				'allow'		 => $data['allow'],
-				'special'	 => $data['gzo_special'],
 				'right'		 => $data['gzo_right'],
 				'left'		 => $data['gzo_left'],
 				'middle'	 => $data['gzo_middle'],
 				'top'		 => $data['gzo_top'],
 				'bottom'	 => $data['gzo_bottom'],
-				'changeable' => $data['changeable'],
 			]);
 		}
 	}

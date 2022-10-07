@@ -151,7 +151,7 @@ class pages
 	public function get(string $name): array
 	{
 		$enabled = [];
-		foreach (['gzo_special', 'gzo_right', 'gzo_left', 'gzo_middle', 'gzo_top', 'gzo_bottom'] as $section)
+		foreach (['gzo_right', 'gzo_left', 'gzo_middle', 'gzo_top', 'gzo_bottom'] as $section)
 		{
 			if ($this->config[$section])
 			{

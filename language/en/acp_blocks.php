@@ -35,7 +35,6 @@ $lang = array_merge($lang, [
 	'CHECK_TO'		=> 'Check to install ',
 
 	// Sections
-	'GZO_SPECIAL'	=> 'Special',
 	'GZO_RIGHT'		=> 'Right side',
 	'GZO_LEFT'		=> 'Left side',
 	'GZO_TOP'		=> 'Top',

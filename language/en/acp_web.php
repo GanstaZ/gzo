@@ -37,7 +37,6 @@ $lang = array_merge($lang, [
 	'GZO_SECTIONS'			 => 'Global blocks settings',
 	'GZO_BLOCKS'			 => 'Blocks',
 	'GZO_BLOCKS_EXPLAIN'	 => 'Will hide or show blocks, where blocks are autoloaded by page settings.<br>Manual loading of blocks is not affected.',
-	'GZO_SPECIAL'			 => 'Special',
 	'GZO_RIGHT'				 => 'Right',
 	'GZO_LEFT'				 => 'Left',
 	'GZO_MIDDLE'			 => 'Middle',

@@ -66,8 +66,6 @@ class m1_main extends \phpbb\db\migration\migration
 						'name'		 => ['VCHAR', ''],
 						'active'	 => ['BOOL', 0],
 						'allow'		 => ['BOOL', 0],
-						'changeable' => ['BOOL', 0],
-						'gzo_special' => ['BOOL', 0],
 						'gzo_right'	 => ['BOOL', 0],
 						'gzo_left'	 => ['BOOL', 0],
 						'gzo_middle' => ['BOOL', 0],
