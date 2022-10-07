@@ -19,18 +19,18 @@
 		<dl>
 			<dt>{{ form.label('gzo_main_fid', lang('MAIN_ID') ~ lang('COLON')) }}</dt>
 			{% if S_NEWS_IDS %}
-			    <dd>{{ form.select('gzo_main_fid', S_MAIN_CURRENT, GZO_NEWS_IDS) }}</dd>
+				<dd>{{ form.select('gzo_main_fid', S_MAIN_CURRENT, GZO_NEWS_IDS) }}</dd>
 			{% else %}
-			    <dd>{{ S_MAIN_CURRENT }}</dd>
+				<dd>{{ S_MAIN_CURRENT }}</dd>
 			{% endif %}
 		</dl>
 
 		<dl>
 			<dt>{{ form.label('gzo_news_fid', lang('NEWS_ID') ~ lang('COLON')) }}</dt>
 			{% if S_NEWS_IDS %}
-			    <dd>{{ form.select('gzo_news_fid', S_NEWS_CURRENT, GZO_NEWS_IDS) }}</dd>
+				<dd>{{ form.select('gzo_news_fid', S_NEWS_CURRENT, GZO_NEWS_IDS) }}</dd>
 			{% else %}
-			    <dd>{{ S_NEWS_CURRENT }}</dd>
+				<dd>{{ S_NEWS_CURRENT }}</dd>
 			{% endif %}
 		</dl>
 

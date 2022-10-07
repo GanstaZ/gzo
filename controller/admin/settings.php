@@ -100,7 +100,7 @@ class settings
 			'S_NEWS_IDS'		 => $s_forum_ids,
 			'S_MAIN_CURRENT'	 => $this->config['gzo_main_fid'],
 			'S_NEWS_CURRENT'	 => $this->config['gzo_news_fid'],
-			'S_ENABLE_NEWS_LINK' => $this->config['gzo_enable_news_link'],
+			'S_NEWS_LINK'        => $this->config['gzo_news_link'],
 			'S_PROFILE_TABS'	 => $this->config['gzo_profile_tabs'],
 			'S_PAGINATION'		 => $this->config['gzo_pagination'],
 			'GZO_LIMIT'			 => $this->config['gzo_limit'],
@@ -125,7 +125,7 @@ class settings
 	*/
 	protected function set_options(): void
 	{
-		$this->config->set('gzo_enable_news_link', $this->request->variable('gzo_enable_news_link', (bool) 0));
+		$this->config->set('gzo_news_link', $this->request->variable('gzo_news_link', (bool) 0));
 		//$this->config->set('gzo_the_team_fid', $this->request->variable('gzo_the_team_fid', (int) 0));
 		//$this->config->set('gzo_top_posters_fid', $this->request->variable('gzo_top_posters_fid', (int) 0));
 		//$this->config->set('gzo_recent_posts_fid', $this->request->variable('gzo_recent_posts_fid', (int) 0));
