@@ -1,9 +1,9 @@
 <?php
 /**
 *
-* GZ Web. An extension for the phpBB Forum Software package.
+* GZO Web. An extension for the phpBB Forum Software package.
 *
-* @copyright (c) 2021, GanstaZ, http://www.github.com/GanstaZ/
+* @copyright (c) 2022, GanstaZ, http://www.github.com/GanstaZ/
 * @license GNU General Public License, version 2 (GPL-2.0)
 *
 */
@@ -35,12 +35,12 @@ $lang = array_merge($lang, [
 	'CHECK_TO'		=> 'Check to install ',
 
 	// Sections
-	'GZ_SPECIAL'	=> 'Special',
-	'GZ_RIGHT'		=> 'Right side',
-	'GZ_LEFT'		=> 'Left side',
-	'GZ_TOP'		=> 'Top',
-	'GZ_MIDDLE'	    => 'Middle',
-	'GZ_BOTTOM'	    => 'Bottom',
+	'GZO_SPECIAL'	=> 'Special',
+	'GZO_RIGHT'		=> 'Right side',
+	'GZO_LEFT'		=> 'Left side',
+	'GZO_TOP'		=> 'Top',
+	'GZO_MIDDLE'	=> 'Middle',
+	'GZO_BOTTOM'	=> 'Bottom',
 
 	// Blocks
 	'GANSTAZ_NEWS'			=> 'News',

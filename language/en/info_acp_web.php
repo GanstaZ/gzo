@@ -1,9 +1,9 @@
 <?php
 /**
 *
-* GZ Web. An extension for the phpBB Forum Software package.
+* GZO Web. An extension for the phpBB Forum Software package.
 *
-* @copyright (c) 2021, GanstaZ, http://www.github.com/GanstaZ/
+* @copyright (c) 2022, GanstaZ, http://www.github.com/GanstaZ/
 * @license GNU General Public License, version 2 (GPL-2.0)
 *
 */
@@ -20,22 +20,22 @@ if (empty($lang) || !is_array($lang))
 
 $lang = array_merge($lang, [
 	// Web module
-	'ACP_GZ_WEB_TITLE'		  => 'GZ Web CMS',
-	'ACP_GZ_WEB'			  => 'GZ Web settings',
+	'ACP_GZO_WEB_TITLE'		  => 'GZO Web CMS',
+	'ACP_GZO_WEB'			  => 'GZO Web settings',
 
 	// Blocks module
-	'ACP_GZ_BLOCKS_TITLE'	  => 'GZ Blocks module',
-	'ACP_GZ_BLOCKS'		      => 'GZ blocks manager',
+	'ACP_GZO_BLOCKS_TITLE'	  => 'GZO Blocks module',
+	'ACP_GZO_BLOCKS'		  => 'GZO blocks manager',
 
 	// Blocks page module
-	'ACP_GZ_PAGE_TITLE'	      => 'GZ Page module',
-	'ACP_GZ_PAGE'			  => 'GZ page settings',
+	'ACP_GZO_PAGE_TITLE'		  => 'GZO Page module',
+	'ACP_GZO_PAGE'			  => 'GZO page settings',
 
 	// Plugin module
-	'ACP_GZ_PLUGIN_TITLE'	  => 'GZ Plugin module',
-	'ACP_GZ_PLUGIN'		      => 'GZ plugin manager',
+	'ACP_GZO_PLUGIN_TITLE'	  => 'GZO Plugin module',
+	'ACP_GZO_PLUGIN'		  => 'GZO plugin manager',
 
-	'ACP_GZ_SETTINGS_SAVED'   => 'Settings have been saved successfully!',
+	'ACP_GZO_SETTINGS_SAVED'  => 'Settings have been saved successfully!',
 
 	// News settings
 	'ACP_NEWS_LEGEND'		  => 'News settings',
