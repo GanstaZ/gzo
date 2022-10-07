@@ -1,9 +1,9 @@
 <?php
 /**
 *
-* GZ Web. An extension for the phpBB Forum Software package.
+* GZO Web. An extension for the phpBB Forum Software package.
 *
-* @copyright (c) 2021, GanstaZ, http://www.github.com/GanstaZ/
+* @copyright (c) 2022, GanstaZ, http://www.github.com/GanstaZ/
 * @license GNU General Public License, version 2 (GPL-2.0)
 *
 */
@@ -13,9 +13,9 @@ namespace ganstaz\web\core;
 use phpbb\language\language;
 
 /**
-* GZ Web time ago
+* GZO Web: time ago
 */
-class gz_time
+class time
 {
 	/** @var language */
 	protected $language;
@@ -72,7 +72,7 @@ class gz_time
 		$uot = (string) key($unit);
 		$int = (int) $unit[$uot];
 
-		return $this->language->lang('gz_ago', $int, $this->language->lang($uot, $int));
+		return $this->language->lang('gzo_ago', $int, $this->language->lang($uot, $int));
 	}
 
 	/**

@@ -3,7 +3,7 @@
 *
 * GZO Web. An extension for the phpBB Forum Software package.
 *
-* @copyright (c) 2021, GanstaZ, http://www.github.com/GanstaZ/
+* @copyright (c) 2022, GanstaZ, http://www.github.com/GanstaZ/
 * @license GNU General Public License, version 2 (GPL-2.0)
 *
 */
@@ -151,7 +151,7 @@ class pages
 	public function get(string $name): array
 	{
 		$enabled = [];
-		foreach (['gz_special', 'gz_right', 'gz_left', 'gz_middle', 'gz_top', 'gz_bottom'] as $section)
+		foreach (['gzo_special', 'gzo_right', 'gzo_left', 'gzo_middle', 'gzo_top', 'gzo_bottom'] as $section)
 		{
 			if ($this->config[$section])
 			{
@@ -161,7 +161,7 @@ class pages
 
 		$enabled = implode($this->user->lang['COMMA_SEPARATOR'], $enabled);
 
-		if (($pages = $this->cache->get('_gz_pages')) === false)
+		if (($pages = $this->cache->get('_gzo_pages')) === false)
 		{
 			$sql = 'SELECT name, ' . $enabled . '
 					FROM ' . $this->page_data . '
@@ -180,7 +180,7 @@ class pages
 			}
 			$this->db->sql_freeresult($result);
 
-			$this->cache->put('_gz_pages', $pages);
+			$this->cache->put('_gzo_pages', $pages);
 		}
 
 		return $pages[$name] ?? [];
