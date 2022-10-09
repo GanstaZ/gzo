@@ -327,6 +327,12 @@ dl.details dd.c-gzo-ddp {
 	max-width: 200px;
 }
 
+a.avatar.avatar img {
+	max-width: 100px;
+	/* border-radius: 50%;
+	border-style: none; */
+}
+
 .c-gzo-rounded {
 	border-radius: 50%;
 }
