@@ -13,7 +13,6 @@ namespace ganstaz\web\core\tabs\type;
 use phpbb\config\config;
 use phpbb\group\helper as group;
 use phpbb\profilefields\manager as cp;
-use phpbb\user;
 
 /**
 * GZO Web: Member profile tab
@@ -29,9 +28,6 @@ class profile extends base
 	/** @var profilefields manager */
 	protected $cp;
 
-	/** @var user */
-	protected $user;
-
 	/** @var string phpBB admin path */
 	protected $admin_path;
 
@@ -44,13 +40,12 @@ class profile extends base
 	/**
 	* Constructor
 	*
-	* @param config	$config     Config object
-	* @param group  $group      Group helper object
-	* @param cp     $cp         Profilefields manager object
-	* @param user   $user       User object
+	* @param config	$config		Config object
+	* @param group	$group		Group helper object
+	* @param cp		$cp			Profilefields manager object
 	* @param string $admin_path phpBB admin path
-	* @param string	$root_path  Path to the phpbb includes directory
-	* @param string	$php_ext    PHP file extension
+	* @param string	$root_path	Path to the phpbb includes directory
+	* @param string	$php_ext	PHP file extension
 	*/
 	public function __construct
 	(
@@ -60,24 +55,23 @@ class profile extends base
 		$controller,
 		$language,
 		$template,
+		$user,
 		$config,
 		$group,
 		$cp,
-		$user,
 		$admin_path,
 		$root_path,
 		$php_ext
 	)
 	{
-		parent::__construct($auth, $db, $dispatcher, $controller, $language, $template);
+		parent::__construct($auth, $db, $dispatcher, $controller, $language, $template, $user);
 
-		$this->config     = $config;
-		$this->group      = $group;
-		$this->cp         = $cp;
-		$this->user		  = $user;
+		$this->config	  = $config;
+		$this->group	  = $group;
+		$this->cp		  = $cp;
 		$this->admin_path = $admin_path;
 		$this->root_path  = $root_path;
-		$this->php_ext    = $php_ext;
+		$this->php_ext	  = $php_ext;
 	}
 
 	/**
@@ -258,7 +252,7 @@ class profile extends base
 			$member['user_sig'] = generate_text_for_display($member['user_sig'], $member['user_sig_bbcode_uid'], $member['user_sig_bbcode_bitfield'], $parse_flags, true);
 		}
 
-		// We need to check if the modules 'zebra' ('friends' & 'foes' mode),  'notes' ('user_notes' mode) and  'warn' ('warn_user' mode) are accessible to decide if we can display appropriate links
+		// We need to check if the modules 'zebra' ('friends' & 'foes' mode),  'notes' ('user_notes' mode) and	'warn' ('warn_user' mode) are accessible to decide if we can display appropriate links
 		$zebra_enabled = $friends_enabled = $foes_enabled = $user_notes_enabled = $warn_user_enabled = false;
 
 		// Only check if the user is logged in
@@ -301,7 +295,7 @@ class profile extends base
 		* @var	bool	zebra_enabled			Is the ucp zebra module enabled?
 		* @var	bool	friends_enabled			Is the ucp friends module enabled?
 		* @var	bool	foes_enabled			Is the ucp foes module enabled?
-		* @var	bool    friend					Is the user friend?
+		* @var	bool	friend					Is the user friend?
 		* @var	bool	foe						Is the user foe?
 		* @var	array	profile_fields			Array with user's profile field data
 		* @since 3.1.0-a1
@@ -349,8 +343,8 @@ class profile extends base
 			'SIGNATURE'					=> $member['user_sig'],
 			'POSTS_IN_QUEUE'			=> $member['posts_in_queue'],
 			'S_PROFILE_ACTION'			=> append_sid("{$this->root_path}memberlist.$this->php_ext", 'mode=group'),
-			'S_GROUP_CURRENT'           => $group_current,
-			'S_GROUP_OPTIONS'           => $group_options,
+			'S_GROUP_CURRENT'			=> $group_current,
+			'S_GROUP_OPTIONS'			=> $group_options,
 			'S_CUSTOM_FIELDS'			=> (isset($profile_fields['row']) && count($profile_fields['row'])) ? true : false,
 
 			'U_USER_ADMIN'				=> ($this->auth->acl_get('a_user')) ? append_sid(generate_board_url() . "/{$this->admin_path}index.$this->php_ext", 'i=users&amp;mode=overview&amp;u=' . $user_id, true, $this->user->session_id) : '',

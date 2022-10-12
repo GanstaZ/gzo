@@ -16,6 +16,7 @@ use phpbb\event\dispatcher;
 use phpbb\controller\helper as controller;
 use phpbb\language\language;
 use phpbb\template\template;
+use phpbb\user;
 use phpbb\exception\http_exception;
 
 /**
@@ -41,18 +42,22 @@ class base implements tabs_interface
 	/** @var template */
 	protected $template;
 
+	/** @var user */
+	protected $user;
+
 	/** @var string name */
 	protected $name;
 
 	/**
 	* Constructor
 	*
-	* @param auth             $auth       Auth object
-	* @param driver_interface $db         Database object
+	* @param auth			  $auth		  Auth object
+	* @param driver_interface $db		  Database object
 	* @param dispatcher		  $dispatcher Dispatcher object
-	* @param controller       $controller Controller helper object
-	* @param language         $language   Language object
-	* @param template         $template   Template object
+	* @param controller		  $controller Controller helper object
+	* @param language		  $language	  Language object
+	* @param template		  $template	  Template object
+	* @param user			  $user		  User object
 	*/
 	public function __construct
 	(
@@ -61,15 +66,17 @@ class base implements tabs_interface
 		dispatcher $dispatcher,
 		controller $controller,
 		language $language,
-		$template
+		template $template,
+		user $user
 	)
 	{
 		$this->auth		  = $auth;
-		$this->db         = $db;
+		$this->db		  = $db;
 		$this->dispatcher = $dispatcher;
 		$this->controller = $controller;
 		$this->language	  = $language;
-		$this->template   = $template;
+		$this->template	  = $template;
+		$this->user		  = $user;
 	}
 
 	/**
