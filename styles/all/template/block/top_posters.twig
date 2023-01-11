@@ -4,15 +4,15 @@
 	{% block block_heading %}{{ lang('LEADERS') }}{% endblock %}
 
 	{% block block_content %}
-		<dl class="c-gzo-info">
+		<dl class="gzo-info">
 
 			<dt class="c-stat-head">{{ lang('USERNAME') }}</dt>
-			<dd class="c-gzo-text-right c-stat-head">{{ lang('POSTS') }}</dd>
+			<dd class="gzo-text-right c-stat-head">{{ lang('POSTS') }}</dd>
 
 			{% for posters in top_posters %}
 
 				<dt>{{ loop.index ~ '.' ~ icon('fa', 'star fa-fw icon-gold', null, posters.top)|trim }}</dt>
-				<dd class="c-gzo-text-right">{{ posters.posts }}</dd>
+				<dd class="gzo-text-right">{{ posters.posts }}</dd>
 
 			{% endfor %}
 
