@@ -49,6 +49,12 @@
 	padding: 15px;
 }
 
+.gzo-col-3 {
+	flex: 1;
+	min-width: 265px;
+	margin: 5px;
+}
+
 .gzo-nav {
 	display: flex;
 	flex-wrap: wrap;
