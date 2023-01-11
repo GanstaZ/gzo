@@ -74,7 +74,7 @@ class profile
 		$current->load($username);
 
 		$language = $this->language->lang(ucfirst($tab));
-		$current_page = $current->is_user_online() ? $this->language->lang('GZO_YOUR', $language) : $this->language->lang('GZO_OTHER', $username, $language);
+		$current_page = $current->is_active_session() ? $this->language->lang('GZO_YOUR', $language) : $this->language->lang('GZO_OTHER', $username, $language);
 
 		$title = $tab !== 'profile' ? $current_page : $username;
 

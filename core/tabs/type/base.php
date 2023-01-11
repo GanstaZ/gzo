@@ -48,6 +48,9 @@ class base implements tabs_interface
 	/** @var string name */
 	protected $name;
 
+	/** @var bool active session */
+	protected $active_session = false;
+
 	/**
 	* Constructor
 	*
@@ -161,6 +164,18 @@ class base implements tabs_interface
 			throw new http_exception(404, 'NO_USER');
 		}
 
+		$this->active_session = $this->user->data['username'] === $member['username'];
+
 		return $member;
+	}
+
+	/**
+	* Is active session
+	*
+	* @return bool
+	*/
+	public function is_active_session(): bool
+	{
+		return $this->active_session;
 	}
 }
