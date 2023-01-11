@@ -136,6 +136,7 @@ class manager
 			$this->template->assign_block_vars('tabs', [
 				'title' => $this->language->lang('GZO_' . strtoupper($tab)),
 				'link' => $route,
+				'icon' => $this->get($tab)->icon(),
 			]);
 		}
 	}
