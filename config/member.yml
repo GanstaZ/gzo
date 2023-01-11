@@ -1,6 +1,6 @@
 services:
     ganstaz.web.tabs.collection:
-        class: phpbb\di\service_collection
+        class: phpbb\di\ordered_service_collection
         arguments:
             - '@service_container'
         tags:
@@ -42,7 +42,7 @@ services:
         calls:
             - [set_name, [profile]]
         tags:
-            - { name: gzo.web.tab }
+            - { name: gzo.web.tab, order: 1 }
 
 # ----- Controllers -----
     ganstaz.web.profile.controller:
