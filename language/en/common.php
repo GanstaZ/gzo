@@ -43,6 +43,8 @@ $lang = array_merge($lang, [
 	],
 
 	'GZO_PROFILE' => 'Overview',
+	'GZO_YOUR'    => 'Your %s',
+	'GZO_OTHER'   => '%s / %s',
 
 	'GZO_PER_DAY' => '%s per day <strong>%s</strong>',
 
