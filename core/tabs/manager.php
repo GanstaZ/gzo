@@ -42,21 +42,21 @@ class manager
 	* Constructor
 	*
 	* @param service_collection $collection Our tabs
-	* @param controller         $controller Controller helper object
-	* @param language           $language   Language object
-	* @param template           $template   Template object
-	* @param string	            $root_path  Path to the phpbb includes directory
-	* @param string	            $php_ext    PHP file extension
+	* @param controller			$controller Controller helper object
+	* @param language			$language	Language object
+	* @param template			$template	Template object
+	* @param string				$root_path	Path to the phpbb includes directory
+	* @param string				$php_ext	PHP file extension
 	*/
 	public function __construct(service_collection $collection, controller $controller, language $language, template $template, $root_path, $php_ext)
 	{
 		$this->register_tab_types($collection);
 
 		$this->controller = $controller;
-		$this->language   = $language;
-		$this->template   = $template;
+		$this->language	  = $language;
+		$this->template	  = $template;
 		$this->root_path  = $root_path;
-		$this->php_ext    = $php_ext;
+		$this->php_ext	  = $php_ext;
 	}
 
 	/**
@@ -120,6 +120,11 @@ class manager
 	*/
 	public function generate_tabs_menu(string $username, string $tab): void
 	{
+		if (count($this->available()) === 1)
+		{
+			return;
+		}
+
 		foreach ($this->available() as $tab)
 		{
 			$route = $this->controller->route('ganstaz_web_member_tab', ['username' => $username, 'tab' => $tab]);
