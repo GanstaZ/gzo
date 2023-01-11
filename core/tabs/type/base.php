@@ -22,7 +22,7 @@ use phpbb\exception\http_exception;
 /**
 * GZO Web: base class for tabs
 */
-class base implements tabs_interface
+abstract class base implements tabs_interface
 {
 	/** @var auth */
 	protected $auth;
@@ -83,6 +83,21 @@ class base implements tabs_interface
 	}
 
 	/**
+	* Returns the namespace
+	*
+	* @return string Twig namespace
+	*/
+	abstract protected function namespace();
+
+	/**
+	* Load current user
+	*
+	* @param string $username Name of the member
+	* @return void
+	*/
+	abstract protected function load(string $username);
+
+	/**
 	* {@inheritdoc}
 	*/
 	public function set_name(string $name): void
@@ -101,16 +116,9 @@ class base implements tabs_interface
 	/**
 	* {@inheritdoc}
 	*/
-	public function namespace()
+	public function icon(): string
 	{
-		return '';
-	}
-
-	/**
-	* {@inheritdoc}
-	*/
-	public function load(string $username)
-	{
+		return 'bug';
 	}
 
 	/**

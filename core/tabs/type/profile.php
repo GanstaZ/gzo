@@ -77,6 +77,22 @@ class profile extends base
 	/**
 	* {@inheritdoc}
 	*/
+	public function namespace()
+	{
+		return '@ganstaz_web/';
+	}
+
+	/**
+	* {@inheritdoc}
+	*/
+	public function icon(): string
+	{
+		return 'book';
+	}
+
+	/**
+	* {@inheritdoc}
+	*/
 	public function load(string $username): void
 	{
 		$member = $this->get_user_data($username);
