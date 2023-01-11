@@ -1,16 +1,16 @@
 {% from 'macros/tags.twig' import icon, url %}
 
-<div class="c-gzo-flex c-gzo-container-fluid c-gzo-flex-wrap">
-	<aside class="c-gzo-hero">
+<div class="gzo-flex gzo-container-fluid gzo-flex-wrap">
+	<aside class="gzo-hero">
 		{% if AVATAR_IMG %}
-			<div class="c-gzo-avatar-wrap c-gzo-rounded">
+			<div class="gzo-avatar-wrap gzo-rounded">
 				{{ AVATAR_IMG }}
-				<div class="c-gzo-avatar-badge t-gzo-avatar-badge">{{ icon('icon c-gzo-avatar-badge-inner', 'user-circle-o fa-fw') }}</div>
+				<div class="gzo-avatar-badge t-gzo-avatar-badge">{{ icon('icon gzo-avatar-badge-inner', 'user-circle-o fa-fw') }}</div>
 			</div>
 		{% endif %}
 
-		<h1 class="c-gzo-mr0 c-gzo-vc-username t-gzo-vs-username">
-			{% if USER_COLOR %}<span style="color: {{ USER_COLOR }}; font-weight: bold;">{% else %}<span class="c-gzo-vc-muted t-gzo-vs-muted">{% endif %}{{ USERNAME }}</span>
+		<h1 class="gzo-mr0 gzo-vc-username t-gzo-vs-username">
+			{% if USER_COLOR %}<span style="color: {{ USER_COLOR }}; font-weight: bold;">{% else %}<span class="gzo-vc-muted t-gzo-vs-muted">{% endif %}{{ USERNAME }}</span>
 		</h1>
 
 		{% EVENT memberlist_view_rank_avatar_before %}
@@ -20,16 +20,16 @@
 
 		{% EVENT memberlist_view_rank_avatar_after %}
 
-		<div class="c-gzo-flex c-gzo-flex-colum">
+		<div class="gzo-flex gzo-flex-column">
 			{% if U_EDIT_SELF %}
-				<div class="c-gzo-mt-3">
+				<div class="gzo-mt-3">
 					<a href="{{ U_EDIT_SELF }}" class="button" title="{{ lang('EDIT_PROFILE') }}">
-						<span>{{ lang('EDIT_PROFILE') }}</span> {{ icon('icon', 'bug fa-fw') }}
+						<span>{{ lang('EDIT_PROFILE') }}</span> {{ icon('icon', 'pencil-square-o fa-fw') }}
 					</a>
 				</div>
 			{% endif %}
 
-			<div class="c-gzo-mt-3">
+			<div class="gzo-mt-3">
 
 				<dl class="left-box details profile-details">
 					<h3 class="capitalize">{{ lang('CONTACT_USER') }}</h3>
@@ -37,29 +37,29 @@
 					{% EVENT memberlist_view_contact_before %}
 
 					{% if U_EMAIL %}
-						<dt class="c-gzo-dtw">{{ icon('icon', 'inbox fa-fw') }}</dt>
-						<dd class="c-gzo-ddp"><a href="{{ U_EMAIL }}">{{ lang('SEND_EMAIL_USER') }}</a></dd>
+						<dt class="gzo-dtw">{{ icon('icon', 'inbox fa-fw') }}</dt>
+						<dd class="gzo-ddp"><a href="{{ U_EMAIL }}">{{ lang('SEND_EMAIL_USER') }}</a></dd>
 					{% endif %}
 					{% if U_PM %}
-						<dt class="c-gzo-dtw">{{ icon('icon', 'comment fa-fw') }}</dt>
-						<dd class="c-gzo-ddp"><a href="{{ U_PM }}">{{ lang('SEND_PRIVATE_MESSAGE') }}</a></dd>
+						<dt class="gzo-dtw">{{ icon('icon', 'comment fa-fw') }}</dt>
+						<dd class="gzo-ddp"><a href="{{ U_PM }}">{{ lang('SEND_PRIVATE_MESSAGE') }}</a></dd>
 					{% endif %}
 					{% if U_JABBER and S_JABBER_ENABLED %}
-						<dt class="c-gzo-dtw">{{ lang('JABBER') ~ lang('COLON') }}</dt>
-						<dd class="c-gzo-ddp"><a href="{{ U_JABBER }}" onclick="popup(this.href, 750, 320); return false;">{{ lang('SEND_JABBER_MESSAGE') }}</a></dd>
+						<dt class="gzo-dtw">{{ lang('JABBER') ~ lang('COLON') }}</dt>
+						<dd class="gzo-ddp"><a href="{{ U_JABBER }}" onclick="popup(this.href, 750, 320); return false;">{{ lang('SEND_JABBER_MESSAGE') }}</a></dd>
 					{% elseif USER_JABBER %}
-						<dt class="c-gzo-dtw">{{ lang('JABBER') ~ lang('COLON') }}</dt> <dd class="c-gzo-ddp">{{ USER_JABBER }}</dd>
+						<dt class="gzo-dtw">{{ lang('JABBER') ~ lang('COLON') }}</dt> <dd class="gzo-ddp">{{ USER_JABBER }}</dd>
 					{% endif %}
 
 					{% EVENT memberlist_view_contact_custom_fields_before %}
 
 					{% for cf in custom_fields %}
 						{% if cf.S_PROFILE_CONTACT %}
-							<dt class="c-gzo-dtw">{{ icon('icon', 'globe fa-fw') }}</dt>
+							<dt class="gzo-dtw">{{ icon('icon', 'globe fa-fw') }}</dt>
 							{% if cf.PROFILE_FIELD_CONTACT %}
-								<dd class="c-gzo-ddp"><a href="{{ cf.PROFILE_FIELD_CONTACT }}">{{ cf.PROFILE_FIELD_DESC }}</a></dd>
+								<dd class="gzo-ddp"><a href="{{ cf.PROFILE_FIELD_CONTACT }}">{{ cf.PROFILE_FIELD_DESC }}</a></dd>
 							{% else %}
-								<dd class="c-gzo-ddp">{{ cf.PROFILE_FIELD_VALUE }}</dd>
+								<dd class="gzo-ddp">{{ cf.PROFILE_FIELD_VALUE }}</dd>
 							{% endif %}
 						{% endif %}
 					{% endfor %}
@@ -68,7 +68,7 @@
 
 					{% if S_PROFILE_FIELD1 %}
 						{# NOTE: Use a construct like this to include admin defined profile fields. Replace FIELD1 with the name of your field. #}
-						<dt class="c-gzo-dtw">{{ PROFILE_FIELD1_NAME }}{{ lang('COLON') }}</dt> <dd class="c-gzo-ddp">{{ PROFILE_FIELD1_VALUE }}</dd>
+						<dt class="gzo-dtw">{{ PROFILE_FIELD1_NAME }}{{ lang('COLON') }}</dt> <dd class="gzo-ddp">{{ PROFILE_FIELD1_VALUE }}</dd>
 					{% endif %}
 
 					{% EVENT memberlist_view_contact_after %}
@@ -79,8 +79,8 @@
 
 	</aside>
 
-	<div class="c-gzo-hero-content">
-		<div class="c-gzo-card c-gzo-card-body c-gzo-border c-gzo-mb{% if S_ONLINE %} online{% endif %}">
+	<div class="gzo-hero-content">
+		<div class="gzo-card gzo-card-body gzo-border gzo-mb-1{% if S_ONLINE %} online{% endif %}">
 			<dl class="left-box details profile-details">
 				<h3 class="capitalize">{{ lang('INFORMATION') }}</h3>
 
@@ -136,7 +136,7 @@
 			</dl>
 		</div>
 
-		<div class="c-gzo-card c-gzo-card-body c-gzo-border c-gzo-mb">
+		<div class="gzo-card gzo-card-body gzo-border gzo-mb-1">
 
 			<dl class="left-box details profile-details">
 				<h3 class="capitalize">{{ lang('USER_FORUM') }}</h3>
@@ -191,7 +191,7 @@
 		</div>
 
 		{% if SIGNATURE %}
-			<div class="c-gzo-card c-gzo-card-body c-gzo-border ">
+			<div class="gzo-card gzo-card-body gzo-border">
 				<div class="inner">
 
 					<h3 class="capitalize">{{ lang('SIGNATURE') }}</h3>
