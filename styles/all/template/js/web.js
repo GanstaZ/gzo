@@ -1,4 +1,4 @@
-$(function() {  // Avoid conflicts with other libraries
+$(function() { // Avoid conflicts with other libraries
 
 'use strict';
 
@@ -9,7 +9,7 @@ $('.c-tabs .c-tab').click(function() {
 	$('.c-tab-pane').removeClass('current');
 
 	$(this).addClass('current');
-	$('#'+tab_id).addClass('current');
+	$('#' + tab_id).addClass('current');
 });
 
 }); // Avoid conflicts with other libraries
