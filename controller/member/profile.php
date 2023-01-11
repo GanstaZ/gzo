@@ -73,7 +73,10 @@ class profile
 		$current = $this->manager->get($tab);
 		$current->load($username);
 
-		$title = $tab !== 'profile' ? $this->language->lang(ucfirst($tab)) : $username;
+		$language = $this->language->lang(ucfirst($tab));
+		$current_page = $current->is_user_online() ? $this->language->lang('GZO_YOUR', $language) : $this->language->lang('GZO_OTHER', $username, $language);
+
+		$title = $tab !== 'profile' ? $current_page : $username;
 
 		return $this->controller->render("{$current->namespace()}$tab.twig", $title, 200, true);
 	}
