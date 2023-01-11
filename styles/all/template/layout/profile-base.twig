@@ -2,13 +2,15 @@
 
 {% block top_content %}
 
-	<div class="gzo-flex gzo-border-bottom" role="navigation">
-		<ul id="nav-main" class="gzo-nav t-gzo-nav linklist gzo-nav-ml" role="menubar">
-			{% for tab in tabs %}
-				{{ include('includes/tab-item.twig') }}
-			{% endfor %}
-		</ul>
-	</div>
+	{% if tabs|length > 1 %}
+		<div class="gzo-flex gzo-border-bottom" role="navigation">
+			<ul id="nav-main" class="gzo-nav t-gzo-nav linklist gzo-nav-ml" role="menubar">
+				{% for tab in tabs %}
+					{{ include('includes/tab-item.twig') }}
+				{% endfor %}
+			</ul>
+		</div>
+	{% endif %}
 
 {% endblock %}
 
