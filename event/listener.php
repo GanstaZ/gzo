@@ -147,7 +147,9 @@ class listener implements EventSubscriberInterface
 	*/
 	public function add_web_data(): void
 	{
-		if ($this->pages->get_current_page() === 'index')
+		$current = $this->pages->get_current_page();
+
+		if (!$this->pages->is_cp($current) && $current === 'index')
 		{
 			$url = $this->controller->route('ganstaz_web_forum');
 

@@ -64,9 +64,9 @@ class pages
 	/**
 	* Get current page
 	*
-	* @return array
+	* @return string
 	*/
-	public function get_current_page()
+	public function get_current_page(): string
 	{
 		return substr($this->user->page['page_name'], 0, strpos($this->user->page['page_name'], '.'));
 	}
@@ -103,7 +103,7 @@ class pages
 	* @param string $page_name Current page name
 	* @return bool
 	*/
-	protected function is_cp(string $page_name): bool
+	public function is_cp(string $page_name): bool
 	{
 		return $this->user->page['page_dir'] === 'adm' || $page_name === 'mcp' || $page_name === 'ucp';
 	}
