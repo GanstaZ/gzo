@@ -108,7 +108,6 @@ class settings
 			'MIN_TITLE_LENGTH'	 => $this->config['gzo_title_length'],
 			'MIN_CONTENT_LENGTH' => $this->config['gzo_content_length'],
 			'S_BLOCKS'			 => $this->config['gzo_blocks'],
-			'S_SPECIAL'			 => $this->config['gzo_special'],
 			'S_RIGHT'			 => $this->config['gzo_right'],
 			'S_LEFT'			 => $this->config['gzo_left'],
 			'S_MIDDLE'			 => $this->config['gzo_middle'],
@@ -137,7 +136,6 @@ class settings
 		$this->config->set('gzo_limit', $this->request->variable('gzo_limit', (int) 0));
 		$this->config->set('gzo_user_limit', $this->request->variable('gzo_user_limit', (int) 0));
 		$this->config->set('gzo_blocks', $this->request->variable('gzo_blocks', (bool) 0));
-		$this->config->set('gzo_special', $this->request->variable('gzo_special', (bool) 0));
 		$this->config->set('gzo_right', $this->request->variable('gzo_right', (bool) 0));
 		$this->config->set('gzo_left', $this->request->variable('gzo_left', (bool) 0));
 		$this->config->set('gzo_middle', $this->request->variable('gzo_middle', (bool) 0));
