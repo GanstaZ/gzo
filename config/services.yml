@@ -59,6 +59,11 @@ services:
         tags:
             - { name: twig.extension }
 
+    ganstaz.web.form.extension:
+        class: ganstaz\web\core\twig\extension\form
+        tags:
+            - { name: twig.extension }
+
 # ----- Models -----
     ganstaz.web.main:
         class: ganstaz\web\model\main
