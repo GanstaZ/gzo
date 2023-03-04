@@ -1,0 +1,22 @@
+services:
+    ganstaz.web.entity.manager:
+        class: ganstaz\web\core\entity\manager
+        arguments:
+            - '@ganstaz.web.entity.type_collection'
+            - '@cache'
+
+    ganstaz.web.entity.type_collection:
+        class: phpbb\di\service_collection
+        arguments:
+            - '@service_container'
+        tags:
+            - { name: service_collection, tag: gzo.entity.type }
+
+# ----- Types -----
+    ganstaz.web.entity.type.config:
+        class: ganstaz\web\core\entity\type\config
+        shared: false
+        arguments:
+            - '@config'
+        tags:
+            - { name: gzo.entity.type }

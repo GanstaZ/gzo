@@ -1,5 +1,6 @@
 imports:
     - { resource: blocks.yml }
+    - { resource: entity.yml }
     - { resource: member.yml }
     - { resource: tables.yml }
 
