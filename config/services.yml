@@ -50,6 +50,7 @@ services:
         tags:
             - { name: event.listener }
 
+# ----- Twig extensions -----
     ganstaz.web.extension:
         class: ganstaz\web\core\twig\extension
         arguments:
@@ -98,7 +99,20 @@ services:
             - '%core.root_path%'
             - '%core.php_ext%'
 
+    ganstaz.web.settings:
+        class: ganstaz\web\model\admin\settings
+        arguments:
+            - '@ganstaz.web.helper'
+
 # ----- Controllers -----
+    ganstaz.web.abstract.controller:
+        abstract: true
+        arguments:
+            - '@language'
+            - '@request'
+            - '@template'
+            - '@ganstaz.web.entity.manager'
+
     ganstaz.web.controller.base:
         abstract: true
         arguments:
@@ -134,14 +148,12 @@ services:
         parent: ganstaz.web.controller.base
 
 # ----- Admin Controllers -----
-    ganstaz.web.admin.controller:
+    ganstaz.web.admin.settings_controller:
         class: ganstaz\web\controller\admin\settings
+        shared: false
+        parent: ganstaz.web.abstract.controller
         arguments:
-            - '@config'
-            - '@language'
-            - '@request'
-            - '@template'
-            - '@ganstaz.web.helper'
+            - '@ganstaz.web.settings'
 
     ganstaz.web.admin.block.controller:
         class: ganstaz\web\controller\admin\blocks
