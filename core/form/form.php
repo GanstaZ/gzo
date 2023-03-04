@@ -116,7 +116,7 @@ final class form
 
 	protected function check_options(string $child, array $options, bool $s_config): void
 	{
-		if	(!$options)
+		if(!$options)
 		{
 			return;
 		}
