@@ -20,3 +20,19 @@ services:
             - '@config'
         tags:
             - { name: gzo.entity.type }
+
+    # ganstaz.web.entity.type.db:
+    #     class: ganstaz\web\core\entity\type\db
+    #     shared: false
+    #     arguments:
+    #         - '@dbal.conn'
+    #     tags:
+    #         - { name: gzo.entity.type }
+
+    # ganstaz.web.entity.type.config_text:
+    #     class: ganstaz\web\core\entity\type\config_text
+    #     shared: false
+    #     arguments:
+    #         - '@config_text'
+    #     tags:
+    #         - { name: gzo.entity.type }
