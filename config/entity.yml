@@ -1,0 +1,38 @@
+services:
+    ganstaz.web.entity.manager:
+        class: ganstaz\web\core\entity\manager
+        arguments:
+            - '@ganstaz.web.entity.type_collection'
+            - '@cache'
+
+    ganstaz.web.entity.type_collection:
+        class: phpbb\di\service_collection
+        arguments:
+            - '@service_container'
+        tags:
+            - { name: service_collection, tag: gzo.entity.type }
+
+# ----- Types -----
+    ganstaz.web.entity.type.config:
+        class: ganstaz\web\core\entity\type\config
+        shared: false
+        arguments:
+            - '@config'
+        tags:
+            - { name: gzo.entity.type }
+
+    # ganstaz.web.entity.type.db:
+    #     class: ganstaz\web\core\entity\type\db
+    #     shared: false
+    #     arguments:
+    #         - '@dbal.conn'
+    #     tags:
+    #         - { name: gzo.entity.type }
+
+    # ganstaz.web.entity.type.config_text:
+    #     class: ganstaz\web\core\entity\type\config_text
+    #     shared: false
+    #     arguments:
+    #         - '@config_text'
+    #     tags:
+    #         - { name: gzo.entity.type }
