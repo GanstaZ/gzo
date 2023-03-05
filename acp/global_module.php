@@ -8,12 +8,12 @@
 *
 */
 
-namespace ganstaz\web\acp;
+namespace ganstaz\gzo\acp;
 
 /**
-* ACP settings module
+* ACP global module
 */
-class web_module
+class global_module
 {
 	public $page_title;
 	public $tpl_name;
@@ -23,8 +23,8 @@ class web_module
 	{
 		global $phpbb_container;
 
-		$this->tpl_name = 'acp_web';
-		$this->page_title = $phpbb_container->get('language')->lang('ACP_GZO_WEB_TITLE');
+		$this->tpl_name = 'acp_global';
+		$this->page_title = $phpbb_container->get('language')->lang('ACP_GZO_TITLE');
 
 		// Get an instance of the admin controller
 		$admin_controller = $phpbb_container->get('ganstaz.web.admin.settings_controller')
