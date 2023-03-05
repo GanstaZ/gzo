@@ -1,14 +1,14 @@
 <?php
 /**
 *
-* GZO Web. An extension for the phpBB Forum Software package.
+* An extension for the phpBB Forum Software package.
 *
-* @copyright (c) 2022, GanstaZ, https://www.github.com/GanstaZ/
+* @copyright (c) GanstaZ, https://www.github.com/GanstaZ/
 * @license GNU General Public License, version 2 (GPL-2.0)
 *
 */
 
-namespace ganstaz\web\model;
+namespace ganstaz\gzo\src\model;
 
 use phpbb\auth\auth;
 use phpbb\config\config;
@@ -20,10 +20,10 @@ use phpbb\pagination;
 use phpbb\textformatter\s9e\renderer;
 use phpbb\template\template;
 use phpbb\user;
-use ganstaz\web\core\helper;
+use ganstaz\gzo\src\helper;
 
 /**
-* GZO Web: Posts model
+* Posts model
 */
 class posts
 {
@@ -131,9 +131,9 @@ class posts
 	* Set page start
 	*
 	* @param int $page
-	* @return \ganstaz\web\core\blocks\block\news News object
+	* @return self
 	*/
-	public function set_page(int $page)
+	public function set_page(int $page): self
 	{
 		$this->page = ($page - 1) * (int) $this->config['gzo_limit'];
 
@@ -144,9 +144,9 @@ class posts
 	* Trim messages [Set to true if you want news to be trimmed]
 	*
 	* @param bool $bool
-	* @return \ganstaz\web\core\blocks\block\news News object
+	* @return self
 	*/
-	public function trim_messages(bool $bool)
+	public function trim_messages(bool $bool): self
 	{
 		$this->trim_messages = $bool;
 
@@ -159,9 +159,9 @@ class posts
 	* @param string $name	Name of the breadcrumb
 	* @param string $route	Name of the route
 	* @param array	$params Additional params
-	* @return \ganstaz\web\model\posts object
+	* @return self
 	*/
-	public function assign_breadcrumb(string $name, string $route, array $params)
+	public function assign_breadcrumb(string $name, string $route, array $params): self
 	{
 		$this->template->assign_block_vars('navlinks', [
 			'FORUM_NAME'   => $name,
@@ -214,12 +214,12 @@ class posts
 		/**
 		* Add category id/s
 		*
-		* @event ganstaz.web.posts_add_category
+		* @event ganstaz.gzo.posts_add_category
 		* @var array default Array containing default category id/s
 		* @since 2.4.0-RC1
 		*/
 		$vars = ['default'];
-		extract($this->dispatcher->trigger_event('ganstaz.web.posts_add_category', compact($vars)));
+		extract($this->dispatcher->trigger_event('ganstaz.gzo.posts_add_category', compact($vars)));
 
 		$category_ids = $this->helper->get_forum_ids();
 
@@ -243,17 +243,17 @@ class posts
 		$category = $this->categories($forum_id);
 
 		// Assign breadcrumb
-		$this->assign_breadcrumb($category, 'ganstaz_web_news', ['id' => $forum_id]);
+		$this->assign_breadcrumb($category, 'ganstaz_gzo_news', ['id' => $forum_id]);
 
 		$categories = [];
 		foreach ($category_ids as $cid)
 		{
-			$categories[$this->categories($cid)] = $this->controller->route('ganstaz_web_news', ['id' => $cid]);
+			$categories[$this->categories($cid)] = $this->controller->route('ganstaz_gzo_news', ['id' => $cid]);
 		}
 
 		// Set template vars
 		$this->template->assign_vars([
-			'GZO_NEW_POST'		  => $this->controller->route('ganstaz_web_post_article', ['fid' => $forum_id]),
+			'GZO_NEW_POST'		  => $this->controller->route('ganstaz_gzo_post_article', ['fid' => $forum_id]),
 			'S_DISPLAY_POST_INFO' => $this->auth->acl_get('f_post', $forum_id) || $this->user->data['user_id'] === ANONYMOUS,
 			'S_CATEGORIES'		  => $categories,
 		]);
@@ -280,8 +280,8 @@ class posts
 
 			$base = [
 				'routes' => [
-					'ganstaz_web_news',
-					'ganstaz_web_news_page',
+					'ganstaz_gzo_news',
+					'ganstaz_gzo_news_page',
 				],
 				'params' => ['id' => $forum_id],
 			];
@@ -362,7 +362,7 @@ class posts
 
 		return [
 			'id'		 => $row['post_id'],
-			'link'		 => $this->controller->route('ganstaz_web_article', ['aid' => $row['topic_id']]),
+			'link'		 => $this->controller->route('ganstaz_gzo_article', ['aid' => $row['topic_id']]),
 			'title'		 => $this->helper->truncate($row['topic_title'], $this->config['gzo_title_length']),
 			'date'		 => $this->user->format_date($row['topic_time']),
 			'author'	 => get_username_string('full', (int) $row['user_id'], $row['username'], $row['user_colour']),
@@ -438,15 +438,15 @@ class posts
 		/**
 		* Add/Modify template data
 		*
-		* @event ganstaz.web.article_modify_template_data
+		* @event ganstaz.gzo.article_modify_template_data
 		* @var array template data Array containing template data
 		* @since 2.4.0-RC1
 		*/
 		$vars = ['template_data'];
-		extract($this->dispatcher->trigger_event('ganstaz.web.article_modify_template_data', compact($vars)));
+		extract($this->dispatcher->trigger_event('ganstaz.gzo.article_modify_template_data', compact($vars)));
 
 		// Assign breadcrumb
-		$this->assign_breadcrumb($template_data['title'], 'ganstaz_web_first_post', ['aid' => $topic_id]);
+		$this->assign_breadcrumb($template_data['title'], 'ganstaz_gzo_first_post', ['aid' => $topic_id]);
 
 		$this->template->assign_block_vars('article', $template_data);
 

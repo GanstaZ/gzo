@@ -1,14 +1,14 @@
 <?php
 /**
 *
-* GZO Web. An extension for the phpBB Forum Software package.
+* An extension for the phpBB Forum Software package.
 *
-* @copyright (c) 2022, GanstaZ, https://www.github.com/GanstaZ/
+* @copyright (c) GanstaZ, https://www.github.com/GanstaZ/
 * @license GNU General Public License, version 2 (GPL-2.0)
 *
 */
 
-namespace ganstaz\web\model;
+namespace ganstaz\gzo\src\model;
 
 use phpbb\auth\auth;
 use phpbb\config\config;
@@ -19,11 +19,11 @@ use phpbb\notification\manager as notifications;
 use phpbb\request\request;
 use phpbb\template\template;
 use phpbb\user;
-use ganstaz\web\core\info;
+use ganstaz\gzo\src\info;
 use phpbb\exception\http_exception;
 
 /**
-* GZO Web: Forum index model
+* Forum index model
 */
 class main
 {

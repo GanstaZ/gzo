@@ -8,7 +8,7 @@
 *
 */
 
-namespace ganstaz\web\core\entity\type;
+namespace ganstaz\gzo\src\entity\type;
 
 use phpbb\config\db_text;
 

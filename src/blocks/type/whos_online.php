@@ -1,19 +1,19 @@
 <?php
 /**
 *
-* GZO Web. An extension for the phpBB Forum Software package.
+* An extension for the phpBB Forum Software package.
 *
-* @copyright (c) 2022, GanstaZ, https://www.github.com/GanstaZ/
+* @copyright (c) GanstaZ, https://www.github.com/GanstaZ/
 * @license GNU General Public License, version 2 (GPL-2.0)
 *
 */
 
-namespace ganstaz\web\core\blocks\type;
+namespace ganstaz\gzo\src\blocks\type;
 
-use ganstaz\web\core\info;
+use ganstaz\gzo\src\info;
 
 /**
-* GZO Web: Who's Online
+* Who's Online block
 */
 class whos_online extends base
 {
@@ -39,7 +39,7 @@ class whos_online extends base
 	{
 		return [
 			'section'  => 'gzo_bottom',
-			'ext_name' => 'ganstaz_web',
+			'ext_name' => 'ganstaz_gzo',
 		];
 	}
 
@@ -79,13 +79,13 @@ class whos_online extends base
 		]);
 
 		/**
-		* Event ganstaz.web.main_blocks_after
+		* Event ganstaz.gzo.main_blocks_after
 		*
 		* You can use this event to load function files and initiate objects
 		*
-		* @event ganstaz.web.main_blocks_after
+		* @event ganstaz.gzo.main_blocks_after
 		* @since 2.3.5
 		*/
-		$this->dispatcher->dispatch('ganstaz.web.main_blocks_after');
+		$this->dispatcher->dispatch('ganstaz.gzo.main_blocks_after');
 	}
 }

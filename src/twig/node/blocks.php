@@ -1,14 +1,14 @@
 <?php
 /**
 *
-* GZO Web. An extension for the phpBB Forum Software package.
+* An extension for the phpBB Forum Software package.
 *
-* @copyright (c) 2022, GanstaZ, https://www.github.com/GanstaZ/
+* @copyright (c) GanstaZ, https://www.github.com/GanstaZ/
 * @license GNU General Public License, version 2 (GPL-2.0)
 *
 */
 
-namespace ganstaz\web\core\twig\node;
+namespace ganstaz\gzo\src\twig\node;
 
 class blocks extends \Twig\Node\Node
 {
@@ -32,7 +32,7 @@ class blocks extends \Twig\Node\Node
 		$compiler->addDebugInfo($this);
 
 		$block = $this->getNode('expr')->getAttribute('name');
-		$block_loader = $this->environment->getExtension('ganstaz\web\core\twig\extension')->get_block_loader($block);
+		$block_loader = $this->environment->getExtension('ganstaz\gzo\src\twig\extension')->get_block_loader($block);
 
 		foreach ($block_loader as $name => $path)
 		{

@@ -1,14 +1,14 @@
 <?php
 /**
 *
-* GZO Web. An extension for the phpBB Forum Software package.
+* An extension for the phpBB Forum Software package.
 *
-* @copyright (c) 2022, GanstaZ, https://www.github.com/GanstaZ/
+* @copyright (c) GanstaZ, https://www.github.com/GanstaZ/
 * @license GNU General Public License, version 2 (GPL-2.0)
 *
 */
 
-namespace ganstaz\web\controller\admin;
+namespace ganstaz\gzo\src\controller\admin;
 
 use phpbb\cache\service as cache;
 use phpbb\db\driver\driver_interface as driver;
@@ -17,7 +17,7 @@ use phpbb\request\request;
 use phpbb\template\template;
 
 /**
-* GZO Web: admin pages controller
+* Admin pages controller
 */
 class pages
 {
@@ -77,9 +77,9 @@ class pages
 	public function display_page(): void
 	{
 		// Add form key for form validation checks
-		add_form_key('ganstaz/pages');
+		add_form_key('ganstaz_gzo_pages');
 
-		//$this->language->add_lang('acp_pages', 'ganstaz/web');
+		//$this->language->add_lang('acp_pages', 'ganstaz/gzo');
 
 		// Get all pages
 		$sql = 'SELECT name, active, allow, changeable, gzo_right, gzo_left, gzo_middle, gzo_top, gzo_bottom
@@ -107,7 +107,7 @@ class pages
 		// Is the form submitted
 		if ($this->request->is_set_post('submit'))
 		{
-			if (!check_form_key('ganstaz/pages'))
+			if (!check_form_key('ganstaz_gzo_pages'))
 			{
 				trigger_error('FORM_INVALID');
 			}

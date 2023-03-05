@@ -8,9 +8,9 @@
 *
 */
 
-namespace ganstaz\web\model\admin;
+namespace ganstaz\gzo\src\model\admin;
 
-use ganstaz\web\core\helper;
+use ganstaz\gzo\src\helper;
 
 /**
 * Admin settings model

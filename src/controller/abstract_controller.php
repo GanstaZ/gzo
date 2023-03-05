@@ -8,13 +8,13 @@
 *
 */
 
-namespace ganstaz\web\controller;
+namespace ganstaz\gzo\src\controller;
 
 use phpbb\language\language;
 use phpbb\request\request;
 use phpbb\template\template;
-use ganstaz\web\core\entity\manager as em;
-use ganstaz\web\core\form\form;
+use ganstaz\gzo\src\entity\manager as em;
+use ganstaz\gzo\src\form\form;
 
 /**
 * Abstract controller

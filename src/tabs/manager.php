@@ -1,14 +1,14 @@
 <?php
 /**
 *
-* GZO Web. An extension for the phpBB Forum Software package.
+* An extension for the phpBB Forum Software package.
 *
-* @copyright (c) 2022, GanstaZ, https://www.github.com/GanstaZ/
+* @copyright (c) GanstaZ, https://www.github.com/GanstaZ/
 * @license GNU General Public License, version 2 (GPL-2.0)
 *
 */
 
-namespace ganstaz\web\core\tabs;
+namespace ganstaz\gzo\src\tabs;
 
 use phpbb\di\service_collection;
 use phpbb\controller\helper as controller;
@@ -16,7 +16,7 @@ use phpbb\language\language;
 use phpbb\template\template;
 
 /**
-* GZO Web: tabs manager
+* Tabs manager
 */
 class manager
 {
@@ -127,10 +127,10 @@ class manager
 
 		foreach ($this->available() as $tab)
 		{
-			$route = $this->controller->route('ganstaz_web_member_tab', ['username' => $username, 'tab' => $tab]);
+			$route = $this->controller->route('ganstaz_gzo_member_tab', ['username' => $username, 'tab' => $tab]);
 			if ($tab === 'profile')
 			{
-				$route = $this->controller->route('ganstaz_web_member', ['username' => $username]);
+				$route = $this->controller->route('ganstaz_gzo_member', ['username' => $username]);
 			}
 
 			$this->template->assign_block_vars('tabs', [
@@ -158,7 +158,7 @@ class manager
 			],
 			[
 				'BREADCRUMB_NAME'	=> $username,
-				'U_BREADCRUMB'		=> $this->controller->route('ganstaz_web_member', ['username' => $username]),
+				'U_BREADCRUMB'		=> $this->controller->route('ganstaz_gzo_member', ['username' => $username]),
 			],
 		]);
 
@@ -166,7 +166,7 @@ class manager
 		{
 			$this->template->assign_block_vars('navlinks', [
 				'BREADCRUMB_NAME'	=> ucfirst($tab),
-				'U_BREADCRUMB'		=> $this->controller->route('ganstaz_web_member_tab', ['username' => $username, 'tab' => $tab]),
+				'U_BREADCRUMB'		=> $this->controller->route('ganstaz_gzo_member_tab', ['username' => $username, 'tab' => $tab]),
 			]);
 		}
 	}

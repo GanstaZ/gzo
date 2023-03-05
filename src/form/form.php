@@ -8,7 +8,7 @@
 *
 */
 
-namespace ganstaz\web\core\form;
+namespace ganstaz\gzo\src\form;
 
 /**
 * Form class

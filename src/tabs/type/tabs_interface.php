@@ -1,17 +1,17 @@
 <?php
 /**
 *
-* GZO Web. An extension for the phpBB Forum Software package.
+* An extension for the phpBB Forum Software package.
 *
-* @copyright (c) 2022, GanstaZ, https://www.github.com/GanstaZ/
+* @copyright (c) GanstaZ, https://www.github.com/GanstaZ/
 * @license GNU General Public License, version 2 (GPL-2.0)
 *
 */
 
-namespace ganstaz\web\core\tabs\type;
+namespace ganstaz\gzo\src\tabs\type;
 
 /**
-* GZO Web: interface for tabs
+* Tabs interface
 */
 interface tabs_interface
 {

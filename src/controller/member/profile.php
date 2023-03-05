@@ -1,22 +1,22 @@
 <?php
 /**
 *
-* GZO Web. An extension for the phpBB Forum Software package.
+* An extension for the phpBB Forum Software package.
 *
-* @copyright (c) 2022, GanstaZ, https://www.github.com/GanstaZ/
+* @copyright (c) GanstaZ, https://www.github.com/GanstaZ/
 * @license GNU General Public License, version 2 (GPL-2.0)
 *
 */
 
-namespace ganstaz\web\controller\member;
+namespace ganstaz\gzo\src\controller\member;
 
 use phpbb\controller\helper as controller;
 use phpbb\language\language;
 use phpbb\template\template;
-use ganstaz\web\core\tabs\manager;
+use ganstaz\gzo\src\tabs\manager;
 
 /**
-* GZO Web: Member profile controller
+* Member profile controller
 */
 class profile
 {

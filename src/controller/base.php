@@ -1,23 +1,23 @@
 <?php
 /**
 *
-* GZO Web. An extension for the phpBB Forum Software package.
+* An extension for the phpBB Forum Software package.
 *
-* @copyright (c) 2022, GanstaZ, https://www.github.com/GanstaZ/
+* @copyright (c) GanstaZ, https://www.github.com/GanstaZ/
 * @license GNU General Public License, version 2 (GPL-2.0)
 *
 */
 
-namespace ganstaz\web\controller;
+namespace ganstaz\gzo\src\controller;
 
 use phpbb\config\config;
 use phpbb\controller\helper;
 use phpbb\language\language;
 use phpbb\user;
-use ganstaz\web\model\posts;
+use ganstaz\gzo\src\model\posts;
 
 /**
-* GZO Web: base controller
+* Base controller
 */
 abstract class base
 {

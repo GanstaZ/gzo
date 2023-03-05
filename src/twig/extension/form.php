@@ -8,7 +8,7 @@
 *
 */
 
-namespace ganstaz\web\core\twig\extension;
+namespace ganstaz\gzo\src\twig\extension;
 
 use phpbb\template\twig\environment;
 
@@ -49,9 +49,9 @@ class form extends \Twig\Extension\AbstractExtension
 			$effix = is_bool($s_custom) && $s_custom === false ? '_custom' : '';
 			$type = $row['type'] . $effix;
 
-			if ($env->getLoader()->exists('@ganstaz_web/macros/form/' . $type . '.twig'))
+			if ($env->getLoader()->exists('@ganstaz_gzo/macros/form/' . $type . '.twig'))
 			{
-				$env->loadTemplate('@ganstaz_web/macros/form/' . $type . '.twig')->display($row);
+				$env->loadTemplate('@ganstaz_gzo/macros/form/' . $type . '.twig')->display($row);
 			}
 		}
 	}

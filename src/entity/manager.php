@@ -8,7 +8,7 @@
 *
 */
 
-namespace ganstaz\web\core\entity;
+namespace ganstaz\gzo\src\entity;
 
 use phpbb\di\service_collection;
 use phpbb\cache\service as cache;

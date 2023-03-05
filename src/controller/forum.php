@@ -1,20 +1,20 @@
 <?php
 /**
 *
-* GZO Web. An extension for the phpBB Forum Software package.
+* An extension for the phpBB Forum Software package.
 *
-* @copyright (c) 2022, GanstaZ, https://www.github.com/GanstaZ/
+* @copyright (c) GanstaZ, https://www.github.com/GanstaZ/
 * @license GNU General Public License, version 2 (GPL-2.0)
 *
 */
 
-namespace ganstaz\web\controller;
+namespace ganstaz\gzo\src\controller;
 
 use phpbb\event\dispatcher;
-use ganstaz\web\model\main;
+use ganstaz\gzo\src\model\main;
 
 /**
-* GZO Web: forum index controller
+* Forum index controller
 */
 class forum extends base
 {

@@ -1,24 +1,24 @@
 <?php
 /**
 *
-* GZO Web. An extension for the phpBB Forum Software package.
+* An extension for the phpBB Forum Software package.
 *
-* @copyright (c) 2022, GanstaZ, https://www.github.com/GanstaZ/
+* @copyright (c) GanstaZ, https://www.github.com/GanstaZ/
 * @license GNU General Public License, version 2 (GPL-2.0)
 *
 */
 
-namespace ganstaz\web\core\blocks\type;
+namespace ganstaz\gzo\src\blocks\type;
 
 use phpbb\config\config;
 use phpbb\db\driver\driver_interface;
 use phpbb\controller\helper as controller;
 use phpbb\template\template;
 use phpbb\event\dispatcher;
-use ganstaz\web\core\helper;
+use ganstaz\gzo\src\helper;
 
 /**
-* GZO Web: base class for blocks
+* Base class for block types
 */
 abstract class base implements block_interface
 {

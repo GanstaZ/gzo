@@ -1,20 +1,20 @@
 <?php
 /**
 *
-* GZO Web. An extension for the phpBB Forum Software package.
+* An extension for the phpBB Forum Software package.
 *
-* @copyright (c) 2022, GanstaZ, https://www.github.com/GanstaZ/
+* @copyright (c) GanstaZ, https://www.github.com/GanstaZ/
 * @license GNU General Public License, version 2 (GPL-2.0)
 *
 */
 
-namespace ganstaz\web\core\blocks;
+namespace ganstaz\gzo\src\blocks;
 
 use phpbb\db\driver\driver_interface;
 use phpbb\di\service_collection;
 
 /**
-* GZO Web: blocks manager
+* Blocks manager
 */
 class manager
 {

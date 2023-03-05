@@ -1,24 +1,24 @@
 <?php
 /**
 *
-* GZO Web. An extension for the phpBB Forum Software package.
+* An extension for the phpBB Forum Software package.
 *
-* @copyright (c) 2022, GanstaZ, https://www.github.com/GanstaZ/
+* @copyright (c) GanstaZ, https://www.github.com/GanstaZ/
 * @license GNU General Public License, version 2 (GPL-2.0)
 *
 */
 
-namespace ganstaz\web\controller\admin;
+namespace ganstaz\gzo\src\controller\admin;
 
 use Symfony\Component\DependencyInjection\ContainerInterface as container;
 use phpbb\db\driver\driver_interface as driver;
 use phpbb\language\language;
 use phpbb\request\request;
 use phpbb\template\template;
-use ganstaz\web\core\blocks\manager;
+use ganstaz\gzo\src\blocks\manager;
 
 /**
-* GZO Web: admin blocks controller
+* Admin blocks controller
 */
 class blocks
 {
@@ -81,17 +81,17 @@ class blocks
 	public function display_blocks(): void
 	{
 		// Add form key for form validation checks
-		add_form_key('ganstaz/blocks');
+		add_form_key('ganstaz_gzo_blocks');
 
-		$this->language->add_lang('acp_blocks', 'ganstaz/web');
+		$this->language->add_lang('acp_blocks', 'ganstaz/gzo');
 
 		/**
 		* Add language
 		*
-		* @event ganstaz.web.admin_block_add_language
+		* @event ganstaz.gzo.admin_block_add_language
 		* @since 2.4.0-dev
 		*/
-		$this->container->get('dispatcher')->dispatch('ganstaz.web.admin_block_add_language');
+		$this->container->get('dispatcher')->dispatch('ganstaz.gzo.admin_block_add_language');
 
 		// Get all blocks
 		$sql = 'SELECT *
@@ -153,7 +153,7 @@ class blocks
 		// Is the form submitted
 		if ($this->request->is_set_post('submit'))
 		{
-			if (!check_form_key('ganstaz/blocks'))
+			if (!check_form_key('ganstaz_gzo_blocks'))
 			{
 				trigger_error('FORM_INVALID');
 			}

@@ -1,17 +1,17 @@
 <?php
 /**
 *
-* GZO Web. An extension for the phpBB Forum Software package.
+* An extension for the phpBB Forum Software package.
 *
-* @copyright (c) 2022, GanstaZ, https://www.github.com/GanstaZ/
+* @copyright (c) GanstaZ, https://www.github.com/GanstaZ/
 * @license GNU General Public License, version 2 (GPL-2.0)
 *
 */
 
-namespace ganstaz\web\core\blocks\type;
+namespace ganstaz\gzo\src\blocks\type;
 
 /**
-* GZO Web: Information
+* Information block
 */
 class information extends base
 {
@@ -22,7 +22,7 @@ class information extends base
 	{
 		return [
 			'section'  => 'gzo_right',
-			'ext_name' => 'ganstaz_web',
+			'ext_name' => 'ganstaz_gzo',
 		];
 	}
 
@@ -32,12 +32,12 @@ class information extends base
 	public function load(): void
 	{
 		/**
-		* Event ganstaz.web.information_before
+		* Event ganstaz.gzo.information_before
 		*
-		* @event ganstaz.web.information_before
+		* @event ganstaz.gzo.information_before
 		* @since 2.3.6-RC1
 		*/
-		$this->dispatcher->dispatch('ganstaz.web.information_before');
+		$this->dispatcher->dispatch('ganstaz.gzo.information_before');
 
 		// Set template vars
 		$this->template->assign_vars([

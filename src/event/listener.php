@@ -1,28 +1,28 @@
 <?php
 /**
 *
-* GZO Web. An extension for the phpBB Forum Software package.
+* An extension for the phpBB Forum Software package.
 *
-* @copyright (c) 2022, GanstaZ, https://www.github.com/GanstaZ/
+* @copyright (c) GanstaZ, https://www.github.com/GanstaZ/
 * @license GNU General Public License, version 2 (GPL-2.0)
 *
 */
 
-namespace ganstaz\web\event;
+namespace ganstaz\gzo\src\event;
 
 use phpbb\config\config;
 use phpbb\controller\helper as controller;
 use phpbb\language\language;
 use phpbb\request\request;
 use phpbb\template\template;
-use ganstaz\web\core\helper;
-use ganstaz\web\core\pages;
-use ganstaz\web\core\blocks\manager;
+use ganstaz\gzo\src\helper;
+use ganstaz\gzo\src\pages;
+use ganstaz\gzo\src\blocks\manager;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
-* GZO Web: Event listener
+* Event listener
 */
 class listener implements EventSubscriberInterface
 {
@@ -111,8 +111,8 @@ class listener implements EventSubscriberInterface
 	*/
 	public function add_language($event): void
 	{
-		// Load a single language file from ganstaz/web/language/en/common.php
-		$this->language->add_lang('common', 'ganstaz/web');
+		// Load a single language file from ganstaz/gzo/language/en/common.php
+		$this->language->add_lang('common', 'ganstaz/gzo');
 	}
 
 	/**
@@ -151,7 +151,7 @@ class listener implements EventSubscriberInterface
 
 		if (!$this->pages->is_cp($current) && $current === 'index')
 		{
-			$url = $this->controller->route('ganstaz_web_forum');
+			$url = $this->controller->route('ganstaz_gzo_forum');
 
 			$response = new RedirectResponse($url);
 			$response->send();
@@ -160,7 +160,7 @@ class listener implements EventSubscriberInterface
 		if ($this->config['gzo_news_link'])
 		{
 			$this->template->assign_vars([
-				'U_NEWS' => $this->controller->route('ganstaz_web_news'),
+				'U_NEWS' => $this->controller->route('ganstaz_gzo_news'),
 			]);
 		}
 	}
@@ -173,7 +173,7 @@ class listener implements EventSubscriberInterface
 	public function change_index(): void
 	{
 		$this->template->assign_vars([
-			'U_INDEX' => $this->controller->route('ganstaz_web_forum'),
+			'U_INDEX' => $this->controller->route('ganstaz_gzo_forum'),
 		]);
 	}
 
@@ -189,7 +189,7 @@ class listener implements EventSubscriberInterface
 		// Will redirect to our controller
 		if (in_array($forum_id, $this->helper->get_forum_ids()) && $forum_id !== (int) $this->config['gzo_main_fid'])
 		{
-			$url = $this->controller->route('ganstaz_web_news', ['id' => $forum_id]);
+			$url = $this->controller->route('ganstaz_gzo_news', ['id' => $forum_id]);
 
 			$response = new RedirectResponse($url);
 			$response->send();
@@ -207,7 +207,7 @@ class listener implements EventSubscriberInterface
 		// Alter posting page breadcrumbs to link to the ideas controller
 		$this->template->alter_block_array('navlinks', [
 			'BREADCRUMB_NAME' => $this->language->lang('HOME'),
-			'U_BREADCRUMB'	  => $this->controller->route('ganstaz_web_index'),
+			'U_BREADCRUMB'	  => $this->controller->route('ganstaz_gzo_index'),
 		], false, 'change');
 	}
 
@@ -244,7 +244,7 @@ class listener implements EventSubscriberInterface
 	{
 		if ($this->pages->get_current_page() === 'memberlist')
 		{
-			$url = $this->controller->route('ganstaz_web_member', ['username' => $this->helper->get_user_name((int) $event['user_id'])]);
+			$url = $this->controller->route('ganstaz_gzo_member', ['username' => $this->helper->get_user_name((int) $event['user_id'])]);
 
 			$response = new RedirectResponse($url);
 			$response->send();
@@ -262,7 +262,7 @@ class listener implements EventSubscriberInterface
 		{
 			$user  = $event['username'];
 			$color = $event['username_colour'];
-			$route = $this->controller->route('ganstaz_web_member', ['username' => $user]);
+			$route = $this->controller->route('ganstaz_gzo_member', ['username' => $user]);
 
 			// TODO: remove this html ASAP
 			// Can be removed/modified when html part will be removed from phpBB

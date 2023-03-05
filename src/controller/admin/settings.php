@@ -8,10 +8,10 @@
 *
 */
 
-namespace ganstaz\web\controller\admin;
+namespace ganstaz\gzo\src\controller\admin;
 
-use ganstaz\web\model\admin\settings as sm;
-use ganstaz\web\controller\abstract_controller;
+use ganstaz\gzo\src\model\admin\settings as sm;
+use ganstaz\gzo\src\controller\abstract_controller;
 
 /**
 * Admin settings controller
@@ -40,10 +40,10 @@ class settings extends abstract_controller
 	*/
 	public function handle(): void
 	{
-		$this->language->add_lang('acp_web', 'ganstaz/web');
+		$this->language->add_lang('acp_gzo', 'ganstaz/gzo');
 
 		$this->form->build($this->sm->data(), true);
-		$this->form->add_form_key('ganstaz_web_settings');
+		$this->form->add_form_key('ganstaz_gzo_settings');
 
 		$emc = $this->em->type('config');
 

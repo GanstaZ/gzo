@@ -1,21 +1,21 @@
 <?php
 /**
 *
-* GZO Web. An extension for the phpBB Forum Software package.
+* An extension for the phpBB Forum Software package.
 *
-* @copyright (c) 2022, GanstaZ, https://www.github.com/GanstaZ/
+* @copyright (c) GanstaZ, https://www.github.com/GanstaZ/
 * @license GNU General Public License, version 2 (GPL-2.0)
 *
 */
 
-namespace ganstaz\web\core\twig;
+namespace ganstaz\gzo\src\twig;
 
 use phpbb\template\twig\environment;
-use ganstaz\web\core\blocks\event;
+use ganstaz\gzo\src\blocks\event;
 use phpbb\group\helper as group;
 
 /**
-* GZO Web: twig extension
+* Twig extension
 */
 class extension extends \Twig\Extension\AbstractExtension
 {
@@ -61,7 +61,7 @@ class extension extends \Twig\Extension\AbstractExtension
 	public function getTokenParsers()
 	{
 		return [
-			new \ganstaz\web\core\twig\tokenparser\blocks($this->environment),
+			new \ganstaz\gzo\src\twig\tokenparser\blocks($this->environment),
 		];
 	}
 

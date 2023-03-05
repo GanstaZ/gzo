@@ -1,17 +1,17 @@
 <?php
 /**
 *
-* GZO Web. An extension for the phpBB Forum Software package.
+* An extension for the phpBB Forum Software package.
 *
-* @copyright (c) 2022, GanstaZ, https://www.github.com/GanstaZ/
+* @copyright (c) GanstaZ, https://www.github.com/GanstaZ/
 * @license GNU General Public License, version 2 (GPL-2.0)
 *
 */
 
-namespace ganstaz\web\core\blocks\type;
+namespace ganstaz\gzo\src\blocks\type;
 
 /**
-* GZO Web: The Team
+* The Team block
 */
 class the_team extends base
 {
@@ -22,7 +22,7 @@ class the_team extends base
 	{
 		return [
 			'section'  => 'gzo_right',
-			'ext_name' => 'ganstaz_web',
+			'ext_name' => 'ganstaz_gzo',
 		];
 	}
 
