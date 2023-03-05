@@ -87,7 +87,7 @@ class blocks
 		$this->language->add_lang('acp_blocks', 'ganstaz/gzo');
 
 		/** @event ganstaz.gzo.admin_block_add_language */
-		$this->container->get('dispatcher')->dispatch(events::gzo_ADMIN_BLOCK_ADD_LANGUAGE);
+		$this->container->get('dispatcher')->dispatch(events::GZO_ADMIN_BLOCK_ADD_LANGUAGE);
 
 		// Get all blocks
 		$sql = 'SELECT *
