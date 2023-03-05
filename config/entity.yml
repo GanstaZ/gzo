@@ -1,6 +1,6 @@
 services:
     ganstaz.gzo.entity.manager:
-        class: ganstaz\gzo\core\entity\manager
+        class: ganstaz\gzo\src\entity\manager
         arguments:
             - '@ganstaz.gzo.entity.type_collection'
             - '@cache'
@@ -14,7 +14,7 @@ services:
 
 # ----- Types -----
     ganstaz.gzo.entity.type.config:
-        class: ganstaz\gzo\core\entity\type\config
+        class: ganstaz\gzo\src\entity\type\config
         shared: false
         arguments:
             - '@config'
@@ -22,7 +22,7 @@ services:
             - { name: gzo.entity.type }
 
     # ganstaz.gzo.entity.type.db:
-    #     class: ganstaz\gzo\core\entity\type\db
+    #     class: ganstaz\gzo\src\entity\type\db
     #     shared: false
     #     arguments:
     #         - '@dbal.conn'
@@ -30,7 +30,7 @@ services:
     #         - { name: gzo.entity.type }
 
     # ganstaz.gzo.entity.type.config_text:
-    #     class: ganstaz\gzo\core\entity\type\config_text
+    #     class: ganstaz\gzo\src\entity\type\config_text
     #     shared: false
     #     arguments:
     #         - '@config_text'

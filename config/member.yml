@@ -4,10 +4,10 @@ services:
         arguments:
             - '@service_container'
         tags:
-            - { name: service_collection, tag: gzo.gzo.tab }
+            - { name: service_collection, tag: gzo.tab }
 
     ganstaz.gzo.tabs.manager:
-        class: ganstaz\gzo\core\tabs\manager
+        class: ganstaz\gzo\src\tabs\manager
         arguments:
             - '@ganstaz.gzo.tabs.collection'
             - '@controller.helper'
@@ -29,7 +29,7 @@ services:
 
 # ----- GZO Tabs -----
     ganstaz.gzo.tab.profile:
-        class: ganstaz\gzo\core\tabs\type\profile
+        class: ganstaz\gzo\src\tabs\type\profile
         shared: false
         parent: ganstaz.gzo.tab.base
         arguments:
@@ -42,11 +42,11 @@ services:
         calls:
             - [set_name, [profile]]
         tags:
-            - { name: gzo.gzo.tab, order: 1 }
+            - { name: gzo.tab, order: 1 }
 
 # ----- Controllers -----
     ganstaz.gzo.profile.controller:
-        class: ganstaz\gzo\controller\member\profile
+        class: ganstaz\gzo\src\controller\member\profile
         arguments:
             - '@controller.helper'
             - '@language'

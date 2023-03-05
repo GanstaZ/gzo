@@ -6,12 +6,12 @@ imports:
 
 services:
     ganstaz.gzo.helper:
-        class: ganstaz\gzo\core\helper
+        class: ganstaz\gzo\src\helper
         arguments:
             - '@dbal.conn'
 
     ganstaz.gzo.info:
-        class: ganstaz\gzo\core\info
+        class: ganstaz\gzo\src\info
         arguments:
             - '@auth'
             - '@config'
@@ -23,7 +23,7 @@ services:
             - '%core.php_ext%'
 
     ganstaz.gzo.pages:
-        class: ganstaz\gzo\core\pages
+        class: ganstaz\gzo\src\pages
         arguments:
             - '@cache'
             - '@config'
@@ -33,12 +33,12 @@ services:
             - '%core.php_ext%'
 
     ganstaz.gzo.time:
-        class: ganstaz\gzo\core\time
+        class: ganstaz\gzo\src\time
         arguments:
             - '@language'
 
     ganstaz.gzo.listener:
-        class: ganstaz\gzo\event\listener
+        class: ganstaz\gzo\src\event\listener
         arguments:
             - '@config'
             - '@controller.helper'
@@ -53,7 +53,7 @@ services:
 
 # ----- Twig extensions -----
     ganstaz.gzo.extension:
-        class: ganstaz\gzo\core\twig\extension
+        class: ganstaz\gzo\src\twig\extension
         arguments:
             - '@template.twig.environment'
             - '@ganstaz.gzo.block.event'
@@ -62,13 +62,13 @@ services:
             - { name: twig.extension }
 
     ganstaz.gzo.form.extension:
-        class: ganstaz\gzo\core\twig\extension\form
+        class: ganstaz\gzo\src\twig\extension\form
         tags:
             - { name: twig.extension }
 
 # ----- Models -----
     ganstaz.gzo.main:
-        class: ganstaz\gzo\model\main
+        class: ganstaz\gzo\src\model\main
         arguments:
             - '@auth'
             - '@config'
@@ -84,7 +84,7 @@ services:
             - '%core.php_ext%'
 
     ganstaz.gzo.posts:
-        class: ganstaz\gzo\model\posts
+        class: ganstaz\gzo\src\model\posts
         arguments:
             - '@auth'
             - '@config'
@@ -101,12 +101,12 @@ services:
             - '%core.php_ext%'
 
     ganstaz.gzo.settings:
-        class: ganstaz\gzo\model\admin\settings
+        class: ganstaz\gzo\src\model\admin\settings
         arguments:
             - '@ganstaz.gzo.helper'
 
 # ----- Controllers -----
-    ganstaz.gzo.abstract.controller:
+    ganstaz.gzo.abstract_controller:
         abstract: true
         arguments:
             - '@language'
@@ -114,7 +114,7 @@ services:
             - '@template'
             - '@ganstaz.gzo.entity.manager'
 
-    ganstaz.gzo.controller.base:
+    ganstaz.gzo.base_controller:
         abstract: true
         arguments:
             - '@config'
@@ -125,39 +125,39 @@ services:
             - '%core.root_path%'
             - '%core.php_ext%'
 
-    ganstaz.gzo.index.controller:
-        class: ganstaz\gzo\controller\index
+    ganstaz.gzo.index_controller:
+        class: ganstaz\gzo\src\controller\index
         shared: false
-        parent: ganstaz.gzo.controller.base
+        parent: ganstaz.gzo.base_controller
 
-    ganstaz.gzo.articles.controller:
-        class: ganstaz\gzo\controller\articles
+    ganstaz.gzo.articles_controller:
+        class: ganstaz\gzo\src\controller\articles
         shared: false
-        parent: ganstaz.gzo.controller.base
+        parent: ganstaz.gzo.base_controller
 
-    ganstaz.gzo.forum.controller:
-        class: ganstaz\gzo\controller\forum
+    ganstaz.gzo.forum_controller:
+        class: ganstaz\gzo\src\controller\forum
         shared: false
-        parent: ganstaz.gzo.controller.base
+        parent: ganstaz.gzo.base_controller
         arguments:
             - '@dispatcher'
             - '@ganstaz.gzo.main'
 
-    ganstaz.gzo.post.controller:
-        class: ganstaz\gzo\controller\post
+    ganstaz.gzo.post_controller:
+        class: ganstaz\gzo\src\controller\post
         shared: false
-        parent: ganstaz.gzo.controller.base
+        parent: ganstaz.gzo.base_controller
 
 # ----- Admin Controllers -----
     ganstaz.gzo.admin.settings_controller:
-        class: ganstaz\gzo\controller\admin\settings
+        class: ganstaz\gzo\src\controller\admin\settings
         shared: false
-        parent: ganstaz.gzo.abstract.controller
+        parent: ganstaz.gzo.abstract_controller
         arguments:
             - '@ganstaz.gzo.settings'
 
-    ganstaz.gzo.admin.block.controller:
-        class: ganstaz\gzo\controller\admin\blocks
+    ganstaz.gzo.admin.block_controller:
+        class: ganstaz\gzo\src\controller\admin\blocks
         arguments:
             - '@service_container'
             - '@dbal.conn'
@@ -166,8 +166,8 @@ services:
             - '@template'
             - '@ganstaz.gzo.block.manager'
 
-    ganstaz.gzo.admin.page.controller:
-        class: ganstaz\gzo\controller\admin\pages
+    ganstaz.gzo.admin.page_controller:
+        class: ganstaz\gzo\src\controller\admin\pages
         arguments:
             - '@cache'
             - '@dbal.conn'

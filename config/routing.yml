@@ -14,34 +14,34 @@ ganstaz_gzo_news:
 
 ganstaz_gzo_news_page:
     path: /news/{id}/page/{page}
-    defaults: { _controller: ganstaz.gzo.articles.controller:handle }
+    defaults: { _controller: ganstaz.gzo.articles_controller:handle }
     requirements:
         id: \d+
         page: \d+
 
 ganstaz_gzo_article:
     path: /article-full/{aid}
-    defaults: { _controller: ganstaz.gzo.articles.controller:article }
+    defaults: { _controller: ganstaz.gzo.articles_controller:article }
     requirements:
         aid: \d+
 
 ganstaz_gzo_first_post:
     path: /article/{aid}
-    defaults: { _controller: ganstaz.gzo.articles.controller:first_post }
+    defaults: { _controller: ganstaz.gzo.articles_controller:first_post }
     requirements:
         aid: \d+
 
 ganstaz_gzo_post_article:
     path: /post/article/{fid}
-    defaults: { _controller: ganstaz.gzo.post.controller:handle }
+    defaults: { _controller: ganstaz.gzo.post_controller:handle }
     requirements:
         fid: \d+
 
 ganstaz_gzo_member:
     path: /u/{username}
-    defaults: { _controller: ganstaz.gzo.profile.controller:handle, tab: profile }
+    defaults: { _controller: ganstaz.gzo.profile_controller:handle, tab: profile }
 
 ganstaz_gzo_member_tab:
     path: /u/{username}/tab/{tab}
     defaults:
-        _controller: ganstaz.gzo.profile.controller:handle
+        _controller: ganstaz.gzo.profile_controller:handle
