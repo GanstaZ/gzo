@@ -17,11 +17,6 @@ use phpbb\template\twig\environment;
 */
 class form extends \Twig\Extension\AbstractExtension
 {
-
-	public function __construct()
-	{
-	}
-
 	/**
 	* Returns a list of functions to add to the existing list.
 	*
@@ -38,9 +33,10 @@ class form extends \Twig\Extension\AbstractExtension
 	* Form widget
 	*
 	* @param environment $environment Twig environment object
+	* @param array       $form_data
 	* @return void
 	*/
-	public function form_widget(environment $env, $form_data)
+	public function form_widget(environment $env, array $form_data): void
 	{
 		if (!$form_data)
 		{
