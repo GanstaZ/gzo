@@ -1,15 +1,15 @@
 services:
-    ganstaz.gzo.tabs.collection:
+    ganstaz.gzo.tabs_collection:
         class: phpbb\di\ordered_service_collection
         arguments:
             - '@service_container'
         tags:
-            - { name: service_collection, tag: gzo.tab }
+            - { name: service_collection, tag: gzo.tab.type }
 
     ganstaz.gzo.tabs.manager:
         class: ganstaz\gzo\src\tabs\manager
         arguments:
-            - '@ganstaz.gzo.tabs.collection'
+            - '@ganstaz.gzo.tabs_collection'
             - '@controller.helper'
             - '@language'
             - '@template'
@@ -42,7 +42,7 @@ services:
         calls:
             - [set_name, [profile]]
         tags:
-            - { name: gzo.tab, order: 1 }
+            - { name: gzo.tab.type, order: 1 }
 
 # ----- Controllers -----
     ganstaz.gzo.profile_controller:
