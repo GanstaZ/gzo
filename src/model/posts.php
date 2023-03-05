@@ -21,6 +21,7 @@ use phpbb\textformatter\s9e\renderer;
 use phpbb\template\template;
 use phpbb\user;
 use ganstaz\gzo\src\helper;
+use ganstaz\gzo\src\event\events;
 
 /**
 * Posts model
@@ -211,15 +212,9 @@ class posts
 	{
 		$default = [(int) $this->config['gzo_main_fid'], (int) $this->config['gzo_news_fid'],];
 
-		/**
-		* Add category id/s
-		*
-		* @event ganstaz.gzo.posts_add_category
-		* @var array default Array containing default category id/s
-		* @since 2.4.0-RC1
-		*/
+		/** @event ganstaz.gzo.posts_add_category */
 		$vars = ['default'];
-		extract($this->dispatcher->trigger_event('ganstaz.gzo.posts_add_category', compact($vars)));
+		extract($this->dispatcher->trigger_event(events::gzo_posts_add_category, compact($vars)));
 
 		$category_ids = $this->helper->get_forum_ids();
 
@@ -435,15 +430,9 @@ class posts
 
 		$template_data = $this->get_template_data($row);
 
-		/**
-		* Add/Modify template data
-		*
-		* @event ganstaz.gzo.article_modify_template_data
-		* @var array template data Array containing template data
-		* @since 2.4.0-RC1
-		*/
+		/** @event ganstaz.gzo.article_modify_template_data */
 		$vars = ['template_data'];
-		extract($this->dispatcher->trigger_event('ganstaz.gzo.article_modify_template_data', compact($vars)));
+		extract($this->dispatcher->trigger_event(events::gzo_article_modify_template_data, compact($vars)));
 
 		// Assign breadcrumb
 		$this->assign_breadcrumb($template_data['title'], 'ganstaz_gzo_first_post', ['aid' => $topic_id]);

@@ -8,7 +8,7 @@
 *
 */
 
-namespace ganstaz\gzo\src\event;
+namespace ganstaz\gzo\src\subscriber;
 
 use phpbb\config\config;
 use phpbb\controller\helper as controller;
@@ -22,9 +22,9 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
-* Event listener
+* Event subscribers
 */
-class listener implements EventSubscriberInterface
+class subscribers implements EventSubscriberInterface
 {
 	/** @var config */
 	protected $config;

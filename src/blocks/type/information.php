@@ -10,6 +10,8 @@
 
 namespace ganstaz\gzo\src\blocks\type;
 
+use ganstaz\gzo\src\event\events;
+
 /**
 * Information block
 */
@@ -31,13 +33,8 @@ class information extends base
 	*/
 	public function load(): void
 	{
-		/**
-		* Event ganstaz.gzo.information_before
-		*
-		* @event ganstaz.gzo.information_before
-		* @since 2.3.6-RC1
-		*/
-		$this->dispatcher->dispatch('ganstaz.gzo.information_before');
+		/** @event ganstaz.gzo.information_before */
+		$this->dispatcher->dispatch(events::gzo_information_before);
 
 		// Set template vars
 		$this->template->assign_vars([

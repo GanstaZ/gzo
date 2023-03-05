@@ -16,6 +16,7 @@ use phpbb\language\language;
 use phpbb\request\request;
 use phpbb\template\template;
 use ganstaz\gzo\src\blocks\manager;
+use ganstaz\gzo\src\event\events;
 
 /**
 * Admin blocks controller
@@ -85,13 +86,8 @@ class blocks
 
 		$this->language->add_lang('acp_blocks', 'ganstaz/gzo');
 
-		/**
-		* Add language
-		*
-		* @event ganstaz.gzo.admin_block_add_language
-		* @since 2.4.0-dev
-		*/
-		$this->container->get('dispatcher')->dispatch('ganstaz.gzo.admin_block_add_language');
+		/** @event ganstaz.gzo.admin_block_add_language */
+		$this->container->get('dispatcher')->dispatch(events::gzo_admin_block_add_language);
 
 		// Get all blocks
 		$sql = 'SELECT *

@@ -37,8 +37,8 @@ services:
         arguments:
             - '@language'
 
-    ganstaz.gzo.listener:
-        class: ganstaz\gzo\src\event\listener
+    ganstaz.gzo.subscribers:
+        class: ganstaz\gzo\src\subscriber\subscribers
         arguments:
             - '@config'
             - '@controller.helper'

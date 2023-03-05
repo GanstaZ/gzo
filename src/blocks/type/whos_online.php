@@ -11,6 +11,7 @@
 namespace ganstaz\gzo\src\blocks\type;
 
 use ganstaz\gzo\src\info;
+use ganstaz\gzo\src\event\events;
 
 /**
 * Who's Online block
@@ -78,14 +79,7 @@ class whos_online extends base
 			'S_DISPLAY_BIRTHDAY_LIST' => $this->info->show_birthdays(),
 		]);
 
-		/**
-		* Event ganstaz.gzo.main_blocks_after
-		*
-		* You can use this event to load function files and initiate objects
-		*
-		* @event ganstaz.gzo.main_blocks_after
-		* @since 2.3.5
-		*/
-		$this->dispatcher->dispatch('ganstaz.gzo.main_blocks_after');
+		/** @event ganstaz.gzo.main_blocks_after */
+		$this->dispatcher->dispatch(events::gzo_main_blocks_after);
 	}
 }
