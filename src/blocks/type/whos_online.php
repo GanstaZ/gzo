@@ -80,6 +80,6 @@ class whos_online extends base
 		]);
 
 		/** @event ganstaz.gzo.main_blocks_after */
-		$this->dispatcher->dispatch(events::gzo_main_blocks_after);
+		$this->dispatcher->dispatch(events::GZO_MAIN_BLOCKS_AFTER);
 	}
 }

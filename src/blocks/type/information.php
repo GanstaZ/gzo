@@ -34,7 +34,7 @@ class information extends base
 	public function load(): void
 	{
 		/** @event ganstaz.gzo.information_before */
-		$this->dispatcher->dispatch(events::gzo_information_before);
+		$this->dispatcher->dispatch(events::GZO_INFORMATION_BEFORE);
 
 		// Set template vars
 		$this->template->assign_vars([

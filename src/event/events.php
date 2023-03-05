@@ -16,17 +16,17 @@ namespace ganstaz\gzo\src\event;
 final class events
 {
 	/** Information block */
-	public const gzo_information_before = 'ganstaz.gzo.information_before';
+	public const GZO_INFORMATION_BEFORE = 'ganstaz.gzo.information_before';
 
 	/** Who's Online block */
-	public const gzo_main_blocks_after = 'ganstaz.gzo.main_blocks_after';
+	public const GZO_MAIN_BLOCKS_AFTER = 'ganstaz.gzo.main_blocks_after';
 
 	/** Admin blocks controller */
-	public const gzo_admin_block_add_language = 'ganstaz.gzo.admin_block_add_language';
+	public const GZO_ADMIN_BLOCK_ADD_LANGUAGE = 'ganstaz.gzo.admin_block_add_language';
 
 	/** Posts model */
-	public const gzo_posts_add_category = 'ganstaz.gzo.posts_add_category';
+	public const GZO_POSTS_ADD_CATEGORY = 'ganstaz.gzo.posts_add_category';
 
 	/** Posts model */
-	public const gzo_article_modify_template_data = 'ganstaz.gzo.article_modify_template_data';
+	public const GZO_ARTICLE_MODIFY_TEMPLATE_DATA = 'ganstaz.gzo.article_modify_template_data';
 }

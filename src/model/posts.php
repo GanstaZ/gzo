@@ -214,7 +214,7 @@ class posts
 
 		/** @event ganstaz.gzo.posts_add_category */
 		$vars = ['default'];
-		extract($this->dispatcher->trigger_event(events::gzo_posts_add_category, compact($vars)));
+		extract($this->dispatcher->trigger_event(events::GZO_POSTS_ADD_CATEGORY, compact($vars)));
 
 		$category_ids = $this->helper->get_forum_ids();
 
@@ -432,7 +432,7 @@ class posts
 
 		/** @event ganstaz.gzo.article_modify_template_data */
 		$vars = ['template_data'];
-		extract($this->dispatcher->trigger_event(events::gzo_article_modify_template_data, compact($vars)));
+		extract($this->dispatcher->trigger_event(events::GZO_ARTICLE_MODIFY_TEMPLATE_DATA, compact($vars)));
 
 		// Assign breadcrumb
 		$this->assign_breadcrumb($template_data['title'], 'ganstaz_gzo_first_post', ['aid' => $topic_id]);
