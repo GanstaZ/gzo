@@ -27,7 +27,7 @@ class global_module
 		$this->page_title = $phpbb_container->get('language')->lang('ACP_GZO_TITLE');
 
 		// Get an instance of the admin controller
-		$admin_controller = $phpbb_container->get('ganstaz.web.admin.settings_controller')
+		$admin_controller = $phpbb_container->get('ganstaz.gzo.admin.settings_controller')
 			->set_page_url($this->u_action);
 
 		$admin_controller->handle();

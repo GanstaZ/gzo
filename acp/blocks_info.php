@@ -8,20 +8,20 @@
 *
 */
 
-namespace ganstaz\web\acp;
+namespace ganstaz\gzo\acp;
 
 /**
-* GZO Web: ACP blocks module info
+* ACP blocks info module
 */
 class blocks_info
 {
 	public function module()
 	{
 		return [
-			'filename' => '\ganstaz\web\acp\blocks_module',
+			'filename' => '\ganstaz\gzo\acp\blocks_module',
 			'title'	   => 'ACP_GZO_BLOCKS_TITLE',
 			'modes'	   => [
-				'blocks' => ['title' => 'ACP_GZO_BLOCKS', 'auth' => 'ext_ganstaz/web && acl_a_board', 'cat' => ['ACP_GZO_BLOCKS_TITLE'],
+				'blocks' => ['title' => 'ACP_GZO_BLOCKS', 'auth' => 'ext_ganstaz/gzo && acl_a_board', 'cat' => ['ACP_GZO_BLOCKS_TITLE'],
 				],
 			],
 		];
