@@ -1,14 +1,14 @@
 ganstaz_gzo_index:
     path: /
-    defaults: { _controller: ganstaz.gzo.index.controller:handle }
+    defaults: { _controller: ganstaz.gzo.index_controller:handle }
 
 ganstaz_gzo_forum:
     path: /forum
-    defaults: { _controller: ganstaz.gzo.forum.controller:handle }
+    defaults: { _controller: ganstaz.gzo.forum_controller:handle }
 
 ganstaz_gzo_news:
     path: /news/{id}
-    defaults: { _controller: ganstaz.gzo.articles.controller:handle, id: 3, page: 1 }
+    defaults: { _controller: ganstaz.gzo.articles_controller:handle, id: 3, page: 1 }
     requirements:
         id: \d+
 

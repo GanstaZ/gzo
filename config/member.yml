@@ -45,7 +45,7 @@ services:
             - { name: gzo.tab, order: 1 }
 
 # ----- Controllers -----
-    ganstaz.gzo.profile.controller:
+    ganstaz.gzo.profile_controller:
         class: ganstaz\gzo\src\controller\member\profile
         arguments:
             - '@controller.helper'

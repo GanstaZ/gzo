@@ -41,7 +41,7 @@ class blocks extends \Twig\TokenParser\AbstractTokenParser
 		$stream = $this->parser->getStream();
 		$stream->expect(\Twig\Token::BLOCK_END_TYPE);
 
-		return new \ganstaz\web\core\twig\node\blocks($expr, $this->environment, $token->getLine(), $this->getTag());
+		return new \ganstaz\gzo\src\twig\node\blocks($expr, $this->environment, $token->getLine(), $this->getTag());
 	}
 
 	/**
