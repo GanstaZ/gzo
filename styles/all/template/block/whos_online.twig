@@ -1,4 +1,4 @@
-{% from '@ganstaz_web/macros/tags.twig' import icon %}
+{% from '@ganstaz_gzo/macros/tags.twig' import icon %}
 
 <div class="gzo-flex c-tabs gzo-mt-3">
 	<div class="gzo-row button c-tab current" data-tab="tab-1">
@@ -18,7 +18,7 @@
 		{% EVENT index_body_stat_blocks_before %}
 
 		{% if S_DISPLAY_ONLINE_LIST %}
-			{{ include('includes/online-list.twig') }}
+			{{ include('@ganstaz_gzo/includes/online-list.twig') }}
 		{% endif %}
 
 	</div>
@@ -27,13 +27,13 @@
 
 	<div class="c-tab-pane" id="tab-2">
 		{% if S_DISPLAY_BIRTHDAY_LIST %}
-			{{ include('includes/birthday.twig') }}
+			{{ include('@ganstaz_gzo/includes/birthday.twig') }}
 		{% endif %}
 	</div>
 
 	<div class="c-tab-pane" id="tab-3">
 		{% if NEWEST_USER %}
-			{{ include('includes/stats.twig') }}
+			{{ include('@ganstaz_gzo/includes/stats.twig') }}
 		{% endif %}
 	</div>
 

@@ -1,4 +1,4 @@
-{% extends 'layout/app-base.twig' %}
+{% extends '@ganstaz_gzo/layout/app-base.twig' %}
 
 {% block mid_top %}
 	{% EVENT ganstaz_web_mid_top_index %}
@@ -7,7 +7,7 @@
 {% block mid_content %}
 	{% if news %}
 		{% for news in loops.news %}
-			{{ include('includes/news-item.twig') }}
+			{{ include('@ganstaz_gzo/includes/news-item.twig') }}
 		{% endfor %}
 	{% endif %}
 {% endblock %}

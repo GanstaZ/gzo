@@ -1,4 +1,4 @@
-{% embed '@ganstaz_web/includes/block-item.twig' %}
+{% embed '@ganstaz_gzo/includes/block-item.twig' %}
 
 	{% block block_heading %}{{ lang('INFORMATION') }}{% endblock %}
 
@@ -14,7 +14,7 @@
 			<dt>{{ lang('PORTAL_STYLE') }}</dt>
 			<dd>{{ T_TEMPLATE_NAME }}</dd>
 
-			{% EVENT ganstaz_web_info_after %}
+			{% EVENT ganstaz_gzo_info_after %}
 		</dl>
 	{% endblock %}
 

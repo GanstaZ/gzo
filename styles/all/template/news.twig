@@ -1,8 +1,8 @@
-{% extends 'layout/app-base.twig' %}
+{% extends '@ganstaz_gzo/layout/app-base.twig' %}
 
 {% block top_content %}
 	{% if news %}
-		{% from 'macros/tags.twig' import icon %}
+		{% from '@ganstaz_gzo/macros/tags.twig' import icon %}
 
 		<div role="navigation">
 			<div class="inner">
@@ -48,7 +48,7 @@
 	{% if news %}
 
 		{% for news in loops.news %}
-			{{ include('includes/news-item.twig') }}
+			{{ include('@ganstaz_gzo/includes/news-item.twig') }}
 		{% endfor %}
 
 		{% if pagination %}

@@ -1,4 +1,4 @@
-{% extends 'layout/profile-base.twig' %}
+{% extends '@ganstaz_gzo/layout/profile-base.twig' %}
 
 {% block mid_content %}
 
@@ -14,7 +14,7 @@
 			{% set profile = 'tabbed' %}
 		{% endif %}
 
-		{{ include('includes/profile-' ~ profile ~ '.twig') }}
+		{{ include('@ganstaz_gzo/includes/profile-' ~ profile ~ '.twig') }}
 
 	</form>
 
