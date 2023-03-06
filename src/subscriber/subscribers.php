@@ -93,7 +93,7 @@ class subscribers implements EventSubscriberInterface
 		return [
 			'core.user_setup'		 => 'add_language',
 			'core.user_setup_after'	 => 'add_manager_data',
-			'core.page_header'		 => 'add_web_data',
+			'core.page_header'		 => 'add_gzo_data',
 			'core.page_header_after' => 'change_index',
 			'core.viewforum_get_topic_data'			 => 'news_forum_redirect',
 			'core.posting_modify_template_vars'		 => 'submit_post_template',
@@ -145,7 +145,7 @@ class subscribers implements EventSubscriberInterface
 	*
 	* @param \phpbb\event\data $event The event object
 	*/
-	public function add_web_data(): void
+	public function add_gzo_data(): void
 	{
 		$current = $this->pages->get_current_page();
 
