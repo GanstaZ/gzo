@@ -1,0 +1,21 @@
+{% extends '@ganstaz_gzo/layout/acp-base.twig' %}
+
+{% block acp_heading %}{{ lang('ACP_GZO_GLOBAL') }}{% endblock %}
+
+{% block acp_form_content %}
+
+	<fieldset>
+		<legend>{{ lang('SETTINGS') }}</legend>
+
+		{{ form_widget(form) }}
+
+	</fieldset>
+
+	<fieldset>
+		<legend>{{ lang('GZO_SECTIONS') }}</legend>
+
+		{{ form_widget(block) }}
+
+	</fieldset>
+
+{% endblock %}

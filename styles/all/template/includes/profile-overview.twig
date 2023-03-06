@@ -1,4 +1,4 @@
-{% from 'macros/tags.twig' import icon, url %}
+{% from '@ganstaz_gzo/macros/tags.twig' import icon, url %}
 
 <div class="gzo-flex gzo-container-fluid gzo-flex-wrap">
 	<aside class="gzo-hero">
@@ -95,10 +95,10 @@
 				{% if S_USER_INACTIVE %}<dt>{{ lang('USER_IS_INACTIVE') ~ lang('COLON') }}</dt> <dd>{{ USER_INACTIVE_REASON }}</dd>{% endif %}
 				{% if AGE is not empty %}<dt>{{ lang('AGE') ~ lang('COLON') }}</dt> <dd>{{ AGE }}</dd>{% endif %}
 
-				{% EVENT ganstaz_web_age_after %}
+				{% EVENT ganstaz_gzo_age_after %}
 
 				{% if S_GROUP_OPTIONS %}
-					{% import 'macros/forms.twig' as form %}
+					{% import '@ganstaz_gzo/macros/forms.twig' as form %}
 
 					<dt>{{ lang('USERGROUPS') ~ lang('COLON') }}</dt>
 					<dd>
@@ -145,7 +145,7 @@
 
 				<dt>{{ lang('JOINED') ~ lang('COLON') }}</dt> <dd>{{ JOINED }}</dd>
 
-				{% EVENT ganstaz_web_joined_after %}
+				{% EVENT ganstaz_gzo_joined_after %}
 
 				<dt>{{ lang('LAST_ACTIVE') ~ lang('COLON') }}</dt> <dd>{{ LAST_ACTIVE }}</dd>
 				{% if S_WARNINGS %}

@@ -1,22 +1,22 @@
 services:
-    ganstaz.web.tabs.collection:
+    ganstaz.gzo.tabs_collection:
         class: phpbb\di\ordered_service_collection
         arguments:
             - '@service_container'
         tags:
-            - { name: service_collection, tag: gzo.web.tab }
+            - { name: service_collection, tag: gzo.tab.type }
 
-    ganstaz.web.tabs.manager:
-        class: ganstaz\web\core\tabs\manager
+    ganstaz.gzo.tabs.manager:
+        class: ganstaz\gzo\src\tabs\manager
         arguments:
-            - '@ganstaz.web.tabs.collection'
+            - '@ganstaz.gzo.tabs_collection'
             - '@controller.helper'
             - '@language'
             - '@template'
             - '%core.root_path%'
             - '%core.php_ext%'
 
-    ganstaz.web.tab.base:
+    ganstaz.gzo.tab.base:
         abstract: true
         arguments:
             - '@auth'
@@ -28,10 +28,10 @@ services:
             - '@user'
 
 # ----- GZO Tabs -----
-    ganstaz.web.tab.profile:
-        class: ganstaz\web\core\tabs\type\profile
+    ganstaz.gzo.tab.profile:
+        class: ganstaz\gzo\src\tabs\type\profile
         shared: false
-        parent: ganstaz.web.tab.base
+        parent: ganstaz.gzo.tab.base
         arguments:
             - '@config'
             - '@group_helper'
@@ -42,13 +42,13 @@ services:
         calls:
             - [set_name, [profile]]
         tags:
-            - { name: gzo.web.tab, order: 1 }
+            - { name: gzo.tab.type, order: 1 }
 
 # ----- Controllers -----
-    ganstaz.web.profile.controller:
-        class: ganstaz\web\controller\member\profile
+    ganstaz.gzo.profile_controller:
+        class: ganstaz\gzo\src\controller\member\profile
         arguments:
             - '@controller.helper'
             - '@language'
             - '@template'
-            - '@?ganstaz.web.tabs.manager'
+            - '@?ganstaz.gzo.tabs.manager'

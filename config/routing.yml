@@ -1,47 +1,47 @@
-ganstaz_web_index:
+ganstaz_gzo_index:
     path: /
-    defaults: { _controller: ganstaz.web.index.controller:handle }
+    defaults: { _controller: ganstaz.gzo.index_controller:handle }
 
-ganstaz_web_forum:
+ganstaz_gzo_forum:
     path: /forum
-    defaults: { _controller: ganstaz.web.forum.controller:handle }
+    defaults: { _controller: ganstaz.gzo.forum_controller:handle }
 
-ganstaz_web_news:
+ganstaz_gzo_news:
     path: /news/{id}
-    defaults: { _controller: ganstaz.web.articles.controller:handle, id: 3, page: 1 }
+    defaults: { _controller: ganstaz.gzo.articles_controller:handle, id: 3, page: 1 }
     requirements:
         id: \d+
 
-ganstaz_web_news_page:
+ganstaz_gzo_news_page:
     path: /news/{id}/page/{page}
-    defaults: { _controller: ganstaz.web.articles.controller:handle }
+    defaults: { _controller: ganstaz.gzo.articles_controller:handle }
     requirements:
         id: \d+
         page: \d+
 
-ganstaz_web_article:
+ganstaz_gzo_article:
     path: /article-full/{aid}
-    defaults: { _controller: ganstaz.web.articles.controller:article }
+    defaults: { _controller: ganstaz.gzo.articles_controller:article }
     requirements:
         aid: \d+
 
-ganstaz_web_first_post:
+ganstaz_gzo_first_post:
     path: /article/{aid}
-    defaults: { _controller: ganstaz.web.articles.controller:first_post }
+    defaults: { _controller: ganstaz.gzo.articles_controller:first_post }
     requirements:
         aid: \d+
 
-ganstaz_web_post_article:
+ganstaz_gzo_post_article:
     path: /post/article/{fid}
-    defaults: { _controller: ganstaz.web.post.controller:handle }
+    defaults: { _controller: ganstaz.gzo.post_controller:handle }
     requirements:
         fid: \d+
 
-ganstaz_web_member:
+ganstaz_gzo_member:
     path: /u/{username}
-    defaults: { _controller: ganstaz.web.profile.controller:handle, tab: profile }
+    defaults: { _controller: ganstaz.gzo.profile_controller:handle, tab: profile }
 
-ganstaz_web_member_tab:
+ganstaz_gzo_member_tab:
     path: /u/{username}/tab/{tab}
     defaults:
-        _controller: ganstaz.web.profile.controller:handle
+        _controller: ganstaz.gzo.profile_controller:handle

@@ -1,17 +1,17 @@
 <?php
 /**
 *
-* GZO Web. An extension for the phpBB Forum Software package.
+* An extension for the phpBB Forum Software package.
 *
-* @copyright (c) 2022, GanstaZ, https://www.github.com/GanstaZ/
+* @copyright (c) GanstaZ, https://www.github.com/GanstaZ/
 * @license GNU General Public License, version 2 (GPL-2.0)
 *
 */
 
-namespace ganstaz\web\acp;
+namespace ganstaz\gzo\acp;
 
 /**
-* GZO Web: ACP blocks module
+* ACP blocks module
 */
 class blocks_module
 {
@@ -27,7 +27,7 @@ class blocks_module
 		$this->page_title = $phpbb_container->get('language')->lang('ACP_GZO_BLOCKS_TITLE');
 
 		// Get an instance of the admin blocks controller
-		$admin_controller = $phpbb_container->get('ganstaz.web.admin.block.controller')
+		$admin_controller = $phpbb_container->get('ganstaz.gzo.admin.block_controller')
 			->set_page_url($this->u_action);
 
 		$admin_controller->display_blocks();

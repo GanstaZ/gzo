@@ -1,16 +1,16 @@
-{% extends '@ganstaz_web/layout/acp-base.twig' %}
+{% extends '@ganstaz_gzo/layout/acp-base.twig' %}
 
 {% block acp_heading %}
 	{{ lang('ACP_GZO_BLOCKS') }}
 {% endblock %}
 
-{% import '@ganstaz_web/macros/forms.twig' as form %}
-{% from '@ganstaz_web/macros/tags.twig' import icon %}
+{% import '@ganstaz_gzo/macros/forms.twig' as form %}
+{% from '@ganstaz_gzo/macros/tags.twig' import icon %}
 
 {% block acp_form_content %}
 
 	{% if error %}
-		{{ include('@ganstaz_web/error/acp_add_blocks_table.twig') }}
+		{{ include('@ganstaz_gzo/error/acp_add_blocks_table.twig') }}
 	{% endif %}
 
 	{% if U_PURGE %}
@@ -20,7 +20,7 @@
 	{% endif %}
 
 	{% if install %}
-		{{ include('@ganstaz_web/includes/install.twig') }}
+		{{ include('@ganstaz_gzo/includes/install.twig') }}
 	{% endif %}
 
 	<fieldset>

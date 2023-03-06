@@ -5,13 +5,13 @@ imports:
     - { resource: tables.yml }
 
 services:
-    ganstaz.web.helper:
-        class: ganstaz\web\core\helper
+    ganstaz.gzo.helper:
+        class: ganstaz\gzo\src\helper
         arguments:
             - '@dbal.conn'
 
-    ganstaz.web.info:
-        class: ganstaz\web\core\info
+    ganstaz.gzo.info:
+        class: ganstaz\gzo\src\info
         arguments:
             - '@auth'
             - '@config'
@@ -22,53 +22,53 @@ services:
             - '%core.root_path%'
             - '%core.php_ext%'
 
-    ganstaz.web.pages:
-        class: ganstaz\web\core\pages
+    ganstaz.gzo.pages:
+        class: ganstaz\gzo\src\pages
         arguments:
             - '@cache'
             - '@config'
             - '@dbal.conn'
             - '@user'
-            - '%ganstaz.web.tables.pages%'
+            - '%ganstaz.gzo.tables.pages%'
             - '%core.php_ext%'
 
-    ganstaz.web.time:
-        class: ganstaz\web\core\time
+    ganstaz.gzo.time:
+        class: ganstaz\gzo\src\time
         arguments:
             - '@language'
 
-    ganstaz.web.listener:
-        class: ganstaz\web\event\listener
+    ganstaz.gzo.subscribers:
+        class: ganstaz\gzo\src\subscriber\subscribers
         arguments:
             - '@config'
             - '@controller.helper'
             - '@language'
             - '@request'
             - '@template'
-            - '@ganstaz.web.helper'
-            - '@ganstaz.web.pages'
-            - '@?ganstaz.web.block.manager'
+            - '@ganstaz.gzo.helper'
+            - '@ganstaz.gzo.pages'
+            - '@?ganstaz.gzo.block.manager'
         tags:
             - { name: event.listener }
 
 # ----- Twig extensions -----
-    ganstaz.web.extension:
-        class: ganstaz\web\core\twig\extension
+    ganstaz.gzo.extension:
+        class: ganstaz\gzo\src\twig\extension
         arguments:
             - '@template.twig.environment'
-            - '@ganstaz.web.block.event'
+            - '@ganstaz.gzo.block.event'
             - '@group_helper'
         tags:
             - { name: twig.extension }
 
-    ganstaz.web.form.extension:
-        class: ganstaz\web\core\twig\extension\form
+    ganstaz.gzo.form.extension:
+        class: ganstaz\gzo\src\twig\extension\form
         tags:
             - { name: twig.extension }
 
 # ----- Models -----
-    ganstaz.web.main:
-        class: ganstaz\web\model\main
+    ganstaz.gzo.main:
+        class: ganstaz\gzo\src\model\main
         arguments:
             - '@auth'
             - '@config'
@@ -79,12 +79,12 @@ services:
             - '@request'
             - '@template'
             - '@user'
-            - '@ganstaz.web.info'
+            - '@ganstaz.gzo.info'
             - '%core.root_path%'
             - '%core.php_ext%'
 
-    ganstaz.web.posts:
-        class: ganstaz\web\model\posts
+    ganstaz.gzo.posts:
+        class: ganstaz\gzo\src\model\posts
         arguments:
             - '@auth'
             - '@config'
@@ -96,82 +96,82 @@ services:
             - '@text_formatter.renderer'
             - '@template'
             - '@user'
-            - '@ganstaz.web.helper'
+            - '@ganstaz.gzo.helper'
             - '%core.root_path%'
             - '%core.php_ext%'
 
-    ganstaz.web.settings:
-        class: ganstaz\web\model\admin\settings
+    ganstaz.gzo.settings:
+        class: ganstaz\gzo\src\model\admin\settings
         arguments:
-            - '@ganstaz.web.helper'
+            - '@ganstaz.gzo.helper'
 
 # ----- Controllers -----
-    ganstaz.web.abstract.controller:
+    ganstaz.gzo.abstract_controller:
         abstract: true
         arguments:
             - '@language'
             - '@request'
             - '@template'
-            - '@ganstaz.web.entity.manager'
+            - '@ganstaz.gzo.entity.manager'
 
-    ganstaz.web.controller.base:
+    ganstaz.gzo.base_controller:
         abstract: true
         arguments:
             - '@config'
             - '@controller.helper'
             - '@language'
             - '@user'
-            - '@ganstaz.web.posts'
+            - '@ganstaz.gzo.posts'
             - '%core.root_path%'
             - '%core.php_ext%'
 
-    ganstaz.web.index.controller:
-        class: ganstaz\web\controller\index
+    ganstaz.gzo.index_controller:
+        class: ganstaz\gzo\src\controller\index
         shared: false
-        parent: ganstaz.web.controller.base
+        parent: ganstaz.gzo.base_controller
 
-    ganstaz.web.articles.controller:
-        class: ganstaz\web\controller\articles
+    ganstaz.gzo.articles_controller:
+        class: ganstaz\gzo\src\controller\articles
         shared: false
-        parent: ganstaz.web.controller.base
+        parent: ganstaz.gzo.base_controller
 
-    ganstaz.web.forum.controller:
-        class: ganstaz\web\controller\forum
+    ganstaz.gzo.forum_controller:
+        class: ganstaz\gzo\src\controller\forum
         shared: false
-        parent: ganstaz.web.controller.base
+        parent: ganstaz.gzo.base_controller
         arguments:
             - '@dispatcher'
-            - '@ganstaz.web.main'
+            - '@ganstaz.gzo.main'
 
-    ganstaz.web.post.controller:
-        class: ganstaz\web\controller\post
+    ganstaz.gzo.post_controller:
+        class: ganstaz\gzo\src\controller\post
         shared: false
-        parent: ganstaz.web.controller.base
+        parent: ganstaz.gzo.base_controller
 
 # ----- Admin Controllers -----
-    ganstaz.web.admin.settings_controller:
-        class: ganstaz\web\controller\admin\settings
+    ganstaz.gzo.admin.settings_controller:
+        class: ganstaz\gzo\src\controller\admin\settings
         shared: false
-        parent: ganstaz.web.abstract.controller
+        parent: ganstaz.gzo.abstract_controller
         arguments:
-            - '@ganstaz.web.settings'
+            - '@ganstaz.gzo.settings'
 
-    ganstaz.web.admin.block.controller:
-        class: ganstaz\web\controller\admin\blocks
+    ganstaz.gzo.admin.block_controller:
+        class: ganstaz\gzo\src\controller\admin\blocks
         arguments:
             - '@service_container'
             - '@dbal.conn'
             - '@language'
             - '@request'
             - '@template'
-            - '@ganstaz.web.block.manager'
+            - '@ganstaz.gzo.block.manager'
 
-    ganstaz.web.admin.page.controller:
-        class: ganstaz\web\controller\admin\pages
+    ganstaz.gzo.admin.page_controller:
+        class: ganstaz\gzo\src\controller\admin\pages
         arguments:
             - '@cache'
             - '@dbal.conn'
             - '@language'
             - '@request'
             - '@template'
-            - '%ganstaz.web.tables.pages%'
+            - '%ganstaz.gzo.tables.pages%'

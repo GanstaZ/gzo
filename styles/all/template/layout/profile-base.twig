@@ -1,4 +1,4 @@
-{% extends 'layout/base.twig' %}
+{% extends '@ganstaz_gzo/layout/base.twig' %}
 
 {% block top_content %}
 
@@ -6,7 +6,7 @@
 		<div class="gzo-flex gzo-border-bottom" role="navigation">
 			<ul id="nav-main" class="gzo-nav t-gzo-nav linklist gzo-nav-ml" role="menubar">
 				{% for tab in tabs %}
-					{{ include('includes/tab-item.twig') }}
+					{{ include('@ganstaz_gzo/includes/tab-item.twig') }}
 				{% endfor %}
 			</ul>
 		</div>

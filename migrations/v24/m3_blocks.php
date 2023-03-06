@@ -1,14 +1,14 @@
 <?php
 /**
 *
-* GZO Web. An extension for the phpBB Forum Software package.
+* An extension for the phpBB Forum Software package.
 *
-* @copyright (c) 2022, GanstaZ, https://www.github.com/GanstaZ/
+* @copyright (c) GanstaZ, https://www.github.com/GanstaZ/
 * @license GNU General Public License, version 2 (GPL-2.0)
 *
 */
 
-namespace ganstaz\web\migrations\v24;
+namespace ganstaz\gzo\migrations\v24;
 
 class m3_blocks extends \phpbb\db\migration\migration
 {
@@ -17,7 +17,7 @@ class m3_blocks extends \phpbb\db\migration\migration
 	*/
 	static public function depends_on()
 	{
-		return ['\ganstaz\web\migrations\v24\m1_main'];
+		return ['\ganstaz\gzo\migrations\v24\m1_main'];
 	}
 
 	/**
@@ -43,49 +43,49 @@ class m3_blocks extends \phpbb\db\migration\migration
 			$blocks_data = [
 				[
 					'name'	   => 'ganstaz_mini_profile',
-					'ext_name' => 'ganstaz_web',
+					'ext_name' => 'ganstaz_gzo',
 					'position' => 1,
 					'active'   => 1,
 					'section'  => 'gzo_right',
 				],
 				[
 					'name'	   => 'ganstaz_information',
-					'ext_name' => 'ganstaz_web',
+					'ext_name' => 'ganstaz_gzo',
 					'position' => 2,
 					'active'   => 1,
 					'section'  => 'gzo_right',
 				],
 				[
 					'name'	   => 'ganstaz_the_team',
-					'ext_name' => 'ganstaz_web',
+					'ext_name' => 'ganstaz_gzo',
 					'position' => 3,
 					'active'   => 1,
 					'section'  => 'gzo_right',
 				],
 				[
 					'name'	   => 'ganstaz_top_posters',
-					'ext_name' => 'ganstaz_web',
+					'ext_name' => 'ganstaz_gzo',
 					'position' => 4,
 					'active'   => 1,
 					'section'  => 'gzo_right',
 				],
 				[
 					'name'	   => 'ganstaz_recent_posts',
-					'ext_name' => 'ganstaz_web',
+					'ext_name' => 'ganstaz_gzo',
 					'position' => 5,
 					'active'   => 1,
 					'section'  => 'gzo_right',
 				],
 				[
 					'name'	   => 'ganstaz_recent_topics',
-					'ext_name' => 'ganstaz_web',
+					'ext_name' => 'ganstaz_gzo',
 					'position' => 1,
 					'active'   => 0,
 					'section'  => 'gzo_left',
 				],
 				[
 					'name'	   => 'ganstaz_whos_online',
-					'ext_name' => 'ganstaz_web',
+					'ext_name' => 'ganstaz_gzo',
 					'position' => 1,
 					'active'   => 1,
 					'section'  => 'gzo_middle',

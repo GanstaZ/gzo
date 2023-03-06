@@ -1,4 +1,4 @@
-{% extends 'layout/app-base.twig' %}
+{% extends '@ganstaz_gzo/layout/app-base.twig' %}
 
 {% block mid_content %}
 	{% EVENT index_body_markforums_before %}
@@ -41,6 +41,6 @@
 		</form>
 	{% endif %}
 
-	{{ include('block/whos_online.twig') }}
+	{{ include('@ganstaz_gzo/block/whos_online.twig') }}
 
 {% endblock %}
