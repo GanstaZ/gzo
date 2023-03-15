@@ -14,7 +14,6 @@ use phpbb\cache\service as cache;
 use phpbb\config\config;
 use phpbb\db\driver\driver_interface;
 use phpbb\user;
-use ganstaz\gzo\src\enum\admin;
 
 /**
 * Pages class
