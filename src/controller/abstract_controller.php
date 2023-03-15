@@ -10,67 +10,47 @@
 
 namespace ganstaz\gzo\src\controller;
 
-use phpbb\language\language;
+use ganstaz\gzo\src\controller\helper;
 use phpbb\request\request;
-use phpbb\template\template;
 use ganstaz\gzo\src\entity\manager as em;
 use ganstaz\gzo\src\form\form;
 
 /**
 * Abstract controller
 */
-class abstract_controller
+abstract class abstract_controller
 {
-	/** @var language */
-	protected object $language;
-
-	/** @var request */
-	protected object $request;
-
-	/** @var template */
-	protected object $template;
-
-	/** @var em */
-	protected object $em;
-
 	/** @var form */
 	protected object $form;
 
 	/** @var string Custom form action */
 	protected string $u_action;
 
-	/**
-	* Constructor
-	*
-	* @param language $language Language object
-	* @param request  $request	Request object
-	* @param template $template Template object
-	* @param em		  $em		Entity manager object
-	*/
-	public function __construct(language $language, request $request, template $template, em $em)
+	public function __construct(
+		protected helper $helper,
+		protected request $request,
+		protected em $em
+	)
 	{
-		$this->language = $language;
-		$this->request	= $request;
-		$this->template = $template;
-		$this->em = $em;
-
-		$this->form = new form($this->request, $this->template);
+		$this->form = new form($this->request, $this->helper->twig);
 	}
 
 	/**
 	* Show user confirmation of success and provide link back to the previous screen
 	*
+	* @deprecated 2.4.0-a30
 	* @return bool
 	*/
-	public function settings_saved_message(): bool
+	protected function settings_saved_message(): bool
 	{
-		return trigger_error($this->language->lang('ACP_GZO_SETTINGS_SAVED') . adm_back_link($this->u_action));
+		return trigger_error($this->helper->language->lang('ACP_GZO_SETTINGS_SAVED') . adm_back_link($this->u_action));
 	}
 
 	/**
 	* Set page url
 	*
 	* @param string $u_action Custom form action
+	* @deprecated 2.4.0-a30
 	* @return self
 	*/
 	public function set_page_url(string $u_action): self
