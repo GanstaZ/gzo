@@ -1,0 +1,27 @@
+services:
+    ganstaz.gzo.area.loader:
+        class: ganstaz\gzo\src\area\loader
+        arguments:
+            - '@ganstaz.gzo.area_collection'
+
+    # Area collection
+    ganstaz.gzo.area_collection:
+        class: phpbb\di\service_collection
+        arguments:
+            - '@service_container'
+        tags:
+            - { name: service_collection, tag: gzo.area }
+
+    ganstaz.gzo.area.base:
+        abstract: true
+        arguments:
+            - '@auth'
+            - '@dispatcher'
+            - '@ganstaz.gzo.controller.helper'
+
+    ganstaz.gzo.area:
+        class: ganstaz\gzo\src\area\gzo
+        shared: false
+        parent: ganstaz.gzo.area.base
+        tags:
+            - { name: gzo.area }

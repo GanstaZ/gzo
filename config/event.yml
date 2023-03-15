@@ -1,0 +1,21 @@
+services:
+    kernel_request_subscriber:
+        class: ganstaz\gzo\src\subscriber\kernel_request
+        arguments:
+            - '@?ganstaz.gzo.area.loader'
+        tags:
+            - { name: kernel.event_subscriber }
+
+    ganstaz.gzo.subscribers:
+        class: ganstaz\gzo\src\subscriber\subscribers
+        arguments:
+            - '@config'
+            - '@controller.helper'
+            - '@language'
+            - '@request'
+            - '@template'
+            - '@ganstaz.gzo.helper'
+            - '@ganstaz.gzo.pages'
+            - '@?ganstaz.gzo.block.manager'
+        tags:
+            - { name: event.listener }
