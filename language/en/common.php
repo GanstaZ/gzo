@@ -19,10 +19,13 @@ if (empty($lang) || !is_array($lang))
 }
 
 $lang = array_merge($lang, [
+	// Navigation
+	'GZO_MAIN_PAGE' => 'Area Z',
+	'NEWS'			=> 'News',
+
 	'LATEST_NEWS'  => 'Viewing category',
 	'ARTICLE'	   => 'Viewing article',
 	'READ_FULL'	   => 'Read full article',
-	'NEWS'		   => 'News',
 	'CATEGORIES'   => 'Categories',
 	'NEW_ARTICLE'  => 'New article',
 	'POST_ARTICLE' => 'Post new article',
@@ -43,8 +46,8 @@ $lang = array_merge($lang, [
 	],
 
 	'GZO_PROFILE' => 'Overview',
-	'GZO_YOUR'    => 'Your %s',
-	'GZO_OTHER'   => '%s / %s',
+	'GZO_YOUR'	  => 'Your %s',
+	'GZO_OTHER'	  => '%s / %s',
 
 	'GZO_PER_DAY' => '%s per day <strong>%s</strong>',
 
