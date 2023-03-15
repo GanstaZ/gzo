@@ -1,3 +1,7 @@
+ganstaz_gzo:
+    resource: admin.yml
+    prefix: /admin
+
 ganstaz_gzo_index:
     path: /
     defaults: { _controller: ganstaz.gzo.index_controller:handle }

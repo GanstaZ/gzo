@@ -1,6 +1,10 @@
 imports:
+    - { resource: area.yml }
     - { resource: blocks.yml }
+    - { resource: controller.yml }
     - { resource: entity.yml }
+    - { resource: event.yml }
+    - { resource: gzo.yml }
     - { resource: member.yml }
     - { resource: tables.yml }
 
@@ -36,20 +40,6 @@ services:
         class: ganstaz\gzo\src\time
         arguments:
             - '@language'
-
-    ganstaz.gzo.subscribers:
-        class: ganstaz\gzo\src\subscriber\subscribers
-        arguments:
-            - '@config'
-            - '@controller.helper'
-            - '@language'
-            - '@request'
-            - '@template'
-            - '@ganstaz.gzo.helper'
-            - '@ganstaz.gzo.pages'
-            - '@?ganstaz.gzo.block.manager'
-        tags:
-            - { name: event.listener }
 
 # ----- Twig extensions -----
     ganstaz.gzo.extension:
@@ -104,74 +94,3 @@ services:
         class: ganstaz\gzo\src\model\admin\settings
         arguments:
             - '@ganstaz.gzo.helper'
-
-# ----- Controllers -----
-    ganstaz.gzo.abstract_controller:
-        abstract: true
-        arguments:
-            - '@language'
-            - '@request'
-            - '@template'
-            - '@ganstaz.gzo.entity.manager'
-
-    ganstaz.gzo.base_controller:
-        abstract: true
-        arguments:
-            - '@config'
-            - '@controller.helper'
-            - '@language'
-            - '@user'
-            - '@ganstaz.gzo.posts'
-            - '%core.root_path%'
-            - '%core.php_ext%'
-
-    ganstaz.gzo.index_controller:
-        class: ganstaz\gzo\src\controller\index
-        shared: false
-        parent: ganstaz.gzo.base_controller
-
-    ganstaz.gzo.articles_controller:
-        class: ganstaz\gzo\src\controller\articles
-        shared: false
-        parent: ganstaz.gzo.base_controller
-
-    ganstaz.gzo.forum_controller:
-        class: ganstaz\gzo\src\controller\forum
-        shared: false
-        parent: ganstaz.gzo.base_controller
-        arguments:
-            - '@dispatcher'
-            - '@ganstaz.gzo.main'
-
-    ganstaz.gzo.post_controller:
-        class: ganstaz\gzo\src\controller\post
-        shared: false
-        parent: ganstaz.gzo.base_controller
-
-# ----- Admin Controllers -----
-    ganstaz.gzo.admin.settings_controller:
-        class: ganstaz\gzo\src\controller\admin\settings
-        shared: false
-        parent: ganstaz.gzo.abstract_controller
-        arguments:
-            - '@ganstaz.gzo.settings'
-
-    ganstaz.gzo.admin.block_controller:
-        class: ganstaz\gzo\src\controller\admin\blocks
-        arguments:
-            - '@service_container'
-            - '@dbal.conn'
-            - '@language'
-            - '@request'
-            - '@template'
-            - '@ganstaz.gzo.block.manager'
-
-    ganstaz.gzo.admin.page_controller:
-        class: ganstaz\gzo\src\controller\admin\pages
-        arguments:
-            - '@cache'
-            - '@dbal.conn'
-            - '@language'
-            - '@request'
-            - '@template'
-            - '%ganstaz.gzo.tables.pages%'

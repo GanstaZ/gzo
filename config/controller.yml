@@ -1,0 +1,49 @@
+services:
+    ganstaz.gzo.controller.helper:
+        class: ganstaz\gzo\src\controller\helper
+        arguments:
+            - '@controller.helper'
+            - '@language'
+            - '@template'
+
+    # Controllers
+    ganstaz.gzo.abstract_controller:
+        abstract: true
+        arguments:
+            - '@ganstaz.gzo.controller.helper'
+            - '@request'
+            - '@ganstaz.gzo.entity.manager'
+
+    ganstaz.gzo.base_controller:
+        abstract: true
+        arguments:
+            - '@config'
+            - '@controller.helper'
+            - '@language'
+            - '@user'
+            - '@ganstaz.gzo.posts'
+            - '%core.root_path%'
+            - '%core.php_ext%'
+
+    ganstaz.gzo.index_controller:
+        class: ganstaz\gzo\src\controller\index
+        shared: false
+        parent: ganstaz.gzo.base_controller
+
+    ganstaz.gzo.articles_controller:
+        class: ganstaz\gzo\src\controller\articles
+        shared: false
+        parent: ganstaz.gzo.base_controller
+
+    ganstaz.gzo.forum_controller:
+        class: ganstaz\gzo\src\controller\forum
+        shared: false
+        parent: ganstaz.gzo.base_controller
+        arguments:
+            - '@dispatcher'
+            - '@ganstaz.gzo.main'
+
+    ganstaz.gzo.post_controller:
+        class: ganstaz\gzo\src\controller\post
+        shared: false
+        parent: ganstaz.gzo.base_controller
