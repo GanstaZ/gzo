@@ -32,6 +32,10 @@
 	flex: 1;
 }
 
+/* .gzo-wrap {
+	max-width: 80%;
+} */
+
 .gzo-card {
 	position: relative;
 	display: flex;
@@ -263,9 +267,17 @@ dl.details dd.gzo-ddp {
 	color: rgb(255,215,0);
 }
 
+.icon-white {
+	color: #ffffff;
+}
+
 /* GZO Display */
 .gzo-hide {
 	display: none;
+}
+
+.gzo-display-none {
+    display: none;
 }
 
 .c-heading-right {

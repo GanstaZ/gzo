@@ -1,9 +1,21 @@
+{% EVENT ganstaz_gzo_navi_before %}
+
+{% from 'macros/tags.twig' import icon, url %}
+
+{% if U_ACP %}
+
+	<li data-last-responsive="true">
+		{{ url({'href': U_GZO_ADMIN, 'title': lang('GZO_MAIN_PAGE')}, icon('icon', 'cogs fa-fw', null, lang('GZO_MAIN_PAGE'))) }}
+	</li>
+
+{% endif %}
+
 {% if config('gzo_news_link') %}
-	{% from 'macros/tags.twig' import icon, url %}
 
 	<li data-last-responsive="true">
 		{{ url({'href': U_NEWS, 'title': lang('NEWS')}, icon('icon', 'newspaper-o fa-fw', null, lang('NEWS'))) }}
 	</li>
 
-	{% EVENT ganstaz_gzo_navi_after %}
 {% endif %}
+
+{% EVENT ganstaz_gzo_navi_after %}
