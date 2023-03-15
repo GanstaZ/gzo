@@ -19,7 +19,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class kernel_request implements EventSubscriberInterface
 {
-	public function __construct(private ?loader $loader = null)
+	public function __construct(private loader $loader)
 	{
 	}
 
@@ -28,18 +28,15 @@ class kernel_request implements EventSubscriberInterface
 	*/
 	public function on_kernel_request(GetResponseEvent $event): void
 	{
-		if ($this->loader !== null)
+		$route = $event->getRequest()->attributes->get('_route');
+		$name = strstr($route, '_', true);
+
+		if ($this->loader->is_area_available($name))
 		{
-			$route = $event->getRequest()->attributes->get('_route');
-			$name = strstr($route, '_', true);
+			define(admin::GZO_IN_AREA, true);
 
-			if ($this->loader->is_area_available($name))
-			{
-				define(admin::GZO_IN_AREA, true);
-
-				$area = $this->loader->get_area($name);
-				$area->load();
-			}
+			$area = $this->loader->get_area($name);
+			$area->load();
 		}
 	}
 
