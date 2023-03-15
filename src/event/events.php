@@ -15,6 +15,9 @@ namespace ganstaz\gzo\src\event;
 */
 final class events
 {
+	/** Area base class */
+	public const GZO_AREA_MODIFY_NAVIGATION = 'ganstaz.gzo.area_modify_navigation';
+
 	/** Information block */
 	public const GZO_INFORMATION_BEFORE = 'ganstaz.gzo.information_before';
 

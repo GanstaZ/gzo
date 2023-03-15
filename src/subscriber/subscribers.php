@@ -18,6 +18,7 @@ use phpbb\template\template;
 use ganstaz\gzo\src\helper;
 use ganstaz\gzo\src\pages;
 use ganstaz\gzo\src\blocks\manager;
+use ganstaz\gzo\src\enum\admin;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -100,16 +101,14 @@ class subscribers implements EventSubscriberInterface
 			'core.acp_manage_forums_request_data'	 => 'manage_forums_request_data',
 			'core.acp_manage_forums_display_form'	 => 'manage_forums_display_form',
 			'core.memberlist_modify_viewprofile_sql' => 'redirect_profile',
-			'core.modify_username_string'			 => 'modify_username_string'
+			'core.modify_username_string'			 => 'modify_username_string',
 		];
 	}
 
 	/**
 	* Event core.user_setup
-	*
-	* @param \phpbb\event\data $event The event object
 	*/
-	public function add_language($event): void
+	public function add_language(): void
 	{
 		// Load a single language file from ganstaz/gzo/language/en/common.php
 		$this->language->add_lang('common', 'ganstaz/gzo');
@@ -117,10 +116,8 @@ class subscribers implements EventSubscriberInterface
 
 	/**
 	* Event core.user_setup_after
-	*
-	* @param \phpbb\event\data $event The event object
 	*/
-	public function add_manager_data($event): void
+	public function add_manager_data(): void
 	{
 		if ($this->config['gzo_blocks'] && $get_page_data = $this->pages->get_page_data())
 		{
@@ -142,8 +139,6 @@ class subscribers implements EventSubscriberInterface
 
 	/**
 	* Event core.page_header
-	*
-	* @param \phpbb\event\data $event The event object
 	*/
 	public function add_gzo_data(): void
 	{
@@ -157,6 +152,11 @@ class subscribers implements EventSubscriberInterface
 			$response->send();
 		}
 
+		if (defined(admin::GZO_IN_AREA))
+		{
+			$this->template->assign_var('GZO_IN_AREA', true);
+		}
+
 		if ($this->config['gzo_news_link'])
 		{
 			$this->template->assign_vars([
@@ -167,13 +167,12 @@ class subscribers implements EventSubscriberInterface
 
 	/**
 	* Event core.page_header_after
-	*
-	* @param \phpbb\event\data $event The event object
 	*/
 	public function change_index(): void
 	{
 		$this->template->assign_vars([
 			'U_INDEX' => $this->controller->route('ganstaz_gzo_forum'),
+			'U_GZO_ADMIN' => $this->controller->route('gzo_main'),
 		]);
 	}
 
@@ -198,10 +197,8 @@ class subscribers implements EventSubscriberInterface
 
 	/**
 	* Modify Special forum's posting page
-	*
-	* @param \phpbb\event\data $event The event object
 	*/
-	public function submit_post_template($event)
+	public function submit_post_template()
 	{
 		// Borrowed from Ideas extension (phpBB)
 		// Alter posting page breadcrumbs to link to the ideas controller
