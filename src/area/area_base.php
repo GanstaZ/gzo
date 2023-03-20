@@ -37,7 +37,7 @@ abstract class area_base
 	{
 		$this->helper->assign_breadcrumb($breadcrumb_name, $breadcrumb_route);
 
-		$navigation = [];
+		$navigation = $category_icon = [];
 		foreach ($area_navigation::items() as $item)
 		{
 			$cat = $item['cat'] ?? $area_navigation::GZO_CAT;
@@ -45,19 +45,21 @@ abstract class area_base
 			$navigation[$cat][] = [
 				'title' => $item['title'],
 				'route' => $item['route'],
-				'icon'	=> $item['icon'],
+				'icon'	=> $item['icon'] ?? '',
 			];
 		}
 
+		$gzo_category = $area_navigation::GZO_CAT;
+
 		/** @event ganstaz.gzo.area_modify_navigation */
-		$vars = ['navigation'];
+		$vars = ['navigation', 'category_icon', 'gzo_category'];
 		extract($this->dispatcher->trigger_event(events::GZO_AREA_MODIFY_NAVIGATION, compact($vars)));
 
 		foreach ($navigation as $category => $data)
 		{
 			$this->helper->twig->assign_block_vars('menu', [
 				'heading' => $category,
-				'icon'	  => $area_navigation::GZO_ICON[$category] ?? $area_navigation::GZO_ICON,
+				'icon'	  => $category_icon[$category] ?? $area_navigation::GZO_ICON,
 			]);
 
 			foreach ($data as $item)
