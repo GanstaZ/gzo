@@ -17,7 +17,7 @@ use ganstaz\gzo\src\controller\abstract_controller;
 */
 class index extends abstract_controller
 {
-	public function index(): \Symfony\Component\HttpFoundation\Response
+	public function main(): \Symfony\Component\HttpFoundation\Response
 	{
 		//$this->helper->language->add_lang('info_acp_global', 'ganstaz/gzo');
 		//$this->helper->assign_breadcrumb('GZO_MAIN_PAGE', 'gzo_main');
