@@ -18,9 +18,12 @@ class loader
 
 	public function __construct(private service_collection $collection)
 	{
-		foreach ($collection as $area)
+		if ($collection)
 		{
-			$this->areas[$area->get_name()] = $area;
+			foreach ($collection as $area)
+			{
+				$this->areas[$area->get_name()] = $area;
+			}
 		}
 	}
 
@@ -32,5 +35,10 @@ class loader
 	public function get_area(string $name): object
 	{
 		return $this->areas[$name];
+	}
+
+	public function all(): array
+	{
+		return $this->areas;
 	}
 }
