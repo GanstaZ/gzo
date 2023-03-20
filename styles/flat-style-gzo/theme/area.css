@@ -287,7 +287,8 @@ sidebar-nav #sidebarnav .list-divider {
 }
 
 #flex-wrap[data-boxed-layout="boxed"][data-header-position="fixed"] .topbar {
-    max-width: 1200px; }
+    max-width: 1200px;
+}
 
 /*******************
  Vertical responsive layout

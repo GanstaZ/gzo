@@ -3,12 +3,12 @@
 
 {% if category.heading === 'GZO_DASHBOARD' %}
 	<li class="sidebar-item">
-	    <a class="sidebar-link" href="{{ path(category.item[0].route) }}" aria-expanded="false">
-		    {{ icon('icon', 'home fa-fw') }}
-		    <span class="hide-menu">{{ lang(category.heading) }}</span>
-	    </a>
+		<a class="sidebar-link" href="{{ path(category.item[0].route) }}" aria-expanded="false">
+			{{ icon('icon', 'home fa-fw') }}
+			<span class="hide-menu">{{ lang(category.heading) }}</span>
+		</a>
 
-	    {# {{ url({'href': path(category.item[0].route), 'class': 'sidebar-link', 'aria-expanded': false}, icon('icon', 'home fa-fw', null, lang(category.heading))) }} #}
+		{# {{ url({'href': path(category.item[0].route), 'class': 'sidebar-link', 'aria-expanded': false}, icon('icon', 'home fa-fw', null, lang(category.heading))) }} #}
 	</li>
 	<li class="list-divider"></li>
 {% else %}
