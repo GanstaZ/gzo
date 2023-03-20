@@ -105,6 +105,5 @@ $(function() {
 
 	$('.gzo-menu-toggle').click(function () {
 		$('#flex-wrap').toggleClass('gzo-display-sidebar');
-        $('.nav-toggler i').toggleClass('ti-menu');
 	});
 });
