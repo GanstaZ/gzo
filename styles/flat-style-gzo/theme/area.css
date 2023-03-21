@@ -30,22 +30,15 @@
 	background: transparent;
 	transition: 0.2s ease-in;
 	box-shadow: 0 3px 9px 0 rgba(169, 184, 200, 0.15);
-	-webkit-box-shadow: 0 3px 9px 0 rgba(169, 184, 200, 0.15);
-	-moz-box-shadow: 0 3px 9px 0 rgba(169, 184, 200, 0.15); }
+}
 
 .scroll-sidebar {
 	height: 100%;
-	position: relative; }
+	position: relative;
+}
 
 .sidebar-shadow {
 	box-shadow: 0px 3px 9px 0px rgba(162, 176, 190, 0.15);
-	-webkit-box-shadow: 0px 3px 9px 0px rgba(162, 176, 190, 0.15);
-	-moz-box-shadow: 0px 3px 9px 0px rgba(162, 176, 190, 0.15); }
-
-
-.left-sidebar {
-	max-width: 260px;
-	box-shadow: 0 3px 9px 0 rgba(169,184,200,.15);
 }
 
 .sidebar-nav {
@@ -196,7 +189,7 @@
 	right: 15px;
 	-webkit-transition: all .3s ease-out;
 	-o-transition: all .3s ease-out;
-	transition: all .3s ease-out;
+	transition: all .5s ease-out;
 }
 
 .sidebar-nav li.active > .has-arrow::after,
@@ -240,18 +233,8 @@ sidebar-nav #sidebarnav .list-divider {
 	margin-left: 260px;
 }
 
-#flex-wrap[data-sidebar-position="fixed"] .topbar .top-navbar .navbar-header {
-	position: fixed;
-	z-index: 10;
-}
-
 #flex-wrap[data-sidebar-position="fixed"] .left-sidebar {
 	position: fixed;
-}
-
-#flex-wrap[data-header-position="fixed"] .topbar {
-	position: fixed;
-	width: 100%;
 }
 
 #flex-wrap[data-header-position="fixed"] .wrap {
@@ -263,10 +246,6 @@ sidebar-nav #sidebarnav .list-divider {
 	margin: 0 auto;
 	position: relative;
 	box-shadow: 1px 0 80px rgba(0, 0, 0, 0.2);
-}
-
-#flex-wrap[data-boxed-layout="boxed"][data-header-position="fixed"] .topbar {
-	max-width: 1200px;
 }
 
 @media (min-width: 768px) {
