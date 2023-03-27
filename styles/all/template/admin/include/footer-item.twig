@@ -12,12 +12,12 @@
 			<p class="footer-row">
 				<span class="footer-copyright">{{ CREDIT_LINE }}</span>
 			</p>
-			<!-- IF TRANSLATION_INFO -->
+			{% if TRANSLATION_INFO %}
 			<p class="footer-row">
 				<span class="footer-copyright">{{ TRANSLATION_INFO }}</span>
 			</p>
-			<!-- ENDIF -->
-			<!-- EVENT overall_footer_copyright_append -->
+			{% endif %}
+			{% EVENT overall_footer_copyright_append %}
 			<p class="footer-row" role="menu">
 				<a class="footer-link" href="{{ U_PRIVACY }}" title="{{ lang('PRIVACY_LINK') }}" role="menuitem">
 					<span class="footer-link-text">{{ lang('PRIVACY_LINK') }}</span>
@@ -27,11 +27,11 @@
 					<span class="footer-link-text">{{ lang('TERMS_LINK') }}</span>
 				</a>
 			</p>
-			<!-- IF DEBUG_OUTPUT -->
+			{% if DEBUG_OUTPUT %}
 			<p class="footer-row">
 				<span>{{ DEBUG_OUTPUT }}</span>
 			</p>
-			<!-- ENDIF -->
+			{% endif %}
 
 		</div>
 
@@ -63,11 +63,11 @@
 </div>
 
 <script src="{T_JQUERY_LINK}"></script>
-<!-- IF S_ALLOW_CDN --><script>window.jQuery || document.write('\x3Cscript src="{T_ASSETS_PATH}/javascript/jquery-3.6.0.min.js?assets_version={T_ASSETS_VERSION}">\x3C/script>');</script><!-- ENDIF -->
+{% if S_ALLOW_CDN %}<script>window.jQuery || document.write('\x3Cscript src="{T_ASSETS_PATH}/javascript/jquery-3.6.0.min.js?assets_version={T_ASSETS_VERSION}">\x3C/script>');</script>{% endif %}
 <script src="{T_ASSETS_PATH}/javascript/core.js?assets_version={T_ASSETS_VERSION}"></script>
-<!-- INCLUDEJS forum_fn.js -->
-<!-- INCLUDEJS ajax.js -->
-<!-- IF S_ALLOW_CDN -->
+{% INCLUDEJS 'forum_fn.js' %}
+{% INCLUDEJS 'ajax.js' %}
+{% if S_ALLOW_CDN %}
 	<script>
 		(function($){
 			var $fa_cdn = $('head').find('link[rel="stylesheet"]').first(),
@@ -79,9 +79,9 @@
 			$span.remove();
 		})(jQuery);
 	</script>
-<!-- ENDIF -->
+{% endif %}
 
-<!-- IF S_COOKIE_NOTICE -->
+{% if S_COOKIE_NOTICE %}
 	<script src="{T_ASSETS_PATH}/cookieconsent/cookieconsent.min.js?assets_version={T_ASSETS_VERSION}"></script>
 	<script>
 		if (typeof window.cookieconsent === "object") {
@@ -107,14 +107,14 @@
 			});
 		}
 	</script>
-<!-- ENDIF -->
+{% endif %}
 
-<!-- EVENT overall_footer_after -->
+{% EVENT overall_footer_after %}
 
-<!-- IF S_PLUPLOAD --><!-- INCLUDE plupload.html --><!-- ENDIF -->
+{% if S_PLUPLOAD %}{{ include('plupload.html') }}{% endif %}
 {$SCRIPTS}
 
-<!-- EVENT overall_footer_body_after -->
+{% EVENT overall_footer_body_after %}
 
 </body>
 </html>
