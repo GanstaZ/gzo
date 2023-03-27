@@ -1,0 +1,19 @@
+{{ include('@ganstaz_gzo/admin/include/header-item.twig') }}
+
+<div class="gzo-flex gzo-wrap-pane">
+
+	<div class="c-section-main postbody">
+		{% block content %}{% endblock %}
+	</div>
+
+	{% block section_right %}
+		{% if gzo_right %}
+			<div class="c-section-side c-sec-right">
+				{% BLOCKS gzo_right %}
+			</div>
+		{% endif %}
+	{% endblock %}
+
+</div>
+
+{{ include('@ganstaz_gzo/admin/include/footer-item.twig') }}
