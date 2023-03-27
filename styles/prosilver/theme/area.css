@@ -237,7 +237,7 @@ sidebar-nav #sidebarnav .list-divider {
 	padding-top: 100px;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 568px) {
 	#flex-wrap[data-sidebartype="mini-sidebar"] .wrap {
 	  margin-left: 65px;
 	}
@@ -306,7 +306,7 @@ sidebar-nav #sidebarnav .list-divider {
 	}
 }
 
-@media (max-width: 767.98px) {
+@media (max-width: 567.98px) {
 	#flex-wrap[data-sidebartype="mini-sidebar"] .left-sidebar {
 		left: -260px;
 	}
