@@ -10,23 +10,22 @@
 
 namespace ganstaz\gzo\migrations\v24;
 
+use ganstaz\gzo\src\enum\gzo;
+
 class m3_blocks extends \phpbb\db\migration\migration
 {
 	/**
 	* {@inheritdoc}
 	*/
-	static public function depends_on()
+	public static function depends_on()
 	{
-		return ['\ganstaz\gzo\migrations\v24\m1_main'];
+		return [gzo::MAIN_MIGRATION];
 	}
 
 	/**
 	* Add the initial data in the database
-	*
-	* @return array Array of table data
-	* @access public
 	*/
-	public function update_data()
+	public function update_data(): array
 	{
 		return [
 			['custom', [[$this, 'add_blocks']]],
@@ -36,7 +35,7 @@ class m3_blocks extends \phpbb\db\migration\migration
 	/**
 	* Custom function to add blocks data
 	*/
-	public function add_blocks()
+	public function add_blocks(): void
 	{
 		if ($this->db_tools->sql_table_exists($this->table_prefix . 'gzo_blocks'))
 		{
