@@ -11,6 +11,7 @@
 namespace ganstaz\gzo\src\area;
 
 use phpbb\auth\auth;
+use phpbb\cache\service as cache;
 use phpbb\db\driver\driver_interface;
 use phpbb\event\dispatcher;
 use ganstaz\gzo\src\event\events;
@@ -25,6 +26,7 @@ abstract class area_base
 
 	public function __construct(
 		protected auth $auth,
+		protected readonly cache $cache,
 		protected readonly driver_interface $db,
 		protected dispatcher $dispatcher,
 		protected helper $helper,
@@ -44,16 +46,12 @@ abstract class area_base
 		$navigation = $this->get_navigation_data($type);
 		$categories = $this->categories;
 
-		// var_dump($navigation);
-
 		/** @event events::GZO_AREA_MODIFY_NAVIGATION */
 		$vars = ['navigation', 'categories'];
 		extract($this->dispatcher->trigger_event(events::GZO_AREA_MODIFY_NAVIGATION, compact($vars)));
 
 		$this->categories = $categories;
 		unset($categories);
-
-		var_dump($this->categories);
 
 		foreach ($navigation as $category => $data)
 		{
@@ -75,21 +73,26 @@ abstract class area_base
 
 	protected function get_navigation_data(?string $type = null): array
 	{
-		$sql = 'SELECT *
-			FROM ' . $this->table . 'gzo_plugins
-			ORDER BY id';
-		$result = $this->db->sql_query($sql);
-
-		$navigation = [];
-		while ($row = $this->db->sql_fetchrow($result))
+		if (($navigation = $this->cache->get('_gzo_plugins')) === false)
 		{
-			$navigation[(string) $row['type']][(string) $row['cat']][] = [
-				'title' => (string) $row['title'],
-				'route' => (string) $row['route'],
-				'icon'	=> (string) $row['icon'] ?? '',
-		   ];
-		}
-		$this->db->sql_freeresult($result);
+			$sql = 'SELECT *
+					FROM ' . $this->table . 'gzo_plugins
+					ORDER BY id';
+			$result = $this->db->sql_query($sql);
+
+			$navigation = [];
+			while ($row = $this->db->sql_fetchrow($result))
+			{
+				$navigation[(string) $row['type']][(string) $row['cat']][] = [
+					'title' => (string) $row['title'],
+					'route' => (string) $row['route'],
+					'icon'	=> (string) $row['icon'] ?? '',
+			   ];
+			}
+			$this->db->sql_freeresult($result);
+
+				$this->cache->put('_gzo_plugins', $navigation);
+			}
 
 		return $navigation[$type] ?? $navigation;
 	}

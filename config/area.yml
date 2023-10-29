@@ -16,6 +16,7 @@ services:
         abstract: true
         arguments:
             - '@auth'
+            - '@cache'
             - '@dbal.conn'
             - '@dispatcher'
             - '@ganstaz.gzo.controller.helper'

@@ -27,8 +27,6 @@ class gzo extends area_base
 		}
 
 		$this->set_category_icon('ACP_GZO_TITLE', 'cogs')
-			->set_category_icon('ACP_GZO_TEST', 'bug') // Test
-			->set_category_icon('GZO_DEFAULT', 'test') // Test
 			->build_navigation('gzo', 'GZO_MAIN_PAGE', 'gzo_main');
 	}
 
