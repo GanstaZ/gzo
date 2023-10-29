@@ -10,7 +10,6 @@
 
 namespace ganstaz\gzo\src\area;
 
-use ganstaz\gzo\src\menu\admin;
 use ganstaz\gzo\src\area\area_base;
 use phpbb\exception\http_exception;
 
@@ -27,7 +26,10 @@ class gzo extends area_base
 			throw new http_exception(403, 'NO_ADMIN');
 		}
 
-		$this->build_navigation(new admin(), 'GZO_MAIN_PAGE', 'gzo_main');
+		$this->set_category_icon('ACP_GZO_TITLE', 'cogs')
+			->set_category_icon('ACP_GZO_TEST', 'bug') // Test
+			->set_category_icon('GZO_DEFAULT', 'test') // Test
+			->build_navigation('gzo', 'GZO_MAIN_PAGE', 'gzo_main');
 	}
 
 	public function get_name(): string

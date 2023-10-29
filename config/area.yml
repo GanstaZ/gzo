@@ -16,8 +16,10 @@ services:
         abstract: true
         arguments:
             - '@auth'
+            - '@dbal.conn'
             - '@dispatcher'
             - '@ganstaz.gzo.controller.helper'
+            - '%core.table_prefix%'
 
     ganstaz.gzo.area:
         class: ganstaz\gzo\src\area\gzo
