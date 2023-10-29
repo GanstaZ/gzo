@@ -26,9 +26,9 @@ class settings extends abstract_controller
 	*
 	* @param sm $sm Sm object
 	*/
-	public function __construct($language, $request, $template, $em, $sm)
+	public function __construct($helper, $request, $em, $sm)
 	{
-		parent::__construct($language, $request, $template, $em);
+		parent::__construct($helper, $request, $em);
 
 		$this->sm = $sm;
 	}
@@ -40,7 +40,7 @@ class settings extends abstract_controller
 	*/
 	public function handle(): void
 	{
-		$this->language->add_lang('acp_gzo', 'ganstaz/gzo');
+		$this->helper->language->add_lang('acp_gzo', 'ganstaz/gzo');
 
 		$this->form->build($this->sm->data(), true);
 		$this->form->add_form_key('ganstaz_gzo_settings');

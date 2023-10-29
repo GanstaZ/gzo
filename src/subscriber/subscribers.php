@@ -18,6 +18,7 @@ use phpbb\template\template;
 use ganstaz\gzo\src\helper;
 use ganstaz\gzo\src\pages;
 use ganstaz\gzo\src\blocks\manager;
+use ganstaz\gzo\src\enum\admin;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -26,67 +27,21 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 */
 class subscribers implements EventSubscriberInterface
 {
-	/** @var config */
-	protected $config;
-
-	/** @var controller */
-	protected $controller;
-
-	/** @var language */
-	protected $language;
-
-	/** @var request */
-	protected $request;
-
-	/** @var template */
-	protected $template;
-
-	/** @var helper */
-	protected $helper;
-
-	/** @var pages */
-	protected $pages;
-
-	/** @var manager */
-	protected $manager;
-
-	/**
-	* Constructor
-	*
-	* @param config		$config		Config object
-	* @param controller $controller Controller helper object
-	* @param language	$language	Language object
-	* @param request	$request	Request object
-	* @param template	$template	Template object
-	* @param helper		$helper		Helper object
-	* @param pages		$pages		Pages object
-	* @param manager	$manager	Blocks manager object
-	*/
 	public function __construct(
-		config $config,
-		controller $controller,
-		language $language,
-		request $request,
-		template $template,
-		helper $helper,
-		pages $pages,
-		manager $manager = null
+		private readonly config $config,
+		private readonly controller $controller,
+		private readonly language $language,
+		private readonly request $request,
+		private readonly template $template,
+		private readonly helper $helper,
+		private readonly pages $pages,
+		private readonly manager $manager
 	)
 	{
-		$this->config	  = $config;
-		$this->controller = $controller;
-		$this->language	  = $language;
-		$this->request	  = $request;
-		$this->template	  = $template;
-		$this->helper	  = $helper;
-		$this->pages	  = $pages;
-		$this->manager	  = $manager;
 	}
 
 	/**
 	* Assign functions defined in this class to event listeners in the core
-	*
-	* @return array
 	*/
 	public static function getSubscribedEvents(): array
 	{
@@ -100,27 +55,22 @@ class subscribers implements EventSubscriberInterface
 			'core.acp_manage_forums_request_data'	 => 'manage_forums_request_data',
 			'core.acp_manage_forums_display_form'	 => 'manage_forums_display_form',
 			'core.memberlist_modify_viewprofile_sql' => 'redirect_profile',
-			'core.modify_username_string'			 => 'modify_username_string'
+			'core.modify_username_string'			 => 'modify_username_string',
 		];
 	}
 
 	/**
 	* Event core.user_setup
-	*
-	* @param \phpbb\event\data $event The event object
 	*/
-	public function add_language($event): void
+	public function add_language(): void
 	{
-		// Load a single language file from ganstaz/gzo/language/en/common.php
 		$this->language->add_lang('common', 'ganstaz/gzo');
 	}
 
 	/**
 	* Event core.user_setup_after
-	*
-	* @param \phpbb\event\data $event The event object
 	*/
-	public function add_manager_data($event): void
+	public function add_manager_data(): void
 	{
 		if ($this->config['gzo_blocks'] && $get_page_data = $this->pages->get_page_data())
 		{
@@ -142,8 +92,6 @@ class subscribers implements EventSubscriberInterface
 
 	/**
 	* Event core.page_header
-	*
-	* @param \phpbb\event\data $event The event object
 	*/
 	public function add_gzo_data(): void
 	{
@@ -157,6 +105,11 @@ class subscribers implements EventSubscriberInterface
 			$response->send();
 		}
 
+		if (defined(admin::GZO_IN_AREA))
+		{
+			$this->template->assign_var('GZO_IN_AREA', true);
+		}
+
 		if ($this->config['gzo_news_link'])
 		{
 			$this->template->assign_vars([
@@ -167,22 +120,19 @@ class subscribers implements EventSubscriberInterface
 
 	/**
 	* Event core.page_header_after
-	*
-	* @param \phpbb\event\data $event The event object
 	*/
 	public function change_index(): void
 	{
 		$this->template->assign_vars([
 			'U_INDEX' => $this->controller->route('ganstaz_gzo_forum'),
+			'U_GZO_ADMIN' => $this->controller->route('gzo_main'),
 		]);
 	}
 
 	/**
 	* Redirect users from the forum to the right controller
-	*
-	* @param \phpbb\event\data $event The event object
 	*/
-	public function news_forum_redirect($event)
+	public function news_forum_redirect($event): void
 	{
 		$forum_id = (int) $event['forum_id'];
 
@@ -198,10 +148,8 @@ class subscribers implements EventSubscriberInterface
 
 	/**
 	* Modify Special forum's posting page
-	*
-	* @param \phpbb\event\data $event The event object
 	*/
-	public function submit_post_template($event)
+	public function submit_post_template(): void
 	{
 		// Borrowed from Ideas extension (phpBB)
 		// Alter posting page breadcrumbs to link to the ideas controller
@@ -213,8 +161,6 @@ class subscribers implements EventSubscriberInterface
 
 	/**
 	* Event core.acp_manage_forums_request_data
-	*
-	* @param \phpbb\event\data $event The event object
 	*/
 	public function manage_forums_request_data($event): void
 	{
@@ -225,8 +171,6 @@ class subscribers implements EventSubscriberInterface
 
 	/**
 	* Event core.acp_manage_forums_display_form
-	*
-	* @param \phpbb\event\data $event The event object
 	*/
 	public function manage_forums_display_form($event): void
 	{
@@ -237,8 +181,6 @@ class subscribers implements EventSubscriberInterface
 
 	/**
 	* Event core.memberlist_modify_viewprofile_sql
-	*
-	* @param \phpbb\event\data $event The event object
 	*/
 	public function redirect_profile($event): void
 	{
@@ -253,8 +195,6 @@ class subscribers implements EventSubscriberInterface
 
 	/**
 	* Event core.modify_username_string
-	*
-	* @param \phpbb\event\data $event The event object
 	*/
 	public function modify_username_string($event): void
 	{

@@ -1,0 +1,15 @@
+{% if GZO_IN_AREA %}
+    <aside id="left-sidebar" class="left-sidebar gzo-display-sidebar" data-sidebar-bg="white">
+	    <div class="scroll-sidebar" data-sidebar-bg="white">
+	        <nav class="sidebar-nav">
+		        <ul id="sidebarnav">
+
+			        {% for category in menu %}
+				        {{ include('@ganstaz_gzo/admin/include/menu-item.twig') }}
+			        {% endfor %}
+
+		        </ul>
+	        </nav>
+	    </div>
+    </aside>
+{% endif %}

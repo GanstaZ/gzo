@@ -15,18 +15,15 @@ class m1_main extends \phpbb\db\migration\migration
 	/**
 	* {@inheritdoc}
 	*/
-	public function effectively_installed()
+	public function effectively_installed(): bool
 	{
-		return $this->check('blocks') && $this->check('pages');
+		return $this->check('plugins') && $this->check('blocks') && $this->check('pages');
 	}
 
 	/**
 	* Check condition exists for a given table name
-	*
-	* @param $name Name of the table
-	* @return bool
 	*/
-	public function check($name)
+	public function check(string $name): bool
 	{
 		return $this->db_tools->sql_table_exists($this->table_prefix . 'gzo_' . $name);
 	}
@@ -34,21 +31,30 @@ class m1_main extends \phpbb\db\migration\migration
 	/**
 	* {@inheritdoc}
 	*/
-	static public function depends_on()
+	public static function depends_on(): array
 	{
-		return array('\phpbb\db\migration\data\v33x\v3310');
+		return ['\phpbb\db\migration\data\v33x\v3310'];
 	}
 
 	/**
 	* Add the table schemas to the database:
-	*
-	* @return array Array of table schema
-	* @access public
 	*/
-	public function update_schema()
+	public function update_schema(): array
 	{
 		return [
 			'add_tables' => [
+				$this->table_prefix . 'gzo_plugins' => [
+					'COLUMNS' => [
+						'id'	=> ['UINT', null, 'auto_increment'],
+						'title'	=> ['VCHAR', ''],
+						'auth'  => ['VCHAR', ''],
+						'cat'   => ['VCHAR', ''],
+						'type'  => ['VCHAR', ''],
+						'route' => ['VCHAR', ''],
+						'icon'  => ['VCHAR', ''],
+					],
+					'PRIMARY_KEY' => ['id'],
+				],
 				$this->table_prefix . 'gzo_blocks' => [
 					'COLUMNS' => [
 						'id'	   => ['UINT', null, 'auto_increment'],
@@ -81,14 +87,12 @@ class m1_main extends \phpbb\db\migration\migration
 
 	/**
 	* Drop the schemas from the database
-	*
-	* @return array Array of table schema
-	* @access public
 	*/
-	public function revert_schema()
+	public function revert_schema(): array
 	{
 		return [
 			'drop_tables' => [
+				$this->table_prefix . 'gzo_plugins',
 				$this->table_prefix . 'gzo_blocks',
 				$this->table_prefix . 'gzo_pages',
 			],

@@ -1,0 +1,15 @@
+gzo_main:
+    path: /index
+    defaults: { _controller: ganstaz.gzo.admin_controller:main }
+
+gzo_settings:
+    path: /gzo-settings
+    defaults: { _controller: ganstaz.gzo.admin_controller:main }
+
+gzo_blocks:
+    path: /gzo-blocks
+    defaults: { _controller: ganstaz.gzo.admin_controller:main }
+
+gzo_pages:
+    path: /gzo-pages
+    defaults: { _controller: ganstaz.gzo.admin_controller:main }

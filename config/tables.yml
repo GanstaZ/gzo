@@ -1,3 +1,4 @@
 parameters:
     ganstaz.gzo.tables.blocks: '%core.table_prefix%gzo_blocks'
     ganstaz.gzo.tables.pages: '%core.table_prefix%gzo_pages'
+    ganstaz.gzo.tables.plugins: '%core.table_prefix%gzo_plugins'

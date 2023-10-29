@@ -1,0 +1,33 @@
+services:
+    # Admin Controllers
+    ganstaz.gzo.admin_controller:
+        class: ganstaz\gzo\src\controller\admin\index
+        shared: false
+        parent: ganstaz.gzo.abstract_controller
+
+    ganstaz.gzo.admin.settings_controller:
+        class: ganstaz\gzo\src\controller\admin\settings
+        shared: false
+        parent: ganstaz.gzo.abstract_controller
+        arguments:
+            - '@ganstaz.gzo.settings'
+
+    ganstaz.gzo.admin.block_controller:
+        class: ganstaz\gzo\src\controller\admin\blocks
+        arguments:
+            - '@service_container'
+            - '@dbal.conn'
+            - '@language'
+            - '@request'
+            - '@template'
+            - '@ganstaz.gzo.block.manager'
+
+    ganstaz.gzo.admin.page_controller:
+        class: ganstaz\gzo\src\controller\admin\pages
+        arguments:
+            - '@cache'
+            - '@dbal.conn'
+            - '@language'
+            - '@request'
+            - '@template'
+            - '%ganstaz.gzo.tables.pages%'

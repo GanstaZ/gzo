@@ -41,6 +41,10 @@ class pages
 	/** @var array allow */
 	protected $allow = [];
 
+	private bool $is_page_admin = false;
+
+	private bool $is_pagename_app = false;
+
 	/**
 	* Constructor
 	*
@@ -59,6 +63,16 @@ class pages
 		$this->user		 = $user;
 		$this->page_data = $page_data;
 		$this->php_ext	 = $php_ext;
+	}
+
+	public function is_pagename_app(): bool
+	{
+		return $this->is_pagename_app;
+	}
+
+	public function is_page_admin(): bool
+	{
+		return $this->is_page_admin;
 	}
 
 	/**
@@ -86,6 +100,13 @@ class pages
 
 		if ($page_name === 'app')
 		{
+			$this->is_pagename_app = true;
+
+			if (isset($on_page[1]) && $on_page[1] === 'admin')
+			{
+				$this->is_page_admin = true;
+			}
+
 			$get_last  = end($on_page);
 			$page_name = count($on_page) > 2 && is_numeric($get_last) ? $on_page[1] : $get_last;
 			$page_name = isset($on_page[1]) && $this->allow($on_page[1]) ? $on_page[1] : $page_name;

@@ -10,23 +10,22 @@
 
 namespace ganstaz\gzo\migrations\v24;
 
+use ganstaz\gzo\src\enum\gzo;
+
 class m4_config extends \phpbb\db\migration\migration
 {
 	/**
 	* {@inheritdoc}
 	*/
-	static public function depends_on()
+	public static function depends_on(): array
 	{
-		return ['\ganstaz\gzo\migrations\v24\m1_main'];
+		return [gzo::MAIN_MIGRATION];
 	}
 
 	/**
 	* Add the initial data in the database
-	*
-	* @return array Array of table data
-	* @access public
 	*/
-	public function update_data()
+	public function update_data(): array
 	{
 		return [
 			// Add the config variables we want to be able to set
