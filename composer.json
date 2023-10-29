@@ -3,8 +3,8 @@
     "type": "phpbb-extension",
     "description": "Content Management System",
     "homepage": "https://www.ganstaz.org/",
-    "version": "3.0.0-dev",
-    "time": "2023-10-28",
+    "version": "3.4.0-dev",
+    "time": "2023-10-29",
     "license": "GPL-2.0-only",
     "authors": [
         {
