@@ -83,7 +83,7 @@ abstract class area_base
 		$navigation = [];
 		while ($row = $this->db->sql_fetchrow($result))
 		{
-			$navigation[(string) $row['type']][(string)$row['cat']][] = [
+			$navigation[(string) $row['type']][(string) $row['cat']][] = [
 				'title' => (string) $row['title'],
 				'route' => (string) $row['route'],
 				'icon'	=> (string) $row['icon'] ?? '',
