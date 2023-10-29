@@ -29,7 +29,8 @@ abstract class area_base
 		protected dispatcher $dispatcher,
 		protected helper $helper,
 		private readonly string $table
-	) {
+	)
+	{
 	}
 
 	abstract public function get_name(): string;
