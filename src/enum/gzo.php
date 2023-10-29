@@ -15,8 +15,8 @@ namespace ganstaz\gzo\src\enum;
 */
 final class gzo
 {
-	public const VERSION = '3.0.0-dev';
+	public const VERSION = '3.0.x-dev';
 	public const DATE_FORMAT = 'Y-m-d H:i';
 	public const MAIN_MIGRATION = '\ganstaz\gzo\migrations\v24\m1_main';
-	// public const MAIN_MIGRATION = '\ganstaz\gzo\migrations\v30\m1_main';
+	// public const MAIN_MIGRATION = '\ganstaz\gzo\migrations\v34\m1_main';
 }
