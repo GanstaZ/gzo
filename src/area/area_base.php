@@ -43,11 +43,11 @@ abstract class area_base
 	{
 		$this->helper->assign_breadcrumb($breadcrumb_name, $breadcrumb_route);
 
-		$navigation = $this->get_navigation_data($type);
 		$categories = $this->categories;
+		$navigation = $this->get_navigation_data($type);
 
 		/** @event events::GZO_AREA_MODIFY_NAVIGATION */
-		$vars = ['navigation', 'categories'];
+		$vars = ['categories', 'navigation', 'type'];
 		extract($this->dispatcher->trigger_event(events::GZO_AREA_MODIFY_NAVIGATION, compact($vars)));
 
 		$this->categories = $categories;
