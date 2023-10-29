@@ -16,6 +16,6 @@ services:
             - '@template'
             - '@ganstaz.gzo.helper'
             - '@ganstaz.gzo.pages'
-            - '@?ganstaz.gzo.block.manager'
+            - '@ganstaz.gzo.block.manager'
         tags:
             - { name: event.listener }

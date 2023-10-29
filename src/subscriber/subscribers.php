@@ -27,67 +27,21 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 */
 class subscribers implements EventSubscriberInterface
 {
-	/** @var config */
-	protected $config;
-
-	/** @var controller */
-	protected $controller;
-
-	/** @var language */
-	protected $language;
-
-	/** @var request */
-	protected $request;
-
-	/** @var template */
-	protected $template;
-
-	/** @var helper */
-	protected $helper;
-
-	/** @var pages */
-	protected $pages;
-
-	/** @var manager */
-	protected $manager;
-
-	/**
-	* Constructor
-	*
-	* @param config		$config		Config object
-	* @param controller $controller Controller helper object
-	* @param language	$language	Language object
-	* @param request	$request	Request object
-	* @param template	$template	Template object
-	* @param helper		$helper		Helper object
-	* @param pages		$pages		Pages object
-	* @param manager	$manager	Blocks manager object
-	*/
 	public function __construct(
-		config $config,
-		controller $controller,
-		language $language,
-		request $request,
-		template $template,
-		helper $helper,
-		pages $pages,
-		manager $manager = null
+		private readonly config $config,
+		private readonly controller $controller,
+		private readonly language $language,
+		private readonly request $request,
+		private readonly template $template,
+		private readonly helper $helper,
+		private readonly pages $pages,
+		private readonly manager $manager
 	)
 	{
-		$this->config	  = $config;
-		$this->controller = $controller;
-		$this->language	  = $language;
-		$this->request	  = $request;
-		$this->template	  = $template;
-		$this->helper	  = $helper;
-		$this->pages	  = $pages;
-		$this->manager	  = $manager;
 	}
 
 	/**
 	* Assign functions defined in this class to event listeners in the core
-	*
-	* @return array
 	*/
 	public static function getSubscribedEvents(): array
 	{
@@ -110,7 +64,6 @@ class subscribers implements EventSubscriberInterface
 	*/
 	public function add_language(): void
 	{
-		// Load a single language file from ganstaz/gzo/language/en/common.php
 		$this->language->add_lang('common', 'ganstaz/gzo');
 	}
 
@@ -178,10 +131,8 @@ class subscribers implements EventSubscriberInterface
 
 	/**
 	* Redirect users from the forum to the right controller
-	*
-	* @param \phpbb\event\data $event The event object
 	*/
-	public function news_forum_redirect($event)
+	public function news_forum_redirect($event): void
 	{
 		$forum_id = (int) $event['forum_id'];
 
@@ -198,7 +149,7 @@ class subscribers implements EventSubscriberInterface
 	/**
 	* Modify Special forum's posting page
 	*/
-	public function submit_post_template()
+	public function submit_post_template(): void
 	{
 		// Borrowed from Ideas extension (phpBB)
 		// Alter posting page breadcrumbs to link to the ideas controller
@@ -210,8 +161,6 @@ class subscribers implements EventSubscriberInterface
 
 	/**
 	* Event core.acp_manage_forums_request_data
-	*
-	* @param \phpbb\event\data $event The event object
 	*/
 	public function manage_forums_request_data($event): void
 	{
@@ -222,8 +171,6 @@ class subscribers implements EventSubscriberInterface
 
 	/**
 	* Event core.acp_manage_forums_display_form
-	*
-	* @param \phpbb\event\data $event The event object
 	*/
 	public function manage_forums_display_form($event): void
 	{
@@ -234,8 +181,6 @@ class subscribers implements EventSubscriberInterface
 
 	/**
 	* Event core.memberlist_modify_viewprofile_sql
-	*
-	* @param \phpbb\event\data $event The event object
 	*/
 	public function redirect_profile($event): void
 	{
@@ -250,8 +195,6 @@ class subscribers implements EventSubscriberInterface
 
 	/**
 	* Event core.modify_username_string
-	*
-	* @param \phpbb\event\data $event The event object
 	*/
 	public function modify_username_string($event): void
 	{

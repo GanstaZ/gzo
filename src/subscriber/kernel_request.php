@@ -40,7 +40,7 @@ class kernel_request implements EventSubscriberInterface
 		}
 	}
 
-	static public function getSubscribedEvents(): array
+	public static function getSubscribedEvents(): array
 	{
 		return [
 			KernelEvents::REQUEST => 'on_kernel_request',
