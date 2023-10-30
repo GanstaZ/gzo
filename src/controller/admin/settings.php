@@ -10,33 +10,30 @@
 
 namespace ganstaz\gzo\src\controller\admin;
 
+use phpbb\event\dispatcher;
+use ganstaz\gzo\src\controller\helper;
+use ganstaz\gzo\src\entity\manager as em;
+use ganstaz\gzo\src\form\form;
 use ganstaz\gzo\src\model\admin\settings as sm;
 use ganstaz\gzo\src\controller\abstract_controller;
 
-/**
-* Admin settings controller
-*/
 class settings extends abstract_controller
 {
-	/** @var sm */
-	private object $sm;
-
-	/**
-	* Constructor
-	*
-	* @param sm $sm Sm object
-	*/
-	public function __construct($helper, $request, $em, $sm)
+	public function __construct(
+		dispatcher $dispatcher,
+		helper $helper,
+		em $em,
+		form $form,
+		$root_path,
+		$php_ext,
+		private readonly sm $sm
+	)
 	{
-		parent::__construct($helper, $request, $em);
-
-		$this->sm = $sm;
+		parent::__construct($dispatcher, $helper, $em, $form, $root_path, $php_ext);
 	}
 
 	/**
 	* Handle controller
-	*
-	* @return void
 	*/
 	public function handle(): void
 	{

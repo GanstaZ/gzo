@@ -10,9 +10,12 @@ services:
     ganstaz.gzo.abstract_controller:
         abstract: true
         arguments:
+            - '@dispatcher'
             - '@ganstaz.gzo.controller.helper'
-            - '@request'
             - '@ganstaz.gzo.entity.manager'
+            - '@ganstaz.gzo.form'
+            - '%core.root_path%'
+            - '%core.php_ext%'
 
     ganstaz.gzo.base_controller:
         abstract: true
@@ -28,22 +31,29 @@ services:
     ganstaz.gzo.index_controller:
         class: ganstaz\gzo\src\controller\index
         shared: false
-        parent: ganstaz.gzo.base_controller
+        parent: ganstaz.gzo.abstract_controller
+        arguments:
+            - '@config'
+            - '@ganstaz.gzo.posts'
 
     ganstaz.gzo.articles_controller:
         class: ganstaz\gzo\src\controller\articles
         shared: false
-        parent: ganstaz.gzo.base_controller
+        parent: ganstaz.gzo.abstract_controller
+        arguments:
+            - '@ganstaz.gzo.posts'
 
     ganstaz.gzo.forum_controller:
         class: ganstaz\gzo\src\controller\forum
         shared: false
-        parent: ganstaz.gzo.base_controller
+        parent: ganstaz.gzo.abstract_controller
         arguments:
-            - '@dispatcher'
+            - '@config'
             - '@ganstaz.gzo.main'
 
     ganstaz.gzo.post_controller:
         class: ganstaz\gzo\src\controller\post
         shared: false
-        parent: ganstaz.gzo.base_controller
+        parent: ganstaz.gzo.abstract_controller
+        arguments:
+            - '@user'

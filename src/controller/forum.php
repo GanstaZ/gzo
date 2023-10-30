@@ -11,43 +11,36 @@
 namespace ganstaz\gzo\src\controller;
 
 use phpbb\event\dispatcher;
+use ganstaz\gzo\src\controller\helper;
+use ganstaz\gzo\src\entity\manager as em;
+use ganstaz\gzo\src\form\form;
+use phpbb\config\config;
 use ganstaz\gzo\src\model\main;
 
-/**
-* Forum index controller
-*/
-class forum extends base
+class forum extends abstract_controller
 {
-	/** @var dispatcher */
-	protected $dispatcher;
-
-	/** @var main */
-	protected $main;
-
-	/**
-	* Constructor
-	*
-	* @param info $info Forum info helper object
-	*/
-	public function __construct($config, $helper, $language, $user, $posts, $root_path, $php_ext, $dispatcher, $main)
+	public function __construct(
+		dispatcher $dispatcher,
+		helper $helper,
+		em $em,
+		form $form,
+		$root_path,
+		$php_ext,
+		private readonly config $config,
+		private readonly main $main
+	)
 	{
-		parent::__construct($config, $helper, $language, $user, $posts, $root_path, $php_ext);
-
-		$this->dispatcher = $dispatcher;
-		$this->main = $main;
+		parent::__construct($dispatcher, $helper, $em, $form, $root_path, $php_ext);
 	}
 
 	/**
 	* Index controller
-	*
-	* @throws \phpbb\exception\http_exception
-	* @return \Symfony\Component\HttpFoundation\Response A Symfony Response object
 	*/
 	public function handle(): \Symfony\Component\HttpFoundation\Response
 	{
 		$this->main->load();
 
-		$page_title = ($this->config['board_index_text'] !== '') ? $this->config['board_index_text'] : $this->language->lang('INDEX');
+		$page_title = ($this->config['board_index_text'] !== '') ? $this->config['board_index_text'] : $this->helper->language->lang('INDEX');
 
 		/**
 		* You can use this event to modify the page title and load data for the index
@@ -59,6 +52,6 @@ class forum extends base
 		$vars = ['page_title'];
 		extract($this->dispatcher->trigger_event('core.index_modify_page_title', compact($vars)));
 
-		return $this->helper->render('forum.twig', $this->language->lang($page_title), 200, true);
+		return $this->helper->controller_helper->render('forum.twig', $this->helper->language->lang($page_title), 200, true);
 	}
 }

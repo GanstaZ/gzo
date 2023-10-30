@@ -10,29 +10,28 @@
 
 namespace ganstaz\gzo\src\controller;
 
+use phpbb\event\dispatcher;
 use ganstaz\gzo\src\controller\helper;
-use phpbb\request\request;
 use ganstaz\gzo\src\entity\manager as em;
 use ganstaz\gzo\src\form\form;
 
 /**
-* Abstract controller
+* Base controller class
 */
 abstract class abstract_controller
 {
-	/** @var form */
-	protected object $form;
-
-	/** @var string Custom form action */
+	/** @deprecated 2.4.0-a30 */
 	protected string $u_action;
 
 	public function __construct(
+		protected dispatcher $dispatcher,
 		protected helper $helper,
-		protected request $request,
-		protected em $em
+		protected em $em,
+		protected form $form,
+		protected readonly string $root_path,
+		protected readonly string $php_ext
 	)
 	{
-		$this->form = new form($this->request, $this->helper->twig);
 	}
 
 	/**

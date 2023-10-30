@@ -10,25 +10,39 @@
 
 namespace ganstaz\gzo\src\controller;
 
-/**
-* Index controller
-*/
-class index extends base
+use phpbb\event\dispatcher;
+use ganstaz\gzo\src\controller\helper;
+use ganstaz\gzo\src\entity\manager as em;
+use ganstaz\gzo\src\form\form;
+use phpbb\config\config;
+use ganstaz\gzo\src\model\posts;
+
+class index extends abstract_controller
 {
-	/**
-	* Index controller
-	*
-	* @throws \phpbb\exception\http_exception
-	* @return \Symfony\Component\HttpFoundation\Response A Symfony Response object
-	*/
+	public function __construct(
+		dispatcher $dispatcher,
+		helper $helper,
+		em $em,
+		form $form,
+		$root_path,
+		$php_ext,
+		private readonly config $config,
+		private readonly posts $posts
+	)
+	{
+		parent::__construct($dispatcher, $helper, $em, $form, $root_path, $php_ext);
+	}
+
 	public function handle(): \Symfony\Component\HttpFoundation\Response
 	{
-		// Set main page id
 		$id = (int) $this->config['gzo_main_fid'];
 
 		$this->posts->trim_messages(true)
 			->base($id);
 
-		return $this->helper->render('index.twig', $this->language->lang('HOME', $id), 200, true);
+		$data = $this->posts->breadcrumb;
+		$this->helper->assign_breadcrumb($data[0], $data[1], $data[2]);
+
+		return $this->helper->controller_helper->render('index.twig', $this->helper->language->lang('HOME', $id), 200, true);
 	}
 }
