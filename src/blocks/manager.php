@@ -13,23 +13,8 @@ namespace ganstaz\gzo\src\blocks;
 use phpbb\db\driver\driver_interface;
 use phpbb\di\service_collection;
 
-/**
-* Blocks manager
-*/
 class manager
 {
-	/** @var driver_interface */
-	protected $db;
-
-	/** @var array Contains all available blocks */
-	protected $collection;
-
-	/** @var event */
-	protected $event;
-
-	/** @var blocks data table */
-	protected $blocks_data;
-
 	/** @var array sections */
 	protected $sections = ['gzo_right', 'gzo_bottom', 'gzo_left', 'gzo_top', 'gzo_middle'];
 
@@ -39,27 +24,17 @@ class manager
 	/** @var array error */
 	protected $error = [];
 
-	/**
-	* Constructor
-	*
-	* @param driver_interface	$db			 Database object
-	* @param service_collection $collection	 Service collection
-	* @param event				$event		 Event object
-	* @param string				$blocks_data The name of the blocks data table
-	*/
-	public function __construct(driver_interface $db, service_collection $collection, event $event, $blocks_data)
+	public function __construct(
+		private driver_interface $db,
+		private service_collection $collection,
+		private event $event,
+		private string $blocks_data
+	)
 	{
-		$this->db = $db;
-		$this->collection = $collection;
-		$this->blocks_data = $blocks_data;
-		$this->event = $event;
 	}
 
 	/**
 	* Has (Does event have section data)
-	*
-	* @param string $section Section name
-	* @return bool
 	*/
 	public function has($section): bool
 	{
@@ -68,8 +43,6 @@ class manager
 
 	/**
 	* Get sections
-	*
-	* @return array of sections
 	*/
 	public function get_sections(): array
 	{
@@ -77,13 +50,9 @@ class manager
 	}
 
 	/**
-	* Load blocks
-	*
-	* @param mixed	$name [string, array, default is null]
-	* @param string $type [default is section]
-	* @return void
+	* Load blocks [default type is section]
 	*/
-	public function load($name = null, string $type = 'section'): void
+	public function load(string|array $name = null, string $type = 'section'): void
 	{
 		if (!in_array($type, $this->type))
 		{
@@ -98,12 +67,8 @@ class manager
 
 	/**
 	* Get requested blocks
-	*
-	* @param mixed	$name
-	* @param string $type
-	* @return array
 	*/
-	protected function get_blocks($name, $type): array
+	protected function get_blocks(string|array $name = null, string $type): array
 	{
 		$where = (null !== $name) ? $this->where_clause($name, $type) : 'active = 1';
 
@@ -143,12 +108,8 @@ class manager
 
 	/**
 	* Where clause
-	*
-	* @param array|string $name
-	* @param string		  $type
-	* @return string
 	*/
-	protected function where_clause($name, $type): string
+	protected function where_clause(string|array $name, string $type): string
 	{
 		if (is_array($name))
 		{
@@ -162,9 +123,6 @@ class manager
 
 	/**
 	* Loading
-	*
-	* @param array $blocks Array of requested blocks
-	* @return void
 	*/
 	protected function loading($blocks): void
 	{
@@ -176,8 +134,6 @@ class manager
 
 	/**
 	* Blocks data table
-	*
-	* @return string table name
 	*/
 	public function blocks_data(): string
 	{
@@ -186,8 +142,6 @@ class manager
 
 	/**
 	* Get error log for invalid block names
-	*
-	* @return array
 	*/
 	public function get_error_log(): array
 	{
@@ -196,10 +150,6 @@ class manager
 
 	/**
 	* Check for new block/s
-	*
-	* @param array	$data_ary
-	* @param object $container
-	* @return array
 	*/
 	public function check_for_new_blocks(array $data_ary, object $container): array
 	{
@@ -220,11 +170,6 @@ class manager
 
 	/**
 	* Check conditioning
-	*
-	* @param string $service   Name of the service
-	* @param array	$row	   Data array
-	* @param object $container
-	* @return array
 	*/
 	public function check(string $service, array $row, object $container): array
 	{
@@ -248,10 +193,6 @@ class manager
 
 	/**
 	* Get service name
-	*
-	* @param string $service  Service name
-	* @param string $ext_name Extension name
-	* @return string
 	*/
 	public function get_service_name(string $service, string $ext_name): string
 	{
@@ -260,10 +201,6 @@ class manager
 
 	/**
 	* Check if section is valid
-	*
-	* @param string $service Service name
-	* @param string $section Section name
-	* @return void
 	*/
 	protected function _section(string $service, string $section): void
 	{
@@ -280,11 +217,6 @@ class manager
 
 	/**
 	* Check if ext_name is valid
-	*
-	* @param string $service   Service name
-	* @param string $ext_name  Extension name
-	* @param object $container
-	* @return void
 	*/
 	protected function _ext_name($service, string $ext_name, $container): void
 	{
@@ -303,11 +235,6 @@ class manager
 
 	/**
 	* Check if block service name is valid
-	*
-	* @param string $service   Service name
-	* @param array	$row	   Data array
-	* @param object $container
-	* @return void
 	*/
 	protected function _block_name($service, $row, $container): void
 	{
@@ -329,9 +256,6 @@ class manager
 
 	/**
 	* Get vendor name
-	*
-	* @param string $ext_name Extension name
-	* @return string
 	*/
 	public function get_vendor(string $ext_name): string
 	{
@@ -340,9 +264,6 @@ class manager
 
 	/**
 	* If vendor name is ganstaz, remove package
-	*
-	* @param array $data Data array
-	* @return string
 	*/
 	public function is_vendor_ganstaz(array $data): string
 	{

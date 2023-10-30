@@ -33,11 +33,11 @@ class information extends base
 	*/
 	public function load(): void
 	{
-		/** @event ganstaz.gzo.information_before */
+		/** @event events::GZO_INFORMATION_BEFORE */
 		$this->dispatcher->dispatch(events::GZO_INFORMATION_BEFORE);
 
 		// Set template vars
-		$this->template->assign_vars([
+		$this->twig->assign_vars([
 			'phpbb_version' => (string) $this->config['version'],
 			'core_stable'	=> (string) $this->config['gzo_core_version'],
 		]);

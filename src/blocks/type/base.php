@@ -13,64 +13,25 @@ namespace ganstaz\gzo\src\blocks\type;
 use phpbb\config\config;
 use phpbb\db\driver\driver_interface;
 use phpbb\controller\helper as controller;
-use phpbb\template\template;
+use phpbb\template\twig\twig;
 use phpbb\event\dispatcher;
 use ganstaz\gzo\src\helper;
 
-/**
-* Base class for block types
-*/
 abstract class base implements block_interface
 {
-	/** @var config */
-	protected $config;
+	protected bool $loading;
 
-	/** @var driver_interface */
-	protected $db;
-
-	/** @var controller helper */
-	protected $controller;
-
-	/** @var template */
-	protected $template;
-
-	/** @var dispatcher */
-	protected $dispatcher;
-
-	/** @var bool loading */
-	protected $loading;
-
-	/** @var helper */
-	protected $helper;
-
-	/** @var root_path */
-	protected $root_path;
-
-	/** @var php_ext */
-	protected $php_ext;
-
-	/**
-	* Constructor
-	*
-	* @param config			  $config	  Config object
-	* @param driver_interface $db		  Database object
-	* @param controller		  $controller Controller helper object
-	* @param template		  $template	  Template object
-	* @param dispatcher		  $dispatcher Dispatcher object
-	* @param helper			  $helper	  Helper object
-	* @param string			  $root_path  Path to the phpbb includes directory
-	* @param string			  $php_ext	  PHP file extension
-	*/
-	public function __construct(config $config, driver_interface $db, controller $controller, template $template, dispatcher $dispatcher, helper $helper, $root_path, $php_ext)
+	public function __construct(
+		protected config $config,
+		protected driver_interface $db,
+		protected controller $controller,
+		protected twig $twig,
+		protected dispatcher $dispatcher,
+		protected helper $helper,
+		protected readonly string $root_path,
+		protected readonly string  $php_ext
+	)
 	{
-		$this->config	  = $config;
-		$this->db		  = $db;
-		$this->controller = $controller;
-		$this->dispatcher = $dispatcher;
-		$this->template	  = $template;
-		$this->helper	  = $helper;
-		$this->root_path  = $root_path;
-		$this->php_ext	  = $php_ext;
 	}
 
 	/**

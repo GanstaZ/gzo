@@ -16,14 +16,10 @@ namespace ganstaz\gzo\src\blocks;
 class event
 {
 	/** @var array Contains validated blocks data */
-	protected static $data;
+	protected static array $data = [];
 
 	/**
 	* Set template data
-	*
-	* @param string $section Name of the section
-	* @param array	$data	 Block data
-	* @return void
 	*/
 	public function set_data(string $section, array $data): void
 	{
@@ -32,9 +28,6 @@ class event
 
 	/**
 	* Get data from a given section
-	*
-	* @param string $section Name of the section
-	* @return array
 	*/
 	public function get(string $section): array
 	{
