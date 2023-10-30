@@ -10,15 +10,10 @@
 
 namespace ganstaz\gzo\src\entity\type;
 
-/**
-* Entity type interface
-*/
 interface type_interface
 {
 	/**
 	* Returns the entity type
-	*
-	* @return string Entity type
 	*/
-	public function get_type();
+	public function get_type(): string;
 }
