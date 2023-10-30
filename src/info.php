@@ -14,7 +14,7 @@ use phpbb\auth\auth;
 use phpbb\config\config;
 use phpbb\db\driver\driver_interface;
 use phpbb\event\dispatcher;
-use phpbb\template\template;
+use phpbb\template\twig\twig;
 use phpbb\user;
 
 /**
@@ -22,69 +22,20 @@ use phpbb\user;
 */
 class info
 {
-	/** @var auth */
-	protected $auth;
-
-	/** @var config */
-	protected $config;
-
-	/** @var driver_interface */
-	protected $db;
-
-	/** @var dispatcher */
-	protected $dispatcher;
-
-	/** @var template */
-	protected $template;
-
-	/** @var user */
-	protected $user;
-
-	/** @var root_path */
-	protected $root_path;
-
-	/** @var php_ext */
-	protected $php_ext;
-
-	/**
-	* Constructor
-	*
-	* @param auth			  $auth		  Auth object
-	* @param config			  $config	  Config object
-	* @param driver_interface $db		  Database object
-	* @param dispatcher		  $dispatcher Dispatcher object
-	* @param template		  $template	  Template object
-	* @param user			  $user		  User object
-	* @param string			  $root_path  Path to the phpbb includes directory
-	* @param string			  $php_ext	  PHP file extension
-	*/
 	public function __construct
 	(
-		auth $auth,
-		config $config,
-		driver_interface $db,
-		dispatcher $dispatcher,
-		template $template,
-		user $user,
-		$root_path,
-		$php_ext
+		private auth $auth,
+		private config $config,
+		private driver_interface $db,
+		private dispatcher $dispatcher,
+		private twig $twig,
+		private user $user,
+		private readonly string $root_path,
+		private readonly string $php_ext
 	)
 	{
-		$this->auth			= $auth;
-		$this->config		= $config;
-		$this->db			= $db;
-		$this->dispatcher	= $dispatcher;
-		$this->template		= $template;
-		$this->user			= $user;
-		$this->root_path	= $root_path;
-		$this->php_ext		= $php_ext;
 	}
 
-	/**
-	* Birthdays
-	*
-	* @return void
-	*/
 	public function birthdays(): void
 	{
 		$birthdays = [];
@@ -154,14 +105,9 @@ class info
 		$vars = ['birthdays', 'rows'];
 		extract($this->dispatcher->trigger_event('core.index_modify_birthdays_list', compact($vars)));
 
-		$this->template->assign_block_vars_array('birthdays', $birthdays);
+		$this->twig->assign_block_vars_array('birthdays', $birthdays);
 	}
 
-	/**
-	* Legend
-	*
-	* @return void
-	*/
 	public function legend(): void
 	{
 		$order_legend = ($this->config['legend_sort_groupname']) ? 'group_name' : 'group_legend';
@@ -190,7 +136,7 @@ class info
 
 		while ($row = $this->db->sql_fetchrow($result))
 		{
-			$this->template->assign_block_vars('legend', [
+			$this->twig->assign_block_vars('legend', [
 				'color' => (string) $row['group_colour'],
 				'name'	=> (string) $row['group_name'],
 				'link'	=> (string) append_sid("{$this->root_path}memberlist.$this->php_ext", "mode=group&amp;g={$row['group_id']}"),
@@ -200,11 +146,6 @@ class info
 		$this->db->sql_freeresult($result);
 	}
 
-	/**
-	* Show birthdays if available
-	*
-	* @return bool
-	*/
 	public function show_birthdays(): bool
 	{
 		return ($this->config['load_birthdays'] && $this->config['allow_birthdays'] && $this->auth->acl_gets('u_viewprofile', 'a_user', 'a_useradd', 'a_userdel'));
@@ -212,11 +153,8 @@ class info
 
 	/**
 	* Is visitor a bot or does he/she have permissions
-	*
-	* @param array $row Groups data
-	* @return bool
 	*/
-	protected function not_authed($row): bool
+	protected function not_authed(array $row): bool
 	{
 		return $row['group_name'] == 'BOTS' || ($this->user->data['user_id'] != ANONYMOUS && !$this->auth->acl_get('u_viewprofile'));
 	}

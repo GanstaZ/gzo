@@ -45,6 +45,9 @@ class articles extends abstract_controller
 			->trim_messages(true)
 			->base($id);
 
+		$data = $this->posts->breadcrumb;
+		$this->helper->assign_breadcrumb($data[0], $data[1], $data[2]);
+
 		return $this->helper->controller_helper->render('news.twig', $this->helper->language->lang('VIEW_NEWS', $id), 200, true);
 	}
 
@@ -77,6 +80,9 @@ class articles extends abstract_controller
 	{
 		$this->posts->trim_messages(false)
 			->get_first_post($aid);
+
+		$data = $this->posts->breadcrumb;
+		$this->helper->assign_breadcrumb($data[0], $data[1], $data[2]);
 
 		return $this->helper->controller_helper->render('article.twig', $this->helper->language->lang('VIEW_ARTICLE', $aid), 200, true);
 	}

@@ -17,17 +17,6 @@ services:
             - '%core.root_path%'
             - '%core.php_ext%'
 
-    ganstaz.gzo.base_controller:
-        abstract: true
-        arguments:
-            - '@config'
-            - '@controller.helper'
-            - '@language'
-            - '@user'
-            - '@ganstaz.gzo.posts'
-            - '%core.root_path%'
-            - '%core.php_ext%'
-
     ganstaz.gzo.index_controller:
         class: ganstaz\gzo\src\controller\index
         shared: false

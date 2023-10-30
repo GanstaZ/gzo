@@ -12,34 +12,15 @@ namespace ganstaz\gzo\src;
 
 use phpbb\language\language;
 
-/**
-* Time class
-*/
 class time
 {
-	/** @var language */
-	protected $language;
+	protected int $length = 1;
 
-	/** @var string used in our time ago output */
-	protected $length = 1;
-
-	/**
-	* Constructor
-	*
-	* @param language $language Language object
-	*/
-	public function __construct(language $language)
+	public function __construct(private language $language)
 	{
-		$this->language = $language;
 	}
 
-	/**
-	* Time ago
-	*
-	* @param string $date
-	* @return string
-	*/
-	public function ago($date): string
+	public function ago(string $date): string
 	{
 		$interval = date_create('now')->diff(new \DateTime($date));
 
@@ -65,9 +46,8 @@ class time
 	* Plural
 	*
 	* @param array $unit Time units (1, 2, 3... [numbers] & s, i, h... [sec, min aso])
-	* @return string
 	*/
-	protected function plural($unit): string
+	protected function plural(array $unit): string
 	{
 		$uot = (string) key($unit);
 		$int = (int) $unit[$uot];
@@ -80,9 +60,8 @@ class time
 	*
 	* @param string $uot Unit of time [second, minute...]
 	* @param int	$int Time value [1, 2...]
-	* @return string
 	*/
-	protected function calculate($uot, $int): ?string
+	protected function calculate(string $uot, int $int): ?array
 	{
 		$arr = [];
 		if ($uot !== 'year' || $int < 10)
