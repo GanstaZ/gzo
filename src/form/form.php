@@ -10,9 +10,9 @@
 
 namespace ganstaz\gzo\src\form;
 
-/**
-* Form class
-*/
+use phpbb\request\request;
+use phpbb\template\twig\twig;
+
 final class form
 {
 	/** @var string form key */
@@ -33,38 +33,30 @@ final class form
 	/** @var array Contains option types */
 	private array $option_types = ['value', 'current', 'custom', 'choices', 'values', 'attributes', 'classes', 'constraints', 'explain', 'group', 'params', 'keys'];
 
-	/** @var request */
-	private object $request;
-
-	/** @var template */
-	private object $template;
-
-	public function __construct($request, $template)
+	public function __construct(
+		private request $request,
+		private twig $twig
+	)
 	{
-		$this->request	= $request;
-		$this->template = $template;
 	}
 
-	public function create_view(string $u_action)
+	public function create_view(string $u_action): void
 	{
 		foreach ($this->children as $child => $data)
 		{
 			$form_name = $data['group'] ? $data['group'] : 'form';
-			$this->template->assign_block_vars($form_name, [
+			$this->twig->assign_block_vars($form_name, [
 				'name'	  => $child,
 				'type'	  => $data['type'],
 				'OPTIONS' => $data['options'],
 			]);
 		}
 
-		$this->template->assign_var('U_ACTION', $u_action);
+		$this->twig->assign_var('U_ACTION', $u_action);
 	}
 
 	/**
 	* Build form
-	*
-	* @param array	$form_data
-	* @return self
 	*/
 	public function build(array $form_data, bool $s_config = false): self
 	{
@@ -178,9 +170,6 @@ final class form
 
 	/**
 	* Add form key for form validation checks
-	*
-	* @param string $key Form key
-	* @return void
 	*/
 	public function add_form_key(string $key): void
 	{
@@ -191,9 +180,6 @@ final class form
 
 	/**
 	* Check if our form is valid
-	*
-	* @throws \phpbb\exception\http_exception
-	* @return bool
 	*/
 	public function is_valid(): bool
 	{
@@ -218,9 +204,6 @@ final class form
 
 	/**
 	* Get form data from a given child
-	*
-	* @param string $child Name attribute
-	* @return array
 	*/
 	public function get(string $child): array
 	{
@@ -229,9 +212,6 @@ final class form
 
 	/**
 	* Is set post
-	*
-	* @param string $name The name of the form variable which should have a
-	* @return bool
 	*/
 	protected function is_set_post(string $name): bool
 	{
