@@ -10,74 +10,44 @@
 
 namespace ganstaz\gzo\src\tabs\type;
 
+use phpbb\auth\auth;
+use phpbb\db\driver\driver_interface;
+use phpbb\event\dispatcher;
+use phpbb\controller\helper as controller;
+use phpbb\language\language;
+use phpbb\template\twig\twig;
+use phpbb\user;
+
 use phpbb\config\config;
 use phpbb\group\helper as group;
 use phpbb\profilefields\manager as cp;
 
-/**
-* Profile tab
-*/
 class profile extends base
 {
-	/** @var config */
-	protected $config;
-
-	/** @var group */
-	protected $group;
-
-	/** @var profilefields manager */
-	protected $cp;
-
-	/** @var string phpBB admin path */
-	protected $admin_path;
-
-	/** @var root_path */
-	protected $root_path;
-
-	/** @var php_ext */
-	protected $php_ext;
-
-	/**
-	* Constructor
-	*
-	* @param config	$config		Config object
-	* @param group	$group		Group helper object
-	* @param cp		$cp			Profilefields manager object
-	* @param string $admin_path phpBB admin path
-	* @param string	$root_path	Path to the phpbb includes directory
-	* @param string	$php_ext	PHP file extension
-	*/
 	public function __construct
 	(
-		$auth,
-		$db,
-		$dispatcher,
-		$controller,
-		$language,
-		$template,
-		$user,
-		$config,
-		$group,
-		$cp,
-		$admin_path,
-		$root_path,
-		$php_ext
+		auth $auth,
+		driver_interface $db,
+		dispatcher $dispatcher,
+		controller $controller,
+		language $language,
+		twig $twig,
+		user $user,
+		private config $config,
+		private group $group,
+		private cp $cp,
+		private readonly string $admin_path,
+		private readonly string $root_path,
+		private readonly string $php_ext
 	)
 	{
-		parent::__construct($auth, $db, $dispatcher, $controller, $language, $template, $user);
-
-		$this->config	  = $config;
-		$this->group	  = $group;
-		$this->cp		  = $cp;
-		$this->admin_path = $admin_path;
-		$this->root_path  = $root_path;
-		$this->php_ext	  = $php_ext;
+		parent::__construct($auth, $db, $dispatcher, $controller, $language, $twig, $user);
 	}
 
 	/**
 	* {@inheritdoc}
 	*/
-	public function namespace()
+	public function namespace(): string
 	{
 		return '@ganstaz_gzo/';
 	}
@@ -331,7 +301,7 @@ class profile extends base
 		];
 		extract($this->dispatcher->trigger_event('core.memberlist_view_profile', compact($vars)));
 
-		$this->template->assign_vars(phpbb_show_profile($member, $user_notes_enabled, $warn_user_enabled));
+		$this->twig->assign_vars(phpbb_show_profile($member, $user_notes_enabled, $warn_user_enabled));
 
 		// If the user has m_approve permission or a_user permission, then list then display unapproved posts
 		if ($this->auth->acl_getf_global('m_approve') || $this->auth->acl_get('a_user'))
@@ -393,18 +363,18 @@ class profile extends base
 		extract($this->dispatcher->trigger_event('core.memberlist_modify_view_profile_template_vars', compact($vars)));
 
 		// Assign vars to profile.twig
-		$this->template->assign_vars($template_ary);
+		$this->twig->assign_vars($template_ary);
 
 		if (!empty($profile_fields['row']))
 		{
-			$this->template->assign_vars($profile_fields['row']);
+			$this->twig->assign_vars($profile_fields['row']);
 		}
 
 		if (!empty($profile_fields['blockrow']))
 		{
 			foreach ($profile_fields['blockrow'] as $field_data)
 			{
-				$this->template->assign_block_vars('custom_fields', $field_data);
+				$this->twig->assign_block_vars('custom_fields', $field_data);
 			}
 		}
 
@@ -434,7 +404,7 @@ class profile extends base
 				break;
 			}
 
-			$this->template->assign_vars([
+			$this->twig->assign_vars([
 				'S_USER_INACTIVE'		=> true,
 				'USER_INACTIVE_REASON'	=> $inactive_reason]
 			);
