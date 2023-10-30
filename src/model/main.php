@@ -17,7 +17,7 @@ use phpbb\controller\helper as controller;
 use phpbb\language\language;
 use phpbb\notification\manager as notifications;
 use phpbb\request\request;
-use phpbb\template\template;
+use phpbb\template\twig\twig;
 use phpbb\user;
 use ganstaz\gzo\src\info;
 use phpbb\exception\http_exception;
@@ -27,83 +27,22 @@ use phpbb\exception\http_exception;
 */
 class main
 {
-	/** @var auth */
-	protected $auth;
-
-	/** @var config */
-	protected $config;
-
-	/** @var dispatcher */
-	protected $dispatcher;
-
-	/** @var controller helper */
-	protected $controller;
-
-	/** @var language */
-	protected $language;
-
-	/** @var notifications */
-	protected $notifications;
-
-	/** @var request */
-	protected $request;
-
-	/** @var template */
-	protected $template;
-
-	/** @var user */
-	protected $user;
-
-	/** @var info */
-	protected $info;
-
-	/** @var root_path */
-	protected $root_path;
-
-	/** @var php_ext */
-	protected $php_ext;
-
-	/**
-	* Constructor
-	*
-	* @param auth			  $auth		  Auth object
-	* @param config			  $config	  Config object
-	* @param dispatcher		  $dispatcher Dispatcher object
-	* @param controller		  $controller Controller helper object
-	* @param language		  $language	  Language object
-	* @param template		  $template	  Template object
-	* @param user			  $user		  User object
-	* @param string			  $root_path  Path to the phpbb includes directory
-	* @param string			  $php_ext	  PHP file extension
-	*/
 	public function __construct
 	(
-		auth $auth,
-		config $config,
-		dispatcher $dispatcher,
-		controller $controller,
-		language $language,
-		notifications $notifications,
-		request $request,
-		template $template,
-		user $user,
-		info $info,
-		$root_path,
-		$php_ext
+		private auth $auth,
+		private config $config,
+		private dispatcher $dispatcher,
+		private controller $controller,
+		private language $language,
+		private notifications $notifications,
+		private request $request,
+		private twig $twig,
+		private user $user,
+		private info $info,
+		private string $root_path,
+		private string $php_ext
 	)
 	{
-		$this->auth			 = $auth;
-		$this->config		 = $config;
-		$this->dispatcher	 = $dispatcher;
-		$this->controller	 = $controller;
-		$this->language		 = $language;
-		$this->notifications = $notifications;
-		$this->request		 = $request;
-		$this->template		 = $template;
-		$this->user			 = $user;
-		$this->info			 = $info;
-		$this->root_path	 = $root_path;
-		$this->php_ext		 = $php_ext;
 	}
 
 	public function load()
@@ -178,7 +117,7 @@ class main
 		$this->info->legend();
 
 		// Assign index specific vars
-		$this->template->assign_vars([
+		$this->twig->assign_vars([
 			'TOTAL_POSTS'  => (int) $this->config['num_posts'],
 			'TOTAL_TOPICS' => (int) $this->config['num_topics'],
 			'TOTAL_USERS'  => (int) $this->config['num_users'],

@@ -22,130 +22,52 @@ use phpbb\template\template;
 use phpbb\user;
 use ganstaz\gzo\src\helper;
 use ganstaz\gzo\src\event\events;
+use phpbb\exception\http_exception;
 
 /**
 * Posts model
 */
 class posts
 {
-	/** @var auth */
-	protected $auth;
+	protected int $page = 0;
+	public readonly array $breadcrumb;
+	protected bool $trim_messages = false;
+	protected bool $is_trimmed = false;
+	protected string $news_order = 'p.post_id DESC';
 
-	/** @var config */
-	protected $config;
-
-	/** @var driver_interface */
-	protected $db;
-
-	/** @var dispatcher */
-	protected $dispatcher;
-
-	/** @var controller helper */
-	protected $controller;
-
-	/** @var language */
-	protected $language;
-
-	/** @var pagination */
-	protected $pagination;
-
-	/** @var s9e renderer */
-	protected $renderer;
-
-	/** @var template */
-	protected $template;
-
-	/** @var user */
-	protected $user;
-
-	/** @var root_path */
-	protected $root_path;
-
-	/** @var php_ext */
-	protected $php_ext;
-
-	/** @var helper */
-	protected $helper;
-
-	/** @var int Page offset for pagination */
-	protected $page;
-
-	/** @var bool enable trim */
-	protected $trim_messages = false;
-
-	/** @var bool is trimmed */
-	protected $is_trimmed;
-
-	/** @var string news order */
-	protected $news_order = 'p.post_id DESC';
-
-	/**
-	* Constructor
-	*
-	* @param auth			  $auth		  Auth object
-	* @param config			  $config	  Config object
-	* @param driver_interface $db		  Database object
-	* @param dispatcher		  $dispatcher Dispatcher object
-	* @param controller		  $controller Controller helper object
-	* @param language		  $language	  Language object
-	* @param pagination		  $pagination Pagination object
-	* @param renderer		  $renderer	  s9e renderer object
-	* @param template		  $template	  Template object
-	* @param user			  $user		  User object
-	* @param helper			  $helper	  Posts helper object
-	* @param string			  $root_path  Path to the phpbb includes directory
-	* @param string			  $php_ext	  PHP file extension
-	*/
 	public function __construct
 	(
-		auth $auth,
-		config $config,
-		driver_interface $db,
-		dispatcher $dispatcher,
-		controller $controller,
-		language $language,
-		pagination $pagination,
-		renderer $renderer,
-		$template,
-		user $user,
-		helper $helper,
-		$root_path,
-		$php_ext
+		private auth $auth,
+		private config $config,
+		private driver_interface $db,
+		private dispatcher $dispatcher,
+		private controller $controller,
+		private language $language,
+		private pagination $pagination,
+		private renderer $renderer,
+		private template $template,
+		private user $user,
+		private helper $helper,
+		private readonly string $root_path,
+		private readonly string $php_ext
 	)
 	{
-		$this->auth		  = $auth;
-		$this->config	  = $config;
-		$this->db		  = $db;
-		$this->dispatcher = $dispatcher;
-		$this->controller = $controller;
-		$this->language	  = $language;
-		$this->pagination = $pagination;
-		$this->renderer	  = $renderer;
-		$this->template	  = $template;
-		$this->user		  = $user;
-		$this->helper	  = $helper;
-		$this->root_path  = $root_path;
-		$this->php_ext	  = $php_ext;
 	}
 
-	/**
-	* Set page start
-	*
-	* @param int $page
-	* @return self
-	*/
-	public function set_page(int $page): self
+	public function set_page_offset(int $page): self
 	{
 		$this->page = ($page - 1) * (int) $this->config['gzo_limit'];
 
 		return $this;
 	}
 
+	public function set_breadcrumb_data(array $data): void
+	{
+		$this->breadcrumb = $data;
+	}
+
 	/**
 	* Trim messages [Set to true if you want news to be trimmed]
-	*
-	* @param bool $bool
-	* @return self
 	*/
 	public function trim_messages(bool $bool): self
 	{
@@ -155,28 +77,7 @@ class posts
 	}
 
 	/**
-	* Assign breadcrumb
-	*
-	* @param string $name	Name of the breadcrumb
-	* @param string $route	Name of the route
-	* @param array	$params Additional params
-	* @return self
-	*/
-	public function assign_breadcrumb(string $name, string $route, array $params): self
-	{
-		$this->template->assign_block_vars('navlinks', [
-			'FORUM_NAME'   => $name,
-			'U_VIEW_FORUM' => $this->controller->route($route, $params),
-		]);
-
-		return $this;
-	}
-
-	/**
 	* News categories
-	*
-	* @param int $fid
-	* @return string
 	*/
 	public function categories(int $fid): string
 	{
@@ -204,15 +105,12 @@ class posts
 
 	/**
 	* Articles base
-	*
-	* @param int $forum_id Forum id to fetch news data
-	* @return void
 	*/
 	public function base(int $forum_id): void
 	{
 		$default = [(int) $this->config['gzo_main_fid'], (int) $this->config['gzo_news_fid'],];
 
-		/** @event ganstaz.gzo.posts_add_category */
+		/** @event events::GZO_POSTS_ADD_CATEGORY */
 		$vars = ['default'];
 		extract($this->dispatcher->trigger_event(events::GZO_POSTS_ADD_CATEGORY, compact($vars)));
 
@@ -221,7 +119,7 @@ class posts
 		// Check news id
 		if (!in_array($forum_id, $category_ids) && !in_array($forum_id, $default))
 		{
-			throw new \phpbb\exception\http_exception(404, 'NO_FORUM', [$forum_id]);
+			throw new http_exception(404, 'NO_FORUM', [$forum_id]);
 		}
 
 		// Check permissions
@@ -229,7 +127,7 @@ class posts
 		{
 			if ($this->user->data['user_id'] != ANONYMOUS)
 			{
-				throw new \phpbb\exception\http_exception(403, 'SORRY_AUTH_READ', [$forum_id]);
+				throw new http_exception(403, 'SORRY_AUTH_READ', [$forum_id]);
 			}
 
 			login_box('', $this->language->lang('LOGIN_VIEWFORUM'));
@@ -238,7 +136,9 @@ class posts
 		$category = $this->categories($forum_id);
 
 		// Assign breadcrumb
-		$this->assign_breadcrumb($category, 'ganstaz_gzo_news', ['id' => $forum_id]);
+		$this->set_breadcrumb_data([
+			$category, 'ganstaz_gzo_news', ['id' => $forum_id]
+		]);
 
 		$categories = [];
 		foreach ($category_ids as $cid)
@@ -289,10 +189,6 @@ class posts
 
 	/**
 	* Get sql data
-	*
-	* @param int	$id	   id to get news or article data
-	* @param string $where query where clause [forum or topic]
-	* @return array
 	*/
 	public function get_sql_data(int $id, string $where = 'forum'): array
 	{
@@ -333,9 +229,6 @@ class posts
 
 	/**
 	* Get template data
-	*
-	* @param array $row data array
-	* @return array
 	*/
 	public function get_template_data(array $row): array
 	{
@@ -372,9 +265,6 @@ class posts
 
 	/**
 	* Trim message
-	*
-	* @param string $text
-	* @return string
 	*/
 	public function trim_message(string $text): string
 	{
@@ -393,9 +283,6 @@ class posts
 
 	/**
 	* Get forum id
-	*
-	* @param int $topic_id the id of the article
-	* @return array
 	*/
 	public function get_forum_id(int $topic_id): array
 	{
@@ -411,13 +298,9 @@ class posts
 
 	/**
 	* Get first post (without any comments)
-	*
-	* @param int $topic_id the id of the article
-	* @return void
 	*/
 	public function get_first_post(int $topic_id): void
 	{
-		// Do the sql thang
 		$sql_ary = $this->get_sql_data($topic_id, 'topic');
 		$sql = $this->db->sql_build_query('SELECT', $sql_ary);
 		$result = $this->db->sql_query($sql, 86400);
@@ -425,17 +308,19 @@ class posts
 
 		if (!$row)
 		{
-			throw new \phpbb\exception\http_exception(404, 'NO_TOPICS', [$row]);
+			throw new http_exception(404, 'NO_TOPICS', [$row]);
 		}
 
 		$template_data = $this->get_template_data($row);
 
-		/** @event ganstaz.gzo.article_modify_template_data */
+		/** @event events::GZO_ARTICLE_MODIFY_TEMPLATE_DATA */
 		$vars = ['template_data'];
 		extract($this->dispatcher->trigger_event(events::GZO_ARTICLE_MODIFY_TEMPLATE_DATA, compact($vars)));
 
-		// Assign breadcrumb
-		$this->assign_breadcrumb($template_data['title'], 'ganstaz_gzo_first_post', ['aid' => $topic_id]);
+		// Assign breadcrumb data
+		$this->set_breadcrumb_data([
+			$template_data['title'], 'ganstaz_gzo_first_post', ['aid' => $topic_id]
+		]);
 
 		$this->template->assign_block_vars('article', $template_data);
 
