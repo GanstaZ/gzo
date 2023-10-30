@@ -17,17 +17,8 @@ use phpbb\config\config as phpbb_config;
 */
 final class config implements type_interface
 {
-	/** @var phpbb_config */
-	private object $phpbb_config;
-
-	/**
-	* Constructor
-	*
-	* @param phpbb_config $phpbb_config Config object
-	*/
-	public function __construct(phpbb_config $phpbb_config)
+	public function __construct(private phpbb_config $phpbb_config)
 	{
-		$this->phpbb_config = $phpbb_config;
 	}
 
 	/**
@@ -42,7 +33,9 @@ final class config implements type_interface
 	{
 		foreach ($data as $key => $value)
 		{
+			// TODO: To be removed
 			var_dump($key . ' ' . $value);
+
 			$this->phpbb_config->set($key, $value);
 		}
 	}

@@ -37,7 +37,7 @@ class m6_pages extends \phpbb\db\migration\migration
 	*/
 	public function add_pages(): void
 	{
-		if ($this->db_tools->sql_table_exists($this->table_prefix . 'gzo_pages'))
+		if ($this->db_tools->sql_table_exists($this->table_prefix . gzo::PAGES))
 		{
 			$pages_data = [
 				[
@@ -86,7 +86,7 @@ class m6_pages extends \phpbb\db\migration\migration
 				],
 			];
 
-			$insert_buffer = new \phpbb\db\sql_insert_buffer($this->db, $this->table_prefix . 'gzo_pages');
+			$insert_buffer = new \phpbb\db\sql_insert_buffer($this->db, $this->table_prefix . gzo::PAGES);
 
 			foreach ($pages_data as $row)
 			{

@@ -15,87 +15,38 @@ use phpbb\db\driver\driver_interface;
 use phpbb\event\dispatcher;
 use phpbb\controller\helper as controller;
 use phpbb\language\language;
-use phpbb\template\template;
+use phpbb\template\twig\twig;
 use phpbb\user;
 use phpbb\exception\http_exception;
 
-/**
-* Base class for tabs
-*/
 abstract class base implements tabs_interface
 {
-	/** @var auth */
-	protected $auth;
+	protected string $name;
+	protected string $icon = 'bug';
+	protected bool $active_session = false;
 
-	/** @var driver_interface */
-	protected $db;
-
-	/** @var dispatcher */
-	protected $dispatcher;
-
-	/** @var controller helper */
-	protected $controller;
-
-	/** @var language */
-	protected $language;
-
-	/** @var template */
-	protected $template;
-
-	/** @var user */
-	protected $user;
-
-	/** @var string name */
-	protected $name;
-
-	/** @var bool active session */
-	protected $active_session = false;
-
-	/**
-	* Constructor
-	*
-	* @param auth			  $auth		  Auth object
-	* @param driver_interface $db		  Database object
-	* @param dispatcher		  $dispatcher Dispatcher object
-	* @param controller		  $controller Controller helper object
-	* @param language		  $language	  Language object
-	* @param template		  $template	  Template object
-	* @param user			  $user		  User object
-	*/
 	public function __construct
 	(
-		auth $auth,
-		driver_interface $db,
-		dispatcher $dispatcher,
-		controller $controller,
-		language $language,
-		template $template,
-		user $user
+		protected auth $auth,
+		protected driver_interface $db,
+		protected dispatcher $dispatcher,
+		protected controller $controller,
+		protected language $language,
+		protected twig $twig,
+		protected user $user
 	)
 	{
-		$this->auth		  = $auth;
-		$this->db		  = $db;
-		$this->dispatcher = $dispatcher;
-		$this->controller = $controller;
-		$this->language	  = $language;
-		$this->template	  = $template;
-		$this->user		  = $user;
 	}
 
 	/**
-	* Returns the namespace
-	*
-	* @return string Twig namespace
+	* Returns Twig namespace
 	*/
-	abstract protected function namespace();
+	abstract protected function namespace(): string;
 
 	/**
 	* Load current user
-	*
-	* @param string $username Name of the member
-	* @return void
 	*/
-	abstract protected function load(string $username);
+	abstract protected function load(string $username): void;
 
 	/**
 	* {@inheritdoc}
@@ -123,9 +74,6 @@ abstract class base implements tabs_interface
 
 	/**
 	* Get user data
-	*
-	* @param string $username
-	* @return array
 	*/
 	public function get_user_data(string $username): array
 	{
@@ -179,8 +127,6 @@ abstract class base implements tabs_interface
 
 	/**
 	* Is active session
-	*
-	* @return bool
 	*/
 	public function is_active_session(): bool
 	{

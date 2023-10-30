@@ -18,34 +18,15 @@ use phpbb\cache\service as cache;
 */
 final class manager
 {
-	/** @var cache */
-	private object $cache;
-
 	/** @var array Contains entity types */
 	private static array $types = [];
 
-	/**
-	* Constructor
-	*
-	* @param service_collection $collection Entity types
-	* @param cache				$cache Cache object
-	*/
-	public function __construct(service_collection $collection, cache $cache)
+	public function __construct(
+		private service_collection $collection,
+		private cache $cache
+	)
 	{
-		$this->cache = $cache;
-
-		$this->register_entity_types($collection);
-	}
-
-	/**
-	* Register all available types
-	*
-	* @param Service collection of entity types
-	* @return void
-	*/
-	protected function register_entity_types($collection): void
-	{
-		if (!empty($collection))
+		if ($collection)
 		{
 			foreach ($collection as $type)
 			{
@@ -56,19 +37,14 @@ final class manager
 
 	/**
 	* Get entity type by name
-	*
-	* @param string $name Name of the type
-	* @return object
 	*/
-	public function type($name): object
+	public function type(string $name): object
 	{
 		return self::$types[$name] ?? (object) [];
 	}
 
 	/**
 	* Get all available types
-	*
-	* @return array
 	*/
 	public function available(): array
 	{

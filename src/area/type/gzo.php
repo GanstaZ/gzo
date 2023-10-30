@@ -8,9 +8,8 @@
 *
 */
 
-namespace ganstaz\gzo\src\area;
+namespace ganstaz\gzo\src\area\type;
 
-use ganstaz\gzo\src\area\area_base;
 use phpbb\exception\http_exception;
 
 class gzo extends area_base

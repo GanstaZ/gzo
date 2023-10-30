@@ -17,17 +17,8 @@ use phpbb\config\db_text;
 */
 final class config_text implements type_interface
 {
-	/** @var db_text */
-	private object $config_text;
-
-	/**
-	* Constructor
-	*
-	* @param db_text $config_text Config text object
-	*/
-	public function __construct(db_text $config_text)
+	public function __construct(private db_text $config_text)
 	{
-		$this->config_text = $config_text;
 	}
 
 	/**

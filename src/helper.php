@@ -17,23 +17,12 @@ use phpbb\db\driver\driver_interface;
 */
 class helper
 {
-	/** @var driver_interface */
-	protected $db;
-
-	/**
-	* Constructor
-	*
-	* @param driver_interface $db Database object
-	*/
-	public function __construct(driver_interface $db)
+	public function __construct(private driver_interface $db)
 	{
-		$this->db = $db;
 	}
 
 	/**
 	* Get options as forum_ids
-	*
-	* @return array
 	*/
 	public function get_forum_ids(): array
 	{
@@ -55,11 +44,8 @@ class helper
 
 	/**
 	* Get username
-	*
-	* @param int $user_id
-	* @return array
 	*/
-	public function get_user_name(int $user_id)
+	public function get_user_name(int $user_id): string
 	{
 		$sql = 'SELECT username
 				FROM ' . USERS_TABLE . '
@@ -73,13 +59,8 @@ class helper
 
 	/**
 	* Truncate title
-	*
-	* @param string		 $title	 Truncate title
-	* @param int		 $length Max length of the string
-	* @param null|string $ellips Language ellips
-	* @return string
 	*/
-	public function truncate(string $title, int $length, $ellips = null): string
+	public function truncate(string $title, int $length, ?string $ellips = null): string
 	{
 		return truncate_string(censor_text($title), $length, 255, false, $ellips ?? '...');
 	}

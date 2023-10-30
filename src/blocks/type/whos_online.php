@@ -10,6 +10,12 @@
 
 namespace ganstaz\gzo\src\blocks\type;
 
+use phpbb\config\config;
+use phpbb\db\driver\driver_interface;
+use phpbb\controller\helper as controller;
+use phpbb\template\twig\twig;
+use phpbb\event\dispatcher;
+use ganstaz\gzo\src\helper;
 use ganstaz\gzo\src\info;
 use ganstaz\gzo\src\event\events;
 
@@ -18,19 +24,19 @@ use ganstaz\gzo\src\event\events;
 */
 class whos_online extends base
 {
-	/** @var info */
-	protected $info;
-
-	/**
-	* Constructor
-	*
-	* @param info $info Forum info helper object
-	*/
-	public function __construct($config, $db, $controller, $template, $dispatcher, $helper, $root_path, $php_ext, info $info)
+	public function __construct(
+		config $config,
+		driver_interface $db,
+		controller $controller,
+		twig $twig,
+		dispatcher $dispatcher,
+		helper $helper,
+		string $root_path,
+		string $php_ext,
+		private info $info
+	)
 	{
-		parent::__construct($config, $db, $controller, $template, $dispatcher, $helper, $root_path, $php_ext);
-
-		$this->info = $info;
+		parent::__construct($config, $db, $controller, $twig, $dispatcher, $helper, $root_path, $php_ext);
 	}
 
 	/**
@@ -67,7 +73,7 @@ class whos_online extends base
 
 		$this->info->legend();
 
-		$this->template->assign_vars([
+		$this->twig->assign_vars([
 			'TOTAL_POSTS'  => $total_posts,
 			'TOTAL_TOPICS' => $total_topics,
 			'TOTAL_USERS'  => $total_users,
@@ -79,7 +85,7 @@ class whos_online extends base
 			'S_DISPLAY_BIRTHDAY_LIST' => $this->info->show_birthdays(),
 		]);
 
-		/** @event ganstaz.gzo.main_blocks_after */
+		/** events::GZO_MAIN_BLOCKS_AFTER */
 		$this->dispatcher->dispatch(events::GZO_MAIN_BLOCKS_AFTER);
 	}
 }

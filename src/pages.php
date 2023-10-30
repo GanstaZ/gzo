@@ -20,49 +20,19 @@ use phpbb\user;
 */
 class pages
 {
-	/** @var cache */
-	protected $cache;
-
-	/** @var config */
-	protected $config;
-
-	/** @var driver_interface */
-	protected $db;
-
-	/** @var user */
-	protected $user;
-
-	/** @var page table */
-	protected $page_data;
-
-	/** @var php file extension */
-	protected $php_ext;
-
-	/** @var array allow */
-	protected $allow = [];
-
+	protected array $allow = [];
 	private bool $is_page_admin = false;
-
 	private bool $is_pagename_app = false;
 
-	/**
-	* Constructor
-	*
-	* @param cache			  $cache	 Cache object
-	* @param config			  $config	 Config object
-	* @param driver_interface $db		 Database object
-	* @param user			  $user		 User object
-	* @param string			  $page_data The name of the page data table
-	* @param string			  $php_ext	 PHP file extension
-	*/
-	public function __construct(cache $cache, config $config, driver_interface $db, user $user, $page_data, $php_ext)
+	public function __construct(
+		private cache $cache,
+		private config $config,
+		private driver_interface $db,
+		private user $user,
+		private string $page_data,
+		private string $php_ext
+	)
 	{
-		$this->cache	 = $cache;
-		$this->config	 = $config;
-		$this->db		 = $db;
-		$this->user		 = $user;
-		$this->page_data = $page_data;
-		$this->php_ext	 = $php_ext;
 	}
 
 	public function is_pagename_app(): bool
@@ -75,11 +45,6 @@ class pages
 		return $this->is_page_admin;
 	}
 
-	/**
-	* Get current page
-	*
-	* @return string
-	*/
 	public function get_current_page(): string
 	{
 		return substr($this->user->page['page_name'], 0, strpos($this->user->page['page_name'], '.'));
@@ -87,8 +52,6 @@ class pages
 
 	/**
 	* Get page data for blocks loader
-	*
-	* @return array
 	*/
 	public function get_page_data(): array
 	{
@@ -120,9 +83,6 @@ class pages
 
 	/**
 	* Check, if we are in cps or not
-	*
-	* @param string $page_name Current page name
-	* @return bool
 	*/
 	public function is_cp(string $page_name): bool
 	{
@@ -130,10 +90,7 @@ class pages
 	}
 
 	/**
-	* Check, if page is in allowed array or not
-	*
-	* @param string $name Current page name
-	* @return bool
+	* Check, if current page is in allowed array or not
 	*/
 	protected function allow(string $name): bool
 	{
@@ -142,8 +99,6 @@ class pages
 
 	/**
 	* Check, if page is special/allowed
-	*
-	* @return void
 	*/
 	protected function check_allowed_condition(): void
 	{
@@ -165,9 +120,6 @@ class pages
 
 	/**
 	* Get page data
-	*
-	* @param string $name Page name
-	* @return array
 	*/
 	public function get(string $name): array
 	{

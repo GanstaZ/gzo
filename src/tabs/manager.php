@@ -13,62 +13,26 @@ namespace ganstaz\gzo\src\tabs;
 use phpbb\di\service_collection;
 use phpbb\controller\helper as controller;
 use phpbb\language\language;
-use phpbb\template\template;
+use phpbb\template\twig\twig;
 
 /**
 * Tabs manager
 */
 class manager
 {
-	/** @var controller helper */
-	protected $controller;
+	protected static array $tabs = [];
 
-	/** @var language */
-	protected $language;
-
-	/** @var template */
-	protected $template;
-
-	/** @var array Contains all available tabs */
-	protected static $tabs = false;
-
-	/** @var root_path */
-	protected $root_path;
-
-	/** @var php_ext */
-	protected $php_ext;
-
-	/**
-	* Constructor
-	*
-	* @param service_collection $collection Our tabs
-	* @param controller			$controller Controller helper object
-	* @param language			$language	Language object
-	* @param template			$template	Template object
-	* @param string				$root_path	Path to the phpbb includes directory
-	* @param string				$php_ext	PHP file extension
-	*/
-	public function __construct(service_collection $collection, controller $controller, language $language, template $template, $root_path, $php_ext)
+	public function __construct(
+		private service_collection $collection,
+		private controller $controller,
+		private language $language,
+		private twig $twig,
+		private readonly string $root_path,
+		private readonly string $php_ext
+	)
 	{
-		$this->register_tab_types($collection);
-
-		$this->controller = $controller;
-		$this->language	  = $language;
-		$this->template	  = $template;
-		$this->root_path  = $root_path;
-		$this->php_ext	  = $php_ext;
-	}
-
-	/**
-	* Register all available tabs
-	*
-	* @param Service collection of tabs
-	*/
-	protected function register_tab_types($collection): void
-	{
-		if (!empty($collection))
+		if ($collection)
 		{
-			self::$tabs = [];
 			foreach ($collection as $tab)
 			{
 				self::$tabs[$tab->get_name()] = $tab;
@@ -78,19 +42,14 @@ class manager
 
 	/**
 	* Get tab type by name
-	*
-	* @param string $name Name of the tab
-	* @return object
 	*/
-	public function get($name): object
+	public function get(string $name): object
 	{
 		return self::$tabs[$name] ?? (object) [];
 	}
 
 	/**
 	* Get all available tabs
-	*
-	* @return array
 	*/
 	public function available(): array
 	{
@@ -99,11 +58,8 @@ class manager
 
 	/**
 	* Remove tab
-	*
-	* @param string $name Name of the tab we want to remove
-	* @return void
 	*/
-	public function remove($name): void
+	public function remove(string $name): void
 	{
 		if (isset(self::$tabs[$name]) || array_key_exists($name, self::$tabs))
 		{
@@ -113,10 +69,6 @@ class manager
 
 	/**
 	* Generate menu for tabs
-	*
-	* @param string $username
-	* @param string $tab
-	* @return void
 	*/
 	public function generate_tabs_menu(string $username, string $tab): void
 	{
@@ -133,7 +85,7 @@ class manager
 				$route = $this->controller->route('ganstaz_gzo_member', ['username' => $username]);
 			}
 
-			$this->template->assign_block_vars('tabs', [
+			$this->twig->assign_block_vars('tabs', [
 				'title' => $this->language->lang('GZO_' . strtoupper($tab)),
 				'link' => $route,
 				'icon' => $this->get($tab)->icon(),
@@ -144,13 +96,11 @@ class manager
 	/**
 	* Generate breadcrumb for tabs
 	*
-	* @param string $username
-	* @param string $tab
-	* @return void
+	* @deprecated 2.4.0-a30
 	*/
 	public function generate_tabs_breadcrumb(string $username, string $tab): void
 	{
-		$this->template->assign_block_vars_array('navlinks', [
+		$this->twig->assign_block_vars_array('navlinks', [
 			[
 				'BREADCRUMB_NAME'	=> $this->language->lang('MEMBERLIST'),
 				// TODO: Add route for members controller
@@ -164,7 +114,7 @@ class manager
 
 		if ($tab !== 'profile')
 		{
-			$this->template->assign_block_vars('navlinks', [
+			$this->twig->assign_block_vars('navlinks', [
 				'BREADCRUMB_NAME'	=> ucfirst($tab),
 				'U_BREADCRUMB'		=> $this->controller->route('ganstaz_gzo_member_tab', ['username' => $username, 'tab' => $tab]),
 			]);

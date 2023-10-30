@@ -14,7 +14,7 @@ use phpbb\config\config;
 use phpbb\controller\helper as controller;
 use phpbb\language\language;
 use phpbb\request\request;
-use phpbb\template\template;
+use phpbb\template\twig\twig;
 use ganstaz\gzo\src\helper;
 use ganstaz\gzo\src\pages;
 use ganstaz\gzo\src\blocks\manager;
@@ -32,7 +32,7 @@ class subscribers implements EventSubscriberInterface
 		private readonly controller $controller,
 		private readonly language $language,
 		private readonly request $request,
-		private readonly template $template,
+		private readonly twig $twig,
 		private readonly helper $helper,
 		private readonly pages $pages,
 		private readonly manager $manager
@@ -75,15 +75,14 @@ class subscribers implements EventSubscriberInterface
 		if ($this->config['gzo_blocks'] && $get_page_data = $this->pages->get_page_data())
 		{
 			// Set page var for template, so we know where we are
-			$this->template->assign_var('S_GZO_PAGE', true);
+			$this->twig->assign_var('S_GZO_PAGE', true);
 
 			// Load available blocks
 			$this->manager->load($get_page_data);
 
-			// Assign template vars
 			foreach ($get_page_data as $s_page)
 			{
-				$this->template->assign_vars([
+				$this->twig->assign_vars([
 					$s_page => $this->manager->has($s_page),
 				]);
 			}
@@ -107,12 +106,12 @@ class subscribers implements EventSubscriberInterface
 
 		if (defined(admin::GZO_IN_AREA))
 		{
-			$this->template->assign_var('GZO_IN_AREA', true);
+			$this->twig->assign_var('GZO_IN_AREA', true);
 		}
 
 		if ($this->config['gzo_news_link'])
 		{
-			$this->template->assign_vars([
+			$this->twig->assign_vars([
 				'U_NEWS' => $this->controller->route('ganstaz_gzo_news'),
 			]);
 		}
@@ -123,7 +122,7 @@ class subscribers implements EventSubscriberInterface
 	*/
 	public function change_index(): void
 	{
-		$this->template->assign_vars([
+		$this->twig->assign_vars([
 			'U_INDEX' => $this->controller->route('ganstaz_gzo_forum'),
 			'U_GZO_ADMIN' => $this->controller->route('gzo_main'),
 		]);
@@ -153,7 +152,7 @@ class subscribers implements EventSubscriberInterface
 	{
 		// Borrowed from Ideas extension (phpBB)
 		// Alter posting page breadcrumbs to link to the ideas controller
-		$this->template->alter_block_array('navlinks', [
+		$this->twig->alter_block_array('navlinks', [
 			'BREADCRUMB_NAME' => $this->language->lang('HOME'),
 			'U_BREADCRUMB'	  => $this->controller->route('ganstaz_gzo_index'),
 		], false, 'change');

@@ -38,7 +38,7 @@ class the_team extends base
 		$row = $this->db->sql_fetchrow($result);
 		$this->db->sql_freeresult($result);
 
-		$this->template->assign_var('team_name', $row['group_name']);
+		$this->twig->assign_var('team_name', $row['group_name']);
 
 		$sql = 'SELECT ug.*, u.username, u.user_id, u.user_colour, u.username_clean
 				FROM ' . USER_GROUP_TABLE . ' ug, ' . USERS_TABLE . ' u
@@ -49,7 +49,7 @@ class the_team extends base
 
 		while ($row = $this->db->sql_fetchrow($result))
 		{
-			$this->template->assign_block_vars('the_team', [
+			$this->twig->assign_block_vars('the_team', [
 				'member' => get_username_string('full', (int) $row['user_id'], $row['username'], $row['user_colour']),
 			]);
 		}

@@ -40,7 +40,7 @@ class recent_topics extends base
 
 		while ($row = $this->db->sql_fetchrow($result))
 		{
-			$this->template->assign_block_vars('recent_topics', [
+			$this->twig->assign_block_vars('recent_topics', [
 				'link'	=> append_sid("{$this->root_path}viewtopic.{$this->php_ext}", 't=' . $row['topic_id']),
 				'title' => $this->helper->truncate($row['topic_title'], $this->config['gz_title_length']),
 			]);

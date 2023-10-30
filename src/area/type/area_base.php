@@ -8,7 +8,7 @@
 *
 */
 
-namespace ganstaz\gzo\src\area;
+namespace ganstaz\gzo\src\area\type;
 
 use phpbb\auth\auth;
 use phpbb\cache\service as cache;
@@ -17,9 +17,6 @@ use phpbb\event\dispatcher;
 use ganstaz\gzo\src\event\events;
 use ganstaz\gzo\src\controller\helper;
 
-/**
-* Base class for areas
-*/
 abstract class area_base
 {
 	protected array $categories = ['GZO_DEFAULT' => 'home',];

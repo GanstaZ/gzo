@@ -37,7 +37,7 @@ class m2_plugins extends \phpbb\db\migration\migration
 	*/
 	public function add_plugins(): void
 	{
-		if ($this->db_tools->sql_table_exists($this->table_prefix . 'gzo_plugins'))
+		if ($this->db_tools->sql_table_exists($this->table_prefix . gzo::PLUGINS))
 		{
 			$plugins = [
 				[
@@ -74,7 +74,7 @@ class m2_plugins extends \phpbb\db\migration\migration
 				],
 			];
 
-			$insert_buffer = new \phpbb\db\sql_insert_buffer($this->db, $this->table_prefix . 'gzo_plugins');
+			$insert_buffer = new \phpbb\db\sql_insert_buffer($this->db, $this->table_prefix . gzo::PLUGINS);
 
 			foreach ($plugins as $row)
 			{

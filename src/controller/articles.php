@@ -10,37 +10,49 @@
 
 namespace ganstaz\gzo\src\controller;
 
-/**
-* Articles controller
-*/
-class articles extends base
+use phpbb\event\dispatcher;
+use ganstaz\gzo\src\controller\helper;
+use ganstaz\gzo\src\entity\manager as em;
+use ganstaz\gzo\src\form\form;
+use ganstaz\gzo\src\model\posts;
+use phpbb\exception\http_exception;
+
+class articles extends abstract_controller
 {
+	public function __construct(
+		dispatcher $dispatcher,
+		helper $helper,
+		em $em,
+		form $form,
+		$root_path,
+		$php_ext,
+		private readonly posts $posts
+	)
+	{
+		parent::__construct($dispatcher, $helper, $em, $form, $root_path, $php_ext);
+	}
+
 	/**
 	* Articles controller for routes:
 	*
 	*	 /articles/{id}
 	*	 /articles/{id}/page/{page}
 	*
-	* @param int $id
-	* @param int $page
-	* @throws \phpbb\exception\http_exception
-	* @return \Symfony\Component\HttpFoundation\Response A Symfony Response object
 	*/
 	public function handle(int $id, int $page): \Symfony\Component\HttpFoundation\Response
 	{
-		$this->posts->set_page($page)
+		$this->posts->set_page_offset($page)
 			->trim_messages(true)
 			->base($id);
 
-		return $this->helper->render('news.twig', $this->language->lang('VIEW_NEWS', $id), 200, true);
+		$data = $this->posts->breadcrumb;
+		$this->helper->assign_breadcrumb($data[0], $data[1], $data[2]);
+
+		return $this->helper->controller_helper->render('news.twig', $this->helper->language->lang('VIEW_NEWS', $id), 200, true);
 	}
 
 	/**
 	* Article controller for route /article-full/{aid}
-	*
-	* @param int $aid
-	* @throws \phpbb\exception\http_exception
-	* @return \Symfony\Component\HttpFoundation\RedirectResponse A Symfony Redirect Response object
 	*/
 	public function article(int $aid): \Symfony\Component\HttpFoundation\RedirectResponse
 	{
@@ -48,7 +60,7 @@ class articles extends base
 
 		if (!$row)
 		{
-			throw new \phpbb\exception\http_exception(404, 'NO_TOPICS', [$row]);
+			throw new http_exception(404, 'NO_TOPICS', [$row]);
 		}
 
 		$params = [
@@ -63,15 +75,15 @@ class articles extends base
 
 	/**
 	* First post controller (without any replies) for route /article/{aid}
-	*
-	* @param int $aid
-	* @throws \phpbb\exception\http_exception
-	* @return \Symfony\Component\HttpFoundation\Response A Symfony Response object
 	*/
 	public function first_post(int $aid): \Symfony\Component\HttpFoundation\Response
 	{
-		$this->posts->get_first_post($aid);
+		$this->posts->trim_messages(false)
+			->get_first_post($aid);
 
-		return $this->helper->render('article.twig', $this->language->lang('VIEW_ARTICLE', $aid), 200, true);
+		$data = $this->posts->breadcrumb;
+		$this->helper->assign_breadcrumb($data[0], $data[1], $data[2]);
+
+		return $this->helper->controller_helper->render('article.twig', $this->helper->language->lang('VIEW_ARTICLE', $aid), 200, true);
 	}
 }

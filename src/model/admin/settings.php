@@ -17,24 +17,10 @@ use ganstaz\gzo\src\helper;
 */
 class settings
 {
-	/** @var helper */
-	private object $helper;
-
-	/**
-	* Constructor
-	*
-	* @param helper $helper Helper object
-	*/
-	public function __construct(helper $helper)
+	public function __construct(private helper $helper)
 	{
-		$this->helper = $helper;
 	}
 
-	/**
-	* Entity data
-	*
-	* @return array
-	*/
 	public function data(): array
 	{
 		return [

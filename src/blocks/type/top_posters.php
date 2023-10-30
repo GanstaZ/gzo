@@ -41,7 +41,7 @@ class top_posters extends base
 
 		while ($row = $this->db->sql_fetchrow($result))
 		{
-			$this->template->assign_block_vars('top_posters', [
+			$this->twig->assign_block_vars('top_posters', [
 				'top' => get_username_string('full', (int) $row['user_id'], $row['username'], $row['user_colour']),
 				'posts' => (int) $row['user_posts'],
 			]);

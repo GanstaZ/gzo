@@ -9,6 +9,12 @@ imports:
     - { resource: tables.yml }
 
 services:
+    ganstaz.gzo.form:
+        class: ganstaz\gzo\src\form\form
+        arguments:
+            - '@request'
+            - '@template'
+
     ganstaz.gzo.helper:
         class: ganstaz\gzo\src\helper
         arguments:
