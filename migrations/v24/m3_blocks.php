@@ -37,7 +37,7 @@ class m3_blocks extends \phpbb\db\migration\migration
 	*/
 	public function add_blocks(): void
 	{
-		if ($this->db_tools->sql_table_exists($this->table_prefix . 'gzo_blocks'))
+		if ($this->db_tools->sql_table_exists($this->table_prefix . gzo::BLOCKS))
 		{
 			$blocks_data = [
 				[
@@ -91,7 +91,7 @@ class m3_blocks extends \phpbb\db\migration\migration
 				],
 			];
 
-			$insert_buffer = new \phpbb\db\sql_insert_buffer($this->db, $this->table_prefix . 'gzo_blocks');
+			$insert_buffer = new \phpbb\db\sql_insert_buffer($this->db, $this->table_prefix . gzo::BLOCKS);
 
 			foreach ($blocks_data as $row)
 			{

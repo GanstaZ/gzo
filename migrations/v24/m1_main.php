@@ -10,6 +10,8 @@
 
 namespace ganstaz\gzo\migrations\v24;
 
+use ganstaz\gzo\src\enum\gzo;
+
 class m1_main extends \phpbb\db\migration\migration
 {
 	/**
@@ -17,7 +19,7 @@ class m1_main extends \phpbb\db\migration\migration
 	*/
 	public function effectively_installed(): bool
 	{
-		return $this->check('plugins') && $this->check('blocks') && $this->check('pages');
+		return $this->check(gzo::PLUGINS) && $this->check(gzo::BLOCKS) && $this->check(gzo::PAGES);
 	}
 
 	/**
@@ -25,7 +27,7 @@ class m1_main extends \phpbb\db\migration\migration
 	*/
 	public function check(string $name): bool
 	{
-		return $this->db_tools->sql_table_exists($this->table_prefix . 'gzo_' . $name);
+		return $this->db_tools->sql_table_exists($this->table_prefix . $name);
 	}
 
 	/**
@@ -43,7 +45,7 @@ class m1_main extends \phpbb\db\migration\migration
 	{
 		return [
 			'add_tables' => [
-				$this->table_prefix . 'gzo_plugins' => [
+				$this->table_prefix . gzo::PLUGINS => [
 					'COLUMNS' => [
 						'id'	=> ['UINT', null, 'auto_increment'],
 						'title'	=> ['VCHAR', ''],
@@ -55,7 +57,7 @@ class m1_main extends \phpbb\db\migration\migration
 					],
 					'PRIMARY_KEY' => ['id'],
 				],
-				$this->table_prefix . 'gzo_blocks' => [
+				$this->table_prefix . gzo::BLOCKS => [
 					'COLUMNS' => [
 						'id'	   => ['UINT', null, 'auto_increment'],
 						'name'	   => ['VCHAR', ''],
@@ -66,7 +68,7 @@ class m1_main extends \phpbb\db\migration\migration
 					],
 					'PRIMARY_KEY' => ['id'],
 				],
-				$this->table_prefix . 'gzo_pages' => [
+				$this->table_prefix . gzo::PAGES => [
 					'COLUMNS' => [
 						'id'		 => ['UINT', null, 'auto_increment'],
 						'name'		 => ['VCHAR', ''],
@@ -92,9 +94,9 @@ class m1_main extends \phpbb\db\migration\migration
 	{
 		return [
 			'drop_tables' => [
-				$this->table_prefix . 'gzo_plugins',
-				$this->table_prefix . 'gzo_blocks',
-				$this->table_prefix . 'gzo_pages',
+				$this->table_prefix . gzo::PLUGINS,
+				$this->table_prefix . gzo::BLOCKS,
+				$this->table_prefix . gzo::PAGES,
 			],
 		];
 	}
