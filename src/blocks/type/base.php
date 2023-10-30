@@ -29,7 +29,7 @@ abstract class base implements block_interface
 		protected dispatcher $dispatcher,
 		protected helper $helper,
 		protected readonly string $root_path,
-		protected readonly string  $php_ext
+		protected readonly string $php_ext
 	)
 	{
 	}

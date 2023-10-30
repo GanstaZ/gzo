@@ -32,7 +32,7 @@ class whos_online extends base
 		dispatcher $dispatcher,
 		helper $helper,
 		string $root_path,
-		string  $php_ext,
+		string $php_ext,
 		private info $info
 	)
 	{
