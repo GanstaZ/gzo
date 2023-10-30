@@ -1,8 +1,11 @@
-<div class="post c-block bg1">
-	<h2>{% block block_heading %}{% endblock %}</h2>
+{% block block_top_content %}{% endblock %}
 
-	<div class="c-inner-block">
-		{% block block_content %}{% endblock %}
-	</div>
+<div class="post c-block bg1{% block block_add_class %}{% endblock %}">
+	{% block block_content %}
+		<h2>{% block block_heading %}{% endblock %}</h2>
 
+		<div class="c-inner-block">
+			{% block block_mid_content %}{% endblock %}
+		</div>
+	{% endblock %}
 </div>

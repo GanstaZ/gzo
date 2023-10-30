@@ -1,43 +1,49 @@
-{% from '@ganstaz_gzo/macros/tags.twig' import icon %}
+{% embed '@ganstaz_gzo/includes/block-item.twig' %}
 
-<div class="gzo-flex c-tabs gzo-mt-3">
-	<div class="gzo-row button c-tab current" data-tab="tab-1">
-		<span class="c-tab-icon">{{ icon('icon', 'user-circle fa-fw') }}</span>{{ lang('WHO_IS_ONLINE') }}
-	</div>
-	<div class="gzo-row button c-tab" data-tab="tab-2">
-		<span class="c-tab-icon">{{ icon('icon', 'birthday-cake fa-fw') }}</span>{{ lang('BIRTHDAYS') }}
-	</div>
-	<div class="gzo-row button c-tab" data-tab="tab-3">
-		<span class="c-tab-icon">{{ icon('icon', 'pie-chart fa-fw') }}</span>{{ lang('STATISTICS') }}
-	</div>
-</div>
+	{% from '@ganstaz_gzo/macros/tags.twig' import icon %}
 
-<div class="post c-block mid-bottom-content bg1">
-	<div class="c-tab-pane current" id="tab-1">
+	{% block block_top_content %}
+		<div class="gzo-flex c-tabs gzo-mt-3">
+			<div class="gzo-row button c-tab current" data-tab="tab-1">
+				<span class="c-tab-icon">{{ icon('icon', 'user-circle fa-fw') }}</span>{{ lang('WHO_IS_ONLINE') }}
+			</div>
+			<div class="gzo-row button c-tab" data-tab="tab-2">
+				<span class="c-tab-icon">{{ icon('icon', 'birthday-cake fa-fw') }}</span>{{ lang('BIRTHDAYS') }}
+			</div>
+			<div class="gzo-row button c-tab" data-tab="tab-3">
+				<span class="c-tab-icon">{{ icon('icon', 'pie-chart fa-fw') }}</span>{{ lang('STATISTICS') }}
+			</div>
+		</div>
+	{% endblock %}
 
-		{% EVENT index_body_stat_blocks_before %}
+	{% block block_add_class %} mid-bottom-content{% endblock %}
 
-		{% if S_DISPLAY_ONLINE_LIST %}
-			{{ include('@ganstaz_gzo/includes/online-list.twig') }}
-		{% endif %}
+	{% block block_content %}
+		<div class="c-tab-pane current" id="tab-1">
 
-	</div>
+			{% EVENT index_body_stat_blocks_before %}
 
-	{% EVENT index_body_birthday_block_before %}
+			{% if S_DISPLAY_ONLINE_LIST %}
+				{{ include('@ganstaz_gzo/includes/online-list.twig') }}
+			{% endif %}
 
-	<div class="c-tab-pane" id="tab-2">
-		{% if S_DISPLAY_BIRTHDAY_LIST %}
-			{{ include('@ganstaz_gzo/includes/birthday.twig') }}
-		{% endif %}
-	</div>
+		</div>
 
-	<div class="c-tab-pane" id="tab-3">
-		{% if NEWEST_USER %}
-			{{ include('@ganstaz_gzo/includes/stats.twig') }}
-		{% endif %}
-	</div>
+		{% EVENT index_body_birthday_block_before %}
 
-	{% EVENT index_body_stat_blocks_after %}
+		<div class="c-tab-pane" id="tab-2">
+			{% if S_DISPLAY_BIRTHDAY_LIST %}
+				{{ include('@ganstaz_gzo/includes/birthday.twig') }}
+			{% endif %}
+		</div>
 
-</div>
-{# End Bottom Content #}
+		<div class="c-tab-pane" id="tab-3">
+			{% if NEWEST_USER %}
+				{{ include('@ganstaz_gzo/includes/stats.twig') }}
+			{% endif %}
+		</div>
+
+		{% EVENT index_body_stat_blocks_after %}
+	{% endblock %}
+
+{% endembed %}
