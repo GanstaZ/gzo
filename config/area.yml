@@ -23,7 +23,7 @@ services:
             - '%core.table_prefix%'
 
     ganstaz.gzo.area:
-        class: ganstaz\gzo\src\area\gzo
+        class: ganstaz\gzo\src\area\type\gzo
         shared: false
         parent: ganstaz.gzo.area.base
         tags:
