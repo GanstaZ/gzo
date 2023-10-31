@@ -16,6 +16,7 @@ services:
         class: ganstaz\gzo\src\twig\phpbb_environment
         decorates: template.twig.environment
         arguments:
+            - '@ganstaz.gzo.block.event'
             - '@config'
             - '@filesystem'
             - '@path_helper'
@@ -24,7 +25,6 @@ services:
             - '@template.twig.loader'
             - '@dispatcher'
             - []
-            - '@ganstaz.gzo.block.event'
         calls:
             - [setLexer, ['@template.twig.lexer']]
 

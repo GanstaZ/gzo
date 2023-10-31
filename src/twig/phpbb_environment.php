@@ -22,6 +22,7 @@ use ganstaz\gzo\src\blocks\event;
 class phpbb_environment extends environment
 {
 	public function __construct(
+		protected event $event,
 		config $phpbb_config,
 		filesystem $filesystem,
 		path_helper $path_helper,
@@ -29,8 +30,7 @@ class phpbb_environment extends environment
 		manager $extension_manager = null,
 		LoaderInterface $loader = null,
 		dispatcher_interface $phpbb_dispatcher = null,
-		array $options = [],
-		protected ?event $event = null
+		array $options = []
 	)
 	{
 		parent::__construct($phpbb_config, $filesystem, $path_helper, $cache_path, $extension_manager, $loader, $phpbb_dispatcher, $options);
