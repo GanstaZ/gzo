@@ -30,7 +30,7 @@ class phpbb_environment extends environment
 		LoaderInterface $loader = null,
 		dispatcher_interface $phpbb_dispatcher = null,
 		array $options = [],
-		protected event $event
+		protected ?event $event = null
 	)
 	{
 		parent::__construct($phpbb_config, $filesystem, $path_helper, $cache_path, $extension_manager, $loader, $phpbb_dispatcher, $options);
