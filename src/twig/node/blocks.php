@@ -10,38 +10,38 @@
 
 namespace ganstaz\gzo\src\twig\node;
 
+use phpbb\template\twig\environment;
+use Twig\Node\Expression\AbstractExpression;
+
 class blocks extends \Twig\Node\Node
 {
-	/** @var \Twig\Environment */
-	protected $environment;
-
-	public function __construct(\Twig\Node\Expression\AbstractExpression $expr, \phpbb\template\twig\environment $environment, $lineno, $tag = null)
+	public function __construct(
+		AbstractExpression $expr,
+		protected environment $environment,
+		int $lineno,
+		?string $tag = null
+	)
 	{
-		$this->environment = $environment;
-
 		parent::__construct(['expr' => $expr], [], $lineno, $tag);
 	}
 
 	/**
 	* Compiles the node to PHP.
-	*
-	* @param \Twig\Compiler A Twig\Compiler instance
 	*/
 	public function compile(\Twig\Compiler $compiler)
 	{
 		$compiler->addDebugInfo($this);
 
-		$block = $this->getNode('expr')->getAttribute('name');
-		$block_loader = $this->environment->getExtension('ganstaz\gzo\src\twig\extension')->get_block_loader($block);
+		$section = $this->getNode('expr')->getAttribute('name');
 
-		foreach ($block_loader as $name => $path)
+		foreach ($this->environment->get_gzo_blocks($section) as $name => $path)
 		{
-			$path = $path . '/block';
+			$block = '@' . $path . '/block/' . $name . '.twig';
 
-			if ($this->environment->isDebug() || $this->environment->getLoader()->exists("@{$path}/{$name}.twig"))
+			if ($this->environment->isDebug() || $this->environment->getLoader()->exists($block))
 			{
 				$compiler
-					->write("\$this->env->loadTemplate('@{$path}/{$name}.twig')->display(\$context);\n")
+					->write("\$this->env->loadTemplate('$block')->display(\$context);\n")
 				;
 			}
 		}

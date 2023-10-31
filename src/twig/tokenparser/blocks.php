@@ -14,27 +14,14 @@ use phpbb\template\twig\environment;
 
 class blocks extends \Twig\TokenParser\AbstractTokenParser
 {
-	/** @var environment */
-	protected $environment;
-
-	/**
-	* Constructor
-	*
-	* @param environment $environment
-	*/
-	public function __construct(environment $environment)
+	public function __construct(protected environment $environment)
 	{
-		$this->environment = $environment;
 	}
 
 	/**
 	* Parses a token and returns a node.
-	*
-	* @param \Twig\Token $token A Twig\Token instance
-	*
-	* @return \Twig\Node\Node A Twig\Node instance
 	*/
-	public function parse(\Twig\Token $token)
+	public function parse(\Twig\Token $token): \Twig\Node\Node
 	{
 		$expr = $this->parser->getExpressionParser()->parseExpression();
 
@@ -46,10 +33,8 @@ class blocks extends \Twig\TokenParser\AbstractTokenParser
 
 	/**
 	* Gets the tag name associated with this token parser.
-	*
-	* @return string The tag name
 	*/
-	public function getTag()
+	public function getTag(): string
 	{
 		return 'BLOCKS';
 	}
