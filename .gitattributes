@@ -4,7 +4,6 @@
 .editorconfig export-ignore
 *README.MD export-ignore
 phpunit.xml.* export-ignore
-.codeclimate.yml export-ignore
 build.yml export-ignore
 
 # Auto detect text files and perform LF normalization
