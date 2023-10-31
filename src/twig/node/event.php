@@ -39,7 +39,7 @@ class event extends \Twig\Node\Node
 		foreach ($this->environment->get_phpbb_extensions() as $ext_namespace => $ext_path)
 		{
 			$ext_namespace = str_replace('/', '_', $ext_namespace);
-			$event_file = '@' . $ext_namespace . '/' . $location . '.twig';
+			$event = '@' . $ext_namespace . '/' . $location . '.twig';
 
 			if ($this->environment->isDebug())
 			{
@@ -48,19 +48,19 @@ class event extends \Twig\Node\Node
 				//  slower, but makes developing extensions easier (no need to
 				//  purge the cache when a new event template file is added)
 				$compiler
-					->write("if (\$this->env->getLoader()->exists('$event_file')) {\n")
+					->write("if (\$this->env->getLoader()->exists('$event')) {\n")
 					->indent()
 				;
 			}
 
-			if ($this->environment->isDebug() || $this->environment->getLoader()->exists($event_file))
+			if ($this->environment->isDebug() || $this->environment->getLoader()->exists($event))
 			{
 				$compiler
 					->write("\$previous_look_up_order = \$this->env->getNamespaceLookUpOrder();\n")
 
 					// We set the namespace lookup order to be this extension first, then the main path
 					->write("\$this->env->setNamespaceLookUpOrder(['{$ext_namespace}', '__main__']);\n")
-					->write("\$this->env->loadTemplate('$event_file')->display(\$context);\n")
+					->write("\$this->env->loadTemplate('$event')->display(\$context);\n")
 					->write("\$this->env->setNamespaceLookUpOrder(\$previous_look_up_order);\n")
 				;
 			}
