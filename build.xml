@@ -18,7 +18,6 @@
 		<delete file="${dir}/.gitignore" />
 		<delete file="${dir}/.gitattributes" />
 		<delete file="${dir}/build.xml" />
-		<delete file="${dir}/.codeclimate.yml" />
 		<delete file="${dir}/.editorconfig" />
 		<delete file="${dir}/README.md" />
 	</target>
