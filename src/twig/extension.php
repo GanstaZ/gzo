@@ -11,54 +11,21 @@
 namespace ganstaz\gzo\src\twig;
 
 use phpbb\template\twig\environment;
-use ganstaz\gzo\src\blocks\event;
 use phpbb\group\helper as group;
 
-/**
-* Twig extension
-*/
 class extension extends \Twig\Extension\AbstractExtension
 {
-	/** @var environment */
-	protected $environment;
-
-	/** @var event */
-	protected $event;
-
-	/** @var helper */
-	protected $group;
-
-	/**
-	* Constructor
-	*
-	* @param environment $environment Environment object
-	* @param event		 $event		  Block helper object
-	* @param group		 $group		  Group helper object
-	*/
-	public function __construct(environment $environment, event $event, group $group)
+	public function __construct(
+		protected environment $environment,
+		protected group $group
+	)
 	{
-		$this->environment = $environment;
-		$this->event = $event;
-		$this->group = $group;
-	}
-
-	/**
-	* Get block data
-	*
-	* @param string $section Section
-	* @return method
-	*/
-	public function get_block_loader($section)
-	{
-		return $this->event->get($section);
 	}
 
 	/**
 	* Returns the token parser instance to add to the existing list.
-	*
-	* @return array An array of Twig_TokenParser instances
 	*/
-	public function getTokenParsers()
+	public function getTokenParsers(): array
 	{
 		return [
 			new \ganstaz\gzo\src\twig\tokenparser\blocks($this->environment),
@@ -67,10 +34,8 @@ class extension extends \Twig\Extension\AbstractExtension
 
 	/**
 	* Returns a list of global functions to add to the existing list.
-	*
-	* @return array An array of global functions
 	*/
-	public function getFunctions()
+	public function getFunctions(): array
 	{
 		return [
 			new \Twig\TwigFunction('blocks', [$this, 'blocks'], ['needs_environment' => true, 'needs_context' => true]),
@@ -80,32 +45,24 @@ class extension extends \Twig\Extension\AbstractExtension
 
 	/**
 	* Load blocks
-	*
-	* @param \Twig\Environment $env		Twig_Environment instance
-	* @param string			   $context Current context
-	* @param string			   $section Section name
-	* @return mixed
 	*/
-	public function blocks(\Twig\Environment $env, $context, $section)
+	public function blocks(\Twig\Environment $environment, $context, string $section): void
 	{
-		foreach ($this->get_block_loader($section) as $name => $path)
+		foreach ($environment->gzo_get_blocks($section) as $name => $path)
 		{
-			$path = $path . '/block';
+			$block = '@' . $path . '/block/' . $name . '.twig';
 
-			if ($env->getLoader()->exists("@{$path}/{$name}.twig"))
+			if ($environment->getLoader()->exists($block))
 			{
-				$env->loadTemplate("@{$path}/{$name}.twig")->display($context);
+				$environment->loadTemplate($block)->display($context);
 			}
 		}
 	}
 
 	/**
 	* Get group name
-	*
-	* @param string $group_name name of the group
-	* @return string
 	*/
-	public function get_group_name($group_name)
+	public function get_group_name(string $group_name): string
 	{
 		return $this->group->get_name($group_name);
 	}
