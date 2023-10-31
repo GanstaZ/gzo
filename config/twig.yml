@@ -1,0 +1,23 @@
+services:
+    ganstaz.gzo.extension:
+        class: ganstaz\gzo\src\twig\extension
+        arguments:
+            - '@template.twig.environment'
+            - '@ganstaz.gzo.block.event'
+            - '@group_helper'
+        tags:
+            - { name: twig.extension }
+
+    ganstaz.gzo.form.extension:
+        class: ganstaz\gzo\src\twig\extension\form
+        tags:
+            - { name: twig.extension }
+
+    ganstaz.gzo.extensions.phpbb:
+        class: ganstaz\gzo\src\twig\phpbb_extension
+        decorates: template.twig.extensions.phpbb
+        public: true
+        arguments:
+            - '@template_context'
+            - '@template.twig.environment'
+            - '@language'

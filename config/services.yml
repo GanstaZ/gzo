@@ -7,6 +7,7 @@ imports:
     - { resource: gzo.yml }
     - { resource: member.yml }
     - { resource: tables.yml }
+    - { resource: twig.yml }
 
 services:
     ganstaz.gzo.form:
@@ -46,21 +47,6 @@ services:
         class: ganstaz\gzo\src\time
         arguments:
             - '@language'
-
-# ----- Twig extensions -----
-    ganstaz.gzo.extension:
-        class: ganstaz\gzo\src\twig\extension
-        arguments:
-            - '@template.twig.environment'
-            - '@ganstaz.gzo.block.event'
-            - '@group_helper'
-        tags:
-            - { name: twig.extension }
-
-    ganstaz.gzo.form.extension:
-        class: ganstaz\gzo\src\twig\extension\form
-        tags:
-            - { name: twig.extension }
 
 # ----- Models -----
     ganstaz.gzo.main:
