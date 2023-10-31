@@ -3,7 +3,6 @@ services:
         class: ganstaz\gzo\src\twig\extension
         arguments:
             - '@template.twig.environment'
-            - '@ganstaz.gzo.block.event'
             - '@group_helper'
         tags:
             - { name: twig.extension }
@@ -13,10 +12,25 @@ services:
         tags:
             - { name: twig.extension }
 
+    ganstaz.gzo.environment:
+        class: ganstaz\gzo\src\twig\phpbb_environment
+        decorates: template.twig.environment
+        arguments:
+            - '@config'
+            - '@filesystem'
+            - '@path_helper'
+            - '%core.template.cache_path%'
+            - '@ext.manager'
+            - '@template.twig.loader'
+            - '@dispatcher'
+            - []
+            - '@ganstaz.gzo.block.event'
+        calls:
+            - [setLexer, ['@template.twig.lexer']]
+
     ganstaz.gzo.extensions.phpbb:
         class: ganstaz\gzo\src\twig\phpbb_extension
         decorates: template.twig.extensions.phpbb
-        public: true
         arguments:
             - '@template_context'
             - '@template.twig.environment'
