@@ -75,13 +75,6 @@ class auth
 
 	protected function auth_access(object $data): mixed
 	{
-		if (str_contains($data->option, ','))
-		{
-			$data->option = explode(',', $data->option);
-		}
-
-		var_dump($data->option);
-
 		return match($data->role)
 		{
 			'ROLE_USER'	 => $this->is_granted($data),
