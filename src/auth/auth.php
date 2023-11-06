@@ -62,7 +62,7 @@ class auth
 
 	protected function method_attributes($method): void
 	{
-		foreach($method->getAttributes(auth_attribute::class, \ReflectionAttribute::IS_INSTANCEOF) as $attribute)
+		foreach ($method->getAttributes(auth_attribute::class, \ReflectionAttribute::IS_INSTANCEOF) as $attribute)
 		{
 			$data = $attribute->newInstance();
 			$this->auth_access($data);
