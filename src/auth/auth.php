@@ -68,40 +68,40 @@ class auth
 			$this->auth_access($data);
 
 			// Testing
-			// var_dump($method->getName());
-			// var_dump($data);
+			var_dump($method->getName());
+			var_dump($data);
 		}
 	}
 
 	protected function auth_access(object $data): mixed
 	{
+		$auth = str_contains($data->option, ',')
+			? $this->phpbb_auth->acl_gets($data->option)
+			: $this->phpbb_auth->acl_get($data->option);
+
 		return match($data->role)
 		{
-			'ROLE_USER'	 => $this->is_granted($data),
-			'ROLE_ADMIN' => $this->is_granted($data),
-			default		 => $this->set_roles($data)
+			'ROLE_USER'	 => $this->is_granted($auth, $data),
+			'ROLE_ADMIN' => $this->is_granted($auth, $data),
+			default		 => $this->set_roles($auth, $data)
 		};
 	}
 
-	protected function set_roles($data): void
+	protected function set_roles(bool $auth, object $data): void
 	{
-		var_dump('special_test');
+		// var_dump('special_test');
 
-		if (!$this->phpbb_auth->acl_get($data->option) && !isset(self::$roles[$data->role]))
+		if (!$auth && !isset(self::$roles[$data->role]))
 		{
 			self::$roles[$data->role] = $data->option;
 		}
 	}
 
-	protected function is_granted(object $data): bool
+	protected function is_granted(bool $auth, object $data): bool
 	{
-		$auth = str_contains($data->option, ',')
-			? $this->phpbb_auth->acl_gets($data->option)
-			: $this->phpbb_auth->acl_get($data->option);
-
 		if (!$auth)
 		{
-			throw new http_exception($data->code, $data->message);
+			throw new http_exception($data->status_code, $data->message);
 		}
 
 		return true;
