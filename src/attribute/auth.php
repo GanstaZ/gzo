@@ -22,7 +22,7 @@ final class auth
 		/**
 		* Second argument
 		*/
-		public string $option,
+		public string|array $option,
 
 		/**
 		* Exception message

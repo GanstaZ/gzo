@@ -35,15 +35,15 @@ class auth
 		$reflection = new \ReflectionClass($controller);
 		$attributes = $reflection->getAttributes(auth_attribute::class, \ReflectionAttribute::IS_INSTANCEOF);
 
-		$this->class_attributes($attributes);
+		$this->target_class($attributes);
 
 		if (!$attributes && isset($current_method))
 		{
-			$this->method_attributes($reflection->getMethod($current_method));
+			$this->target_method($reflection->getMethod($current_method));
 		}
 	}
 
-	protected function class_attributes($attributes): void
+	protected function target_class($attributes): void
 	{
 		if (!$attributes)
 		{
@@ -56,11 +56,11 @@ class auth
 			$this->auth_access($data);
 
 			// Testing
-			var_dump($data);
+			// var_dump($data);
 		}
 	}
 
-	protected function method_attributes($method): void
+	protected function target_method(object $method): void
 	{
 		foreach ($method->getAttributes(auth_attribute::class, \ReflectionAttribute::IS_INSTANCEOF) as $attribute)
 		{
@@ -68,17 +68,24 @@ class auth
 			$this->auth_access($data);
 
 			// Testing
-			var_dump($method->getName());
-			var_dump($data);
+			// var_dump($method->getName());
+			// var_dump($data);
 		}
 	}
 
-	protected function auth_access($data): mixed
+	protected function auth_access(object $data): mixed
 	{
+		if (str_contains($data->option, ','))
+		{
+			$data->option = explode(',', $data->option);
+		}
+
+		var_dump($data->option);
+
 		return match($data->role)
 		{
-			'ROLE_USER'  => $this->user_area($data),
-			'ROLE_ADMIN' => $this->admin_area($data),
+			'ROLE_USER'	 => $this->is_granted($data),
+			'ROLE_ADMIN' => $this->is_granted($data),
 			default		 => $this->set_roles($data)
 		};
 	}
@@ -93,27 +100,15 @@ class auth
 		}
 	}
 
-	// TODO: To be removed
-	protected function admin_area($data)
+	protected function is_granted(object $data): bool
 	{
-		var_dump('admin_test');
+		$auth = str_contains($data->option, ',')
+			? $this->phpbb_auth->acl_gets($data->option)
+			: $this->phpbb_auth->acl_get($data->option);
 
-		$this->is_granted($data->option, $data->message, $data->status_code);
-	}
-
-	// TODO: To be removed
-	protected function user_area($data)
-	{
-		var_dump('user_test');
-
-		$this->is_granted($data->option, $data->message, $data->status_code);
-	}
-
-	protected function is_granted(string $option, string $message, int $code): bool
-	{
-		if (!$this->phpbb_auth->acl_get($option))
+		if (!$auth)
 		{
-			throw new http_exception($code, $message);
+			throw new http_exception($data->code, $data->message);
 		}
 
 		return true;
