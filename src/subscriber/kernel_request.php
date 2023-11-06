@@ -11,8 +11,8 @@
 namespace ganstaz\gzo\src\subscriber;
 
 use ganstaz\gzo\src\area\loader;
-use ganstaz\gzo\src\enum\admin;
 use ganstaz\gzo\src\auth\auth;
+use ganstaz\gzo\src\enum\admin;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -36,10 +36,10 @@ class kernel_request implements EventSubscriberInterface
 			$area = $this->loader->get_area($type);
 			$this->auth->authorize($area);
 
-			$area->navigation_data($type, $this->auth->phpbb_auth);
-
 			define(admin::GZO_IN_AREA, true);
-			$area->load_navigation($type, $route);
+
+			$area->navigation_data($type, $this->auth->phpbb_auth)
+			    ->load_navigation($type, $route);
 		}
 
 		$this->auth->authorize($event->getRequest()->attributes->get('_controller'));
