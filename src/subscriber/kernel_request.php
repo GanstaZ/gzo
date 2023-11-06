@@ -39,7 +39,7 @@ class kernel_request implements EventSubscriberInterface
 			define(admin::GZO_IN_AREA, true);
 
 			$area->navigation_data($type, $this->auth->phpbb_auth)
-			    ->load_navigation($type, $route);
+				->load_navigation($type, $route);
 		}
 
 		$this->auth->authorize($event->getRequest()->attributes->get('_controller'));
