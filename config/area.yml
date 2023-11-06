@@ -15,7 +15,6 @@ services:
     ganstaz.gzo.area.base:
         abstract: true
         arguments:
-            - '@auth'
             - '@cache'
             - '@dbal.conn'
             - '@dispatcher'

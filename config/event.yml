@@ -2,6 +2,7 @@ services:
     kernel_request_subscriber:
         class: ganstaz\gzo\src\subscriber\kernel_request
         arguments:
+            - '@ganstaz.gzo.auth'
             - '@ganstaz.gzo.area.loader'
         tags:
             - { name: kernel.event_subscriber }

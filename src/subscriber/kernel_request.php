@@ -12,14 +12,14 @@ namespace ganstaz\gzo\src\subscriber;
 
 use ganstaz\gzo\src\area\loader;
 use ganstaz\gzo\src\enum\admin;
-
+use ganstaz\gzo\src\auth\auth;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class kernel_request implements EventSubscriberInterface
 {
-	public function __construct(private loader $loader)
+	public function __construct(private auth $auth, private loader $loader)
 	{
 	}
 
@@ -29,15 +29,22 @@ class kernel_request implements EventSubscriberInterface
 	public function on_kernel_request(GetResponseEvent $event): void
 	{
 		$route = $event->getRequest()->attributes->get('_route');
-		$name = strstr($route, '_', true);
+		$type = strstr($route, '_', true);
 
-		if ($this->loader->is_area_available($name))
+		if ($this->loader->is_area_available($type))
 		{
-			define(admin::GZO_IN_AREA, true);
+			$area = $this->loader->get_area($type);
+			$this->auth->authorize($area);
 
-			$area = $this->loader->get_area($name);
-			$area->load();
+			$area->navigation_data($type, $this->auth->phpbb_auth);
+
+			define(admin::GZO_IN_AREA, true);
+			$area->load_navigation($type, $route);
 		}
+
+		$this->auth->authorize($event->getRequest()->attributes->get('_controller'));
+
+		// var_dump($this->auth::$roles);
 	}
 
 	public static function getSubscribedEvents(): array
