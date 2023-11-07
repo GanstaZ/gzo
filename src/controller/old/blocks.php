@@ -8,7 +8,7 @@
 *
 */
 
-namespace ganstaz\gzo\src\controller\admin;
+namespace ganstaz\gzo\src\controller\old;
 
 use Symfony\Component\DependencyInjection\ContainerInterface as container;
 use phpbb\db\driver\driver_interface as driver;

@@ -27,7 +27,7 @@ class blocks_module
 		$this->page_title = $phpbb_container->get('language')->lang('ACP_GZO_BLOCKS_TITLE');
 
 		// Get an instance of the admin blocks controller
-		$admin_controller = $phpbb_container->get('ganstaz.gzo.admin.block_controller')
+		$admin_controller = $phpbb_container->get('ganstaz.gzo.admin.old.block_controller')
 			->set_page_url($this->u_action);
 
 		$admin_controller->display_blocks();
