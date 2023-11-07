@@ -27,18 +27,9 @@ class manager
 	public function __construct(
 		private driver_interface $db,
 		private service_collection $collection,
-		private event $event,
 		private string $blocks_data
 	)
 	{
-	}
-
-	/**
-	* Has (Does event have section data)
-	*/
-	public function has($section): bool
-	{
-		return count($this->event->get($section));
 	}
 
 	/**
@@ -87,18 +78,6 @@ class manager
 			if ($block->is_load_active())
 			{
 				$blocks_data[$row['name']] = $block;
-			}
-
-			// This is for twig blocks tag
-			if ($row['section'])
-			{
-				$data = [
-					'name'	   => (string) $row['name'],
-					'ext_name' => (string) $row['ext_name'],
-				];
-
-				$data['name'] = $this->is_vendor_ganstaz($data);
-				$this->event->set_data($row['section'], [$data['name'] => $data['ext_name']]);
 			}
 		}
 		$this->db->sql_freeresult($result);

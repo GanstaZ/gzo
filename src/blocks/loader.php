@@ -1,0 +1,124 @@
+<?php
+/**
+*
+* An extension for the phpBB Forum Software package.
+*
+* @copyright (c) GanstaZ, https://www.github.com/GanstaZ/
+* @license GNU General Public License, version 2 (GPL-2.0)
+*
+*/
+
+namespace ganstaz\gzo\src\blocks;
+
+use phpbb\db\driver\driver_interface;
+use phpbb\di\service_collection;
+
+class loader
+{
+	protected array $sections = ['gzo_right', 'gzo_bottom', 'gzo_left', 'gzo_top', 'gzo_middle'];
+
+	protected array $type = ['section', 'name'];
+
+	public function __construct(
+		private driver_interface $db,
+		private service_collection $collection,
+		private data $data,
+		private readonly string $blocks_table
+	)
+	{
+	}
+
+	/**
+	* Has (Does event have section data)
+	*/
+	public function has($section): bool
+	{
+		return count($this->data->get($section));
+	}
+
+	public function get_sections(): array
+	{
+		return $this->sections ?? [];
+	}
+
+	public function load(string|array $name = null, string $type = 'section'): void
+	{
+		if (!in_array($type, $this->type))
+		{
+			return;
+		}
+
+		if ($blocks = $this->get_requested_blocks($name, $type))
+		{
+			foreach ($blocks as $block)
+			{
+				$block->load();
+			}
+		}
+	}
+
+	protected function get_requested_blocks(string|array $name = null, string $type): array
+	{
+		$where = (null !== $name) ? $this->where_clause($name, $type) : 'active = 1';
+
+		$sql = 'SELECT name, ext_name, section
+				FROM ' . $this->blocks_table . '
+				WHERE ' . $where . '
+				ORDER BY position';
+		$result = $this->db->sql_query($sql, 86400);
+
+		$blocks = [];
+		while ($row = $this->db->sql_fetchrow($result))
+		{
+			$block = $this->collection[$this->get_service_name($row['name'], $row['ext_name'])];
+
+			// If is set as active, then load method will handle it
+			if ($block->is_load_active())
+			{
+				$blocks[$row['name']] = $block;
+			}
+
+			// This is for twig blocks tag
+			if ($row['section'])
+			{
+				$data = [
+					'name'	   => (string) $row['name'],
+					'ext_name' => (string) $row['ext_name'],
+				];
+
+				$data['name'] = $this->vendor($data);
+				$this->data->set_template_data($row['section'], [$data['name'] => $data['ext_name']]);
+			}
+		}
+		$this->db->sql_freeresult($result);
+
+		return $blocks;
+	}
+
+	protected function where_clause(string|array $name, string $type): string
+	{
+		if (is_array($name))
+		{
+			return $this->db->sql_in_set($type, $name) . ' AND active = 1';
+		}
+		else if (is_string($name))
+		{
+			return "{$type} = '" . $this->db->sql_escape($name) . "' AND active = 1";
+		}
+	}
+
+	public function get_service_name(string $service, string $ext_name): string
+	{
+		return str_replace('_', '.', "{$ext_name}.block." . utf8_substr($service, utf8_strpos($service, '_') + 1));
+	}
+
+	public function vendor(array $data): string
+	{
+		if (strstr($data['ext_name'], '_', true) === 'ganstaz')
+		{
+			$data['name'] = str_replace('ganstaz_', '', $data['name']);
+		}
+
+		return $data['name'];
+	}
+}
