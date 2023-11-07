@@ -52,9 +52,6 @@ class auth
 			{
 				$data = $attribute->newInstance();
 				$this->auth_access($data);
-
-				// Testing
-				// var_dump($data);
 			}
 		}
 	}
@@ -65,10 +62,6 @@ class auth
 		{
 			$data = $attribute->newInstance();
 			$this->auth_access($data);
-
-			// Testing
-			var_dump($method->getName());
-			var_dump($data);
 		}
 	}
 
