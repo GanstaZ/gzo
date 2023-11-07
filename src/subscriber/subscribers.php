@@ -15,10 +15,10 @@ use phpbb\controller\helper as controller;
 use phpbb\language\language;
 use phpbb\request\request;
 use phpbb\template\twig\twig;
+use ganstaz\gzo\src\blocks\loader as blocks_loader;
+use ganstaz\gzo\src\enum\admin;
 use ganstaz\gzo\src\helper;
 use ganstaz\gzo\src\pages;
-use ganstaz\gzo\src\blocks\manager;
-use ganstaz\gzo\src\enum\admin;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -33,9 +33,9 @@ class subscribers implements EventSubscriberInterface
 		private readonly language $language,
 		private readonly request $request,
 		private readonly twig $twig,
+		private readonly blocks_loader $blocks_loader,
 		private readonly helper $helper,
-		private readonly pages $pages,
-		private readonly manager $manager
+		private readonly pages $pages
 	)
 	{
 	}
@@ -47,7 +47,7 @@ class subscribers implements EventSubscriberInterface
 	{
 		return [
 			'core.user_setup'		 => 'add_language',
-			'core.user_setup_after'	 => 'add_manager_data',
+			'core.user_setup_after'	 => 'load_available_blocks',
 			'core.page_header'		 => 'add_gzo_data',
 			'core.page_header_after' => 'change_index',
 			'core.viewforum_get_topic_data'			 => 'news_forum_redirect',
@@ -70,20 +70,19 @@ class subscribers implements EventSubscriberInterface
 	/**
 	* Event core.user_setup_after
 	*/
-	public function add_manager_data(): void
+	public function load_available_blocks(): void
 	{
 		if ($this->config['gzo_blocks'] && $get_page_data = $this->pages->get_page_data())
 		{
-			// Set page var for template, so we know where we are
+			// Set page var
 			$this->twig->assign_var('S_GZO_PAGE', true);
 
-			// Load available blocks
-			$this->manager->load($get_page_data);
+			$this->blocks_loader->load($get_page_data);
 
 			foreach ($get_page_data as $s_page)
 			{
 				$this->twig->assign_vars([
-					$s_page => $this->manager->has($s_page),
+					$s_page => $this->blocks_loader->has($s_page),
 				]);
 			}
 		}
