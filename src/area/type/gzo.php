@@ -10,7 +10,7 @@
 
 namespace ganstaz\gzo\src\area\type;
 
-#[\ganstaz\gzo\src\attribute\auth('ROLE_ADMIN', 'a_', 'GZO_NO_ADMIN', 403)]
+#[\ganstaz\gzo\src\attribute\auth('ADMIN', 'a_', 'GZO_NO_ADMIN', 403)]
 class gzo extends area_base
 {
 	public function load_navigation($type, $route): void

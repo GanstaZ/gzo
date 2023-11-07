@@ -17,7 +17,8 @@ use phpbb\exception\http_exception;
 
 class auth
 {
-	public static array $roles = [];
+	public static array $limit_access = [];
+	protected static array $roles = ['ADMIN', 'USER'];
 
 	public function __construct(protected container $container, public readonly phpbb_auth $phpbb_auth)
 	{
@@ -45,18 +46,16 @@ class auth
 
 	protected function target_class($attributes): void
 	{
-		if (!$attributes)
+		if ($attributes)
 		{
-			return;
-		}
+			foreach ($attributes as $attribute)
+			{
+				$data = $attribute->newInstance();
+				$this->auth_access($data);
 
-		foreach ($attributes as $attribute)
-		{
-			$data = $attribute->newInstance();
-			$this->auth_access($data);
-
-			// Testing
-			// var_dump($data);
+				// Testing
+				// var_dump($data);
+			}
 		}
 	}
 
@@ -79,21 +78,19 @@ class auth
 			? $this->phpbb_auth->acl_gets($data->option)
 			: $this->phpbb_auth->acl_get($data->option);
 
-		return match($data->role)
+		if (in_array($data->role, self::$roles))
 		{
-			'ROLE_USER'	 => $this->is_granted($auth, $data),
-			'ROLE_ADMIN' => $this->is_granted($auth, $data),
-			default		 => $this->set_roles($auth, $data)
-		};
+			return $this->is_granted($auth, $data);
+		}
+
+		return $this->limit_access($auth, $data);
 	}
 
-	protected function set_roles(bool $auth, object $data): void
+	protected function limit_access(bool $auth, object $data): void
 	{
-		// var_dump('special_test');
-
-		if (!$auth && !isset(self::$roles[$data->role]))
+		if (!$auth && !isset(self::$limit_access[$data->role]))
 		{
-			self::$roles[$data->role] = $data->option;
+			self::$limit_access[$data->role] = $data->option;
 		}
 	}
 
