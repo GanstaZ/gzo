@@ -36,11 +36,6 @@ class loader
 		return count($this->data->get($section));
 	}
 
-	public function get_sections(): array
-	{
-		return $this->sections ?? [];
-	}
-
 	public function load(string|array $name = null, string $type = 'section'): void
 	{
 		if (!in_array($type, $this->type))
