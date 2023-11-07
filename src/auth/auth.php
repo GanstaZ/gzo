@@ -17,7 +17,7 @@ use phpbb\exception\http_exception;
 
 class auth
 {
-	public static array $limit_access = [];
+	public array $limit_access = [];
 	protected static array $roles = ['ADMIN', 'USER'];
 
 	public function __construct(protected container $container, public readonly phpbb_auth $phpbb_auth)
@@ -88,9 +88,9 @@ class auth
 
 	protected function limit_access(bool $auth, object $data): void
 	{
-		if (!$auth && !isset(self::$limit_access[$data->role]))
+		if (!$auth && !isset($this->limit_access[$data->role]))
 		{
-			self::$limit_access[$data->role] = $data->option;
+			$this->limit_access[$data->role] = $data->option;
 		}
 	}
 

@@ -40,17 +40,17 @@ abstract class area_base
 		$this->helper->assign_breadcrumb($breadcrumb_name, $breadcrumb_route);
 
 		$categories = $this->categories;
-		// $navigation = $this->navigation[$type];
-		$navigation = $this->get_navigation_data($type);
+		$navigation = $this->navigation[$type];
 
 		/** @event events::GZO_AREA_MODIFY_NAVIGATION */
 		$vars = ['categories', 'navigation', 'type'];
 		extract($this->dispatcher->trigger_event(events::GZO_AREA_MODIFY_NAVIGATION, compact($vars)));
 
+		$this->navigation = $navigation;
 		$this->categories = $categories;
-		unset($categories);
+		unset($navigation, $categories);
 
-		foreach ($navigation as $category => $data)
+		foreach ($this->navigation as $category => $data)
 		{
 			$this->helper->twig->assign_block_vars('menu', [
 				'heading' => $category,
@@ -70,7 +70,7 @@ abstract class area_base
 
 	public function navigation_data(?string $type = null, ?object $auth = null): self
 	{
-		if (($this->navigation = $this->cache->get('_gzo_plugins_test')) === false)
+		if (($this->navigation = $this->cache->get('_gzo_plugins')) === false)
 		{
 			$sql = 'SELECT *
 					FROM ' . $this->table . 'gzo_plugins
@@ -83,51 +83,29 @@ abstract class area_base
 			}
 			$this->db->sql_freeresult($result);
 
-			$this->cache->put('_gzo_plugins_test', $this->navigation);
+			$this->cache->put('_gzo_plugins', $this->navigation);
 		}
 
 		foreach ($this->navigation[$type] as $cat => $data)
 		{
-			var_dump($cat);
-
-			foreach ($data as $key => $item)
-			{
-				var_dump($key);
-
-				// Not allowed to view plugin controller?
-				// unset($this->navigation[$type][$cat][$key]);
-				// var_dump($item['route']);
-				if (!$auth->acl_get($item['auth']))
-				{}
-			}
+			$this->filter_navigation_data($type, $cat, $data, $auth);
 		}
 
 		return $this;
 	}
 
-	public function get_navigation_data(?string $type = null): array
+	protected function filter_navigation_data(string $type, string $cat, array $data, $auth): void
 	{
-		if (($navigation = $this->cache->get('_gzo_plugins')) === false)
+		foreach ($data as $key => $item)
 		{
-			$sql = 'SELECT *
-					FROM ' . $this->table . 'gzo_plugins
-					ORDER BY id';
-			$result = $this->db->sql_query($sql);
+			$item_auth = isset($item['auth']) && $item['auth'];
 
-			while ($row = $this->db->sql_fetchrow($result))
+			// Not allowed to view plugin controller?
+			if ($item_auth && !$auth->acl_get($item['auth']))
 			{
-				$navigation[$row['type']][$row['cat']][] = [
-					'title' => $row['title'],
-					'route' => $row['route'],
-					'icon'	=> $row['icon'] ?? '',
-			   ];
+				unset($this->navigation[$type][$cat][$key]);
 			}
-			$this->db->sql_freeresult($result);
-
-			$this->cache->put('_gzo_plugins', $navigation);
 		}
-
-		return $navigation[$type] ?? $navigation;
 	}
 
 	protected function set_category_icon(string $name, string $icon): self
