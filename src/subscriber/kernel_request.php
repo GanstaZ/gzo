@@ -43,8 +43,6 @@ class kernel_request implements EventSubscriberInterface
 		}
 
 		$this->auth->authorize($event->getRequest()->attributes->get('_controller'));
-
-		// var_dump($this->auth::$roles);
 	}
 
 	public static function getSubscribedEvents(): array
