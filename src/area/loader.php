@@ -39,6 +39,6 @@ class loader
 
 	public function all(): array
 	{
-		return $this->areas;
+		return array_keys($this->areas);
 	}
 }

@@ -75,4 +75,7 @@ $lang = array_merge($lang, [
 	],
 
 	'STATUS' => 'Status: %s',
+
+	'GZO_NO_ADMIN' => 'You are not authorized to access this area!',
+	'GZO_USER_ACCESS' => 'You do not have permissions to access this area!',
 ]);

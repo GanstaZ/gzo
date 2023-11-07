@@ -10,7 +10,6 @@
 
 namespace ganstaz\gzo\src\area\type;
 
-use phpbb\auth\auth;
 use phpbb\cache\service as cache;
 use phpbb\db\driver\driver_interface;
 use phpbb\event\dispatcher;
@@ -19,38 +18,39 @@ use ganstaz\gzo\src\controller\helper;
 
 abstract class area_base
 {
+	protected bool|array $navigation = [];
 	protected array $categories = ['GZO_DEFAULT' => 'home',];
 
 	public function __construct(
-		protected auth $auth,
-		protected readonly cache $cache,
-		protected readonly driver_interface $db,
+		protected cache $cache,
+		protected driver_interface $db,
 		protected dispatcher $dispatcher,
 		protected helper $helper,
-		private readonly string $table
+		protected readonly string $table
 	)
 	{
 	}
 
 	abstract public function get_name(): string;
 
-	abstract public function load(): void;
+	abstract public function load_navigation(string $type, string $route): void;
 
 	protected function build_navigation(string $type, string $breadcrumb_name, string $breadcrumb_route): void
 	{
 		$this->helper->assign_breadcrumb($breadcrumb_name, $breadcrumb_route);
 
 		$categories = $this->categories;
-		$navigation = $this->get_navigation_data($type);
+		$navigation = $this->navigation[$type];
 
 		/** @event events::GZO_AREA_MODIFY_NAVIGATION */
 		$vars = ['categories', 'navigation', 'type'];
 		extract($this->dispatcher->trigger_event(events::GZO_AREA_MODIFY_NAVIGATION, compact($vars)));
 
+		$this->navigation = $navigation;
 		$this->categories = $categories;
-		unset($categories);
+		unset($navigation, $categories);
 
-		foreach ($navigation as $category => $data)
+		foreach ($this->navigation as $category => $data)
 		{
 			$this->helper->twig->assign_block_vars('menu', [
 				'heading' => $category,
@@ -68,30 +68,44 @@ abstract class area_base
 		}
 	}
 
-	protected function get_navigation_data(?string $type = null): array
+	public function navigation_data(?string $type = null, ?object $auth = null): self
 	{
-		if (($navigation = $this->cache->get('_gzo_plugins')) === false)
+		if (($this->navigation = $this->cache->get('_gzo_plugins')) === false)
 		{
 			$sql = 'SELECT *
 					FROM ' . $this->table . 'gzo_plugins
 					ORDER BY id';
 			$result = $this->db->sql_query($sql);
 
-			$navigation = [];
 			while ($row = $this->db->sql_fetchrow($result))
 			{
-				$navigation[(string) $row['type']][(string) $row['cat']][] = [
-					'title' => (string) $row['title'],
-					'route' => (string) $row['route'],
-					'icon'	=> (string) $row['icon'] ?? '',
-			   ];
+				$this->navigation[$row['type']][$row['cat']][] = $row;
 			}
 			$this->db->sql_freeresult($result);
 
-				$this->cache->put('_gzo_plugins', $navigation);
-			}
+			$this->cache->put('_gzo_plugins', $this->navigation);
+		}
 
-		return $navigation[$type] ?? $navigation;
+		foreach ($this->navigation[$type] as $cat => $data)
+		{
+			$this->filter_navigation_data($type, $cat, $data, $auth);
+		}
+
+		return $this;
+	}
+
+	protected function filter_navigation_data(string $type, string $cat, array $data, $auth): void
+	{
+		foreach ($data as $key => $item)
+		{
+			$item_auth = isset($item['auth']) && $item['auth'];
+
+			// Not allowed to view plugin controller?
+			if ($item_auth && !$auth->acl_get($item['auth']))
+			{
+				unset($this->navigation[$type][$cat][$key]);
+			}
+		}
 	}
 
 	protected function set_category_icon(string $name, string $icon): self

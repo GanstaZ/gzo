@@ -10,6 +10,12 @@ imports:
     - { resource: twig.yml }
 
 services:
+    ganstaz.gzo.auth:
+        class: ganstaz\gzo\src\auth\auth
+        arguments:
+            - '@service_container'
+            - '@auth'
+
     ganstaz.gzo.form:
         class: ganstaz\gzo\src\form\form
         arguments:

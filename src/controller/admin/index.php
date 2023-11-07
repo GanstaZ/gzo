@@ -12,9 +12,7 @@ namespace ganstaz\gzo\src\controller\admin;
 
 use ganstaz\gzo\src\controller\abstract_controller;
 
-/**
-* GZO index controller
-*/
+#[\ganstaz\gzo\src\attribute\auth('ROLE_ADMIN', 'a_board', 'GZO_NO_ADMIN', 403)]
 class index extends abstract_controller
 {
 	public function main(): \Symfony\Component\HttpFoundation\Response

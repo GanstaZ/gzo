@@ -10,23 +10,15 @@
 
 namespace ganstaz\gzo\src\area\type;
 
-use phpbb\exception\http_exception;
-
+#[\ganstaz\gzo\src\attribute\auth('ADMIN', 'a_', 'GZO_NO_ADMIN', 403)]
 class gzo extends area_base
 {
-	public function load(): void
+	public function load_navigation($type, $route): void
 	{
-		//$this->lang->add_lang('acp/common');
 		$this->helper->language->add_lang('info_acp_global', 'ganstaz/gzo');
 
-		// TODO: #[is_authed attribute]
-		if (!$this->auth->acl_get('a_'))
-		{
-			throw new http_exception(403, 'NO_ADMIN');
-		}
-
 		$this->set_category_icon('ACP_GZO_TITLE', 'cogs')
-			->build_navigation('gzo', 'GZO_MAIN_PAGE', 'gzo_main');
+			->build_navigation($type, 'GZO_MAIN_PAGE', $route);
 	}
 
 	public function get_name(): string
