@@ -8,7 +8,7 @@
 *
 */
 
-namespace ganstaz\gzo\src\controller\admin;
+namespace ganstaz\gzo\src\controller\old;
 
 use phpbb\cache\service as cache;
 use phpbb\db\driver\driver_interface as driver;

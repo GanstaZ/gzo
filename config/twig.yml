@@ -16,7 +16,7 @@ services:
         class: ganstaz\gzo\src\twig\phpbb_environment
         decorates: template.twig.environment
         arguments:
-            - '@ganstaz.gzo.block.event'
+            - '@ganstaz.gzo.blocks.data'
             - '@config'
             - '@filesystem'
             - '@path_helper'

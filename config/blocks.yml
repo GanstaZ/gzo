@@ -1,23 +1,29 @@
 services:
-    ganstaz.gzo.block.manager:
-        class: ganstaz\gzo\src\blocks\manager
+    ganstaz.gzo.blocks.loader:
+        class: ganstaz\gzo\src\blocks\loader
         arguments:
             - '@dbal.conn'
-            - '@ganstaz.gzo.block.collection'
-            - '@ganstaz.gzo.block.event'
+            - '@ganstaz.gzo.blocks.collection'
+            - '@ganstaz.gzo.blocks.data'
             - '%ganstaz.gzo.tables.blocks%'
 
-    ganstaz.gzo.block.collection:
+    ganstaz.gzo.blocks.manager:
+        class: ganstaz\gzo\src\blocks\manager
+        arguments:
+            - '@ganstaz.gzo.blocks.collection'
+            - '%ganstaz.gzo.tables.blocks%'
+
+    ganstaz.gzo.blocks.collection:
         class: phpbb\di\service_collection
         arguments:
             - '@service_container'
         tags:
-            - { name: service_collection, tag: gzo.block.type }
+            - { name: service_collection, tag: gzo.blocks.type }
 
-    ganstaz.gzo.block.event:
-        class: ganstaz\gzo\src\blocks\event
+    ganstaz.gzo.blocks.data:
+        class: ganstaz\gzo\src\blocks\data
 
-    ganstaz.gzo.block.base:
+    ganstaz.gzo.blocks.base:
         abstract: true
         arguments:
             - '@config'
@@ -33,64 +39,64 @@ services:
     ganstaz.gzo.block.mini.profile:
         class: ganstaz\gzo\src\blocks\type\mini_profile
         shared: false
-        parent: ganstaz.gzo.block.base
+        parent: ganstaz.gzo.blocks.base
         calls:
             - [set_active, [false]]
         tags:
-            - { name: gzo.block.type }
+            - { name: gzo.blocks.type }
 
     ganstaz.gzo.block.information:
         class: ganstaz\gzo\src\blocks\type\information
         shared: false
-        parent: ganstaz.gzo.block.base
+        parent: ganstaz.gzo.blocks.base
         calls:
             - [set_active, [true]]
         tags:
-            - { name: gzo.block.type }
+            - { name: gzo.blocks.type }
 
     ganstaz.gzo.block.the.team:
         class: ganstaz\gzo\src\blocks\type\the_team
         shared: false
-        parent: ganstaz.gzo.block.base
+        parent: ganstaz.gzo.blocks.base
         calls:
             - [set_active, [true]]
         tags:
-            - { name: gzo.block.type }
+            - { name: gzo.blocks.type }
 
     ganstaz.gzo.block.top.posters:
         class: ganstaz\gzo\src\blocks\type\top_posters
         shared: false
-        parent: ganstaz.gzo.block.base
+        parent: ganstaz.gzo.blocks.base
         calls:
             - [set_active, [true]]
         tags:
-            - { name: gzo.block.type }
+            - { name: gzo.blocks.type }
 
     ganstaz.gzo.block.recent.posts:
         class: ganstaz\gzo\src\blocks\type\recent_posts
         shared: false
-        parent: ganstaz.gzo.block.base
+        parent: ganstaz.gzo.blocks.base
         calls:
             - [set_active, [true]]
         tags:
-            - { name: gzo.block.type }
+            - { name: gzo.blocks.type }
 
     ganstaz.gzo.block.recent.topics:
         class: ganstaz\gzo\src\blocks\type\recent_topics
         shared: false
-        parent: ganstaz.gzo.block.base
+        parent: ganstaz.gzo.blocks.base
         calls:
             - [set_active, [true]]
         tags:
-            - { name: gzo.block.type }
+            - { name: gzo.blocks.type }
 
     ganstaz.gzo.block.whos.online:
         class: ganstaz\gzo\src\blocks\type\whos_online
         shared: false
-        parent: ganstaz.gzo.block.base
+        parent: ganstaz.gzo.blocks.base
         arguments:
             - '@ganstaz.gzo.info'
         calls:
             - [set_active, [true]]
         tags:
-            - { name: gzo.block.type }
+            - { name: gzo.blocks.type }

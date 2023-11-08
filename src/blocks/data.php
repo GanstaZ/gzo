@@ -10,27 +10,27 @@
 
 namespace ganstaz\gzo\src\blocks;
 
-/**
-* Blocks event class
-*/
-class event
+class data
 {
-	/** @var array Contains validated blocks data */
 	protected static array $data = [];
 
-	/**
-	* Set template data
-	*/
-	public function set_data(string $section, array $data): void
+	public function set_template_data(string $section, array $data): void
 	{
 		$this->get($section) ? self::$data[$section] = array_merge(self::$data[$section], $data) : self::$data[$section] = $data;
 	}
 
-	/**
-	* Get data from a given section
-	*/
 	public function get(string $section): array
 	{
 		return self::$data[$section] ?? [];
+	}
+
+	public function has(string $section): bool
+	{
+		return count($this->get($section));
+	}
+
+	public function all(): array
+	{
+		return self::$data;
 	}
 }

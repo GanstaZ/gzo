@@ -27,7 +27,7 @@ class page_module
 		$this->page_title = $phpbb_container->get('language')->lang('ACP_GZO_PAGE_TITLE');
 
 		// Get an instance of the admin page controller
-		$admin_controller = $phpbb_container->get('ganstaz.gzo.admin.page_controller')
+		$admin_controller = $phpbb_container->get('ganstaz.gzo.admin.old.page_controller')
 			->set_page_url($this->u_action);
 
 		$admin_controller->display_page();

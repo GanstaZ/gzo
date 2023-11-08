@@ -15,8 +15,8 @@ services:
             - '@language'
             - '@request'
             - '@template'
+            - '@ganstaz.gzo.blocks.loader'
             - '@ganstaz.gzo.helper'
             - '@ganstaz.gzo.pages'
-            - '@ganstaz.gzo.block.manager'
         tags:
             - { name: event.listener }

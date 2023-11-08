@@ -17,12 +17,12 @@ use phpbb\path_helper;
 use phpbb\extension\manager;
 use Twig\Loader\LoaderInterface;
 use phpbb\event\dispatcher_interface;
-use ganstaz\gzo\src\blocks\event;
+use ganstaz\gzo\src\blocks\data;
 
 class phpbb_environment extends environment
 {
 	public function __construct(
-		protected event $event,
+		protected data $data,
 		config $phpbb_config,
 		filesystem $filesystem,
 		path_helper $path_helper,
@@ -38,6 +38,6 @@ class phpbb_environment extends environment
 
 	public function get_gzo_blocks(string $section): array
 	{
-		return $this->event->get($section);
+		return $this->data->get($section);
 	}
 }
