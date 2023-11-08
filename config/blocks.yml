@@ -10,7 +10,6 @@ services:
     ganstaz.gzo.blocks.manager:
         class: ganstaz\gzo\src\blocks\manager
         arguments:
-            - '@dbal.conn'
             - '@ganstaz.gzo.blocks.collection'
             - '%ganstaz.gzo.tables.blocks%'
 

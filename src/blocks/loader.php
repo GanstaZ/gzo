@@ -15,15 +15,13 @@ use phpbb\di\service_collection;
 
 class loader
 {
-	protected array $sections = ['gzo_right', 'gzo_bottom', 'gzo_left', 'gzo_top', 'gzo_middle'];
-
 	protected array $type = ['section', 'name'];
 
 	public function __construct(
 		private driver_interface $db,
 		private service_collection $collection,
 		public readonly data $data,
-		private readonly string $blocks_table
+		private string $blocks_table
 	)
 	{
 	}

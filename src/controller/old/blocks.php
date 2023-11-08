@@ -23,61 +23,24 @@ use ganstaz\gzo\src\event\events;
 */
 class blocks
 {
-	/** @var container */
-	protected $container;
-
-	/** @var driver */
-	protected $db;
-
-	/** @var language */
-	protected $language;
-
-	/** @var request */
-	protected $request;
-
-	/** @var template */
-	protected $template;
-
-	/** @var manager */
-	protected $manager;
-
 	/** @var array Contains info about current status */
-	protected $status;
+	protected array $status;
 
-	/** @var string Custom form action */
-	protected $u_action;
+	protected string $u_action;
 
-	/**
-	* Constructor
-	*
-	* @param container $container A container
-	* @param driver	   $db		  Database object
-	* @param language  $language  Language object
-	* @param request   $request	  Request object
-	* @param template  $template  Template object
-	* @param manager   $manager	  Data manager object
-	*/
 	public function __construct(
-		container $container,
-		driver $db,
-		language $language,
-		request $request,
-		template $template,
-		manager $manager
+		protected container $container,
+		protected driver $db,
+		protected language $language,
+		protected request $request,
+		protected template $template,
+		protected manager $manager
 	)
 	{
-		$this->container = $container;
-		$this->db		 = $db;
-		$this->language	 = $language;
-		$this->request	 = $request;
-		$this->manager	 = $manager;
-		$this->template	 = $template;
 	}
 
 	/**
 	* Display blocks
-	*
-	* @return void
 	*/
 	public function display_blocks(): void
 	{
@@ -86,12 +49,12 @@ class blocks
 
 		$this->language->add_lang('acp_blocks', 'ganstaz/gzo');
 
-		/** @event ganstaz.gzo.admin_block_add_language */
+		/** @event events::GZO_ADMIN_BLOCK_ADD_LANGUAGE */
 		$this->container->get('dispatcher')->dispatch(events::GZO_ADMIN_BLOCK_ADD_LANGUAGE);
 
 		// Get all blocks
 		$sql = 'SELECT *
-				FROM ' . $this->manager->blocks_data() . '
+				FROM ' . $this->manager->blocks_data . '
 				ORDER BY id';
 		$result = $this->db->sql_query($sql);
 
@@ -199,7 +162,7 @@ class blocks
 			if ($block)
 			{
 				// Update selected/requested block data
-				$this->db->sql_query('UPDATE ' . $this->manager->blocks_data() . ' SET ' .
+				$this->db->sql_query('UPDATE ' . $this->manager->blocks_data . ' SET ' .
 					$this->db->sql_build_array('UPDATE', $block_data) . "
 					WHERE name = '" . $this->db->sql_escape($data['name']) . "'"
 				);
@@ -210,7 +173,7 @@ class blocks
 			// Add new block/service data into db.
 			if ($new_block && in_array($data['name'], array_column($this->status('add'), 'name')))
 			{
-				$this->db->sql_query('INSERT INTO ' . $this->manager->blocks_data() . ' ' .
+				$this->db->sql_query('INSERT INTO ' . $this->manager->blocks_data . ' ' .
 					$this->db->sql_build_array('INSERT', $data)
 				);
 			}
@@ -218,7 +181,7 @@ class blocks
 			// Purge removed block/service data from db. No confirm_box is needed! It is just a cleanup process :)
 			if (in_array($data['name'], $this->status('purge')))
 			{
-				$this->db->sql_query('DELETE FROM ' . $this->manager->blocks_data() . "
+				$this->db->sql_query('DELETE FROM ' . $this->manager->blocks_data . "
 					WHERE name = '" . $this->db->sql_escape($data['name']) . "'"
 				);
 			}
