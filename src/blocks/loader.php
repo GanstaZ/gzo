@@ -22,18 +22,10 @@ class loader
 	public function __construct(
 		private driver_interface $db,
 		private service_collection $collection,
-		private data $data,
+		public readonly data $data,
 		private readonly string $blocks_table
 	)
 	{
-	}
-
-	/**
-	* Has (Does event have section data)
-	*/
-	public function has($section): bool
-	{
-		return count($this->data->get($section));
 	}
 
 	public function load(string|array $name = null, string $type = 'section'): void
