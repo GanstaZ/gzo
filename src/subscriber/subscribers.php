@@ -82,7 +82,7 @@ class subscribers implements EventSubscriberInterface
 			foreach ($get_page_data as $s_page)
 			{
 				$this->twig->assign_vars([
-					$s_page => $this->blocks_loader->has($s_page),
+					$s_page => $this->blocks_loader->data->has($s_page),
 				]);
 			}
 		}

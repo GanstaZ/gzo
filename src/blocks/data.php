@@ -12,7 +12,6 @@ namespace ganstaz\gzo\src\blocks;
 
 class data
 {
-	/** @var array Contains validated blocks data */
 	protected static array $data = [];
 
 	public function set_template_data(string $section, array $data): void
@@ -23,5 +22,10 @@ class data
 	public function get(string $section): array
 	{
 		return self::$data[$section] ?? [];
+	}
+
+	public function has(string $section): bool
+	{
+		return count($this->get($section));
 	}
 }
