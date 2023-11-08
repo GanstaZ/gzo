@@ -28,4 +28,9 @@ class data
 	{
 		return count($this->get($section));
 	}
+
+	public function all(): array
+	{
+		return self::$data;
+	}
 }

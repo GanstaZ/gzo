@@ -39,9 +39,6 @@ class blocks
 	{
 	}
 
-	/**
-	* Display blocks
-	*/
 	public function display_blocks(): void
 	{
 		// Add form key for form validation checks
@@ -141,12 +138,6 @@ class blocks
 		]);
 	}
 
-	/**
-	* Update data
-	*
-	* @param array $data_ary Array of blocks data
-	* @return void
-	*/
 	public function update_data(array $data_ary): void
 	{
 		foreach ($data_ary as $data)
@@ -188,13 +179,6 @@ class blocks
 		}
 	}
 
-	/**
-	* Assign template data for blocks
-	*
-	* @param array $rowset Block data is stored here
-	* @param array $count  Array of counted data [quantity of blocks and positions]
-	* @return void
-	*/
 	protected function assign_template_block_data(array $rowset, array $count): void
 	{
 		foreach ($rowset as $section => $data)
@@ -226,10 +210,6 @@ class blocks
 
 	/**
 	* Check conditioning
-	*
-	* @param array $block_data
-	* @param array $count
-	* @return void
 	*/
 	public function check(array $block_data, array $count): void
 	{
@@ -249,10 +229,6 @@ class blocks
 
 	/**
 	* Prepare data for installation
-	*
-	* @param array new_blocks
-	* @param array $count
-	* @return void
 	*/
 	protected function prepare(array $new_blocks, array $count): void
 	{
@@ -287,9 +263,6 @@ class blocks
 
 	/**
 	* Get status
-	*
-	* @param string $status
-	* @return array
 	*/
 	public function status(string $status): array
 	{
@@ -298,9 +271,6 @@ class blocks
 
 	/**
 	* Set page url
-	*
-	* @param string $u_action Custom form action
-	* @return self
 	*/
 	public function set_page_url(string $u_action): self
 	{

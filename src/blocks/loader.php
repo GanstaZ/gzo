@@ -57,13 +57,12 @@ class loader
 		{
 			$block = $this->collection[$this->get_service_name($row['name'], $row['ext_name'])];
 
-			// If is set as active, then load method will handle it
 			if ($block->is_load_active())
 			{
 				$blocks[$row['name']] = $block;
 			}
 
-			// This is for twig blocks tag
+			// Set section data for twig blocks tag/function
 			if ($row['section'])
 			{
 				$data = [
