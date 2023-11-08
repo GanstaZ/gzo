@@ -67,7 +67,7 @@ class manager
 		$this->_ext_name($service, $row['ext_name'], $container);
 
 		$row['name'] = str_replace(
-			utf8_substr($row['ext_name'], utf8_strpos($row['ext_name'], '_') + 1) . '_block_',
+			utf8_substr($row['ext_name'], utf8_strpos($row['ext_name'], '_') + 1) . '_blocks_',
 			'',
 			str_replace('.', '_', $service)
 		);
@@ -86,7 +86,7 @@ class manager
 	*/
 	public function get_service_name(string $service, string $ext_name): string
 	{
-		return str_replace('_', '.', "{$ext_name}.block." . utf8_substr($service, utf8_strpos($service, '_') + 1));
+		return str_replace('_', '.', "{$ext_name}.blocks." . utf8_substr($service, utf8_strpos($service, '_') + 1));
 	}
 
 	/**

@@ -36,7 +36,7 @@ services:
             - '%core.php_ext%'
 
 # ----- Blocks -----
-    ganstaz.gzo.block.mini.profile:
+    ganstaz.gzo.blocks.mini.profile:
         class: ganstaz\gzo\src\blocks\type\mini_profile
         shared: false
         parent: ganstaz.gzo.blocks.base
@@ -45,7 +45,7 @@ services:
         tags:
             - { name: gzo.blocks.type }
 
-    ganstaz.gzo.block.information:
+    ganstaz.gzo.blocks.information:
         class: ganstaz\gzo\src\blocks\type\information
         shared: false
         parent: ganstaz.gzo.blocks.base
@@ -54,7 +54,7 @@ services:
         tags:
             - { name: gzo.blocks.type }
 
-    ganstaz.gzo.block.the.team:
+    ganstaz.gzo.blocks.the.team:
         class: ganstaz\gzo\src\blocks\type\the_team
         shared: false
         parent: ganstaz.gzo.blocks.base
@@ -63,7 +63,7 @@ services:
         tags:
             - { name: gzo.blocks.type }
 
-    ganstaz.gzo.block.top.posters:
+    ganstaz.gzo.blocks.top.posters:
         class: ganstaz\gzo\src\blocks\type\top_posters
         shared: false
         parent: ganstaz.gzo.blocks.base
@@ -72,7 +72,7 @@ services:
         tags:
             - { name: gzo.blocks.type }
 
-    ganstaz.gzo.block.recent.posts:
+    ganstaz.gzo.blocks.recent.posts:
         class: ganstaz\gzo\src\blocks\type\recent_posts
         shared: false
         parent: ganstaz.gzo.blocks.base
@@ -81,7 +81,7 @@ services:
         tags:
             - { name: gzo.blocks.type }
 
-    ganstaz.gzo.block.recent.topics:
+    ganstaz.gzo.blocks.recent.topics:
         class: ganstaz\gzo\src\blocks\type\recent_topics
         shared: false
         parent: ganstaz.gzo.blocks.base
@@ -90,7 +90,7 @@ services:
         tags:
             - { name: gzo.blocks.type }
 
-    ganstaz.gzo.block.whos.online:
+    ganstaz.gzo.blocks.whos.online:
         class: ganstaz\gzo\src\blocks\type\whos_online
         shared: false
         parent: ganstaz.gzo.blocks.base

@@ -93,7 +93,7 @@ class loader
 
 	public function get_service_name(string $service, string $ext_name): string
 	{
-		return str_replace('_', '.', "{$ext_name}.block." . utf8_substr($service, utf8_strpos($service, '_') + 1));
+		return str_replace('_', '.', "{$ext_name}.blocks." . utf8_substr($service, utf8_strpos($service, '_') + 1));
 	}
 
 	public function vendor(array $data): string
