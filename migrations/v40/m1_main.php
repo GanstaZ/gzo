@@ -8,7 +8,7 @@
 *
 */
 
-namespace ganstaz\gzo\migrations\v24;
+namespace ganstaz\gzo\migrations\v40;
 
 use ganstaz\gzo\src\enum\gzo;
 
@@ -35,7 +35,7 @@ class m1_main extends \phpbb\db\migration\migration
 	*/
 	public static function depends_on(): array
 	{
-		return ['\phpbb\db\migration\data\v33x\v3310'];
+		return ['\phpbb\db\migration\data\v400\dev'];
 	}
 
 	/**

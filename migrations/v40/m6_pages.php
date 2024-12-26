@@ -8,7 +8,7 @@
 *
 */
 
-namespace ganstaz\gzo\migrations\v24;
+namespace ganstaz\gzo\migrations\v40;
 
 use ganstaz\gzo\src\enum\gzo;
 

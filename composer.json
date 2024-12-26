@@ -3,15 +3,15 @@
     "type": "phpbb-extension",
     "description": "Content Management System",
     "homepage": "https://www.ganstaz.org/",
-    "version": "3.4.0-dev",
-    "time": "2023-11-01",
+    "version": "4.0.0-dev",
+    "time": "2024-12-26",
     "license": "GPL-2.0-only",
     "authors": [
         {
             "name": "GanstaZ",
             "email": "ganstaz@hotmail.com",
             "homepage": "https://www.ganstaz.org/",
-            "role": "Lead Developer"
+            "role": "GZO Development Team Lead"
         }
     ],
     "require": {
@@ -25,7 +25,7 @@
     "extra": {
         "display-name": "GZO (CMS)",
         "soft-require": {
-            "phpbb/phpbb": ">=3.3"
+            "phpbb/phpbb": "4.0.0@dev"
         }
     },
     "config": {

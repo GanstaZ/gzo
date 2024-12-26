@@ -8,7 +8,7 @@
 *
 */
 
-namespace ganstaz\gzo\migrations\v24;
+namespace ganstaz\gzo\migrations\v40;
 
 use ganstaz\gzo\src\enum\gzo;
 
@@ -29,7 +29,6 @@ class m4_config extends \phpbb\db\migration\migration
 	{
 		return [
 			// Add the config variables we want to be able to set
-			['config.add', ['gzo_core_version', '2.4.0-dev']],
 			['config.add', ['gzo_main_fid', 2]],
 			['config.add', ['gzo_news_fid', 3]],
 			['config.add', ['gzo_news_link', 1]],
@@ -37,7 +36,6 @@ class m4_config extends \phpbb\db\migration\migration
 			['config.add', ['gzo_top_posters_fid', 0]],
 			['config.add', ['gzo_recent_posts_fid', 0]],
 			['config.add', ['gzo_recent_topics_fid', 0]],
-			['config.add', ['gzo_profile_tabs', 0]],
 			['config.add', ['gzo_pagination', 1]],
 			['config.add', ['gzo_title_length', 26]],
 			['config.add', ['gzo_content_length', 150]],
