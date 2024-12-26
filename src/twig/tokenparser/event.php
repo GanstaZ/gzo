@@ -12,6 +12,7 @@ namespace ganstaz\gzo\src\twig\tokenparser;
 
 use phpbb\template\twig\environment;
 use Twig\TokenParser\AbstractTokenParser;
+use Twig\Node\Node;
 use Twig\Token;
 
 class event extends AbstractTokenParser
@@ -23,14 +24,14 @@ class event extends AbstractTokenParser
 	/**
 	* Parses a token and returns a node.
 	*/
-	public function parse(Token $token): \Twig\Node\Node
+	public function parse(Token $token): Node
 	{
 		$expr = $this->parser->getExpressionParser()->parseExpression();
 
 		$stream = $this->parser->getStream();
 		$stream->expect(Token::BLOCK_END_TYPE);
 
-		return new \ganstaz\gzo\src\twig\node\event($expr, $this->environment, $token->getLine(), $this->getTag());
+		return new \ganstaz\gzo\src\twig\node\event($expr, $this->environment, $token->getLine());
 	}
 
 	/**

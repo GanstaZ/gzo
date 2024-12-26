@@ -22,11 +22,10 @@ class event extends Node
 	public function __construct(
 		AbstractExpression $expr,
 		protected environment $environment,
-		int $lineno,
-		?string $tag = null
+		int $lineno
 	)
 	{
-		parent::__construct(['expr' => $expr], [], $lineno, $tag);
+		parent::__construct(['expr' => $expr], [], $lineno);
 	}
 
 	/**
