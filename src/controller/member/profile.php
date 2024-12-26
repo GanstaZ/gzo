@@ -60,8 +60,8 @@ class profile
 	*
 	* @param string $username Username
 	* @param string $tab      Tab name
-	* @throws \phpbb\exception\http_exception
-	* @return \Symfony\Component\HttpFoundation\Response A Symfony Response object
+	* @throws http_exception
+	* @return Response A Symfony Response object
 	*/
 	public function handle($username, $tab): Response
 	{
