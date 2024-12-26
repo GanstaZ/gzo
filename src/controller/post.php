@@ -10,10 +10,10 @@
 
 namespace ganstaz\gzo\src\controller;
 
-use phpbb\event\dispatcher;
 use ganstaz\gzo\src\controller\helper;
 use ganstaz\gzo\src\entity\manager as em;
 use ganstaz\gzo\src\form\form;
+use phpbb\event\dispatcher;
 use phpbb\user;
 use phpbb\exception\http_exception;
 use Symfony\Component\HttpFoundation\RedirectResponse;

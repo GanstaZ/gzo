@@ -10,12 +10,14 @@
 
 namespace ganstaz\gzo\src\controller;
 
-use phpbb\event\dispatcher;
 use ganstaz\gzo\src\controller\helper;
 use ganstaz\gzo\src\entity\manager as em;
 use ganstaz\gzo\src\form\form;
 use ganstaz\gzo\src\model\posts;
+use phpbb\event\dispatcher;
 use phpbb\exception\http_exception;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Response;
 
 class articles extends abstract_controller
 {
@@ -39,7 +41,7 @@ class articles extends abstract_controller
 	*	 /articles/{id}/page/{page}
 	*
 	*/
-	public function handle(int $id, int $page): \Symfony\Component\HttpFoundation\Response
+	public function handle(int $id, int $page): Response
 	{
 		$this->posts->set_page_offset($page)
 			->trim_messages(true)
@@ -54,7 +56,7 @@ class articles extends abstract_controller
 	/**
 	* Article controller for route /article-full/{aid}
 	*/
-	public function article(int $aid): \Symfony\Component\HttpFoundation\RedirectResponse
+	public function article(int $aid): RedirectResponse
 	{
 		$row = $this->posts->get_forum_id($aid);
 
@@ -70,13 +72,13 @@ class articles extends abstract_controller
 
 		$url = append_sid(generate_board_url() . "/viewtopic.{$this->php_ext}", $params, false);
 
-		return new \Symfony\Component\HttpFoundation\RedirectResponse($url);
+		return new RedirectResponse($url);
 	}
 
 	/**
 	* First post controller (without any replies) for route /article/{aid}
 	*/
-	public function first_post(int $aid): \Symfony\Component\HttpFoundation\Response
+	public function first_post(int $aid): Response
 	{
 		$this->posts->trim_messages(false)
 			->get_first_post($aid);
