@@ -33,7 +33,7 @@ abstract class area_base
 
 	abstract public function get_name(): string;
 
-	abstract public function load_navigation(string $type, string $route): void;
+	abstract public function load_navigation(string $type): void;
 
 	protected function build_navigation(string $type, string $breadcrumb_name, string $breadcrumb_route): void
 	{
@@ -68,7 +68,7 @@ abstract class area_base
 		}
 	}
 
-	public function navigation_data(?string $type = null, ?object $auth = null): self
+	public function navigation_data(string $type, ?object $auth): self
 	{
 		if (($this->navigation = $this->cache->get('_gzo_plugins')) === false)
 		{
