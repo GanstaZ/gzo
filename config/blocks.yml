@@ -30,7 +30,7 @@ services:
             - '@dbal.conn'
             - '@controller.helper'
             - '@template'
-            - '@dispatcher'
+            - '@event_dispatcher'
             - '@ganstaz.gzo.helper'
             - '%core.root_path%'
             - '%core.php_ext%'

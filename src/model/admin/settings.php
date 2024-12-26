@@ -44,12 +44,6 @@ class settings
 					'values' => [1 => 'ENABLED', 0 => 'DISABLED'],
 				],
 			],
-			'gzo_profile_tabs' => [
-				'type'		   => 'radio',
-				'options'	=> [
-					'values' => [1 => 'ENABLED', 0 => 'DISABLED'],
-				],
-			],
 			'gzo_pagination' => [
 				'type'		 => 'radio',
 				'options'	=> [

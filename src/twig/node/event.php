@@ -12,8 +12,10 @@ namespace ganstaz\gzo\src\twig\node;
 
 use phpbb\template\twig\environment;
 use Twig\Node\Expression\AbstractExpression;
+use Twig\Compiler;
+use Twig\Node\Node;
 
-class event extends \Twig\Node\Node
+class event extends Node
 {
 	protected string $listener_directory = 'event/';
 
@@ -30,7 +32,7 @@ class event extends \Twig\Node\Node
 	/**
 	* Compiles the node to PHP.
 	*/
-	public function compile(\Twig\Compiler $compiler)
+	public function compile(Compiler $compiler)
 	{
 		$compiler->addDebugInfo($this);
 
@@ -60,7 +62,7 @@ class event extends \Twig\Node\Node
 
 					// We set the namespace lookup order to be this extension first, then the main path
 					->write("\$this->env->setNamespaceLookUpOrder(['{$ext_namespace}', '__main__']);\n")
-					->write("\$this->env->loadTemplate('$event')->display(\$context);\n")
+					->write("\$this->env->loadTemplate(\$this->env->getTemplateClass('$event'), '$event')->display(\$context);\n")
 					->write("\$this->env->setNamespaceLookUpOrder(\$previous_look_up_order);\n")
 				;
 			}

@@ -10,7 +10,7 @@ services:
     ganstaz.gzo.abstract_controller:
         abstract: true
         arguments:
-            - '@dispatcher'
+            - '@event_dispatcher'
             - '@ganstaz.gzo.controller.helper'
             - '@ganstaz.gzo.entity.manager'
             - '@ganstaz.gzo.form'

@@ -10,19 +10,22 @@
 
 namespace ganstaz\gzo\src\twig;
 
-use phpbb\template\twig\environment;
 use phpbb\config\config;
+use phpbb\event\dispatcher_interface;
 use phpbb\filesystem\filesystem;
 use phpbb\path_helper;
 use phpbb\extension\manager;
+use phpbb\template\assets_bag;
+use phpbb\template\twig\environment;
+
 use Twig\Loader\LoaderInterface;
-use phpbb\event\dispatcher_interface;
 use ganstaz\gzo\src\blocks\data;
 
 class phpbb_environment extends environment
 {
 	public function __construct(
 		protected data $data,
+		assets_bag $assets_bag,
 		config $phpbb_config,
 		filesystem $filesystem,
 		path_helper $path_helper,
@@ -33,7 +36,7 @@ class phpbb_environment extends environment
 		array $options = []
 	)
 	{
-		parent::__construct($phpbb_config, $filesystem, $path_helper, $cache_path, $extension_manager, $loader, $phpbb_dispatcher, $options);
+		parent::__construct($assets_bag, $phpbb_config, $filesystem, $path_helper, $cache_path, $extension_manager, $loader, $phpbb_dispatcher, $options);
 	}
 
 	public function get_gzo_blocks(string $section): array

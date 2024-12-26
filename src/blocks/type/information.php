@@ -10,6 +10,7 @@
 
 namespace ganstaz\gzo\src\blocks\type;
 
+use ganstaz\gzo\src\enum\gzo;
 use ganstaz\gzo\src\event\events;
 
 /**
@@ -34,12 +35,13 @@ class information extends base
 	public function load(): void
 	{
 		/** @event events::GZO_INFORMATION_BEFORE */
-		$this->dispatcher->dispatch(events::GZO_INFORMATION_BEFORE);
+		$this->dispatcher->trigger_event(events::GZO_INFORMATION_BEFORE);
 
 		// Set template vars
 		$this->twig->assign_vars([
 			'phpbb_version' => (string) $this->config['version'],
-			'core_stable'	=> (string) $this->config['gzo_core_version'],
+			'gzo_version'	=> (string) gzo::VERSION,
+			'gzo_style'		=> (string) gzo::STYLE,
 		]);
 	}
 }

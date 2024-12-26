@@ -41,7 +41,7 @@ class blocks extends \Twig\Node\Node
 			if ($this->environment->isDebug() || $this->environment->getLoader()->exists($block))
 			{
 				$compiler
-					->write("\$this->env->loadTemplate('$block')->display(\$context);\n")
+					->write("\$this->env->loadTemplate(\$this->env->getTemplateClass('$block'), '$block')->display(\$context);\n")
 				;
 			}
 		}

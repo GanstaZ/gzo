@@ -17,7 +17,7 @@ services:
         arguments:
             - '@cache'
             - '@dbal.conn'
-            - '@dispatcher'
+            - '@event_dispatcher'
             - '@ganstaz.gzo.controller.helper'
             - '%core.table_prefix%'
 
