@@ -7,6 +7,14 @@ services:
         tags:
             - { name: twig.extension }
 
+    ganstaz.gzo.user.extension:
+        class: ganstaz\gzo\src\twig\extension\user
+        arguments:
+            - '@auth'
+            - '@user'
+        tags:
+            - { name: twig.extension }
+
     ganstaz.gzo.form.extension:
         class: ganstaz\gzo\src\twig\extension\form
         tags:
