@@ -20,6 +20,12 @@ services:
         tags:
             - { name: twig.extension }
 
+    ganstaz.gzo.avatar.extension:
+        class: ganstaz\gzo\src\twig\extension\avatar
+        decorates: template.twig.extensions.avatar
+        arguments:
+            - '@avatar.helper'
+
     ganstaz.gzo.icon.extension:
         class: ganstaz\gzo\src\twig\extension\icon
         decorates: template.twig.extensions.icon
