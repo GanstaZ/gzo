@@ -18,7 +18,6 @@ class icon extends phpbb_icon
 {
 	public function __construct(user $user)
 	{
-		parent::__construct($user);
 	}
 
 	public function icon(environment $environment, $type, $icon, $title = '', $hidden = false, $classes = '', array $attributes = [])
