@@ -38,8 +38,16 @@ class index extends abstract_controller
 
 	public function main(): Response
 	{
-		//$this->helper->language->add_lang('info_acp_global', 'ganstaz/gzo');
+		$this->helper->language->add_lang('area_gzo', 'ganstaz/gzo');
 		//$this->helper->assign_breadcrumb('GZO_MAIN_PAGE', 'gzo_main');
+
+		$this->helper->twig->assign_vars([
+			'GZO_VERSION'      => gzo::VERSION,
+			'GZO_STYLE'        => gzo::STYLE,
+
+			'PHP_VERSION_INFO' => PHP_VERSION,
+			'BOARD_VERSION'    => $this->config['version'],
+		]);
 
 		return $this->helper->controller_helper->render('admin/index.twig', $this->helper->language->lang('GZO_MAIN_PAGE'));
 	}
