@@ -15,7 +15,7 @@ class ext extends \phpbb\extension\base
 	/**
 	* Compare versions & enable if equal or greater than 4.0.0
 	*/
-	public function is_enableable()
+	public function is_enableable(): bool
 	{
 		return phpbb_version_compare(PHPBB_VERSION, '4.0.0-dev', '>=');
 	}

@@ -1,5 +1,0 @@
-{% macro icon(type, icon, attributes = null, extra) %}
-
-	<i class="{{ type }} fa-{{ icon }}"{% for attr, value in attributes %} {{ attr }}="{{ value }}"{% endfor %} aria-hidden="true"></i>{{ extra ? extra }}
-
-{% endmacro %}
