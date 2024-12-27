@@ -20,6 +20,12 @@ services:
         tags:
             - { name: twig.extension }
 
+    ganstaz.gzo.icon.extension:
+        class: ganstaz\gzo\src\twig\extension\icon
+        decorates: template.twig.extensions.icon
+        arguments:
+            - '@user'
+
     ganstaz.gzo.environment:
         class: ganstaz\gzo\src\twig\phpbb_environment
         decorates: template.twig.environment
