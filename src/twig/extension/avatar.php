@@ -32,10 +32,10 @@ class avatar extends phpbb_avatar
 		if (isset($avatar['AVATAR_SOURCE']))
 		{
 			$avatar = [
-				'src'    => $avatar['AVATAR_SOURCE'],
-			    'title'  => $avatar['AVATAR_TITLE'],
-			    'width'  => $avatar['AVATAR_WIDTH'],
-			    'height' => $avatar['AVATAR_HEIGHT']
+				'src'	 => $avatar['AVATAR_SOURCE'],
+				'title'	 => $avatar['AVATAR_TITLE'],
+				'width'	 => $avatar['AVATAR_WIDTH'],
+				'height' => $avatar['AVATAR_HEIGHT']
 			];
 		}
 
@@ -49,12 +49,12 @@ class avatar extends phpbb_avatar
 		try
 		{
 			return $environment->render('@ganstaz_gzo/macros/user/avatar.twig', [
-				'SRC'      => $lazy ? $this->helper->get_no_avatar_source() : $avatar['src'],
+				'SRC'	   => $lazy ? $this->helper->get_no_avatar_source() : $avatar['src'],
 				'DATA_SRC' => $lazy ? $avatar['src'] : '',
-				'WIDTH'    => $avatar['width'],
+				'WIDTH'	   => $avatar['width'],
 				'HEIGHT'   => $avatar['height'],
-				'TITLE'    => $avatar['title'],
-				'LAZY'     => $lazy,
+				'TITLE'	   => $avatar['title'],
+				'LAZY'	   => $lazy,
 				'CLASSES'  => $classes,
 				'S_ONLINE' => $s_online
 			]);
