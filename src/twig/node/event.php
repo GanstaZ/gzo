@@ -36,11 +36,16 @@ class event extends Node
 		$compiler->addDebugInfo($this);
 
 		$location = $this->listener_directory . $this->getNode('expr')->getAttribute('name');
+		$file_ext = '.html';
 
 		foreach ($this->environment->get_phpbb_extensions() as $ext_namespace => $ext_path)
 		{
 			$ext_namespace = str_replace('/', '_', $ext_namespace);
-			$event = '@' . $ext_namespace . '/' . $location . '.twig';
+			if (str_contains($ext_namespace, 'ganstaz'))
+			{
+				$file_ext = '.twig';
+			}
+			$event = '@' . $ext_namespace . '/' . $location . $file_ext;
 
 			if ($this->environment->isDebug())
 			{
