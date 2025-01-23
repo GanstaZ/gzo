@@ -10,16 +10,17 @@
 
 namespace ganstaz\gzo\src\twig;
 
+use ganstaz\gzo\src\blocks\data;
+
 use phpbb\config\config;
 use phpbb\event\dispatcher_interface;
 use phpbb\filesystem\filesystem;
-use phpbb\path_helper;
 use phpbb\extension\manager;
+use phpbb\path_helper;
 use phpbb\template\assets_bag;
 use phpbb\template\twig\environment;
 
 use Twig\Loader\LoaderInterface;
-use ganstaz\gzo\src\blocks\data;
 
 class phpbb_environment extends environment
 {

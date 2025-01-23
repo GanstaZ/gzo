@@ -2,7 +2,8 @@ name: Tests
 
 env:
     EXTNAME: ganstaz/gzo # Your extension vendor/package name
-    SNIFF: 1            # Run code sniffer on your code? 1 or 0
+    SNIFF: 1             # Run code sniffer on your code? 1 or 0
+    IMAGE_ICC: 1         # Run icc profile sniffer on your images? 1 or 0
     PHPBB_BRANCH: master # The phpBB branch to run tests on
 
 on:
@@ -14,7 +15,7 @@ on:
             - master
 
 jobs:
-    # START Basic Checks Job (EPV, code sniffer, images check, etc.)
+    # START Basic Checks Job (code sniffer, images check, etc.)
     basic-checks:
         runs-on: ubuntu-latest
         strategy:
@@ -59,5 +60,10 @@ jobs:
               env:
                   NOTESTS: '1'
               run: .github/ext-sniff.sh $EXTNAME $NOTESTS
+              working-directory: ./phpBB3
+
+            - name: Check image ICC profiles
+              if: ${{ env.IMAGE_ICC != 0 }}
+              run: .github/check-image-icc-profiles.sh
               working-directory: ./phpBB3
     # END Basic Checks Job

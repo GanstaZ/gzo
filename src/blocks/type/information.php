@@ -13,9 +13,6 @@ namespace ganstaz\gzo\src\blocks\type;
 use ganstaz\gzo\src\enum\gzo;
 use ganstaz\gzo\src\event\events;
 
-/**
-* Information block
-*/
 class information extends base
 {
 	/**
@@ -39,7 +36,7 @@ class information extends base
 
 		// Set template vars
 		$this->twig->assign_vars([
-			'phpbb_version' => (string) $this->config['version'],
+			'phpbb_version' => (string) PHPBB_VERSION,
 			'gzo_version'	=> (string) gzo::VERSION,
 			'gzo_style'		=> (string) gzo::STYLE,
 		]);
