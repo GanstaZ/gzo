@@ -4,8 +4,6 @@ services:
         class: ganstaz\gzo\src\controller\admin\index
         shared: false
         parent: ganstaz.gzo.abstract_controller
-        arguments:
-            - '@config'
 
     ganstaz.gzo.admin.settings_controller:
         class: ganstaz\gzo\src\controller\admin\settings
