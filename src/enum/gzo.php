@@ -19,6 +19,7 @@ final class gzo
 	public const MAIN_MIGRATION = '\ganstaz\gzo\migrations\v40\m1_main';
 
 	// Tables
+	public const AREA = 'gzo_area';
 	public const PLUGINS = 'gzo_plugins';
 	public const BLOCKS = 'gzo_blocks';
 	public const PAGES = 'gzo_pages';
