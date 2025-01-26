@@ -1,18 +1,16 @@
-<div class="stat-block birthday-list">
-	<p>
-		{% EVENT index_body_block_birthday_prepend %}
+<div class="gzo-tab-panel-row">
+	{% EVENT gzo_birthday_prepend %}
 
-		{% if birthdays %}
-			{{ lang('CONGRATULATIONS') ~ lang('COLON') }}
-			<strong>
+	{% if birthdays %}
+		<h4 class="gzo-tab-panel-title">{{ lang('CONGRATULATIONS') ~ lang('COLON') }}</h4>
+			<span class="gzo-tab-panel-text">
 				{% for item in birthdays %}
 					{{ item.member ~ (item.age ? ' (' ~ item.age ~ ')') }}{{ not loop.last ? ', ' }}
 				{% endfor %}
-			</strong>
+			</span>
 		{% else %}
 			{{ lang('NO_BIRTHDAYS') }}
-		{% endif %}
+	{% endif %}
 
-		{% EVENT index_body_block_birthday_append %}
-	</p>
+	{% EVENT gzo_birthday_append %}
 </div>

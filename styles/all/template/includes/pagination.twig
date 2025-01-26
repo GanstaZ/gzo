@@ -10,7 +10,7 @@
 			<li class="ellipsis"><span>{{ lang('ELLIPSIS') }}</span></li>
 		{% elseif pagi.S_IS_NEXT %}
 			<li class="arrow-right">
-				{{ link({'class': 'button2', 'href': pagi.PAGE_URL}, Icon('font', 'chevron-right', lang('NEXT'), false)) }}
+				{{ link({'class': 'button2', 'href': pagi.PAGE_URL}, Icon('font', 'mdi--chevron-right', lang('NEXT'), false)) }}
 			</li>
 		{% else %}
 			<li>{{ link({'class': 'button2', 'href': pagi.PAGE_URL}, pagi.PAGE_NUMBER) }}</li>

@@ -1,9 +1,13 @@
-<div class="stat-block statistics">
-	<p>
-		{% EVENT index_body_block_stats_prepend %}
+<div class="gzo-tab-panel-row">
+	{% EVENT gzo_stats_prepend %}
 
-			{{ lang('TOTAL_POSTS_COUNT', TOTAL_POSTS) }} &bull; {{ lang('TOTAL_TOPICS', TOTAL_TOPICS) }} &bull; {{ lang('TOTAL_USERS',TOTAL_USERS) }} &bull; {{ lang('NEWEST_USER', NEWEST_USER) }}
+	<span class="gzo-tab-panel-text">
+		{{ lang('TOTAL_POSTS_COUNT', TOTAL_POSTS) }} &bull; {{ lang('TOTAL_TOPICS', TOTAL_TOPICS) }} &bull; {{ lang('TOTAL_USERS',TOTAL_USERS) }} &bull; {{ lang('NEWEST_USER', NEWEST_USER) }}
+	</span>
 
-		{% EVENT index_body_block_stats_append %}
-	</p>
+	<span class="gzo-tab-panel-text">
+		{{ lang('GZO_PER_DAY', lang('POSTS'), ppd) }} &bull; {{ lang('GZO_PER_DAY', lang('TOPICS'), tpd) }} &bull; {{ lang('GZO_PER_DAY', lang('USERS'), upd) }}
+	</span>
+
+	{% EVENT gzo_stats_append %}
 </div>
