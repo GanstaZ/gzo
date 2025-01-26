@@ -21,9 +21,8 @@ if (empty($lang) || !is_array($lang))
 $lang = array_merge($lang, [
 	// Global language vars
 	'ACP_GZO_SETTINGS_SAVED'  => 'Settings have been saved successfully!',
-	'GZO_DASHBOARD' => 'Dashboard',
 
-	// GZO admin area
+	// GZO admin area?
 	'GZO_CAT_ADMIN' => 'GZO Admin',
 
 	// Settings module

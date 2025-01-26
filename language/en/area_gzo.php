@@ -21,7 +21,13 @@ if (empty($lang) || !is_array($lang))
 $lang = array_merge($lang, [
 	'GZO_MAIN_PAGE_DESC' => 'Welcome to GZO Admin Dashboard!',
 
-	'GZO_PHP'	  => 'PHP version',
-	'GZO_BOARD'	  => 'Board version',
+	// Main category
+	'GZO_GLOBAL'   => 'GZO CMS',
 
+	'GZO_SETTINGS' => 'Global settings',
+	'GZO_BLOCKS'   => 'Manage blocks',
+	'GZO_PAGES'	   => 'Page settings',
+
+	'GZO_PHP'	   => 'PHP version',
+	'GZO_BOARD'	   => 'Board version',
 ]);

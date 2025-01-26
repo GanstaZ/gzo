@@ -31,7 +31,7 @@ class top_posters extends base
 	*/
 	public function load(): void
 	{
-		$sql = 'SELECT user_id, user_type, user_posts, username, user_colour
+		$sql = 'SELECT user_id, user_posts, username, user_colour, user_avatar, user_avatar_type, user_avatar_width, user_avatar_height
 				FROM ' . USERS_TABLE . '
 				WHERE user_id <> ' . (int) ANONYMOUS . '
 					AND user_type <> ' . (int) USER_IGNORE . '
@@ -41,9 +41,17 @@ class top_posters extends base
 
 		while ($row = $this->db->sql_fetchrow($result))
 		{
+			$data = [
+				'user_avatar'        => $row['user_avatar'],
+				'user_avatar_type'   => $row['user_avatar_type'],
+				'user_avatar_width'  => $row['user_avatar_width'],
+				'user_avatar_height' => $row['user_avatar_height'],
+			];
+
 			$this->twig->assign_block_vars('top_posters', [
-				'top' => get_username_string('full', (int) $row['user_id'], $row['username'], $row['user_colour']),
-				'posts' => (int) $row['user_posts'],
+				'avatar' => [(array) $data],
+				'posts'  => (int) $row['user_posts'],
+				'poster' => get_username_string('full', (int) $row['user_id'], $row['username'], $row['user_colour']),
 			]);
 		}
 		$this->db->sql_freeresult($result);

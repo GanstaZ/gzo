@@ -135,6 +135,7 @@ class posts
 
 		$category = $this->categories($forum_id);
 
+		// TODO: Change news to article
 		// Assign breadcrumb
 		$this->set_breadcrumb_data([
 			$category, 'ganstaz_gzo_news', ['id' => $forum_id]
@@ -160,7 +161,7 @@ class posts
 
 		while ($row = $this->db->sql_fetchrow($result))
 		{
-			$this->template->assign_block_vars('news', $this->get_template_data($row));
+			$this->template->assign_block_vars('articles', $this->get_template_data($row));
 		}
 		$this->db->sql_freeresult($result);
 
@@ -238,24 +239,31 @@ class posts
 		}
 
 		$poster = [
-			'user_rank'		=> $row['user_rank'],
-			'avatar'		=> $row['user_avatar'],
-			'avatar_type'	=> $row['user_avatar_type'],
-			'avatar_width'	=> $row['user_avatar_width'],
-			'avatar_height'	=> $row['user_avatar_height'],
+			'user_rank'			 => $row['user_rank'],
+			'user_avatar'		 => $row['user_avatar'],
+			'user_avatar_type'	 => $row['user_avatar_type'],
+			'user_avatar_width'	 => $row['user_avatar_width'],
+			'user_avatar_height' => $row['user_avatar_height'],
 		];
 
-		$rank_title = phpbb_get_user_rank($poster, $row['user_posts']);
+		$poster_id = (int) $row['user_id'];
+		$rank = phpbb_get_user_rank($poster, $row['user_posts']);
 		$text = $this->renderer->render($row['post_text']);
 
 		return [
-			'id'		 => $row['post_id'],
-			'link'		 => $this->controller->route('ganstaz_gzo_article', ['aid' => $row['topic_id']]),
-			'title'		 => $this->helper->truncate($row['topic_title'], $this->config['gzo_title_length']),
-			'date'		 => $this->user->format_date($row['topic_time']),
-			'author'	 => get_username_string('full', (int) $row['user_id'], $row['username'], $row['user_colour']),
-			'avatar'	 => phpbb_get_user_avatar($poster),
-			'rank'		 => $rank_title['title'],
+			'id'			  => $row['post_id'],
+			'link'			  => $this->controller->route('ganstaz_gzo_article', ['aid' => $row['topic_id']]),
+			'title'			  => $this->helper->truncate($row['topic_title'], $this->config['gzo_title_length']),
+			'date'			  => $this->user->format_date($row['topic_time']),
+
+			'author'		  => $poster_id,
+			'author_name'	  => $row['username'],
+			'author_color'	  => $row['user_colour'],
+			'author_profile'  => $this->controller->route('ganstaz_gzo_member', ['username' => $row['username']]),
+
+			'author_avatar'	  => [(array) $poster],
+			'author_rank'	  => $rank['title'],
+			'author_rank_img' => $rank['img'],
 			'views'		 => $row['topic_views'],
 			'replies'	 => $row['topic_posts_approved'] - 1,
 			'text'		 => $this->trim_messages ? $this->trim_message($text) : $text,

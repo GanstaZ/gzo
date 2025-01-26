@@ -10,39 +10,33 @@
 
 namespace ganstaz\gzo\src\subscriber;
 
+use ganstaz\gzo\src\blocks\loader as blocks_loader;
+use ganstaz\gzo\src\enum\admin;
+use ganstaz\gzo\src\helper;
+use ganstaz\gzo\src\pages;
 use phpbb\config\config;
 use phpbb\controller\helper as controller;
 use phpbb\language\language;
 use phpbb\request\request;
 use phpbb\template\twig\twig;
-use ganstaz\gzo\src\blocks\loader as blocks_loader;
-use ganstaz\gzo\src\enum\admin;
-use ganstaz\gzo\src\helper;
-use ganstaz\gzo\src\pages;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-/**
-* Event subscribers
-*/
 class subscribers implements EventSubscriberInterface
 {
 	public function __construct(
-		private readonly config $config,
-		private readonly controller $controller,
-		private readonly language $language,
-		private readonly request $request,
-		private readonly twig $twig,
-		private readonly blocks_loader $blocks_loader,
-		private readonly helper $helper,
-		private readonly pages $pages
+		private config $config,
+		private controller $controller,
+		private language $language,
+		private request $request,
+		private twig $twig,
+		private blocks_loader $blocks_loader,
+		private helper $helper,
+		private pages $pages
 	)
 	{
 	}
 
-	/**
-	* Assign functions defined in this class to event listeners in the core
-	*/
 	public static function getSubscribedEvents(): array
 	{
 		return [
@@ -55,6 +49,7 @@ class subscribers implements EventSubscriberInterface
 			'core.acp_manage_forums_request_data'	 => 'manage_forums_request_data',
 			'core.acp_manage_forums_display_form'	 => 'manage_forums_display_form',
 			'core.memberlist_modify_viewprofile_sql' => 'redirect_profile',
+			'core.memberlist_prepare_profile_data'   => 'modify_profile_data',
 			'core.modify_username_string'			 => 'modify_username_string',
 		];
 	}
@@ -95,13 +90,13 @@ class subscribers implements EventSubscriberInterface
 	{
 		$current = $this->pages->get_current_page();
 
-		if (!$this->pages->is_cp($current) && $current === 'index')
-		{
-			$url = $this->controller->route('ganstaz_gzo_forum');
+		// if (!$this->pages->is_cp($current) && $current === 'index')
+		// {
+		// 	$url = $this->controller->route('ganstaz_gzo_forum');
 
-			$response = new RedirectResponse($url);
-			$response->send();
-		}
+		// 	$response = new RedirectResponse($url);
+		// 	$response->send();
+		// }
 
 		if (defined(admin::GZO_IN_AREA))
 		{
@@ -122,7 +117,7 @@ class subscribers implements EventSubscriberInterface
 	public function change_index(): void
 	{
 		$this->twig->assign_vars([
-			'U_INDEX' => $this->controller->route('ganstaz_gzo_forum'),
+			// 'U_INDEX' => $this->controller->route('ganstaz_gzo_forum'),
 			'U_GZO_ADMIN' => $this->controller->route('gzo_main'),
 		]);
 	}
@@ -189,6 +184,19 @@ class subscribers implements EventSubscriberInterface
 			$response = new RedirectResponse($url);
 			$response->send();
 		}
+	}
+
+	/**
+	* Event core.memberlist_prepare_profile_data
+	*/
+	public function modify_profile_data($event): void
+	{
+		$data = $event['data'];
+		$event['template_data'] = array_merge($event['template_data'], [
+			'user_id'  => $data['user_id'],
+		    'username' => $data['username'],
+		    'color'    => $data['user_colour'],
+		]);
 	}
 
 	/**
