@@ -41,17 +41,17 @@ class m2_area extends \phpbb\db\migration\migration
 		{
 			$items = [
 				[
-					'cat'	=> 'GZO_QUICK_ACCESS',
+					'cat'	=> 'GZO_DASHBOARD',
 					'title'	=> 'GZO_MAIN_PAGE',
-					'type'  => 'gzo',
+					'type'	=> 'gzo',
 					'auth'	=> '',
 					'route' => 'gzo_main',
-					'icon'	=> '',
+					'icon'	=> 'mdi--view-dashboard-outline',
 				],
 				[
 					'cat'	=> 'GZO_GLOBAL',
 					'title'	=> 'GZO_SETTINGS',
-					'type'  => 'gzo',
+					'type'	=> 'gzo',
 					'auth'	=> '',
 					'route' => 'gzo_settings',
 					'icon'	=> '',
@@ -59,7 +59,7 @@ class m2_area extends \phpbb\db\migration\migration
 				[
 					'cat'	=> 'GZO_GLOBAL',
 					'title'	=> 'GZO_BLOCKS',
-					'type'  => 'gzo',
+					'type'	=> 'gzo',
 					'auth'	=> '',
 					'route' => 'gzo_blocks',
 					'icon'	=> '',
@@ -67,7 +67,7 @@ class m2_area extends \phpbb\db\migration\migration
 				[
 					'cat'	=> 'GZO_GLOBAL',
 					'title'	=> 'GZO_PAGES',
-					'type'  => 'gzo',
+					'type'	=> 'gzo',
 					'auth'	=> '',
 					'route' => 'gzo_pages',
 					'icon'	=> '',

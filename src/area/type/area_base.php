@@ -10,8 +10,8 @@
 
 namespace ganstaz\gzo\src\area\type;
 
-use ganstaz\gzo\src\enum\gzo;
 use ganstaz\gzo\src\controller\helper;
+use ganstaz\gzo\src\enum\gzo;
 use ganstaz\gzo\src\event\events;
 use phpbb\cache\service as cache;
 use phpbb\db\driver\driver_interface;
@@ -20,7 +20,7 @@ use phpbb\event\dispatcher;
 abstract class area_base
 {
 	protected bool|array $navigation = [];
-	protected array $categories = ['GZO_DEFAULT' => 'ic--outline-home',];
+	protected array $icons = ['GZO_DEFAULT' => 'ic--outline-home'];
 
 	public function __construct(
 		protected cache $cache,
@@ -80,22 +80,22 @@ abstract class area_base
 	{
 		$this->helper->assign_breadcrumb($breadcrumb_name, $breadcrumb_route);
 
-		$categories = $this->categories;
+		$icons = $this->icons;
 		$navigation = $this->navigation[$type];
 
 		/** @event events::GZO_AREA_MODIFY_NAVIGATION */
-		$vars = ['categories', 'navigation', 'type'];
+		$vars = ['icons', 'navigation', 'type'];
 		extract($this->dispatcher->trigger_event(events::GZO_AREA_MODIFY_NAVIGATION, compact($vars)));
 
+		$this->icons = $icons;
 		$this->navigation = $navigation;
-		$this->categories = $categories;
-		unset($navigation, $categories);
+		unset($navigation, $icons);
 
 		foreach ($this->navigation as $category => $data)
 		{
 			$this->helper->twig->assign_block_vars('menu', [
 				'heading' => $category,
-				'icon'	  => $this->categories[$category] ?? $this->categories['GZO_DEFAULT'],
+				'icon'	  => $this->icons[$category] ?? $this->icons['GZO_DEFAULT'],
 			]);
 
 			foreach ($data as $item)
@@ -103,7 +103,7 @@ abstract class area_base
 				$this->helper->twig->assign_block_vars('menu.item', [
 					'title' => $item['title'],
 					'route' => $item['route'],
-					'icon'	=> $item['icon'] ?? $this->categories['GZO_DEFAULT'],
+					'icon'  => $item['icon'] ?? ''
 				]);
 			}
 		}
@@ -111,9 +111,9 @@ abstract class area_base
 
 	protected function set_category_icon(string $name, string $icon): self
 	{
-		if (!isset($this->categories[$name]))
+		if (!isset($this->icons[$name]))
 		{
-			$this->categories[$name] = $icon;
+			$this->icons[$name] = $icon;
 		}
 
 		return $this;
