@@ -1,22 +1,30 @@
 {% embed '@ganstaz_gzo/includes/block-item.twig' %}
-	{% from '@ganstaz_gzo/macros/tags.twig' import icon %}
+	{% block block_title %}{{ lang('LEADERS') }}{% endblock %}
 
-	{% block block_heading %}{{ lang('LEADERS') }}{% endblock %}
+	{% block block_content %}
 
-	{% block block_mid_content %}
-		<dl class="gzo-info">
+		<div class="gzo-block-stats">
+			{% for top in top_posters %}
 
-			<dt class="c-stat-head">{{ lang('USERNAME') }}</dt>
-			<dd class="gzo-text-right c-stat-head">{{ lang('POSTS') }}</dd>
+				<div class="gzo-block-info gzo-block-user">
 
-			{% for posters in top_posters %}
+					<span class="gzo-avatar-wrap gzo-avatar gzo-avatar-sm">
+						{{ avatar('user', top.avatar[0], '', false, true, 'gzo-avatar-sm') }}
+					</span>
 
-				<dt>{{ loop.index ~ '.' ~ icon('fa', 'star fa-fw icon-gold', null, posters.top)|trim }}</dt>
-				<dd class="gzo-text-right">{{ posters.posts }}</dd>
+					<span class="gzo-user-status">
+						{{ top.poster }}
+						<small class="gzo-user-status-title">
+							{{ lang('POSTS') }} {{ top.posts }}
+						</small>
+					</span>
 
+				</div>
+			{% else %}
+				{# TODO: Language string for no members #}
 			{% endfor %}
+		</div>
 
-		</dl>
 	{% endblock %}
 
 {% endembed %}
