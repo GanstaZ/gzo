@@ -2,16 +2,13 @@
     "name": "ganstaz/gzo",
     "type": "phpbb-extension",
     "description": "Content Management System",
-    "homepage": "https://www.ganstaz.org/",
+    "homepage": "https://www.github.com/GanstaZ/",
     "version": "4.0.0-dev",
-    "time": "2024-12-26",
     "license": "GPL-2.0-only",
     "authors": [
         {
             "name": "GanstaZ",
-            "email": "ganstaz@hotmail.com",
-            "homepage": "https://www.ganstaz.org/",
-            "role": "GZO Development Team Lead"
+            "email": "ganstaz@hotmail.com"
         }
     ],
     "require": {
@@ -19,13 +16,13 @@
         "composer/installers": "~1.0"
     },
     "require-dev": {
-        "phing/phing": "2.4.*",
+        "phing/phing": "~2.4",
         "phpstan/phpstan": "^1.8"
     },
     "extra": {
         "display-name": "GZO (CMS)",
         "soft-require": {
-            "phpbb/phpbb": "4.0.0@dev"
+            "phpbb/phpbb": ">=4.0.0@dev"
         }
     },
     "config": {
