@@ -10,9 +10,9 @@
 
 namespace ganstaz\gzo\src\twig\extension;
 
-use phpbb\user;
 use phpbb\template\twig\environment;
 use phpbb\template\twig\extension\icon as phpbb_icon;
+use phpbb\user;
 
 class icon extends phpbb_icon
 {
@@ -94,7 +94,7 @@ class icon extends phpbb_icon
 		{
 			try
 			{
-				$file	= $environment->load('svg/404.svg');
+				$file	= $environment->load($path . 'svg/404.svg');
 				$source	= $this->prepare_svg($file, $view_box);
 			}
 			catch (\Twig\Error\Error $e)
