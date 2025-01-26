@@ -49,7 +49,7 @@ class subscribers implements EventSubscriberInterface
 			'core.acp_manage_forums_request_data'	 => 'manage_forums_request_data',
 			'core.acp_manage_forums_display_form'	 => 'manage_forums_display_form',
 			'core.memberlist_modify_viewprofile_sql' => 'redirect_profile',
-			'core.memberlist_prepare_profile_data'   => 'modify_profile_data',
+			'core.memberlist_prepare_profile_data'	 => 'modify_profile_data',
 			'core.modify_username_string'			 => 'modify_username_string',
 		];
 	}
@@ -92,10 +92,10 @@ class subscribers implements EventSubscriberInterface
 
 		// if (!$this->pages->is_cp($current) && $current === 'index')
 		// {
-		// 	$url = $this->controller->route('ganstaz_gzo_forum');
+		//	$url = $this->controller->route('ganstaz_gzo_forum');
 
-		// 	$response = new RedirectResponse($url);
-		// 	$response->send();
+		//	$response = new RedirectResponse($url);
+		//	$response->send();
 		// }
 
 		if (defined(admin::GZO_IN_AREA))
@@ -194,8 +194,8 @@ class subscribers implements EventSubscriberInterface
 		$data = $event['data'];
 		$event['template_data'] = array_merge($event['template_data'], [
 			'user_id'  => $data['user_id'],
-		    'username' => $data['username'],
-		    'color'    => $data['user_colour'],
+			'username' => $data['username'],
+			'color'	   => $data['user_colour'],
 		]);
 	}
 
