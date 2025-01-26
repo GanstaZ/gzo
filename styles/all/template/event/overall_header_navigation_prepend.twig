@@ -1,19 +1,15 @@
 {% EVENT ganstaz_gzo_navi_before %}
 
 {% if U_ACP %}
-
 	<li data-last-responsive="true">
 		{{ link({'href': U_GZO_ADMIN, 'title': lang('GZO_MAIN_PAGE')}, Icon('font', 'cogs', lang('GZO_MAIN_PAGE'), false)) }}
 	</li>
-
 {% endif %}
 
 {% if config('gzo_news_link') %}
-
 	<li data-last-responsive="true">
 		{{ link({'href': U_NEWS, 'title': lang('NEWS')}, Icon('font', 'newspaper', lang('NEWS'), false)) }}
 	</li>
-
 {% endif %}
 
 {% EVENT ganstaz_gzo_navi_after %}
