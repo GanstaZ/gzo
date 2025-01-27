@@ -44,13 +44,13 @@ class subscribers implements EventSubscriberInterface
 			'core.user_setup_after'	 => 'load_available_blocks',
 			'core.page_header'		 => 'add_gzo_data',
 			'core.page_header_after' => 'change_index',
-			'core.viewforum_get_topic_data'			 => 'news_forum_redirect',
-			'core.posting_modify_template_vars'		 => 'submit_post_template',
 			'core.acp_manage_forums_request_data'	 => 'manage_forums_request_data',
 			'core.acp_manage_forums_display_form'	 => 'manage_forums_display_form',
 			'core.memberlist_modify_viewprofile_sql' => 'redirect_profile',
 			'core.memberlist_prepare_profile_data'	 => 'modify_profile_data',
 			'core.modify_username_string'			 => 'modify_username_string',
+			'core.posting_modify_template_vars'		 => 'submit_post_template',
+			'core.viewforum_get_topic_data'			 => 'news_forum_redirect',
 		];
 	}
 
@@ -123,36 +123,6 @@ class subscribers implements EventSubscriberInterface
 	}
 
 	/**
-	* Redirect users from the forum to the right controller
-	*/
-	public function news_forum_redirect($event): void
-	{
-		$forum_id = (int) $event['forum_id'];
-
-		// Will redirect to our controller
-		if (in_array($forum_id, $this->helper->get_forum_ids()) && $forum_id !== (int) $this->config['gzo_main_fid'])
-		{
-			$url = $this->controller->route('ganstaz_gzo_news', ['id' => $forum_id]);
-
-			$response = new RedirectResponse($url);
-			$response->send();
-		}
-	}
-
-	/**
-	* Modify Special forum's posting page
-	*/
-	public function submit_post_template(): void
-	{
-		// Borrowed from Ideas extension (phpBB)
-		// Alter posting page breadcrumbs to link to the ideas controller
-		$this->twig->alter_block_array('navlinks', [
-			'BREADCRUMB_NAME' => $this->language->lang('HOME'),
-			'U_BREADCRUMB'	  => $this->controller->route('ganstaz_gzo_index'),
-		], false, 'change');
-	}
-
-	/**
 	* Event core.acp_manage_forums_request_data
 	*/
 	public function manage_forums_request_data($event): void
@@ -219,6 +189,36 @@ class subscribers implements EventSubscriberInterface
 			}
 
 			$event['username_string'] = $username_string;
+		}
+	}
+
+	/**
+	* Modify Special forum's posting page
+	*/
+	public function submit_post_template(): void
+	{
+		// Borrowed from Ideas extension (phpBB)
+		// Alter posting page breadcrumbs to link to the ideas controller
+		$this->twig->alter_block_array('navlinks', [
+			'BREADCRUMB_NAME' => $this->language->lang('HOME'),
+			'U_BREADCRUMB'	  => $this->controller->route('ganstaz_gzo_index'),
+		], false, 'change');
+	}
+
+	/**
+	* Redirect users from the forum to the right controller
+	*/
+	public function news_forum_redirect($event): void
+	{
+		$forum_id = (int) $event['forum_id'];
+
+		// Will redirect to our controller
+		if (in_array($forum_id, $this->helper->get_forum_ids()) && $forum_id !== (int) $this->config['gzo_main_fid'])
+		{
+			$url = $this->controller->route('ganstaz_gzo_news', ['id' => $forum_id]);
+
+			$response = new RedirectResponse($url);
+			$response->send();
 		}
 	}
 }
