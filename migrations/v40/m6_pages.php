@@ -73,17 +73,6 @@ class m6_pages extends \phpbb\db\migration\migration
 					'gzo_top'	 => 0,
 					'gzo_bottom' => 0,
 				],
-				[
-					'name'		 => 'faq',
-					'active'	 => 0,
-					'allow'		 => 0,
-					'changeable' => 0,
-					'gzo_right'	 => 0,
-					'gzo_left'	 => 0,
-					'gzo_middle' => 0,
-					'gzo_top'	 => 0,
-					'gzo_bottom' => 0,
-				],
 			];
 
 			$insert_buffer = new \phpbb\db\sql_insert_buffer($this->db, $this->table_prefix . gzo::PAGES);
