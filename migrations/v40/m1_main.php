@@ -47,13 +47,15 @@ class m1_main extends \phpbb\db\migration\migration
 			'add_tables' => [
 				$this->table_prefix . gzo::AREA => [
 					'COLUMNS' => [
-						'id'	=> ['UINT', null, 'auto_increment'],
-						'cat'   => ['VCHAR', ''],
-						'title'	=> ['VCHAR', ''],
-						'type'  => ['VCHAR', ''],
-						'auth'  => ['VCHAR', ''],
-						'route' => ['VCHAR', ''],
-						'icon'  => ['VCHAR', ''],
+						'id'	 => ['UINT', null, 'auto_increment'],
+						'cat'	 => ['VCHAR', ''],
+						'title'	 => ['VCHAR', ''],
+						'type'	 => ['VCHAR', ''],
+						'parent' => ['BOOL', 0],
+						'auth'	 => ['VCHAR', ''],
+						'route'	 => ['VCHAR', ''],
+						'crud'	 => ['BOOL', 0],
+						'icon'	 => ['VCHAR', ''],
 					],
 					'PRIMARY_KEY' => ['id'],
 				],

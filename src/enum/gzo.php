@@ -18,6 +18,14 @@ final class gzo
 	public const DATE_FORMAT = 'Y-m-d H:i';
 	public const MAIN_MIGRATION = '\ganstaz\gzo\migrations\v40\m1_main';
 
+	// Area
+	public const TYPE = 'gzo';
+	public const AREAS = [
+		'main'	  => 'GZO_DASHBOARD',
+		'config'  => 'GZO_CONFIG',
+		'plugins' => 'GZO_PLUGINS',
+	];
+
 	// Tables
 	public const AREA = 'gzo_area';
 	public const PLUGINS = 'gzo_plugins';
