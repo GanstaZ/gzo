@@ -13,13 +13,13 @@ namespace ganstaz\gzo\src\subscriber;
 use ganstaz\gzo\src\area\loader;
 use ganstaz\gzo\src\auth\auth;
 use ganstaz\gzo\src\enum\admin;
-use Symfony\Component\HttpKernel\KernelEvents;
-use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\HttpKernel\Event\RequestEvent;
+use Symfony\Component\HttpKernel\KernelEvents;
 
 class kernel_request implements EventSubscriberInterface
 {
-	public function __construct(private auth $auth, private loader $loader)
+	public function __construct(protected auth $auth, protected loader $loader)
 	{
 	}
 
@@ -31,15 +31,15 @@ class kernel_request implements EventSubscriberInterface
 		$route = $event->getRequest()->attributes->get('_route');
 		$type = strstr($route, '_', true);
 
-		if ($this->loader->is_area_available($type))
+		if ($this->loader->available($type))
 		{
-			$area = $this->loader->get_area($type);
+			$area = $this->loader->get($type);
 			$this->auth->authorize($area);
 
 			define(admin::GZO_IN_AREA, true);
 
-			$area->navigation_data($type, $this->auth->phpbb_auth)
-				->load_navigation($type);
+			$area->build_navigation_data($this->auth->phpbb_auth)
+				->load_navigation();
 		}
 
 		$this->auth->authorize($event->getRequest()->attributes->get('_controller'));

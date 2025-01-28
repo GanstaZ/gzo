@@ -25,5 +25,7 @@ services:
         class: ganstaz\gzo\src\area\type\gzo
         shared: false
         parent: ganstaz.gzo.area.base
+        calls:
+            - [set_type, [gzo]]
         tags:
             - { name: gzo.area }
