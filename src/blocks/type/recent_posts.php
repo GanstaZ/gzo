@@ -31,7 +31,7 @@ class recent_posts extends base
 	*/
 	public function load(): void
 	{
-		$sql = 'SELECT p.post_id, t.topic_id, t.topic_visibility, t.topic_title, t.topic_time, t.topic_status, t.topic_last_post_id
+		$sql = 'SELECT p.post_id, t.topic_id, t.topic_title
 				FROM ' . POSTS_TABLE . ' p, ' . TOPICS_TABLE . ' t
 				WHERE t.topic_last_post_id = p.post_id
 					AND t.topic_status <> ' . ITEM_MOVED . '

@@ -10,18 +10,19 @@
 
 namespace ganstaz\gzo\src\model;
 
+use ganstaz\gzo\src\event\events;
+use ganstaz\gzo\src\helper;
 use phpbb\auth\auth;
 use phpbb\config\config;
+use phpbb\controller\helper as controller;
 use phpbb\db\driver\driver_interface;
 use phpbb\event\dispatcher;
-use phpbb\controller\helper as controller;
 use phpbb\language\language;
 use phpbb\pagination;
-use phpbb\textformatter\s9e\renderer;
 use phpbb\template\template;
+use phpbb\textformatter\s9e\renderer;
 use phpbb\user;
-use ganstaz\gzo\src\helper;
-use ganstaz\gzo\src\event\events;
+
 use phpbb\exception\http_exception;
 
 /**
@@ -196,7 +197,7 @@ class posts
 		$sql_where = 't.' . $where . '_id = ';
 
 		$sql_ary = [
-			'SELECT'	=> 't.topic_id, t.forum_id, t.topic_title, t.topic_time, t.topic_views, t.topic_status, t.topic_posts_approved,
+			'SELECT'	=> 't.topic_id, t.topic_title, t.topic_time, t.topic_views, t.topic_posts_approved,
 			p.post_id, p.poster_id, p.post_text, u.user_id, u.username, u.user_posts, u.user_rank, u.user_colour, u.user_avatar,
 			u.user_avatar_type, u.user_avatar_width, u.user_avatar_height',
 

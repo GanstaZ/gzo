@@ -31,7 +31,7 @@ class recent_topics extends base
 	*/
 	public function load(): void
 	{
-		$sql = 'SELECT topic_id, topic_visibility, topic_title, topic_time, topic_status
+		$sql = 'SELECT topic_id, topic_title
 				FROM ' . TOPICS_TABLE . '
 				WHERE topic_status <> ' . ITEM_MOVED . '
 					AND topic_visibility = 1
