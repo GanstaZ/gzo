@@ -58,15 +58,15 @@ class articles extends abstract_controller
 	*/
 	public function article(int $aid): RedirectResponse
 	{
-		$row = $this->posts->get_forum_id($aid);
+		$forum_id = $this->posts->get_forum_id($aid);
 
-		if (!$row)
+		if (!$forum_id)
 		{
-			throw new http_exception(404, 'NO_TOPICS', [$row]);
+			throw new http_exception(404, 'NO_TOPICS', [$forum_id]);
 		}
 
 		$params = [
-			'f' => (int) $row['forum_id'],
+			'f' => $forum_id,
 			't' => $aid
 		];
 

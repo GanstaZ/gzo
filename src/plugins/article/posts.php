@@ -289,16 +289,16 @@ class posts
 	/**
 	* Get forum id
 	*/
-	public function get_forum_id(int $topic_id): array
+	public function get_forum_id(int $topic_id): string
 	{
 		$sql = 'SELECT forum_id
 				FROM ' . TOPICS_TABLE . '
 				WHERE topic_id = ' . $topic_id;
 		$result = $this->db->sql_query($sql, 3600);
-		$row = $this->db->sql_fetchrow($result);
+		$row = (int) $this->db->sql_fetchfield('forum_id');
 		$this->db->sql_freeresult($result);
 
-		return $row;
+		return $row ?? '';
 	}
 
 	/**
