@@ -27,6 +27,8 @@ $lang = array_merge($lang, [
 	'GZO_GENERAL'	=> 'General',
 	'GZO_LEGAL'		=> 'Help & Legal',
 
+	'GZO_LIKE' => 'Like',
+
 	'NEWS'			=> 'News',
 
 	'LATEST_NEWS'  => 'Viewing category',
