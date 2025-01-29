@@ -13,15 +13,14 @@
 					</span>
 
 					<span class="gzo-user-status">
-						{{ top.poster }}
+						{{- gzo_username('profile', top.id, top.name, top.color, 'gzo-top-posters-user') -}}
 						<small class="gzo-user-status-title">
 							{{ lang('POSTS') }} {{ top.posts }}
 						</small>
 					</span>
 
 				</div>
-			{% else %}
-				{# TODO: Language string for no members #}
+
 			{% endfor %}
 		</div>
 
