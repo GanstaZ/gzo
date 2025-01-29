@@ -8,7 +8,7 @@
 *
 */
 
-namespace ganstaz\gzo\src\model;
+namespace ganstaz\gzo\src\plugins\article;
 
 use ganstaz\gzo\src\event\events;
 use ganstaz\gzo\src\helper;
@@ -17,17 +17,13 @@ use phpbb\config\config;
 use phpbb\controller\helper as controller;
 use phpbb\db\driver\driver_interface;
 use phpbb\event\dispatcher;
+use phpbb\exception\http_exception;
 use phpbb\language\language;
 use phpbb\pagination;
 use phpbb\template\template;
 use phpbb\textformatter\s9e\renderer;
 use phpbb\user;
 
-use phpbb\exception\http_exception;
-
-/**
-* Posts model
-*/
 class posts
 {
 	protected int $page = 0;

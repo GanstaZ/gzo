@@ -38,7 +38,7 @@ class user extends AbstractExtension
 		];
 	}
 
-	public function username(environment $environment, string $mode, string $user_id, string $username, string $color, string $classes = ''): string
+	public function username(environment $environment, string $mode, int $user_id, string $username, string $color, string $classes = ''): string
 	{
 		$s_granted = false;
 		if ($user_id && $user_id != ANONYMOUS && ($this->phpbb_user->data['user_id'] == ANONYMOUS || $this->auth->acl_get('u_viewprofile')))
