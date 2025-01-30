@@ -10,10 +10,10 @@
 
 namespace ganstaz\gzo\src\controller;
 
-use phpbb\event\dispatcher;
 use ganstaz\gzo\src\controller\helper;
 use ganstaz\gzo\src\entity\manager as em;
 use ganstaz\gzo\src\form\form;
+use phpbb\event\dispatcher;
 use phpbb\user;
 use phpbb\exception\http_exception;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -37,7 +37,7 @@ class post extends abstract_controller
 	* Post controller for /post/article{fid}
 	*	  Redirects to right forum's posting page
 	*/
-	public function handle(int $fid): \Symfony\Component\HttpFoundation\RedirectResponse
+	public function handle(int $fid): RedirectResponse
 	{
 		// Borrowed from Ideas extension (phpBB)
 		if ($this->user->data['user_id'] == ANONYMOUS)

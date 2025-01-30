@@ -12,34 +12,40 @@ namespace ganstaz\gzo\src\twig\node;
 
 use phpbb\template\twig\environment;
 use Twig\Node\Expression\AbstractExpression;
+use Twig\Compiler;
+use Twig\Node\Node;
 
-class event extends \Twig\Node\Node
+class event extends Node
 {
 	protected string $listener_directory = 'event/';
 
 	public function __construct(
 		AbstractExpression $expr,
 		protected environment $environment,
-		int $lineno,
-		?string $tag = null
+		int $lineno
 	)
 	{
-		parent::__construct(['expr' => $expr], [], $lineno, $tag);
+		parent::__construct(['expr' => $expr], [], $lineno);
 	}
 
 	/**
 	* Compiles the node to PHP.
 	*/
-	public function compile(\Twig\Compiler $compiler)
+	public function compile(Compiler $compiler)
 	{
 		$compiler->addDebugInfo($this);
 
 		$location = $this->listener_directory . $this->getNode('expr')->getAttribute('name');
+		$file_ext = '.html';
 
 		foreach ($this->environment->get_phpbb_extensions() as $ext_namespace => $ext_path)
 		{
 			$ext_namespace = str_replace('/', '_', $ext_namespace);
-			$event = '@' . $ext_namespace . '/' . $location . '.twig';
+			if (str_contains($ext_namespace, 'ganstaz'))
+			{
+				$file_ext = '.twig';
+			}
+			$event = '@' . $ext_namespace . '/' . $location . $file_ext;
 
 			if ($this->environment->isDebug())
 			{
@@ -60,7 +66,7 @@ class event extends \Twig\Node\Node
 
 					// We set the namespace lookup order to be this extension first, then the main path
 					->write("\$this->env->setNamespaceLookUpOrder(['{$ext_namespace}', '__main__']);\n")
-					->write("\$this->env->loadTemplate('$event')->display(\$context);\n")
+					->write("\$this->env->loadTemplate(\$this->env->getTemplateClass('$event'), '$event')->display(\$context);\n")
 					->write("\$this->env->setNamespaceLookUpOrder(\$previous_look_up_order);\n")
 				;
 			}

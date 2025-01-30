@@ -22,25 +22,22 @@ use phpbb\user;
 use ganstaz\gzo\src\info;
 use phpbb\exception\http_exception;
 
-/**
-* Forum index model
-*/
-class main
+final class main
 {
 	public function __construct
 	(
-		private auth $auth,
-		private config $config,
-		private dispatcher $dispatcher,
-		private controller $controller,
-		private language $language,
-		private notifications $notifications,
-		private request $request,
-		private twig $twig,
-		private user $user,
-		private info $info,
-		private string $root_path,
-		private string $php_ext
+		protected auth $auth,
+		protected config $config,
+		protected dispatcher $dispatcher,
+		protected controller $controller,
+		protected language $language,
+		protected notifications $notifications,
+		protected request $request,
+		protected twig $twig,
+		protected user $user,
+		protected info $info,
+		protected readonly string $root_path,
+		protected readonly string $php_ext
 	)
 	{
 	}
@@ -121,13 +118,16 @@ class main
 			'TOTAL_POSTS'  => (int) $this->config['num_posts'],
 			'TOTAL_TOPICS' => (int) $this->config['num_topics'],
 			'TOTAL_USERS'  => (int) $this->config['num_users'],
-			'NEWEST_USER'  => get_username_string('full', (int) $this->config['newest_user_id'], $this->config['newest_username'], $this->config['newest_user_colour']),
+			'N_USER_ID'	   => (int) $this->config['newest_user_id'],
+			'N_USER_NAME'  => $this->config['newest_username'],
+			'N_USER_COLOR' => $this->config['newest_user_colour'],
 
 			'S_LOGIN_ACTION'  => append_sid("{$this->root_path}ucp.$this->php_ext", 'mode=login'),
 			'U_SEND_PASSWORD' => ($this->config['email_enable'] && $this->config['allow_password_reset']) ? $this->controller->route('phpbb_ucp_forgot_password_controller') : '',
 			'S_DISPLAY_BIRTHDAY_LIST' => $this->info->show_birthdays(),
 			'S_INDEX'		  => true,
 
+			// TODO: Needs some testing/fixing
 			'U_MARK_FORUMS'	  => ($this->user->data['is_registered'] || $this->config['load_anon_lastread']) ? append_sid("{$this->root_path}index.$this->php_ext", 'hash=' . generate_link_hash('global') . '&amp;mark=forums&amp;mark_time=' . time()) : '',
 			'U_MCP'			  => ($this->auth->acl_get('m_') || $this->auth->acl_getf_global('m_')) ? append_sid("{$this->root_path}mcp.$this->php_ext", 'i=main&amp;mode=front', true, $this->user->session_id) : ''
 		]);

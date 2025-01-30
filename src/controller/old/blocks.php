@@ -29,7 +29,7 @@ class blocks
 	protected string $u_action;
 
 	public function __construct(
-		protected container $container,
+		public container $container,
 		protected driver $db,
 		protected language $language,
 		protected request $request,
@@ -47,7 +47,7 @@ class blocks
 		$this->language->add_lang('acp_blocks', 'ganstaz/gzo');
 
 		/** @event events::GZO_ADMIN_BLOCK_ADD_LANGUAGE */
-		$this->container->get('dispatcher')->dispatch(events::GZO_ADMIN_BLOCK_ADD_LANGUAGE);
+		$this->container->get('event_dispatcher')->trigger_event(events::GZO_ADMIN_BLOCK_ADD_LANGUAGE);
 
 		// Get all blocks
 		$sql = 'SELECT *

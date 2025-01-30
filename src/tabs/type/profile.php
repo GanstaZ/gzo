@@ -22,7 +22,7 @@ use phpbb\config\config;
 use phpbb\group\helper as group;
 use phpbb\profilefields\manager as cp;
 
-class profile extends base
+final class profile extends base
 {
 	public function __construct
 	(
@@ -33,12 +33,12 @@ class profile extends base
 		language $language,
 		twig $twig,
 		user $user,
-		private config $config,
-		private group $group,
-		private cp $cp,
-		private readonly string $admin_path,
-		private readonly string $root_path,
-		private readonly string $php_ext
+		protected config $config,
+		protected group $group,
+		protected cp $cp,
+		protected readonly string $admin_path,
+		protected readonly string $root_path,
+		protected readonly string $php_ext
 	)
 	{
 		parent::__construct($auth, $db, $dispatcher, $controller, $language, $twig, $user);
@@ -85,7 +85,7 @@ class profile extends base
 
 		// Get group memberships
 		// Also get visiting user's groups to determine hidden group memberships if necessary.
-		$auth_hidden_groups = ($user_id === (int) $this->user->data['user_id'] || $this->auth->acl_gets('a_group', 'a_groupadd', 'a_groupdel')) ? true : false;
+		$auth_hidden_groups = $user_id === (int) $this->user->data['user_id'] || $this->auth->acl_gets('a_group', 'a_groupadd', 'a_groupdel');
 		$sql_uid_ary = ($auth_hidden_groups) ? [$user_id] : [$user_id, (int) $this->user->data['user_id']];
 
 		// Do the SQL thang
@@ -238,7 +238,7 @@ class profile extends base
 			$member['user_sig'] = generate_text_for_display($member['user_sig'], $member['user_sig_bbcode_uid'], $member['user_sig_bbcode_bitfield'], $parse_flags, true);
 		}
 
-		// We need to check if the modules 'zebra' ('friends' & 'foes' mode),  'notes' ('user_notes' mode) and	'warn' ('warn_user' mode) are accessible to decide if we can display appropriate links
+		// We need to check if the modules 'zebra', 'notes' and 'warn' are accessible to decide if we can display appropriate links
 		$zebra_enabled = $friends_enabled = $foes_enabled = $user_notes_enabled = $warn_user_enabled = false;
 
 		// Only check if the user is logged in
@@ -254,11 +254,11 @@ class profile extends base
 			$module->list_modules('ucp');
 			$module->list_modules('mcp');
 
-			$user_notes_enabled = ($module->loaded('mcp_notes', 'user_notes')) ? true : false;
-			$warn_user_enabled = ($module->loaded('mcp_warn', 'warn_user')) ? true : false;
-			$zebra_enabled = ($module->loaded('ucp_zebra')) ? true : false;
-			$friends_enabled = ($module->loaded('ucp_zebra', 'friends')) ? true : false;
-			$foes_enabled = ($module->loaded('ucp_zebra', 'foes')) ? true : false;
+			$user_notes_enabled = $module->loaded('mcp_notes', 'user_notes');
+			$warn_user_enabled = $module->loaded('mcp_warn', 'warn_user');
+			$zebra_enabled = $module->loaded('ucp_zebra');
+			$friends_enabled = $module->loaded('ucp_zebra', 'friends');
+			$foes_enabled = $module->loaded('ucp_zebra', 'foes');
 
 			unset($module);
 		}
@@ -275,18 +275,6 @@ class profile extends base
 		* Modify user data before we display the profile
 		*
 		* @event core.memberlist_view_profile
-		* @var	array	member					Array with user's data
-		* @var	bool	user_notes_enabled		Is the mcp user notes module enabled?
-		* @var	bool	warn_user_enabled		Is the mcp warnings module enabled?
-		* @var	bool	zebra_enabled			Is the ucp zebra module enabled?
-		* @var	bool	friends_enabled			Is the ucp friends module enabled?
-		* @var	bool	foes_enabled			Is the ucp foes module enabled?
-		* @var	bool	friend					Is the user friend?
-		* @var	bool	foe						Is the user foe?
-		* @var	array	profile_fields			Array with user's profile field data
-		* @since 3.1.0-a1
-		* @changed 3.1.0-b2 Added friend and foe status
-		* @changed 3.1.0-b3 Added profile fields data
 		*/
 		$vars = [
 			'member',
@@ -303,7 +291,9 @@ class profile extends base
 
 		$this->twig->assign_vars(phpbb_show_profile($member, $user_notes_enabled, $warn_user_enabled));
 
-		// If the user has m_approve permission or a_user permission, then list then display unapproved posts
+		$member['posts_in_queue'] = 0;
+
+		// If the user has m_approve permission or a_user permission, then display unapproved posts
 		if ($this->auth->acl_getf_global('m_approve') || $this->auth->acl_get('a_user'))
 		{
 			$sql = 'SELECT COUNT(post_id) as posts_in_queue
@@ -313,10 +303,6 @@ class profile extends base
 			$result = $this->db->sql_query($sql);
 			$member['posts_in_queue'] = (int) $this->db->sql_fetchfield('posts_in_queue');
 			$this->db->sql_freeresult($result);
-		}
-		else
-		{
-			$member['posts_in_queue'] = 0;
 		}
 
 		// Define the main array of vars to assign to memberlist_view.html
@@ -331,7 +317,7 @@ class profile extends base
 			'S_PROFILE_ACTION'			=> append_sid("{$this->root_path}memberlist.$this->php_ext", 'mode=group'),
 			'S_GROUP_CURRENT'			=> $group_current,
 			'S_GROUP_OPTIONS'			=> $group_options,
-			'S_CUSTOM_FIELDS'			=> (isset($profile_fields['row']) && count($profile_fields['row'])) ? true : false,
+			'S_CUSTOM_FIELDS'			=> isset($profile_fields['row']) && count($profile_fields['row']),
 
 			'U_USER_ADMIN'				=> ($this->auth->acl_get('a_user')) ? append_sid(generate_board_url() . "/{$this->admin_path}index.$this->php_ext", 'i=users&amp;mode=overview&amp;u=' . $user_id, true, $this->user->session_id) : '',
 
@@ -341,9 +327,9 @@ class profile extends base
 			'U_SWITCH_PERMISSIONS'		=> ($this->auth->acl_get('a_switchperm') && $this->user->data['user_id'] != $user_id) ? append_sid("{$this->root_path}ucp.$this->php_ext", "mode=switch_perm&amp;u={$user_id}&amp;hash=" . generate_link_hash('switchperm')) : '',
 			'U_EDIT_SELF'				=> ($user_id == $this->user->data['user_id'] && $this->auth->acl_get('u_chgprofileinfo')) ? append_sid("{$this->root_path}ucp.$this->php_ext", 'i=ucp_profile&amp;mode=profile_info') : '',
 
-			'S_USER_NOTES'				=> ($user_notes_enabled) ? true : false,
-			'S_WARN_USER'				=> ($warn_user_enabled) ? true : false,
-			'S_ZEBRA'					=> ($this->user->data['user_id'] != $user_id && $this->user->data['is_registered'] && $zebra_enabled) ? true : false,
+			'S_USER_NOTES'				=> $user_notes_enabled,
+			'S_WARN_USER'				=> $warn_user_enabled,
+			'S_ZEBRA'					=> $this->user->data['user_id'] != $user_id && $this->user->data['is_registered'] && $zebra_enabled,
 			'U_ADD_FRIEND'				=> (!$friend && !$foe && $friends_enabled) ? append_sid("{$this->root_path}ucp.$this->php_ext", 'i=zebra&amp;add=' . urlencode(html_entity_decode($member['username'], ENT_COMPAT))) : '',
 			'U_ADD_FOE'					=> (!$friend && !$foe && $foes_enabled) ? append_sid("{$this->root_path}ucp.$this->php_ext", 'i=zebra&amp;mode=foes&amp;add=' . urlencode(html_entity_decode($member['username'], ENT_COMPAT))) : '',
 			'U_REMOVE_FRIEND'			=> ($friend && $friends_enabled) ? append_sid("{$this->root_path}ucp.$this->php_ext", 'i=zebra&amp;remove=1&amp;usernames[]=' . $user_id) : '',
@@ -354,8 +340,6 @@ class profile extends base
 		* Modify user's template vars before we display the profile
 		*
 		* @event core.memberlist_modify_view_profile_template_vars
-		* @var	array	template_ary	Array with user's template vars
-		* @since 3.2.6-RC1
 		*/
 		$vars = [
 			'template_ary',
@@ -383,34 +367,25 @@ class profile extends base
 		{
 			$this->language->add_lang('acp/common');
 
-			$inactive_reason = $this->language->lang('INACTIVE_REASON_UNKNOWN');
-
-			switch ($member['user_inactive_reason'])
-			{
-				case INACTIVE_REGISTER:
-					$inactive_reason = $this->language->lang('INACTIVE_REASON_REGISTER');
-				break;
-
-				case INACTIVE_PROFILE:
-					$inactive_reason = $this->language->lang('INACTIVE_REASON_PROFILE');
-				break;
-
-				case INACTIVE_MANUAL:
-					$inactive_reason = $this->language->lang('INACTIVE_REASON_MANUAL');
-				break;
-
-				case INACTIVE_REMIND:
-					$inactive_reason = $this->language->lang('INACTIVE_REASON_REMIND');
-				break;
-			}
-
 			$this->twig->assign_vars([
 				'S_USER_INACTIVE'		=> true,
-				'USER_INACTIVE_REASON'	=> $inactive_reason]
-			);
+				'USER_INACTIVE_REASON'	=> $this->get_inactivity_reason($member['user_inactive_reason'])
+			]);
 		}
 
 		// TODO: Remove it?
 		make_jumpbox(append_sid("{$this->root_path}viewforum.$this->php_ext"));
+	}
+
+	protected function get_inactivity_reason(string $user_inactive_reason): string
+	{
+		return match($user_inactive_reason)
+		{
+			INACTIVE_REGISTER => $this->language->lang('INACTIVE_REASON_REGISTER'),
+			INACTIVE_PROFILE  => $this->language->lang('INACTIVE_REASON_PROFILE'),
+			INACTIVE_MANUAL   => $this->language->lang('INACTIVE_REASON_MANUAL'),
+			INACTIVE_REMIND   => $this->language->lang('INACTIVE_REASON_REMIND'),
+			default		      => $this->language->lang('INACTIVE_REASON_UNKNOWN')
+		};
 	}
 }

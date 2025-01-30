@@ -1,18 +1,29 @@
 {% embed '@ganstaz_gzo/includes/block-item.twig' %}
-	{% from '@ganstaz_gzo/macros/tags.twig' import icon %}
+	{# {% block block_title %}{{ lang('THE_TEAM') }}{% endblock %} #}
+	{% block block_title %}{{ get_group_name(team_name) }}{% endblock %}
 
-	{% block block_heading %}{{ lang('THE_TEAM') }}{% endblock %}
+	{% block block_content %}
 
-	{% block block_mid_content %}
-		<dl class="gzo-info">
+		<div class="gzo-block-stats">
+			{% for member in the_team %}
 
-			<dt></dt><dd class="c-stat-head">{{ get_group_name(team_name) }}</dd>
+				<div class="gzo-block-info gzo-block-user">
 
-			{% for team in the_team %}
-				<dt>{{ icon('fa', 'user-circle fa-fw') }}</dt><dd>{{ team.member }}</ddlass=>
+					<span class="gzo-avatar-wrap gzo-avatar gzo-avatar-sm">
+						{{ avatar('user', member.avatar[0], '', false, true, 'gzo-avatar-sm') }}
+					</span>
+
+					<span class="gzo-user-status">
+						{{- gzo_username('profile', member.id, member.name, member.color, 'gzo-the-team-user') -}}
+						<small class="gzo-user-status-title">{{ member.rank }}</small>
+					</span>
+
+				</div>
+			{% else %}
+				{# TODO: Language string for no members #}
 			{% endfor %}
+		</div>
 
-		</dl>
 	{% endblock %}
 
 {% endembed %}

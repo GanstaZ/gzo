@@ -12,23 +12,24 @@ namespace ganstaz\gzo\src\twig\node;
 
 use phpbb\template\twig\environment;
 use Twig\Node\Expression\AbstractExpression;
+use Twig\Compiler;
+use Twig\Node\Node;
 
-class blocks extends \Twig\Node\Node
+class blocks extends Node
 {
 	public function __construct(
 		AbstractExpression $expr,
 		protected environment $environment,
-		int $lineno,
-		?string $tag = null
+		int $lineno
 	)
 	{
-		parent::__construct(['expr' => $expr], [], $lineno, $tag);
+		parent::__construct(['expr' => $expr], [], $lineno);
 	}
 
 	/**
 	* Compiles the node to PHP.
 	*/
-	public function compile(\Twig\Compiler $compiler)
+	public function compile(Compiler $compiler)
 	{
 		$compiler->addDebugInfo($this);
 
@@ -41,7 +42,7 @@ class blocks extends \Twig\Node\Node
 			if ($this->environment->isDebug() || $this->environment->getLoader()->exists($block))
 			{
 				$compiler
-					->write("\$this->env->loadTemplate('$block')->display(\$context);\n")
+					->write("\$this->env->loadTemplate(\$this->env->getTemplateClass('$block'), '$block')->display(\$context);\n")
 				;
 			}
 		}

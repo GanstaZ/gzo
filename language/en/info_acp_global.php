@@ -21,22 +21,6 @@ if (empty($lang) || !is_array($lang))
 $lang = array_merge($lang, [
 	// Global language vars
 	'ACP_GZO_SETTINGS_SAVED'  => 'Settings have been saved successfully!',
-	'GZO_DASHBOARD' => 'Dashboard',
-
-	// GZO admin area
-	'GZO_CAT_ADMIN' => 'GZO Admin',
-
-	// Settings module
-	'ACP_GZO_TITLE'			  => 'GZO CMS',
-	'ACP_GZO_GLOBAL'		  => 'Global settings',
-
-	// Blocks module
-	'ACP_GZO_BLOCKS_TITLE'	  => 'GZO Blocks module',
-	'ACP_GZO_BLOCKS'		  => 'Manage blocks',
-
-	// Page module
-	'ACP_GZO_PAGE_TITLE'	  => 'GZO Page module',
-	'ACP_GZO_PAGE'			  => 'Page settings',
 
 	// News settings
 	'ACP_NEWS_LEGEND'		  => 'News settings',

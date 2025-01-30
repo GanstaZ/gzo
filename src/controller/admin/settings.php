@@ -44,12 +44,6 @@ class settings extends abstract_controller
 
 		$emc = $this->em->type('config');
 
-		// Testing
-		//var_dump($this->form->config());
-		//var_dump($this->form->_get('common'));
-		var_dump($this->form->err());
-		//var_dump($this->em->available());
-
 		if ($this->form->is_submitted() && $this->form->is_valid())
 		{
 			if ($this->sm->s_forum_ids())

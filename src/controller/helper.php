@@ -20,9 +20,9 @@ use phpbb\template\twig\twig;
 class helper
 {
 	public function __construct(
-		public readonly controller_helper $controller_helper,
-		public readonly language $language,
-		public readonly twig $twig,
+		public controller_helper $controller_helper,
+		public language $language,
+		public twig $twig,
 	)
 	{
 	}

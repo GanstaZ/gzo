@@ -75,7 +75,7 @@ abstract class base implements tabs_interface
 	/**
 	* Get user data
 	*/
-	public function get_user_data(string $username): array
+	protected function get_user_data(string $username): array
 	{
 		// Can this user view profiles/memberlist?
 		if (!$this->auth->acl_gets('u_viewprofile', 'a_user', 'a_useradd', 'a_userdel'))

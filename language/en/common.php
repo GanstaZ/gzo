@@ -20,7 +20,15 @@ if (empty($lang) || !is_array($lang))
 
 $lang = array_merge($lang, [
 	// Navigation
-	'GZO_MAIN_PAGE' => 'Area Z',
+	'GZO_DASHBOARD' => 'Dashboard',
+	'GZO_MAIN_PAGE' => 'GZO Admin',
+
+	// Drawer
+	'GZO_GENERAL'	=> 'General',
+	'GZO_LEGAL'		=> 'Help & Legal',
+
+	'GZO_LIKE' => 'Like',
+
 	'NEWS'			=> 'News',
 
 	'LATEST_NEWS'  => 'Viewing category',
@@ -56,12 +64,14 @@ $lang = array_merge($lang, [
 	'RECENT_TOPICS' => 'Recent topics',
 
 	'WELCOME' => 'Welcome back, ',
+	'WELCOME_GUEST' => 'Welcome guest',
 	'NEW_PM'  => ' new message',
 	'NEW_PMS' => ' new messages',
 
-	'PHPBB_VERSION'	 => 'phpBB version: ',
-	'PORTAL_VERSION' => 'System version: ',
-	'PORTAL_STYLE'	 => 'Default style: ',
+	'PHPBB_VERSION' => 'phpBB version',
+	'PHPBB_STYLE'	=> 'Board style',
+	'GZO_VERSION'	=> 'GZO version',
+	'GZO_STYLE'		=> 'GZO style',
 
 	'IN_TOPIC'	=> 'In ',
 
@@ -76,6 +86,7 @@ $lang = array_merge($lang, [
 
 	'STATUS' => 'Status: %s',
 
-	'GZO_NO_ADMIN' => 'You are not authorized to access this area!',
+	// Auth
+	'GZO_NO_ADMIN'	  => 'You are not authorized to access this area!',
 	'GZO_USER_ACCESS' => 'You do not have permissions to access this area!',
 ]);

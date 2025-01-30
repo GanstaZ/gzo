@@ -22,19 +22,19 @@ class loader
 		{
 			foreach ($collection as $area)
 			{
-				$this->areas[$area->get_name()] = $area;
+				$this->areas[$area->type] = $area;
 			}
 		}
 	}
 
-	public function is_area_available(string $name): bool
+	public function available(string $type): bool
 	{
-		return isset($this->areas[$name]);
+		return isset($this->areas[$type]);
 	}
 
-	public function get_area(string $name): object
+	public function get(string $type): object
 	{
-		return $this->areas[$name];
+		return $this->areas[$type];
 	}
 
 	public function all(): array

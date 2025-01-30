@@ -15,9 +15,6 @@ use phpbb\config\config;
 use phpbb\db\driver\driver_interface;
 use phpbb\user;
 
-/**
-* Pages class
-*/
 class pages
 {
 	protected array $allow = [];
@@ -25,12 +22,12 @@ class pages
 	private bool $is_pagename_app = false;
 
 	public function __construct(
-		private cache $cache,
-		private config $config,
-		private driver_interface $db,
-		private user $user,
-		private string $page_data,
-		private string $php_ext
+		protected cache $cache,
+		protected config $config,
+		protected driver_interface $db,
+		protected user $user,
+		protected readonly string $page_data,
+		public readonly string $php_ext
 	)
 	{
 	}

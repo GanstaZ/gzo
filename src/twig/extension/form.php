@@ -12,9 +12,6 @@ namespace ganstaz\gzo\src\twig\extension;
 
 use phpbb\template\twig\environment;
 
-/**
-* Twig form extension
-*/
 class form extends \Twig\Extension\AbstractExtension
 {
 	/**
@@ -29,13 +26,6 @@ class form extends \Twig\Extension\AbstractExtension
 		];
 	}
 
-	/**
-	* Form widget
-	*
-	* @param environment $environment Twig environment object
-	* @param array       $form_data
-	* @return void
-	*/
 	public function form_widget(environment $env, array $form_data): void
 	{
 		if (!$form_data)
@@ -49,9 +39,10 @@ class form extends \Twig\Extension\AbstractExtension
 			$effix = is_bool($s_custom) && $s_custom === false ? '_custom' : '';
 			$type = $row['type'] . $effix;
 
-			if ($env->getLoader()->exists('@ganstaz_gzo/macros/form/' . $type . '.twig'))
+			$form = '@ganstaz_gzo/macros/form/' . $type . '.twig';
+			if ($env->getLoader()->exists($form))
 			{
-				$env->loadTemplate('@ganstaz_gzo/macros/form/' . $type . '.twig')->display($row);
+				$env->loadTemplate($env->getTemplateClass($form), $form)->display($row);
 			}
 		}
 	}

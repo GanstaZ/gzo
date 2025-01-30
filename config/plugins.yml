@@ -1,0 +1,24 @@
+services:
+    ganstaz.gzo.plugins.base:
+        abstract: true
+        arguments:
+            - '@config'
+            - '@controller.helper'
+            - '@dbal.conn'
+            - '@event_dispatcher'
+            - '@template'
+            - '@ganstaz.gzo.users_loader'
+            - '%core.root_path%'
+            - '%core.php_ext%'
+
+    ganstaz.gzo.posts:
+        class: ganstaz\gzo\src\plugin\article\posts
+        shared: false
+        parent: ganstaz.gzo.plugins.base
+        arguments:
+            - '@auth'
+            - '@language'
+            - '@pagination'
+            - '@text_formatter.renderer'
+            - '@user'
+            - '@ganstaz.gzo.helper'

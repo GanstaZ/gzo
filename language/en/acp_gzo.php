@@ -23,7 +23,6 @@ $lang = array_merge($lang, [
 	'GZO_NEWS_FID'		 => 'Change news id for news page',
 	'GZO_NEWS_LINK'		 => 'Enable news link in navigation',
 	'GZO_PAGINATION'	 => 'Enable pagination',
-	'GZO_PROFILE_TABS'	 => 'Enable profile tabs',
 	'GZO_LIMIT'			 => 'Change news limit',
 	'GZO_USER_LIMIT'	 => 'Change user limit',
 

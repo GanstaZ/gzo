@@ -38,15 +38,13 @@ class extension extends \Twig\Extension\AbstractExtension
 	public function getFunctions(): array
 	{
 		return [
-			new \Twig\TwigFunction('blocks', [$this, 'blocks'], ['needs_environment' => true, 'needs_context' => true]),
+			new \Twig\TwigFunction('blocks', [$this, 'load_blocks'], ['needs_environment' => true, 'needs_context' => true]),
+			new \Twig\TwigFunction('link', [$this, 'link'], ['needs_environment' => true]),
 			new \Twig\TwigFunction('get_group_name', [$this, 'get_group_name']),
 		];
 	}
 
-	/**
-	* Load blocks
-	*/
-	public function blocks(\Twig\Environment $environment, $context, string $section): void
+	public function load_blocks(environment $environment, $context, string $section): void
 	{
 		foreach ($environment->gzo_get_blocks($section) as $name => $path)
 		{
@@ -54,14 +52,26 @@ class extension extends \Twig\Extension\AbstractExtension
 
 			if ($environment->getLoader()->exists($block))
 			{
-				$environment->loadTemplate($block)->display($context);
+				$environment->loadTemplate($environment->getTemplateClass($block), $block)->display($context);
 			}
 		}
 	}
 
-	/**
-	* Get group name
-	*/
+	public function link(environment $environment, array $attributes = [], string $text = ''): string
+	{
+		try
+		{
+			return $environment->render('@ganstaz_gzo/macros/link.twig', [
+				'attributes' => (array) $attributes,
+				'text'       => (string) $text
+			]);
+		}
+		catch (\Twig\Error\Error $e)
+		{
+			return $e->getMessage();
+		}
+	}
+
 	public function get_group_name(string $group_name): string
 	{
 		return $this->group->get_name($group_name);

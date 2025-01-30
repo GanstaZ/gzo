@@ -2,8 +2,6 @@
 
 {% block top_content %}
 	{% if news %}
-		{% from '@ganstaz_gzo/macros/tags.twig' import icon %}
-
 		<div role="navigation">
 			<div class="inner">
 
@@ -31,7 +29,7 @@
 					<li {% if not S_USER_LOGGED_IN %}data-skip-responsive="true"{% else %}data-last-responsive="true"{% endif %}>
 
 						<a href="{{ GZO_NEW_POST }}" class="button" title="{{ lang('POST_ARTICLE') }}">
-							<span>{{ lang('NEW_ARTICLE') }}</span> {{ icon('icon', 'pencil fa-fw') }}
+							<span>{{ lang('NEW_ARTICLE') }}</span> {{ Icon('font', 'pensil', lang('LAB'), false) }}
 						</a>
 
 					</li>

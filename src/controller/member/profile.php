@@ -10,10 +10,11 @@
 
 namespace ganstaz\gzo\src\controller\member;
 
+use ganstaz\gzo\src\tabs\manager;
 use phpbb\controller\helper as controller;
 use phpbb\language\language;
 use phpbb\template\template;
-use ganstaz\gzo\src\tabs\manager;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
 * Member profile controller
@@ -59,10 +60,10 @@ class profile
 	*
 	* @param string $username Username
 	* @param string $tab      Tab name
-	* @throws \phpbb\exception\http_exception
-	* @return \Symfony\Component\HttpFoundation\Response A Symfony Response object
+	* @throws http_exception
+	* @return Response A Symfony Response object
 	*/
-	public function handle($username, $tab): \Symfony\Component\HttpFoundation\Response
+	public function handle($username, $tab): Response
 	{
 		// Load language
 		$this->language->add_lang('memberlist');

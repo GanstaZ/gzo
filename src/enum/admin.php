@@ -10,9 +10,6 @@
 
 namespace ganstaz\gzo\src\enum;
 
-/**
-* Admin
-*/
 final class admin
 {
 	public const GZO_IN_AREA = 'IN_AREA';

@@ -10,16 +10,19 @@
 
 namespace ganstaz\gzo\src\area\type;
 
+use ganstaz\gzo\src\controller\helper;
+use ganstaz\gzo\src\enum\gzo;
+use ganstaz\gzo\src\event\events;
 use phpbb\cache\service as cache;
 use phpbb\db\driver\driver_interface;
 use phpbb\event\dispatcher;
-use ganstaz\gzo\src\event\events;
-use ganstaz\gzo\src\controller\helper;
 
 abstract class area_base
 {
+	public readonly string $type;
+
 	protected bool|array $navigation = [];
-	protected array $categories = ['GZO_DEFAULT' => 'home',];
+	protected array $icons = ['GZO_DEFAULT' => 'ic--outline-home'];
 
 	public function __construct(
 		protected cache $cache,
@@ -31,49 +34,14 @@ abstract class area_base
 	{
 	}
 
-	abstract public function get_name(): string;
+	abstract public function load_navigation(): void;
 
-	abstract public function load_navigation(string $type, string $route): void;
-
-	protected function build_navigation(string $type, string $breadcrumb_name, string $breadcrumb_route): void
+	public function build_navigation_data(?object $auth): self
 	{
-		$this->helper->assign_breadcrumb($breadcrumb_name, $breadcrumb_route);
-
-		$categories = $this->categories;
-		$navigation = $this->navigation[$type];
-
-		/** @event events::GZO_AREA_MODIFY_NAVIGATION */
-		$vars = ['categories', 'navigation', 'type'];
-		extract($this->dispatcher->trigger_event(events::GZO_AREA_MODIFY_NAVIGATION, compact($vars)));
-
-		$this->navigation = $navigation;
-		$this->categories = $categories;
-		unset($navigation, $categories);
-
-		foreach ($this->navigation as $category => $data)
-		{
-			$this->helper->twig->assign_block_vars('menu', [
-				'heading' => $category,
-				'icon'	  => $this->categories[$category] ?? $this->categories['GZO_DEFAULT'],
-			]);
-
-			foreach ($data as $item)
-			{
-				$this->helper->twig->assign_block_vars('menu.item', [
-					'title' => $item['title'],
-					'route' => $item['route'],
-					'icon'	=> $item['icon'] ?? '',
-				]);
-			}
-		}
-	}
-
-	public function navigation_data(?string $type = null, ?object $auth = null): self
-	{
-		if (($this->navigation = $this->cache->get('_gzo_plugins')) === false)
+		if (($this->navigation = $this->cache->get('_gzo_area')) === false)
 		{
 			$sql = 'SELECT *
-					FROM ' . $this->table . 'gzo_plugins
+					FROM ' . $this->table . gzo::AREA . '
 					ORDER BY id';
 			$result = $this->db->sql_query($sql);
 
@@ -83,36 +51,89 @@ abstract class area_base
 			}
 			$this->db->sql_freeresult($result);
 
-			$this->cache->put('_gzo_plugins', $this->navigation);
+			$this->cache->put('_gzo_area', $this->navigation);
 		}
 
-		foreach ($this->navigation[$type] as $cat => $data)
+		foreach ($this->navigation[$this->type] as $cat => $data)
 		{
-			$this->filter_navigation_data($type, $cat, $data, $auth);
+			$this->filter_navigation_data($cat, $data, $auth);
 		}
 
 		return $this;
 	}
 
-	protected function filter_navigation_data(string $type, string $cat, array $data, $auth): void
+	protected function filter_navigation_data(string $cat, array $data, ?object $auth): void
 	{
-		foreach ($data as $key => $item)
+		foreach ($data as $key => $row)
 		{
-			$item_auth = isset($item['auth']) && $item['auth'];
-
-			// Not allowed to view plugin controller?
-			if ($item_auth && !$auth->acl_get($item['auth']))
+			if ($row['parent'])
 			{
-				unset($this->navigation[$type][$cat][$key]);
+				$this->set_category_icon($row['cat'], $row['icon']);
+				unset($this->navigation[$this->type][$cat][$key]);
+			}
+
+			// Unset Area controller if user doesn't have permissions to view it
+			if ($row['auth'] && !$auth->acl_get($row['auth']))
+			{
+				unset($this->navigation[$this->type][$cat][$key]);
 			}
 		}
 	}
 
+	protected function create_view(string $breadcrumb_name, string $breadcrumb_route): void
+	{
+		$this->helper->assign_breadcrumb($breadcrumb_name, $breadcrumb_route);
+
+		$icons = $this->icons;
+		$type = $this->type;
+		$navigation = $this->navigation[$type];
+
+		/** @event events::GZO_AREA_MODIFY_NAVIGATION */
+		$vars = ['icons', 'navigation', 'type'];
+		extract($this->dispatcher->trigger_event(events::GZO_AREA_MODIFY_NAVIGATION, compact($vars)));
+
+		$this->icons = $icons;
+		$this->navigation = $navigation;
+		unset($navigation, $icons, $type);
+
+		foreach ($this->navigation as $category => $data)
+		{
+			$this->helper->twig->assign_block_vars('menu', [
+				'heading' => $category,
+				'icon'	  => $this->icons[$category] ?? $this->icons['GZO_DEFAULT'],
+			]);
+
+			foreach ($data as $item)
+			{
+				$this->helper->twig->assign_block_vars('menu.item', [
+					'title' => $item['title'],
+					'route' => $item['route'],
+					'icon'  => $item['icon'] ?? ''
+				]);
+			}
+		}
+	}
+
+	/**
+	* @param string $type Area type
+	*/
+	public function set_type(string $type)
+	{
+		$this->type = $type;
+	}
+
+	protected function add_language(string $name, string $path): self
+	{
+		$this->helper->language->add_lang($name, $path);
+
+		return $this;
+	}
+
 	protected function set_category_icon(string $name, string $icon): self
 	{
-		if (!isset($this->categories[$name]))
+		if ($icon && !isset($this->icons[$name]))
 		{
-			$this->categories[$name] = $icon;
+			$this->icons[$name] = $icon;
 		}
 
 		return $this;

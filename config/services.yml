@@ -6,6 +6,7 @@ imports:
     - { resource: event.yml }
     - { resource: gzo.yml }
     - { resource: member.yml }
+    - { resource: plugins.yml }
     - { resource: tables.yml }
     - { resource: twig.yml }
 
@@ -33,7 +34,7 @@ services:
             - '@auth'
             - '@config'
             - '@dbal.conn'
-            - '@dispatcher'
+            - '@event_dispatcher'
             - '@template'
             - '@user'
             - '%core.root_path%'
@@ -54,13 +55,21 @@ services:
         arguments:
             - '@language'
 
+    ganstaz.gzo.users_loader:
+        class: ganstaz\gzo\src\user\loader
+        arguments:
+            - '@dbal.conn'
+            - '%core.root_path%'
+            - '%core.php_ext%'
+            - '%tables.users%'
+
 # ----- Models -----
     ganstaz.gzo.main:
         class: ganstaz\gzo\src\model\main
         arguments:
             - '@auth'
             - '@config'
-            - '@dispatcher'
+            - '@event_dispatcher'
             - '@controller.helper'
             - '@language'
             - '@notification_manager'
@@ -68,23 +77,6 @@ services:
             - '@template'
             - '@user'
             - '@ganstaz.gzo.info'
-            - '%core.root_path%'
-            - '%core.php_ext%'
-
-    ganstaz.gzo.posts:
-        class: ganstaz\gzo\src\model\posts
-        arguments:
-            - '@auth'
-            - '@config'
-            - '@dbal.conn'
-            - '@dispatcher'
-            - '@controller.helper'
-            - '@language'
-            - '@pagination'
-            - '@text_formatter.renderer'
-            - '@template'
-            - '@user'
-            - '@ganstaz.gzo.helper'
             - '%core.root_path%'
             - '%core.php_ext%'
 

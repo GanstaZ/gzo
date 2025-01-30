@@ -1,15 +1,13 @@
 {% embed '@ganstaz_gzo/includes/block-item.twig' %}
-	{% from '@ganstaz_gzo/macros/tags.twig' import icon, url %}
+	{% block block_title %}{{ lang('RECENT_POSTS') }}{% endblock %}
 
-	{% block block_heading %}{{ lang('RECENT_POSTS') }}{% endblock %}
-
-	{% block block_mid_content %}
-		<ul class="c-no-style t-no-style">
-
-			{% for recent in recent_posts %}
-				<li>{{ icon('icon', 'file-o fa-fw icon-red', null, lang('IN_TOPIC')) ~ url({'href': recent.link}, recent.title) }}</li>
+	{% block block_content %}
+		<ul class="gzo-block-stats">
+			{% for post in recent_posts %}
+				<li>
+					{{ Icon('gzo', 'mdi--file-outline', lang('IN_TOPIC'), true) ~ link({'class': 'gzo-block-stats-link', 'href': post.link, 'title': post.title}, post.title) }}
+				</li>
 			{% endfor %}
-
 		</ul>
 	{% endblock %}
 

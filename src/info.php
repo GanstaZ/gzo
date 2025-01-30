@@ -17,21 +17,18 @@ use phpbb\event\dispatcher;
 use phpbb\template\twig\twig;
 use phpbb\user;
 
-/**
-* Forum info helper class
-*/
-class info
+final class info
 {
 	public function __construct
 	(
-		private auth $auth,
-		private config $config,
-		private driver_interface $db,
-		private dispatcher $dispatcher,
-		private twig $twig,
-		private user $user,
-		private readonly string $root_path,
-		private readonly string $php_ext
+		protected auth $auth,
+		protected config $config,
+		protected driver_interface $db,
+		protected dispatcher $dispatcher,
+		protected twig $twig,
+		protected user $user,
+		protected readonly string $root_path,
+		protected readonly string $php_ext
 	)
 	{
 	}
@@ -57,13 +54,13 @@ class info
 			],
 			'LEFT_JOIN' => [
 				[
-					'FROM' => [BANLIST_TABLE => 'b'],
+					'FROM' => [BANS_TABLE => 'b'],
 					'ON' => 'u.user_id = b.ban_userid',
 				],
 			],
-			'WHERE' => "(b.ban_id IS NULL OR b.ban_exclude = 1)
-				AND (u.user_birthday LIKE '" . $this->db->sql_escape(sprintf('%2d-%2d-', $now['mday'], $now['mon'])) . "%' $leap_year_birthdays)
-				AND u.user_type IN (" . USER_NORMAL . ', ' . USER_FOUNDER . ')',
+			'WHERE' => 'b.ban_id IS NULL
+				AND u.user_type IN (' . USER_NORMAL . ', ' . USER_FOUNDER . ")
+				AND (u.user_birthday LIKE '" . $this->db->sql_escape(sprintf('%2d-%2d-', $now['mday'], $now['mon'])) . "%' $leap_year_birthdays)",
 		]);
 
 		/**
@@ -75,7 +72,7 @@ class info
 		* @var	object	time		The user related Datetime object
 		* @since 3.1.7-RC1
 		*/
-		$vars = array('now', 'sql_ary', 'time');
+		$vars = ['now', 'sql_ary', 'time'];
 		extract($this->dispatcher->trigger_event('core.index_modify_birthdays_sql', compact($vars)));
 
 		$result = $this->db->sql_query($sql_ary);
@@ -84,13 +81,14 @@ class info
 
 		foreach ($rows as $row)
 		{
-			$birthday_username = get_username_string('full', (int) $row['user_id'], $row['username'], $row['user_colour']);
 			$birthday_year = (int) substr($row['user_birthday'], -4);
 			$birthday_age = ($birthday_year) ? max(0, $now['year'] - $birthday_year) : '';
 
 			$birthdays[] = [
-				'member' => $birthday_username,
-				'age'	 => $birthday_age,
+				'id'	=> (int) $row['user_id'],
+				'name'	=> $row['username'],
+				'color' => $row['user_colour'],
+				'age'	=> $birthday_age,
 			];
 		}
 
@@ -110,7 +108,7 @@ class info
 
 	public function legend(): void
 	{
-		$order_legend = ($this->config['legend_sort_groupname']) ? 'group_name' : 'group_legend';
+		$order_legend = $this->config['legend_sort_groupname'] ? 'group_name' : 'group_legend';
 
 		// Grab group details for legend display
 		$sql = 'SELECT g.group_id, g.group_name, g.group_colour, g.group_type, g.group_legend
@@ -123,24 +121,23 @@ class info
 				)
 			WHERE g.group_legend > 0
 				AND (g.group_type <> ' . GROUP_HIDDEN . ' OR ug.user_id = ' . (int) $this->user->data['user_id'] . ')
-			ORDER BY g.' . $order_legend;
+			ORDER BY g.' . $order_legend . ' ASC';
 
 		if ($this->auth->acl_gets('a_group', 'a_groupadd', 'a_groupdel'))
 		{
 			$sql = 'SELECT group_id, group_name, group_colour, group_type, group_legend
 				FROM ' . GROUPS_TABLE . '
 				WHERE group_legend > 0
-				ORDER BY ' . $order_legend;
+				ORDER BY ' . $order_legend . ' ASC';
 		}
 		$result = $this->db->sql_query($sql);
 
 		while ($row = $this->db->sql_fetchrow($result))
 		{
 			$this->twig->assign_block_vars('legend', [
-				'color' => (string) $row['group_colour'],
-				'name'	=> (string) $row['group_name'],
-				'link'	=> (string) append_sid("{$this->root_path}memberlist.$this->php_ext", "mode=group&amp;g={$row['group_id']}"),
-				'not_authed' => (bool) $this->not_authed($row),
+				'color' => $row['group_colour'],
+				'name'	=> $row['group_name'],
+				'link'	=> $this->is_authed($row) ? append_sid("{$this->root_path}memberlist.$this->php_ext", "mode=group&amp;g={$row['group_id']}") : '',
 			]);
 		}
 		$this->db->sql_freeresult($result);
@@ -154,8 +151,8 @@ class info
 	/**
 	* Is visitor a bot or does he/she have permissions
 	*/
-	protected function not_authed(array $row): bool
+	protected function is_authed(array $row): bool
 	{
-		return $row['group_name'] == 'BOTS' || ($this->user->data['user_id'] != ANONYMOUS && !$this->auth->acl_get('u_viewprofile'));
+		return $row['group_name'] != 'BOTS' && $this->auth->acl_get('u_viewprofile');
 	}
 }

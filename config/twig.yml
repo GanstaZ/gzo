@@ -7,23 +7,44 @@ services:
         tags:
             - { name: twig.extension }
 
+    ganstaz.gzo.user.extension:
+        class: ganstaz\gzo\src\twig\extension\user
+        arguments:
+            - '@auth'
+            - '@user'
+        tags:
+            - { name: twig.extension }
+
     ganstaz.gzo.form.extension:
         class: ganstaz\gzo\src\twig\extension\form
         tags:
             - { name: twig.extension }
+
+    ganstaz.gzo.avatar.extension:
+        class: ganstaz\gzo\src\twig\extension\avatar
+        decorates: template.twig.extensions.avatar
+        arguments:
+            - '@avatar.helper'
+
+    ganstaz.gzo.icon.extension:
+        class: ganstaz\gzo\src\twig\extension\icon
+        decorates: template.twig.extensions.icon
+        arguments:
+            - '@user'
 
     ganstaz.gzo.environment:
         class: ganstaz\gzo\src\twig\phpbb_environment
         decorates: template.twig.environment
         arguments:
             - '@ganstaz.gzo.blocks.data'
+            - '@assets.bag'
             - '@config'
             - '@filesystem'
             - '@path_helper'
             - '%core.template.cache_path%'
             - '@ext.manager'
             - '@template.twig.loader'
-            - '@dispatcher'
+            - '@event_dispatcher'
             - []
         calls:
             - [setLexer, ['@template.twig.lexer']]

@@ -21,7 +21,7 @@ services:
         arguments:
             - '@auth'
             - '@dbal.conn'
-            - '@dispatcher'
+            - '@event_dispatcher'
             - '@controller.helper'
             - '@language'
             - '@template'

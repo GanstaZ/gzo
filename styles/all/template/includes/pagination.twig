@@ -1,10 +1,8 @@
-{% from '@ganstaz_gzo/macros/tags.twig' import icon, url %}
-
 <ul>
 	{% for pagi in pagination %}
 		{% if pagi.S_IS_PREV %}
 			<li class="arrow-left">
-				{{ url({'class': 'button2', 'href': pagi.PAGE_URL}, icon('fa', 'chevron-left fa-fw', null, lang('PREVIOUS'))) }}
+				{{ link({'class': 'button2', 'href': pagi.PAGE_URL}, Icon('font', 'chevron-left', lang('PREVIOUS'), false)) }}
 			</li>
 		{% elseif pagi.S_IS_CURRENT %}
 			<li class="active"><span>{{ pagi.PAGE_NUMBER }}</span></li>
@@ -12,10 +10,10 @@
 			<li class="ellipsis"><span>{{ lang('ELLIPSIS') }}</span></li>
 		{% elseif pagi.S_IS_NEXT %}
 			<li class="arrow-right">
-				{{ url({'class': 'button2', 'href': pagi.PAGE_URL}, icon('fa', 'chevron-right fa-fw', null, lang('NEXT'))) }}
+				{{ link({'class': 'button2', 'href': pagi.PAGE_URL}, Icon('font', 'mdi--chevron-right', lang('NEXT'), false)) }}
 			</li>
 		{% else %}
-			<li>{{ url({'class': 'button2', 'href': pagi.PAGE_URL}, pagi.PAGE_NUMBER) }}</li>
+			<li>{{ link({'class': 'button2', 'href': pagi.PAGE_URL}, pagi.PAGE_NUMBER) }}</li>
 		{% endif %}
 	{% endfor %}
 </ul>

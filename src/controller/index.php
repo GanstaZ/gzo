@@ -10,12 +10,13 @@
 
 namespace ganstaz\gzo\src\controller;
 
-use phpbb\event\dispatcher;
 use ganstaz\gzo\src\controller\helper;
 use ganstaz\gzo\src\entity\manager as em;
 use ganstaz\gzo\src\form\form;
+use ganstaz\gzo\src\plugin\article\posts;
 use phpbb\config\config;
-use ganstaz\gzo\src\model\posts;
+use phpbb\event\dispatcher;
+use Symfony\Component\HttpFoundation\Response;
 
 class index extends abstract_controller
 {
@@ -33,7 +34,7 @@ class index extends abstract_controller
 		parent::__construct($dispatcher, $helper, $em, $form, $root_path, $php_ext);
 	}
 
-	public function handle(): \Symfony\Component\HttpFoundation\Response
+	public function handle(): Response
 	{
 		$id = (int) $this->config['gzo_main_fid'];
 
@@ -41,7 +42,7 @@ class index extends abstract_controller
 			->base($id);
 
 		$data = $this->posts->breadcrumb;
-		$this->helper->assign_breadcrumb($data[0], $data[1], $data[2]);
+		$this->helper->assign_breadcrumb($data['name'], $data['route'], $data['params']);
 
 		return $this->helper->controller_helper->render('index.twig', $this->helper->language->lang('HOME', $id), 200, true);
 	}

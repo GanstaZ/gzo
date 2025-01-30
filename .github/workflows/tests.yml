@@ -2,9 +2,9 @@ name: Tests
 
 env:
     EXTNAME: ganstaz/gzo # Your extension vendor/package name
-    SNIFF: 1            # Run code sniffer on your code? 1 or 0
-    IMAGE_ICC: 1        # Run icc profile sniffer on your images? 1 or 0
-    PHPBB_BRANCH: 3.3.x # The phpBB branch to run tests on
+    SNIFF: 1             # Run code sniffer on your code? 1 or 0
+    IMAGE_ICC: 1         # Run icc profile sniffer on your images? 1 or 0
+    PHPBB_BRANCH: master # The phpBB branch to run tests on
 
 on:
     push:
@@ -15,7 +15,7 @@ on:
             - master
 
 jobs:
-    # START Basic Checks Job (EPV, code sniffer, images check, etc.)
+    # START Basic Checks Job (code sniffer, images check, etc.)
     basic-checks:
         runs-on: ubuntu-latest
         strategy:
@@ -29,14 +29,14 @@ jobs:
 
         steps:
             - name: Checkout phpBB
-              uses: actions/checkout@v3
+              uses: actions/checkout@v4
               with:
                   repository: phpbb/phpbb
                   ref: ${{ env.PHPBB_BRANCH }}
                   path: phpBB3
 
             - name: Checkout extension
-              uses: actions/checkout@v3
+              uses: actions/checkout@v4
               with:
                   path: phpBB3/phpBB/ext/${{ env.EXTNAME }}
 

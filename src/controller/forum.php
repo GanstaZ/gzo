@@ -10,12 +10,13 @@
 
 namespace ganstaz\gzo\src\controller;
 
-use phpbb\event\dispatcher;
 use ganstaz\gzo\src\controller\helper;
 use ganstaz\gzo\src\entity\manager as em;
 use ganstaz\gzo\src\form\form;
-use phpbb\config\config;
 use ganstaz\gzo\src\model\main;
+use phpbb\config\config;
+use phpbb\event\dispatcher;
+use Symfony\Component\HttpFoundation\Response;
 
 class forum extends abstract_controller
 {
@@ -36,7 +37,7 @@ class forum extends abstract_controller
 	/**
 	* Index controller
 	*/
-	public function handle(): \Symfony\Component\HttpFoundation\Response
+	public function handle(): Response
 	{
 		$this->main->load();
 
