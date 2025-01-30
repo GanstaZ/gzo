@@ -110,7 +110,7 @@ class info
 
 	public function legend(): void
 	{
-		$order_legend = ($this->config['legend_sort_groupname']) ? 'group_name' : 'group_legend';
+		$order_legend = $this->config['legend_sort_groupname'] ? 'group_name' : 'group_legend';
 
 		// Grab group details for legend display
 		$sql = 'SELECT g.group_id, g.group_name, g.group_colour, g.group_type, g.group_legend
@@ -123,24 +123,23 @@ class info
 				)
 			WHERE g.group_legend > 0
 				AND (g.group_type <> ' . GROUP_HIDDEN . ' OR ug.user_id = ' . (int) $this->user->data['user_id'] . ')
-			ORDER BY g.' . $order_legend;
+			ORDER BY g.' . $order_legend . ' ASC';
 
 		if ($this->auth->acl_gets('a_group', 'a_groupadd', 'a_groupdel'))
 		{
 			$sql = 'SELECT group_id, group_name, group_colour, group_type, group_legend
 				FROM ' . GROUPS_TABLE . '
 				WHERE group_legend > 0
-				ORDER BY ' . $order_legend;
+				ORDER BY ' . $order_legend . ' ASC';
 		}
 		$result = $this->db->sql_query($sql);
 
 		while ($row = $this->db->sql_fetchrow($result))
 		{
 			$this->twig->assign_block_vars('legend', [
-				'color' => (string) $row['group_colour'],
-				'name'	=> (string) $row['group_name'],
-				'link'	=> (string) append_sid("{$this->root_path}memberlist.$this->php_ext", "mode=group&amp;g={$row['group_id']}"),
-				'not_authed' => (bool) $this->not_authed($row),
+				'color' => $row['group_colour'],
+				'name'	=> $row['group_name'],
+				'link'	=> $this->is_authed($row) ? append_sid("{$this->root_path}memberlist.$this->php_ext", "mode=group&amp;g={$row['group_id']}") : '',
 			]);
 		}
 		$this->db->sql_freeresult($result);
@@ -154,8 +153,8 @@ class info
 	/**
 	* Is visitor a bot or does he/she have permissions
 	*/
-	protected function not_authed(array $row): bool
+	protected function is_authed(array $row): bool
 	{
-		return $row['group_name'] == 'BOTS' || ($this->user->data['user_id'] != ANONYMOUS && !$this->auth->acl_get('u_viewprofile'));
+		return $row['group_name'] != 'BOTS' && $this->auth->acl_get('u_viewprofile');
 	}
 }

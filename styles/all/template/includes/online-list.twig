@@ -8,13 +8,14 @@
 
 		{% if legend %}
 			<em>{{ lang('LEGEND') ~ lang('COLON') }}
-				{% for item in legend %}
-					{% set color = item.color ? 'color:#' ~ item.color : '' %}
+				{% for group in legend %}
+					{% set color = group.color ? 'color:#' ~ group.color : '' %}
+					{% set name = get_group_name(group.name) %}
 
-					{% if item.not_authed %}
-						<span>{{ get_group_name(item.name) }}</span>
+					{% if group.link %}
+						{{ link({'href': group.link, 'style': color, 'alt': name}, name) }}
 					{% else %}
-						{{ link({'href': item.link, 'style': color}, get_group_name(item.name)) }}
+						<span{% if color %} style="{{ color }}"{% endif %}>{{ name }}</span>
 					{% endif %}{{ not loop.last ? ', ' }}
 				{% endfor %}
 			</em>
