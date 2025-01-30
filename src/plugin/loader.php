@@ -37,7 +37,7 @@ class loader
 		{
 			foreach ($blocks as $block)
 			{
-				$block->load();
+				$block->load_plugin();
 			}
 		}
 	}
@@ -57,7 +57,7 @@ class loader
 		{
 			$block = $this->collection[$this->get_service_name($row['name'], $row['ext_name'])];
 
-			if ($block->is_load_active())
+			if ($block->loadable)
 			{
 				$blocks[$row['name']] = $block;
 			}
