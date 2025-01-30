@@ -17,19 +17,4 @@ interface block_interface
 	*	['section' => '','ext_name' => '',]
 	*/
 	public function get_block_data(): array;
-
-	/**
-	* Set load to active [Default should be true, if block load function is not empty]
-	*/
-	public function set_active(bool $set): void;
-
-	/**
-	* Check if load method is required [Default is true]
-	*/
-	public function is_load_active(): bool;
-
-	/**
-	* Load block
-	*/
-	public function load(): void;
 }
