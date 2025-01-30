@@ -10,12 +10,15 @@
 
 namespace ganstaz\gzo\src\twig;
 
+use ganstaz\gzo\src\plugin\data;
 use phpbb\template\twig\environment;
 use phpbb\group\helper as group;
+use Twig\TwigFunction;
 
 class extension extends \Twig\Extension\AbstractExtension
 {
 	public function __construct(
+		protected data $data,
 		protected environment $environment,
 		protected group $group
 	)
@@ -38,15 +41,15 @@ class extension extends \Twig\Extension\AbstractExtension
 	public function getFunctions(): array
 	{
 		return [
-			new \Twig\TwigFunction('blocks', [$this, 'load_blocks'], ['needs_environment' => true, 'needs_context' => true]),
-			new \Twig\TwigFunction('link', [$this, 'link'], ['needs_environment' => true]),
-			new \Twig\TwigFunction('get_group_name', [$this, 'get_group_name']),
+			new TwigFunction('gzo_blocks', [$this, 'load_blocks'], ['needs_environment' => true, 'needs_context' => true]),
+			new TwigFunction('link', [$this, 'link'], ['needs_environment' => true]),
+			new TwigFunction('get_group_name', [$this, 'get_group_name']),
 		];
 	}
 
 	public function load_blocks(environment $environment, $context, string $section): void
 	{
-		foreach ($environment->gzo_get_blocks($section) as $name => $path)
+		foreach ($this->data->get($section) as $name => $path)
 		{
 			$block = '@' . $path . '/block/' . $name . '.twig';
 

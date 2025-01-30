@@ -2,6 +2,7 @@ services:
     ganstaz.gzo.extension:
         class: ganstaz\gzo\src\twig\extension
         arguments:
+            - '@ganstaz.gzo.blocks.data'
             - '@template.twig.environment'
             - '@group_helper'
         tags:
@@ -31,23 +32,6 @@ services:
         decorates: template.twig.extensions.icon
         arguments:
             - '@user'
-
-    ganstaz.gzo.environment:
-        class: ganstaz\gzo\src\twig\phpbb_environment
-        decorates: template.twig.environment
-        arguments:
-            - '@ganstaz.gzo.blocks.data'
-            - '@assets.bag'
-            - '@config'
-            - '@filesystem'
-            - '@path_helper'
-            - '%core.template.cache_path%'
-            - '@ext.manager'
-            - '@template.twig.loader'
-            - '@event_dispatcher'
-            - []
-        calls:
-            - [setLexer, ['@template.twig.lexer']]
 
     ganstaz.gzo.extensions.phpbb:
         class: ganstaz\gzo\src\twig\phpbb_extension
