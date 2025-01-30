@@ -8,23 +8,31 @@
 *
 */
 
-namespace ganstaz\gzo\src\plugins\article;
+namespace ganstaz\gzo\src\plugin\article;
 
 use ganstaz\gzo\src\event\events;
+use ganstaz\gzo\src\plugin\base;
 use ganstaz\gzo\src\helper;
+
+use ganstaz\gzo\src\user\loader as users_loader;
+
 use phpbb\auth\auth;
+
 use phpbb\config\config;
 use phpbb\controller\helper as controller;
 use phpbb\db\driver\driver_interface;
 use phpbb\event\dispatcher;
-use phpbb\exception\http_exception;
+use phpbb\template\template;
+
 use phpbb\language\language;
 use phpbb\pagination;
-use phpbb\template\template;
+
 use phpbb\textformatter\s9e\renderer;
 use phpbb\user;
 
-class posts
+use phpbb\exception\http_exception;
+
+final class posts extends base
 {
 	protected int $page = 0;
 	public readonly array $breadcrumb;
@@ -34,21 +42,24 @@ class posts
 
 	public function __construct
 	(
-		private auth $auth,
-		private config $config,
-		private driver_interface $db,
-		private dispatcher $dispatcher,
-		private controller $controller,
-		private language $language,
-		private pagination $pagination,
-		private renderer $renderer,
-		private template $template,
-		private user $user,
-		private helper $helper,
-		private readonly string $root_path,
-		private readonly string $php_ext
+		config $config,
+		controller $controller,
+		driver_interface $db,
+		dispatcher $dispatcher,
+		template $template,
+		users_loader $users_loader,
+		$root_path,
+		$php_ext,
+
+		protected auth $auth,
+		protected language $language,
+		protected pagination $pagination,
+		protected renderer $renderer,
+		protected user $user,
+		protected helper $helper
 	)
 	{
+		parent::__construct($config, $controller, $db, $dispatcher, $template, $users_loader, $root_path, $php_ext);
 	}
 
 	public function set_page_offset(int $page): self
@@ -151,6 +162,9 @@ class posts
 			'S_CATEGORIES'		  => $categories,
 		]);
 
+		// TODO: Testing users loader
+		// var_dump($this->users_loader->users);
+
 		// Do the sql thang
 		$sql_ary = $this->get_sql_data($forum_id);
 		$sql = $this->db->sql_build_query('SELECT', $sql_ary);
@@ -162,6 +176,7 @@ class posts
 		}
 		$this->db->sql_freeresult($result);
 
+		// Pagination
 		if ($this->config['gzo_pagination'] && null !== $this->page)
 		{
 			// Get total posts
@@ -186,16 +201,16 @@ class posts
 	}
 
 	/**
-	* Get sql data
+	* @param int	$id	  Either forum or topic id
+	* @param string $type By default it's forum, but could be topic
 	*/
-	public function get_sql_data(int $id, string $where = 'forum'): array
+	public function get_sql_data(int $id, string $type = 'forum'): array
 	{
-		$sql_where = 't.' . $where . '_id = ';
+		$sql_where = 't.' . $type . '_id = ' . $id;
 
 		$sql_ary = [
 			'SELECT'	=> 't.topic_id, t.topic_title, t.topic_time, t.topic_views, t.topic_posts_approved,
-			p.post_id, p.poster_id, p.post_text, u.user_id, u.username, u.user_posts, u.user_rank, u.user_colour, u.user_avatar,
-			u.user_avatar_type, u.user_avatar_width, u.user_avatar_height',
+			p.post_id, p.poster_id, p.post_text',
 
 			'FROM'		=> [
 				TOPICS_TABLE => 't',
@@ -206,18 +221,14 @@ class posts
 					'FROM' => [POSTS_TABLE => 'p'],
 					'ON'   => 'p.post_id = t.topic_first_post_id'
 				],
-				[
-					'FROM' => [USERS_TABLE => 'u'],
-					'ON'   => 'u.user_id = p.poster_id'
-				],
 			],
 
-			'WHERE'		=> $sql_where . (int) $id . '
+			'WHERE'		=> $sql_where . '
 				AND t.topic_status <> ' . ITEM_MOVED . '
 				AND t.topic_visibility = 1',
 		];
 
-		if ($where === 'forum')
+		if ($type === 'forum')
 		{
 			$sql_ary['ORDER_BY'] = $this->news_order;
 		}
@@ -230,37 +241,25 @@ class posts
 	*/
 	public function get_template_data(array $row): array
 	{
-		if (!function_exists('phpbb_get_user_rank'))
-		{
-			include("{$this->root_path}includes/functions_display.{$this->php_ext}");
-		}
-
-		$poster = [
-			'user_rank'			 => $row['user_rank'],
-			'user_avatar'		 => $row['user_avatar'],
-			'user_avatar_type'	 => $row['user_avatar_type'],
-			'user_avatar_width'	 => $row['user_avatar_width'],
-			'user_avatar_height' => $row['user_avatar_height'],
-		];
-
-		$poster_id = (int) $row['user_id'];
-		$rank = phpbb_get_user_rank($poster, $row['user_posts']);
+		$user_id = (int) $row['poster_id'];
+		$user = $this->users_loader->get_user($user_id);
+		$rank = $this->users_loader->get_rank_data($user);
 		$text = $this->renderer->render($row['post_text']);
 
 		return [
 			'id'			  => $row['post_id'],
 			'link'			  => $this->controller->route('ganstaz_gzo_article', ['aid' => $row['topic_id']]),
-			'title'			  => $this->helper->truncate($row['topic_title'], $this->config['gzo_title_length']),
+			'title'			  => $this->truncate($row['topic_title'], $this->config['gzo_title_length']),
 			'date'			  => $this->user->format_date($row['topic_time']),
 
-			'author'		  => $poster_id,
-			'author_name'	  => $row['username'],
-			'author_color'	  => $row['user_colour'],
-			'author_profile'  => $this->controller->route('ganstaz_gzo_member', ['username' => $row['username']]),
+			'author'		  => $user_id,
+			'author_name'	  => $user['username'],
+			'author_color'	  => $user['user_colour'],
+			'author_profile'  => $this->controller->route('ganstaz_gzo_member', ['username' => $user['username']]),
+			'author_avatar'	  => [$this->users_loader->get_avatar_data($user_id)],
+			'author_rank'	  => $rank['rank_title'],
+			'author_rank_img' => $rank['rank_img'],
 
-			'author_avatar'	  => [(array) $poster],
-			'author_rank'	  => $rank['title'],
-			'author_rank_img' => $rank['img'],
 			'views'		 => $row['topic_views'],
 			'replies'	 => $row['topic_posts_approved'] - 1,
 			'text'		 => $this->trim_messages ? $this->trim_message($text) : $text,
