@@ -26,16 +26,6 @@ class extension extends \Twig\Extension\AbstractExtension
 	}
 
 	/**
-	* Returns the token parser instance to add to the existing list.
-	*/
-	public function getTokenParsers(): array
-	{
-		return [
-			new \ganstaz\gzo\src\twig\tokenparser\blocks($this->environment),
-		];
-	}
-
-	/**
 	* Returns a list of global functions to add to the existing list.
 	*/
 	public function getFunctions(): array
