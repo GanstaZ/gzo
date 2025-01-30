@@ -73,7 +73,9 @@ class whos_online extends plugin_base
 			'TOTAL_POSTS'  => $total_posts,
 			'TOTAL_TOPICS' => $total_topics,
 			'TOTAL_USERS'  => $total_users,
-			'NEWEST_USER'  => get_username_string('full', (int) $this->config['newest_user_id'], $this->config['newest_username'], $this->config['newest_user_colour']),
+			'N_USER_ID'	   => (int) $this->config['newest_user_id'],
+			'N_USER_NAME'  => $this->config['newest_username'],
+			'N_USER_COLOR' => $this->config['newest_user_colour'],
 
 			'ppd' => $posts_per_day,
 			'tpd' => $topics_per_day,
