@@ -19,7 +19,6 @@ class extension extends \Twig\Extension\AbstractExtension
 {
 	public function __construct(
 		protected data $data,
-		protected environment $environment,
 		protected group $group
 	)
 	{
@@ -55,8 +54,8 @@ class extension extends \Twig\Extension\AbstractExtension
 		try
 		{
 			return $environment->render('@ganstaz_gzo/macros/link.twig', [
-				'attributes' => (array) $attributes,
-				'text'       => (string) $text
+				'attributes' => $attributes,
+				'text'       => $text
 			]);
 		}
 		catch (\Twig\Error\Error $e)

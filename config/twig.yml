@@ -3,7 +3,6 @@ services:
         class: ganstaz\gzo\src\twig\extension
         arguments:
             - '@ganstaz.gzo.blocks.data'
-            - '@template.twig.environment'
             - '@group_helper'
         tags:
             - { name: twig.extension }
