@@ -1,6 +1,6 @@
 services:
     ganstaz.gzo.blocks.loader:
-        class: ganstaz\gzo\src\blocks\loader
+        class: ganstaz\gzo\src\plugin\loader
         arguments:
             - '@dbal.conn'
             - '@ganstaz.gzo.blocks.collection'
@@ -8,7 +8,7 @@ services:
             - '%ganstaz.gzo.tables.blocks%'
 
     ganstaz.gzo.blocks.manager:
-        class: ganstaz\gzo\src\blocks\manager
+        class: ganstaz\gzo\src\plugin\manager
         arguments:
             - '@ganstaz.gzo.blocks.collection'
             - '%ganstaz.gzo.tables.blocks%'
@@ -21,23 +21,16 @@ services:
             - { name: service_collection, tag: gzo.blocks.type }
 
     ganstaz.gzo.blocks.data:
-        class: ganstaz\gzo\src\blocks\data
+        class: ganstaz\gzo\src\plugin\data
 
     ganstaz.gzo.blocks.base:
         abstract: true
-        arguments:
-            - '@config'
-            - '@dbal.conn'
-            - '@controller.helper'
-            - '@template'
-            - '@event_dispatcher'
-            - '@ganstaz.gzo.helper'
-            - '%core.root_path%'
-            - '%core.php_ext%'
+        shared: false
+        parent: ganstaz.gzo.plugins.base
 
 # ----- Blocks -----
     ganstaz.gzo.blocks.mini.profile:
-        class: ganstaz\gzo\src\blocks\type\mini_profile
+        class: ganstaz\gzo\src\plugin\blocks\mini_profile
         shared: false
         parent: ganstaz.gzo.blocks.base
         calls:
@@ -46,7 +39,7 @@ services:
             - { name: gzo.blocks.type }
 
     ganstaz.gzo.blocks.information:
-        class: ganstaz\gzo\src\blocks\type\information
+        class: ganstaz\gzo\src\plugin\blocks\information
         shared: false
         parent: ganstaz.gzo.blocks.base
         calls:
@@ -55,7 +48,7 @@ services:
             - { name: gzo.blocks.type }
 
     ganstaz.gzo.blocks.the.team:
-        class: ganstaz\gzo\src\blocks\type\the_team
+        class: ganstaz\gzo\src\plugin\blocks\the_team
         shared: false
         parent: ganstaz.gzo.blocks.base
         calls:
@@ -64,7 +57,7 @@ services:
             - { name: gzo.blocks.type }
 
     ganstaz.gzo.blocks.top.posters:
-        class: ganstaz\gzo\src\blocks\type\top_posters
+        class: ganstaz\gzo\src\plugin\blocks\top_posters
         shared: false
         parent: ganstaz.gzo.blocks.base
         calls:
@@ -73,7 +66,7 @@ services:
             - { name: gzo.blocks.type }
 
     ganstaz.gzo.blocks.recent.posts:
-        class: ganstaz\gzo\src\blocks\type\recent_posts
+        class: ganstaz\gzo\src\plugin\blocks\recent_posts
         shared: false
         parent: ganstaz.gzo.blocks.base
         calls:
@@ -82,7 +75,7 @@ services:
             - { name: gzo.blocks.type }
 
     ganstaz.gzo.blocks.recent.topics:
-        class: ganstaz\gzo\src\blocks\type\recent_topics
+        class: ganstaz\gzo\src\plugin\blocks\recent_topics
         shared: false
         parent: ganstaz.gzo.blocks.base
         calls:
@@ -91,7 +84,7 @@ services:
             - { name: gzo.blocks.type }
 
     ganstaz.gzo.blocks.whos.online:
-        class: ganstaz\gzo\src\blocks\type\whos_online
+        class: ganstaz\gzo\src\plugin\blocks\whos_online
         shared: false
         parent: ganstaz.gzo.blocks.base
         arguments:

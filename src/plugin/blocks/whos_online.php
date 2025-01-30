@@ -8,16 +8,16 @@
 *
 */
 
-namespace ganstaz\gzo\src\blocks\type;
+namespace ganstaz\gzo\src\plugin\blocks;
 
-use phpbb\config\config;
-use phpbb\db\driver\driver_interface;
-use phpbb\controller\helper as controller;
-use phpbb\template\twig\twig;
-use phpbb\event\dispatcher;
-use ganstaz\gzo\src\helper;
-use ganstaz\gzo\src\info;
 use ganstaz\gzo\src\event\events;
+use ganstaz\gzo\src\info;
+use ganstaz\gzo\src\user\loader as users_loader;
+use phpbb\config\config;
+use phpbb\controller\helper as controller;
+use phpbb\db\driver\driver_interface;
+use phpbb\event\dispatcher;
+use phpbb\template\template;
 
 /**
 * Who's Online block
@@ -26,17 +26,18 @@ class whos_online extends base
 {
 	public function __construct(
 		config $config,
-		driver_interface $db,
 		controller $controller,
-		twig $twig,
+		driver_interface $db,
 		dispatcher $dispatcher,
-		helper $helper,
-		string $root_path,
-		string $php_ext,
+		template $template,
+		users_loader $users_loader,
+		$root_path,
+		$php_ext,
+
 		private info $info
 	)
 	{
-		parent::__construct($config, $db, $controller, $twig, $dispatcher, $helper, $root_path, $php_ext);
+		parent::__construct($config, $controller, $db, $dispatcher, $template, $users_loader, $root_path, $php_ext);
 	}
 
 	/**
@@ -73,7 +74,7 @@ class whos_online extends base
 
 		$this->info->legend();
 
-		$this->twig->assign_vars([
+		$this->template->assign_vars([
 			'TOTAL_POSTS'  => $total_posts,
 			'TOTAL_TOPICS' => $total_topics,
 			'TOTAL_USERS'  => $total_users,

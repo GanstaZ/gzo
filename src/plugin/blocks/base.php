@@ -8,30 +8,32 @@
 *
 */
 
-namespace ganstaz\gzo\src\blocks\type;
+namespace ganstaz\gzo\src\plugin\blocks;
 
+use ganstaz\gzo\src\plugin\base as plugin_base;
+use ganstaz\gzo\src\user\loader as users_loader;
 use phpbb\config\config;
-use phpbb\db\driver\driver_interface;
 use phpbb\controller\helper as controller;
-use phpbb\template\twig\twig;
+use phpbb\db\driver\driver_interface;
 use phpbb\event\dispatcher;
-use ganstaz\gzo\src\helper;
+use phpbb\template\template;
 
-abstract class base implements block_interface
+abstract class base extends plugin_base implements block_interface
 {
-	protected bool $loading;
+	protected readonly bool $loading;
 
 	public function __construct(
-		protected config $config,
-		protected driver_interface $db,
-		protected controller $controller,
-		protected twig $twig,
-		protected dispatcher $dispatcher,
-		protected helper $helper,
-		protected readonly string $root_path,
-		protected readonly string $php_ext
+		config $config,
+		controller $controller,
+		driver_interface $db,
+		dispatcher $dispatcher,
+		template $template,
+		users_loader $users_loader,
+		$root_path,
+		$php_ext
 	)
 	{
+		parent::__construct($config, $controller, $db, $dispatcher, $template, $users_loader, $root_path, $php_ext);
 	}
 
 	/**

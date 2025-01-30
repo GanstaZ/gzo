@@ -8,7 +8,7 @@
 *
 */
 
-namespace ganstaz\gzo\src\blocks;
+namespace ganstaz\gzo\src\plugin;
 
 use phpbb\db\driver\driver_interface;
 use phpbb\di\service_collection;

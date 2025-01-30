@@ -8,7 +8,7 @@
 *
 */
 
-namespace ganstaz\gzo\src\blocks\type;
+namespace ganstaz\gzo\src\plugin\blocks;
 
 use ganstaz\gzo\src\enum\gzo;
 use ganstaz\gzo\src\event\events;
@@ -35,7 +35,7 @@ class information extends base
 		$this->dispatcher->trigger_event(events::GZO_INFORMATION_BEFORE);
 
 		// Set template vars
-		$this->twig->assign_vars([
+		$this->template->assign_vars([
 			'phpbb_version' => (string) PHPBB_VERSION,
 			'gzo_version'	=> (string) gzo::VERSION,
 			'gzo_style'		=> (string) gzo::STYLE,

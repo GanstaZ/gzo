@@ -8,7 +8,7 @@
 *
 */
 
-namespace ganstaz\gzo\src\blocks\type;
+namespace ganstaz\gzo\src\plugin\blocks;
 
 interface block_interface
 {

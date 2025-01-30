@@ -8,7 +8,7 @@
 *
 */
 
-namespace ganstaz\gzo\src\blocks;
+namespace ganstaz\gzo\src\plugin;
 
 use phpbb\di\service_collection;
 
