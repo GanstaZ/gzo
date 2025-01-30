@@ -10,14 +10,10 @@
 
 namespace ganstaz\gzo\src\plugin\blocks;
 
-/**
-* The Team block
-*/
-class the_team extends base
+use ganstaz\gzo\src\plugin\plugin_base;
+
+class the_team extends plugin_base
 {
-	/**
-	* {@inheritdoc}
-	*/
 	public function get_block_data(): array
 	{
 		return [
@@ -29,7 +25,7 @@ class the_team extends base
 	/**
 	* {@inheritdoc}
 	*/
-	public function load(): void
+	public function load_plugin(): void
 	{
 		$group_id = (int) $this->config['gzo_the_team_fid'] ?? 5;
 

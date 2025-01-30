@@ -23,73 +23,68 @@ services:
     ganstaz.gzo.blocks.data:
         class: ganstaz\gzo\src\plugin\data
 
-    ganstaz.gzo.blocks.base:
-        abstract: true
-        shared: false
-        parent: ganstaz.gzo.plugins.base
-
-# ----- Blocks -----
+# ----- Plugins -----
     ganstaz.gzo.blocks.mini.profile:
         class: ganstaz\gzo\src\plugin\blocks\mini_profile
         shared: false
-        parent: ganstaz.gzo.blocks.base
+        parent: ganstaz.gzo.plugins.base
         calls:
-            - [set_active, [false]]
+            - [is_loadable, [false]]
         tags:
             - { name: gzo.blocks.type }
 
     ganstaz.gzo.blocks.information:
         class: ganstaz\gzo\src\plugin\blocks\information
         shared: false
-        parent: ganstaz.gzo.blocks.base
+        parent: ganstaz.gzo.plugins.base
         calls:
-            - [set_active, [true]]
+            - [is_loadable, [true]]
         tags:
             - { name: gzo.blocks.type }
 
     ganstaz.gzo.blocks.the.team:
         class: ganstaz\gzo\src\plugin\blocks\the_team
         shared: false
-        parent: ganstaz.gzo.blocks.base
+        parent: ganstaz.gzo.plugins.base
         calls:
-            - [set_active, [true]]
+            - [is_loadable, [true]]
         tags:
             - { name: gzo.blocks.type }
 
     ganstaz.gzo.blocks.top.posters:
         class: ganstaz\gzo\src\plugin\blocks\top_posters
         shared: false
-        parent: ganstaz.gzo.blocks.base
+        parent: ganstaz.gzo.plugins.base
         calls:
-            - [set_active, [true]]
+            - [is_loadable, [true]]
         tags:
             - { name: gzo.blocks.type }
 
     ganstaz.gzo.blocks.recent.posts:
         class: ganstaz\gzo\src\plugin\blocks\recent_posts
         shared: false
-        parent: ganstaz.gzo.blocks.base
+        parent: ganstaz.gzo.plugins.base
         calls:
-            - [set_active, [true]]
+            - [is_loadable, [true]]
         tags:
             - { name: gzo.blocks.type }
 
     ganstaz.gzo.blocks.recent.topics:
         class: ganstaz\gzo\src\plugin\blocks\recent_topics
         shared: false
-        parent: ganstaz.gzo.blocks.base
+        parent: ganstaz.gzo.plugins.base
         calls:
-            - [set_active, [true]]
+            - [is_loadable, [true]]
         tags:
             - { name: gzo.blocks.type }
 
     ganstaz.gzo.blocks.whos.online:
         class: ganstaz\gzo\src\plugin\blocks\whos_online
         shared: false
-        parent: ganstaz.gzo.blocks.base
+        parent: ganstaz.gzo.plugins.base
         arguments:
             - '@ganstaz.gzo.info'
         calls:
-            - [set_active, [true]]
+            - [is_loadable, [true]]
         tags:
             - { name: gzo.blocks.type }

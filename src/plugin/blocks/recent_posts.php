@@ -10,14 +10,10 @@
 
 namespace ganstaz\gzo\src\plugin\blocks;
 
-/**
-* Recent Posts block
-*/
-class recent_posts extends base
+use ganstaz\gzo\src\plugin\plugin_base;
+
+class recent_posts extends plugin_base
 {
-	/**
-	* {@inheritdoc}
-	*/
 	public function get_block_data(): array
 	{
 		return [
@@ -29,7 +25,7 @@ class recent_posts extends base
 	/**
 	* {@inheritdoc}
 	*/
-	public function load(): void
+	public function load_plugin(): void
 	{
 		$sql = 'SELECT p.post_id, t.topic_id, t.topic_title
 				FROM ' . POSTS_TABLE . ' p, ' . TOPICS_TABLE . ' t

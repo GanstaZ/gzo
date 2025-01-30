@@ -11,16 +11,15 @@
 namespace ganstaz\gzo\src\plugin;
 
 use ganstaz\gzo\src\user\loader as users_loader;
-
 use phpbb\config\config;
 use phpbb\controller\helper as controller;
 use phpbb\db\driver\driver_interface;
 use phpbb\event\dispatcher;
 use phpbb\template\template;
 
-abstract class base
+abstract class plugin_base
 {
-	// protected readonly bool $loading;
+	public readonly bool $loadable;
 
 	public function __construct(
 		protected config $config,
@@ -32,6 +31,18 @@ abstract class base
 		protected readonly string $root_path,
 		protected readonly string $php_ext
 	)
+	{
+	}
+
+	/**
+	* @param string $set Is plugin loadable
+	*/
+	public function is_loadable(bool $set): void
+	{
+		$this->loadable = $set;
+	}
+
+	public function load_plugin(): void
 	{
 	}
 

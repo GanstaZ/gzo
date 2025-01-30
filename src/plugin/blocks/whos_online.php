@@ -12,6 +12,7 @@ namespace ganstaz\gzo\src\plugin\blocks;
 
 use ganstaz\gzo\src\event\events;
 use ganstaz\gzo\src\info;
+use ganstaz\gzo\src\plugin\plugin_base;
 use ganstaz\gzo\src\user\loader as users_loader;
 use phpbb\config\config;
 use phpbb\controller\helper as controller;
@@ -19,10 +20,7 @@ use phpbb\db\driver\driver_interface;
 use phpbb\event\dispatcher;
 use phpbb\template\template;
 
-/**
-* Who's Online block
-*/
-class whos_online extends base
+class whos_online extends plugin_base
 {
 	public function __construct(
 		config $config,
@@ -40,9 +38,6 @@ class whos_online extends base
 		parent::__construct($config, $controller, $db, $dispatcher, $template, $users_loader, $root_path, $php_ext);
 	}
 
-	/**
-	* {@inheritdoc}
-	*/
 	public function get_block_data(): array
 	{
 		return [
@@ -54,7 +49,7 @@ class whos_online extends base
 	/**
 	* {@inheritdoc}
 	*/
-	public function load(): void
+	public function load_plugin(): void
 	{
 		$total_posts  = (int) $this->config['num_posts'];
 		$total_topics = (int) $this->config['num_topics'];

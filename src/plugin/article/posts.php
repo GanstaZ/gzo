@@ -11,9 +11,8 @@
 namespace ganstaz\gzo\src\plugin\article;
 
 use ganstaz\gzo\src\event\events;
-use ganstaz\gzo\src\plugin\base;
 use ganstaz\gzo\src\helper;
-
+use ganstaz\gzo\src\plugin\plugin_base;
 use ganstaz\gzo\src\user\loader as users_loader;
 
 use phpbb\auth\auth;
@@ -32,7 +31,7 @@ use phpbb\user;
 
 use phpbb\exception\http_exception;
 
-final class posts extends base
+final class posts extends plugin_base
 {
 	protected int $page = 0;
 	public readonly array $breadcrumb;

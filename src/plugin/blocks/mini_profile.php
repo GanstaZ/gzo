@@ -10,14 +10,10 @@
 
 namespace ganstaz\gzo\src\plugin\blocks;
 
-/**
-* Mini Profile block
-*/
-class mini_profile extends base
+use ganstaz\gzo\src\plugin\plugin_base;
+
+class mini_profile extends plugin_base
 {
-	/**
-	* {@inheritdoc}
-	*/
 	public function get_block_data(): array
 	{
 		return [

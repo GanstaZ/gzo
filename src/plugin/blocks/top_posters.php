@@ -10,14 +10,10 @@
 
 namespace ganstaz\gzo\src\plugin\blocks;
 
-/**
-* Top Posters block
-*/
-class top_posters extends base
+use ganstaz\gzo\src\plugin\plugin_base;
+
+class top_posters extends plugin_base
 {
-	/**
-	* {@inheritdoc}
-	*/
 	public function get_block_data(): array
 	{
 		return [
@@ -29,7 +25,7 @@ class top_posters extends base
 	/**
 	* {@inheritdoc}
 	*/
-	public function load(): void
+	public function load_plugin(): void
 	{
 		$sql = 'SELECT user_id, username, user_posts, user_colour, user_avatar, user_avatar_type, user_avatar_width, user_avatar_height
 				FROM ' . $this->users_loader->users_table . '

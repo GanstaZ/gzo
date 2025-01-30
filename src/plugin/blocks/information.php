@@ -12,12 +12,10 @@ namespace ganstaz\gzo\src\plugin\blocks;
 
 use ganstaz\gzo\src\enum\gzo;
 use ganstaz\gzo\src\event\events;
+use ganstaz\gzo\src\plugin\plugin_base;
 
-class information extends base
+class information extends plugin_base
 {
-	/**
-	* {@inheritdoc}
-	*/
 	public function get_block_data(): array
 	{
 		return [
@@ -29,7 +27,7 @@ class information extends base
 	/**
 	* {@inheritdoc}
 	*/
-	public function load(): void
+	public function load_plugin(): void
 	{
 		/** @event events::GZO_INFORMATION_BEFORE */
 		$this->dispatcher->trigger_event(events::GZO_INFORMATION_BEFORE);
