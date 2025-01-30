@@ -13,7 +13,7 @@ namespace ganstaz\gzo\src\controller;
 use ganstaz\gzo\src\controller\helper;
 use ganstaz\gzo\src\entity\manager as em;
 use ganstaz\gzo\src\form\form;
-use ganstaz\gzo\src\plugins\article\posts;
+use ganstaz\gzo\src\plugin\article\posts;
 use phpbb\config\config;
 use phpbb\event\dispatcher;
 use Symfony\Component\HttpFoundation\Response;

@@ -18,5 +18,6 @@ services:
             - '@ganstaz.gzo.blocks.loader'
             - '@ganstaz.gzo.helper'
             - '@ganstaz.gzo.pages'
+            - '@ganstaz.gzo.users_loader'
         tags:
             - { name: event.listener }

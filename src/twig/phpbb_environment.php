@@ -10,7 +10,7 @@
 
 namespace ganstaz\gzo\src\twig;
 
-use ganstaz\gzo\src\blocks\data;
+use ganstaz\gzo\src\plugin\data;
 
 use phpbb\config\config;
 use phpbb\event\dispatcher_interface;
