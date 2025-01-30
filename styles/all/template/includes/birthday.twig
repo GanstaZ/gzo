@@ -4,8 +4,8 @@
 	{% if birthdays %}
 		<h4 class="gzo-tab-panel-title">{{ lang('CONGRATULATIONS') ~ lang('COLON') }}</h4>
 			<span class="gzo-tab-panel-text">
-				{% for item in birthdays %}
-					{{ item.member ~ (item.age ? ' (' ~ item.age ~ ')') }}{{ not loop.last ? ', ' }}
+				{% for user in birthdays %}
+					{{- gzo_username('username', user.id, user.name, user.color, 'gzo-user-birthday') ~ (user.age ? ' (' ~ user.age ~ ')') -}}{{ not loop.last ? ', ' }}
 				{% endfor %}
 			</span>
 		{% else %}

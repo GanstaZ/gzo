@@ -17,21 +17,18 @@ use phpbb\event\dispatcher;
 use phpbb\template\twig\twig;
 use phpbb\user;
 
-/**
-* Forum info helper class
-*/
-class info
+final class info
 {
 	public function __construct
 	(
-		private auth $auth,
-		private config $config,
-		private driver_interface $db,
-		private dispatcher $dispatcher,
-		private twig $twig,
-		private user $user,
-		private readonly string $root_path,
-		private readonly string $php_ext
+		protected auth $auth,
+		protected config $config,
+		protected driver_interface $db,
+		protected dispatcher $dispatcher,
+		protected twig $twig,
+		protected user $user,
+		protected readonly string $root_path,
+		protected readonly string $php_ext
 	)
 	{
 	}
@@ -75,7 +72,7 @@ class info
 		* @var	object	time		The user related Datetime object
 		* @since 3.1.7-RC1
 		*/
-		$vars = array('now', 'sql_ary', 'time');
+		$vars = ['now', 'sql_ary', 'time'];
 		extract($this->dispatcher->trigger_event('core.index_modify_birthdays_sql', compact($vars)));
 
 		$result = $this->db->sql_query($sql_ary);
@@ -84,13 +81,14 @@ class info
 
 		foreach ($rows as $row)
 		{
-			$birthday_username = get_username_string('full', (int) $row['user_id'], $row['username'], $row['user_colour']);
 			$birthday_year = (int) substr($row['user_birthday'], -4);
 			$birthday_age = ($birthday_year) ? max(0, $now['year'] - $birthday_year) : '';
 
 			$birthdays[] = [
-				'member' => $birthday_username,
-				'age'	 => $birthday_age,
+				'id'	=> (int) $row['user_id'],
+				'name'	=> $row['username'],
+				'color' => $row['user_colour'],
+				'age'	=> $birthday_age,
 			];
 		}
 
