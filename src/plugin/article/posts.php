@@ -14,22 +14,17 @@ use ganstaz\gzo\src\event\events;
 use ganstaz\gzo\src\helper;
 use ganstaz\gzo\src\plugin\plugin_base;
 use ganstaz\gzo\src\user\loader as users_loader;
-
 use phpbb\auth\auth;
-
 use phpbb\config\config;
 use phpbb\controller\helper as controller;
 use phpbb\db\driver\driver_interface;
 use phpbb\event\dispatcher;
-use phpbb\template\template;
-
+use phpbb\exception\http_exception;
 use phpbb\language\language;
 use phpbb\pagination;
-
+use phpbb\template\template;
 use phpbb\textformatter\s9e\renderer;
 use phpbb\user;
-
-use phpbb\exception\http_exception;
 
 final class posts extends plugin_base
 {
@@ -49,7 +44,6 @@ final class posts extends plugin_base
 		users_loader $users_loader,
 		$root_path,
 		$php_ext,
-
 		protected auth $auth,
 		protected language $language,
 		protected pagination $pagination,
@@ -68,9 +62,13 @@ final class posts extends plugin_base
 		return $this;
 	}
 
-	public function set_breadcrumb_data(array $data): void
+	public function set_breadcrumb_data(string $name, string $route, array $params = []): void
 	{
-		$this->breadcrumb = $data;
+		$this->breadcrumb = [
+			'name'   => $name,
+			'route'  => $route,
+			'params' => $params
+		];
 	}
 
 	/**
@@ -144,9 +142,7 @@ final class posts extends plugin_base
 
 		// TODO: Change news to article
 		// Assign breadcrumb
-		$this->set_breadcrumb_data([
-			$category, 'ganstaz_gzo_news', ['id' => $forum_id]
-		]);
+		$this->set_breadcrumb_data($category, 'ganstaz_gzo_news', ['id' => $forum_id]);
 
 		$categories = [];
 		foreach ($category_ids as $cid)
@@ -321,9 +317,7 @@ final class posts extends plugin_base
 		extract($this->dispatcher->trigger_event(events::GZO_ARTICLE_MODIFY_TEMPLATE_DATA, compact($vars)));
 
 		// Assign breadcrumb data
-		$this->set_breadcrumb_data([
-			$template_data['title'], 'ganstaz_gzo_first_post', ['aid' => $topic_id]
-		]);
+		$this->set_breadcrumb_data($template_data['title'], 'ganstaz_gzo_first_post', ['aid' => $topic_id]);
 
 		$this->template->assign_block_vars('article', $template_data);
 

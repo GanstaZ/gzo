@@ -42,7 +42,7 @@ class index extends abstract_controller
 			->base($id);
 
 		$data = $this->posts->breadcrumb;
-		$this->helper->assign_breadcrumb($data[0], $data[1], $data[2]);
+		$this->helper->assign_breadcrumb($data['name'], $data['route'], $data['params']);
 
 		return $this->helper->controller_helper->render('index.twig', $this->helper->language->lang('HOME', $id), 200, true);
 	}

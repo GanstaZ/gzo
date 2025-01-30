@@ -19,6 +19,7 @@ use phpbb\template\template;
 
 abstract class plugin_base
 {
+	/** @var bool Returns true if plugin service is loadable  */
 	public readonly bool $loadable;
 
 	public function __construct(
@@ -35,20 +36,23 @@ abstract class plugin_base
 	}
 
 	/**
-	* @param string $set Is plugin loadable
-	*/
+	 * @param string $set Is plugin loadable
+	 */
 	public function is_loadable(bool $set): void
 	{
 		$this->loadable = $set;
 	}
 
+	/**
+	 * Load plugin
+	 */
 	public function load_plugin(): void
 	{
 	}
 
 	/**
-	* Truncate title
-	*/
+	 * Truncate title
+	 */
 	public function truncate(string $title, int $length, ?string $ellips = null): string
 	{
 		return truncate_string(censor_text($title), $length, 255, false, $ellips ?? '...');

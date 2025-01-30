@@ -48,7 +48,7 @@ class articles extends abstract_controller
 			->base($id);
 
 		$data = $this->posts->breadcrumb;
-		$this->helper->assign_breadcrumb($data[0], $data[1], $data[2]);
+		$this->helper->assign_breadcrumb($data['name'], $data['route'], $data['params']);
 
 		return $this->helper->controller_helper->render('news.twig', $this->helper->language->lang('VIEW_NEWS', $id), 200, true);
 	}
@@ -84,7 +84,7 @@ class articles extends abstract_controller
 			->get_first_post($aid);
 
 		$data = $this->posts->breadcrumb;
-		$this->helper->assign_breadcrumb($data[0], $data[1], $data[2]);
+		$this->helper->assign_breadcrumb($data['name'], $data['route'], $data['params']);
 
 		return $this->helper->controller_helper->render('article.twig', $this->helper->language->lang('VIEW_ARTICLE', $aid), 200, true);
 	}
