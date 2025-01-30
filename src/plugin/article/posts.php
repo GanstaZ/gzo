@@ -65,8 +65,8 @@ final class posts extends plugin_base
 	public function set_breadcrumb_data(string $name, string $route, array $params = []): void
 	{
 		$this->breadcrumb = [
-			'name'   => $name,
-			'route'  => $route,
+			'name'	 => $name,
+			'route'	 => $route,
 			'params' => $params
 		];
 	}
@@ -157,9 +157,6 @@ final class posts extends plugin_base
 			'S_CATEGORIES'		  => $categories,
 		]);
 
-		// TODO: Testing users loader
-		// var_dump($this->users_loader->users);
-
 		// Do the sql thang
 		$sql_ary = $this->get_sql_data($forum_id);
 		$sql = $this->db->sql_build_query('SELECT', $sql_ary);
@@ -232,7 +229,7 @@ final class posts extends plugin_base
 	}
 
 	/**
-	* Get template data
+	* @param array $row Article data array
 	*/
 	public function get_template_data(array $row): array
 	{
