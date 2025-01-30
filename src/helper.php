@@ -41,27 +41,4 @@ class helper
 
 		return $forum_ids ?? [];
 	}
-
-	/**
-	* Get username
-	*/
-	public function get_user_name(int $user_id): string
-	{
-		$sql = 'SELECT username
-				FROM ' . USERS_TABLE . '
-				WHERE user_id = ' . $user_id;
-		$result = $this->db->sql_query($sql);
-		$row = $this->db->sql_fetchrow($result);
-		$this->db->sql_freeresult($result);
-
-		return $row['username'];
-	}
-
-	/**
-	* Truncate title
-	*/
-	public function truncate(string $title, int $length, ?string $ellips = null): string
-	{
-		return truncate_string(censor_text($title), $length, 255, false, $ellips ?? '...');
-	}
 }
