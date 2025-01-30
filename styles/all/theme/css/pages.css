@@ -4,7 +4,7 @@
 	margin-block-end: var(--gzo-spacing-md);
 
 	.gzo-profile-header-cover {
-		background-image: url(../../theme/icons/img/testing.webp);
+		background-image: url(./../../../../../test/styles/all/theme/icons/img/testing.webp);
 		/* border-top-left-radius: var(--gzo-border-radius);
 		border-top-right-radius: var(--gzo-border-radius); */
 		border-radius: var(--gzo-border-radius);
