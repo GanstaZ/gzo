@@ -11,27 +11,3 @@ services:
         parent: ganstaz.gzo.abstract_controller
         arguments:
             - '@ganstaz.gzo.settings'
-
-    ganstaz.gzo.admin.blocks_controller:
-        class: ganstaz\gzo\src\controller\admin\blocks
-        shared: false
-        parent: ganstaz.gzo.abstract_controller
-        arguments:
-            - '@service_container'
-            - '@dbal.conn'
-            - '@language'
-            - '@request'
-            - '@template'
-            - '@ganstaz.gzo.blocks.manager'
-
-    ganstaz.gzo.admin.pages_controller:
-        class: ganstaz\gzo\src\controller\admin\pages
-        shared: false
-        parent: ganstaz.gzo.abstract_controller
-        arguments:
-            - '@cache'
-            - '@dbal.conn'
-            - '@language'
-            - '@request'
-            - '@template'
-            - '%ganstaz.gzo.tables.pages%'
