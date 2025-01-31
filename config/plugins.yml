@@ -42,6 +42,15 @@ services:
         tags:
             - { name: service_collection, tag: gzo.plugin }
 
+    ganstaz.gzo.plugin.announcement:
+        class: ganstaz\gzo\src\plugin\announcement\announcement
+        shared: false
+        parent: ganstaz.gzo.plugin.base
+        calls:
+            - [is_loadable, [false]]
+        tags:
+            - { name: gzo.plugin }
+
     ganstaz.gzo.plugin.mini_profile:
         class: ganstaz\gzo\src\plugin\blocks\mini_profile
         shared: false

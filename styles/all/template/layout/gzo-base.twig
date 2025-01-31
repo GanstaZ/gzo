@@ -74,8 +74,8 @@
 
 							{% block gzo_main_content_bottom %}
 
-								{% if gzo_middle %}
-									{{ gzo_blocks('gzo_middle') }}
+								{% if gzo_online %}
+									{{ gzo_blocks('gzo_online') }}
 									{# {% EVENT gzo_main_middle %} #}
 								{% endif %}
 
@@ -83,9 +83,9 @@
 						</div>
 
 						{% block gzo_main_right %}
-							{% if gzo_right %}
+							{% if gzo_side %}
 								<div class="gzo-section-side">
-									{{ gzo_blocks('gzo_right') }}
+									{{ gzo_blocks('gzo_side') }}
 								</div>
 							{% endif %}
 						{% endblock %}

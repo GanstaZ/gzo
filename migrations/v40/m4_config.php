@@ -28,17 +28,15 @@ class m4_config extends \phpbb\db\migration\migration
 	public function update_data(): array
 	{
 		return [
-			// Add the config variables we want to be able to set
 			['config.add', ['gzo_main_fid', 2]],
+
 			['config.add', ['gzo_news_fid', 3]],
 			['config.add', ['gzo_news_link', 1]],
-			['config.add', ['gzo_the_team_fid', 8]],
-			['config.add', ['gzo_top_posters_fid', 0]],
-			['config.add', ['gzo_recent_posts_fid', 0]],
-			['config.add', ['gzo_recent_topics_fid', 0]],
+
 			['config.add', ['gzo_pagination', 1]],
 			['config.add', ['gzo_title_length', 26]],
 			['config.add', ['gzo_content_length', 150]],
+
 			['config.add', ['gzo_limit', 5]],
 			['config.add', ['gzo_user_limit', 5]],
 
@@ -49,11 +47,10 @@ class m4_config extends \phpbb\db\migration\migration
 			['config.add', ['gzo_recent_topics_fid', 0]],
 
 			['config.add', ['gzo_plugins', 1]],
-			['config.add', ['gzo_right', 1]],
-			['config.add', ['gzo_left', 0]],
-			['config.add', ['gzo_middle', 1]],
-			['config.add', ['gzo_top', 0]],
-			['config.add', ['gzo_bottom', 0]],
+			['config.add', ['gzo_side', 1]],
+			['config.add', ['gzo_announcement', 1]],
+
+			['config.add', ['gzo_online', 1]],
 		];
 	}
 }

@@ -79,9 +79,9 @@ class m1_main extends \phpbb\db\migration\migration
 						'active'	 => ['BOOL', 0],
 						'allow'		 => ['BOOL', 0],
 
-						'gzo_right'	 => ['BOOL', 0],
-						'gzo_left'	 => ['BOOL', 0],
-						'gzo_middle' => ['BOOL', 0],
+						'gzo_side'	 => ['BOOL', 0],
+						'gzo_announcement' => ['BOOL', 0],
+						'gzo_online' => ['BOOL', 0],
 					],
 					'PRIMARY_KEY' => ['id'],
 				],
