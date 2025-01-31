@@ -9,3 +9,7 @@ gzo_settings:
 gzo_pages:
     path: /gzo-pages
     defaults: { _controller: ganstaz.gzo.admin_controller:main }
+
+gzo_plugins:
+    path: /gzo-plugins
+    defaults: { _controller: ganstaz.gzo.admin_controller:main }

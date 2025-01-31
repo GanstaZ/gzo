@@ -27,7 +27,6 @@ $lang = array_merge($lang, [
 	'GZO_MAIN_PAGE_DESC' => 'Welcome to GZO Admin Dashboard!',
 
 	'GZO_SETTINGS' => 'Global settings',
-	'GZO_BLOCKS'   => 'Manage blocks',
 	'GZO_PAGES'	   => 'Page settings',
 
 	'GZO_PHP'	   => 'PHP version',
