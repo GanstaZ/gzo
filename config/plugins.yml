@@ -1,5 +1,22 @@
 services:
-    ganstaz.gzo.plugins.base:
+    ganstaz.gzo.plugin.loader:
+        class: ganstaz\gzo\src\plugin\loader
+        arguments:
+            - '@dbal.conn'
+            - '@ganstaz.gzo.plugin.collection'
+            - '@ganstaz.gzo.plugin.data'
+            - '%ganstaz.gzo.tables.blocks%'
+
+    ganstaz.gzo.blocks.manager:
+        class: ganstaz\gzo\src\plugin\manager
+        arguments:
+            - '@ganstaz.gzo.plugin.collection'
+            - '%ganstaz.gzo.tables.blocks%'
+
+    ganstaz.gzo.plugin.data:
+        class: ganstaz\gzo\src\plugin\data
+
+    ganstaz.gzo.plugin.base:
         abstract: true
         arguments:
             - '@config'
@@ -14,7 +31,7 @@ services:
     ganstaz.gzo.posts:
         class: ganstaz\gzo\src\plugin\article\posts
         shared: false
-        parent: ganstaz.gzo.plugins.base
+        parent: ganstaz.gzo.plugin.base
         arguments:
             - '@auth'
             - '@language'
@@ -22,3 +39,76 @@ services:
             - '@text_formatter.renderer'
             - '@user'
             - '@ganstaz.gzo.helper'
+
+# ----- Plugins -----
+    ganstaz.gzo.plugin.collection:
+        class: phpbb\di\service_collection
+        arguments:
+            - '@service_container'
+        tags:
+            - { name: service_collection, tag: gzo.plugin }
+
+    ganstaz.gzo.plugin.mini_profile:
+        class: ganstaz\gzo\src\plugin\blocks\mini_profile
+        shared: false
+        parent: ganstaz.gzo.plugin.base
+        calls:
+            - [is_loadable, [false]]
+        tags:
+            - { name: gzo.plugin }
+
+    ganstaz.gzo.plugin.information:
+        class: ganstaz\gzo\src\plugin\blocks\information
+        shared: false
+        parent: ganstaz.gzo.plugin.base
+        calls:
+            - [is_loadable, [true]]
+        tags:
+            - { name: gzo.plugin }
+
+    ganstaz.gzo.plugin.the_team:
+        class: ganstaz\gzo\src\plugin\blocks\the_team
+        shared: false
+        parent: ganstaz.gzo.plugin.base
+        calls:
+            - [is_loadable, [true]]
+        tags:
+            - { name: gzo.plugin }
+
+    ganstaz.gzo.plugin.top_posters:
+        class: ganstaz\gzo\src\plugin\blocks\top_posters
+        shared: false
+        parent: ganstaz.gzo.plugin.base
+        calls:
+            - [is_loadable, [true]]
+        tags:
+            - { name: gzo.plugin }
+
+    ganstaz.gzo.plugin.recent_posts:
+        class: ganstaz\gzo\src\plugin\blocks\recent_posts
+        shared: false
+        parent: ganstaz.gzo.plugin.base
+        calls:
+            - [is_loadable, [true]]
+        tags:
+            - { name: gzo.plugin }
+
+    ganstaz.gzo.plugin.recent_topics:
+        class: ganstaz\gzo\src\plugin\blocks\recent_topics
+        shared: false
+        parent: ganstaz.gzo.plugin.base
+        calls:
+            - [is_loadable, [true]]
+        tags:
+            - { name: gzo.plugin }
+
+    ganstaz.gzo.plugin.whos_online:
+        class: ganstaz\gzo\src\plugin\blocks\whos_online
+        shared: false
+        parent: ganstaz.gzo.plugin.base
+        arguments:
+            - '@ganstaz.gzo.info'
+        calls:
+            - [is_loadable, [true]]
+        tags:
+            - { name: gzo.plugin }

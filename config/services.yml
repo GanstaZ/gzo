@@ -1,6 +1,5 @@
 imports:
     - { resource: area.yml }
-    - { resource: blocks.yml }
     - { resource: controller.yml }
     - { resource: entity.yml }
     - { resource: event.yml }

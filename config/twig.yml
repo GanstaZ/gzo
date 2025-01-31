@@ -2,7 +2,7 @@ services:
     ganstaz.gzo.extension:
         class: ganstaz\gzo\src\twig\extension
         arguments:
-            - '@ganstaz.gzo.blocks.data'
+            - '@ganstaz.gzo.plugin.data'
             - '@group_helper'
         tags:
             - { name: twig.extension }
