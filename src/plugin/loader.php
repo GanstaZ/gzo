@@ -13,15 +13,17 @@ namespace ganstaz\gzo\src\plugin;
 use phpbb\db\driver\driver_interface;
 use phpbb\di\service_collection;
 
-class loader
+final class loader
 {
+	protected array $plugins = [];
+
 	protected array $type = ['section', 'name'];
 
 	public function __construct(
-		private driver_interface $db,
-		private service_collection $collection,
+		protected driver_interface $db,
+		protected service_collection $collection,
 		public readonly data $data,
-		private readonly string $plugins_table
+		protected readonly string $plugins_table
 	)
 	{
 	}
