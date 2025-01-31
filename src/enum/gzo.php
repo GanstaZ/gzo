@@ -28,7 +28,6 @@ final class gzo
 
 	// Tables
 	public const AREA = 'gzo_area';
-	public const PLUGINS = 'gzo_plugins';
-	public const BLOCKS = 'gzo_blocks';
 	public const PAGES = 'gzo_pages';
+	public const PLUGINS = 'gzo_plugins';
 }

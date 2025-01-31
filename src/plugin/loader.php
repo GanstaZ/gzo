@@ -21,7 +21,7 @@ class loader
 		private driver_interface $db,
 		private service_collection $collection,
 		public readonly data $data,
-		private string $blocks_table
+		private readonly string $plugins_table
 	)
 	{
 	}
@@ -47,7 +47,7 @@ class loader
 		$where = (null !== $name) ? $this->where_clause($name, $type) : 'active = 1';
 
 		$sql = 'SELECT name, ext_name, section
-				FROM ' . $this->blocks_table . '
+				FROM ' . $this->plugins_table . '
 				WHERE ' . $where . '
 				ORDER BY position';
 		$result = $this->db->sql_query($sql, 86400);
@@ -93,7 +93,8 @@ class loader
 
 	public function get_service_name(string $service, string $ext_name): string
 	{
-		return str_replace('_', '.', "{$ext_name}.blocks." . utf8_substr($service, utf8_strpos($service, '_') + 1));
+		$ext_name = str_replace('_', '.', $ext_name);
+		return "{$ext_name}.plugin." . utf8_substr($service, utf8_strpos($service, '_') + 1);
 	}
 
 	public function vendor(array $data): string

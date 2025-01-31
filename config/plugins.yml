@@ -5,13 +5,13 @@ services:
             - '@dbal.conn'
             - '@ganstaz.gzo.plugin.collection'
             - '@ganstaz.gzo.plugin.data'
-            - '%ganstaz.gzo.tables.blocks%'
+            - '%ganstaz.gzo.tables.plugins%'
 
     ganstaz.gzo.blocks.manager:
         class: ganstaz\gzo\src\plugin\manager
         arguments:
             - '@ganstaz.gzo.plugin.collection'
-            - '%ganstaz.gzo.tables.blocks%'
+            - '%ganstaz.gzo.tables.plugins%'
 
     ganstaz.gzo.plugin.data:
         class: ganstaz\gzo\src\plugin\data

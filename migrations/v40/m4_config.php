@@ -41,8 +41,14 @@ class m4_config extends \phpbb\db\migration\migration
 			['config.add', ['gzo_content_length', 150]],
 			['config.add', ['gzo_limit', 5]],
 			['config.add', ['gzo_user_limit', 5]],
-			// Blocks
-			['config.add', ['gzo_blocks', 1]],
+
+			// Plugins
+			['config.add', ['gzo_the_team_fid', 8]],
+			['config.add', ['gzo_top_posters_fid', 0]],
+			['config.add', ['gzo_recent_posts_fid', 0]],
+			['config.add', ['gzo_recent_topics_fid', 0]],
+
+			['config.add', ['gzo_plugins', 1]],
 			['config.add', ['gzo_right', 1]],
 			['config.add', ['gzo_left', 0]],
 			['config.add', ['gzo_middle', 1]],

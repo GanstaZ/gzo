@@ -19,7 +19,7 @@ class m1_main extends \phpbb\db\migration\migration
 	*/
 	public function effectively_installed(): bool
 	{
-		return $this->check(gzo::AREA) && $this->check(gzo::BLOCKS) && $this->check(gzo::PAGES);
+		return $this->check(gzo::AREA) && $this->check(gzo::PLUGINS) && $this->check(gzo::PAGES);
 	}
 
 	/**
@@ -59,10 +59,11 @@ class m1_main extends \phpbb\db\migration\migration
 					],
 					'PRIMARY_KEY' => ['id'],
 				],
-				$this->table_prefix . gzo::BLOCKS => [
+				$this->table_prefix . gzo::PLUGINS => [
 					'COLUMNS' => [
 						'id'	   => ['UINT', null, 'auto_increment'],
 						'name'	   => ['VCHAR', ''],
+						'type'     => ['VCHAR', ''],
 						'ext_name' => ['VCHAR', ''],
 						'position' => ['UINT', 0],
 						'active'   => ['BOOL', 0],
@@ -97,7 +98,7 @@ class m1_main extends \phpbb\db\migration\migration
 		return [
 			'drop_tables' => [
 				$this->table_prefix . gzo::AREA,
-				$this->table_prefix . gzo::BLOCKS,
+				$this->table_prefix . gzo::PLUGINS,
 				$this->table_prefix . gzo::PAGES,
 			],
 		];

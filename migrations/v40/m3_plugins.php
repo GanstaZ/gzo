@@ -12,12 +12,12 @@ namespace ganstaz\gzo\migrations\v40;
 
 use ganstaz\gzo\src\enum\gzo;
 
-class m3_blocks extends \phpbb\db\migration\migration
+class m3_plugins extends \phpbb\db\migration\migration
 {
 	/**
 	* {@inheritdoc}
 	*/
-	public static function depends_on()
+	public static function depends_on(): array
 	{
 		return [gzo::MAIN_MIGRATION];
 	}
@@ -28,18 +28,18 @@ class m3_blocks extends \phpbb\db\migration\migration
 	public function update_data(): array
 	{
 		return [
-			['custom', [[$this, 'add_blocks']]],
+			['custom', [[$this, 'add_plugins']]],
 		];
 	}
 
 	/**
-	* Custom function to add blocks data
+	* Custom function to add plugins
 	*/
-	public function add_blocks(): void
+	public function add_plugins(): void
 	{
-		if ($this->db_tools->sql_table_exists($this->table_prefix . gzo::BLOCKS))
+		if ($this->db_tools->sql_table_exists($this->table_prefix . gzo::PLUGINS))
 		{
-			$blocks_data = [
+			$plugins = [
 				[
 					'name'	   => 'ganstaz_mini_profile',
 					'ext_name' => 'ganstaz_gzo',
@@ -91,9 +91,9 @@ class m3_blocks extends \phpbb\db\migration\migration
 				],
 			];
 
-			$insert_buffer = new \phpbb\db\sql_insert_buffer($this->db, $this->table_prefix . gzo::BLOCKS);
+			$insert_buffer = new \phpbb\db\sql_insert_buffer($this->db, $this->table_prefix . gzo::PLUGINS);
 
-			foreach ($blocks_data as $row)
+			foreach ($plugins as $row)
 			{
 				$insert_buffer->insert($row);
 			}

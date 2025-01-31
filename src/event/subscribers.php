@@ -12,8 +12,8 @@ namespace ganstaz\gzo\src\event;
 
 use ganstaz\gzo\src\enum\admin;
 use ganstaz\gzo\src\helper;
+use ganstaz\gzo\src\plugin\loader as plugins;
 use ganstaz\gzo\src\user\page;
-use ganstaz\gzo\src\plugin\loader as blocks_loader;
 use ganstaz\gzo\src\user\loader as users_loader;
 use phpbb\config\config;
 use phpbb\controller\helper as controller;
@@ -31,7 +31,7 @@ class subscribers implements EventSubscriberInterface
 		protected language $language,
 		protected request $request,
 		protected twig $twig,
-		protected blocks_loader $blocks_loader,
+		protected plugins $plugins,
 		protected helper $helper,
 		protected page $page,
 		protected users_loader $users_loader
@@ -74,12 +74,12 @@ class subscribers implements EventSubscriberInterface
 			// Set page var
 			$this->twig->assign_var('S_GZO_PAGE', true);
 
-			$this->blocks_loader->load($get_page_data);
+			$this->plugins->load($get_page_data);
 
 			foreach ($get_page_data as $s_page)
 			{
 				$this->twig->assign_vars([
-					$s_page => $this->blocks_loader->data->has($s_page),
+					$s_page => $this->plugins->data->has($s_page),
 				]);
 			}
 		}
