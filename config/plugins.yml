@@ -7,12 +7,6 @@ services:
             - '@ganstaz.gzo.plugin.data'
             - '%ganstaz.gzo.tables.plugins%'
 
-    ganstaz.gzo.blocks.manager:
-        class: ganstaz\gzo\src\plugin\manager
-        arguments:
-            - '@ganstaz.gzo.plugin.collection'
-            - '%ganstaz.gzo.tables.plugins%'
-
     ganstaz.gzo.plugin.data:
         class: ganstaz\gzo\src\plugin\data
 
