@@ -8,17 +8,19 @@
 *
 */
 
-namespace ganstaz\gzo\src;
+namespace ganstaz\gzo\src\user;
 
 use phpbb\cache\service as cache;
 use phpbb\config\config;
 use phpbb\db\driver\driver_interface;
 use phpbb\user;
 
-class pages
+final class page
 {
 	protected array $allow = [];
+
 	private bool $is_page_admin = false;
+
 	private bool $is_pagename_app = false;
 
 	public function __construct(

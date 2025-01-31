@@ -17,7 +17,7 @@ services:
             - '@template'
             - '@ganstaz.gzo.plugin.loader'
             - '@ganstaz.gzo.helper'
-            - '@ganstaz.gzo.pages'
+            - '@ganstaz.gzo.page'
             - '@ganstaz.gzo.users_loader'
         tags:
             - { name: event.listener }

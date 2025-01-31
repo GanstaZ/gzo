@@ -12,7 +12,7 @@ namespace ganstaz\gzo\src\event;
 
 use ganstaz\gzo\src\enum\admin;
 use ganstaz\gzo\src\helper;
-use ganstaz\gzo\src\pages;
+use ganstaz\gzo\src\user\page;
 use ganstaz\gzo\src\plugin\loader as blocks_loader;
 use ganstaz\gzo\src\user\loader as users_loader;
 use phpbb\config\config;
@@ -33,7 +33,7 @@ class subscribers implements EventSubscriberInterface
 		protected twig $twig,
 		protected blocks_loader $blocks_loader,
 		protected helper $helper,
-		protected pages $pages,
+		protected page $page,
 		protected users_loader $users_loader
 	)
 	{
@@ -69,7 +69,7 @@ class subscribers implements EventSubscriberInterface
 	*/
 	public function load_available_blocks(): void
 	{
-		if ($this->config['gzo_blocks'] && $get_page_data = $this->pages->get_page_data())
+		if ($this->config['gzo_plugins'] && $get_page_data = $this->page->get_page_data())
 		{
 			// Set page var
 			$this->twig->assign_var('S_GZO_PAGE', true);
@@ -90,9 +90,9 @@ class subscribers implements EventSubscriberInterface
 	*/
 	public function add_gzo_data(): void
 	{
-		$current = $this->pages->get_current_page();
+		$current = $this->page->get_current_page();
 
-		// if (!$this->pages->is_cp($current) && $current === 'index')
+		// if (!$this->page->is_cp($current) && $current === 'index')
 		// {
 		//	$url = $this->controller->route('ganstaz_gzo_forum');
 
@@ -149,7 +149,7 @@ class subscribers implements EventSubscriberInterface
 	*/
 	public function redirect_profile($event): void
 	{
-		if ($this->pages->get_current_page() === 'memberlist')
+		if ($this->page->get_current_page() === 'memberlist')
 		{
 			$url = $this->controller->route('ganstaz_gzo_member', ['username' => $this->users_loader->get_username((int) $event['user_id'])]);
 
