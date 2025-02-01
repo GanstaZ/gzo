@@ -69,7 +69,9 @@ class subscribers implements EventSubscriberInterface
 	*/
 	public function load_available_blocks(): void
 	{
-		if ($this->config['gzo_plugins'] && $get_page_data = $this->page->get_page_data())
+		var_dump($this->page->get_current_page());
+
+		if ($this->config['gzo_plugins'] && $page_name = $this->page->get_current_page())
 		{
 			// Set page var
 			$this->twig->assign_var('S_GZO_PAGE', true);
@@ -90,9 +92,9 @@ class subscribers implements EventSubscriberInterface
 	*/
 	public function add_gzo_data(): void
 	{
-		$current = $this->page->get_current_page();
+		//$current = $this->page->get_current_page();
 
-		// if (!$this->page->is_cp($current) && $current === 'index')
+		// if (!$this->page->is_control_panel($current) && $current === 'index')
 		// {
 		//	$url = $this->controller->route('ganstaz_gzo_forum');
 

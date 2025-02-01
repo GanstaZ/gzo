@@ -42,11 +42,8 @@ services:
     ganstaz.gzo.page:
         class: ganstaz\gzo\src\user\page
         arguments:
-            - '@cache'
             - '@config'
-            - '@dbal.conn'
             - '@user'
-            - '%ganstaz.gzo.tables.pages%'
             - '%core.php_ext%'
 
     ganstaz.gzo.time:
