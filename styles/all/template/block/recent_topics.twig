@@ -5,7 +5,7 @@
 		<ul class="gzo-block-stats">
 			{% for post in recent_topics %}
 				<li>
-					{{ Icon('gzo', 'mdi--file-outline', lang('IN_TOPIC'), true) ~ link({'href': post.link, 'title': post.title}, '', post.title) }}
+					{{ Icon('gzo', 'mdi--file-outline', lang('IN_TOPIC'), true) ~ link({'class': 'gzo-block-stats-link', 'href': post.link, 'title': post.title}, post.title) }}
 				</li>
 			{% endfor %}
 		</ul>
