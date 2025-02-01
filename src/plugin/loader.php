@@ -15,82 +15,83 @@ use phpbb\di\service_collection;
 
 final class loader
 {
+	protected array $testing = [];
 	protected array $plugins = [];
-
-	protected array $type = ['section', 'name'];
+	protected array $sections = [];
 
 	public function __construct(
 		protected driver_interface $db,
-		protected service_collection $collection,
+		protected service_collection $plugins_collection,
 		public readonly data $data,
-		protected readonly string $plugins_table
+		protected readonly string $plugins_table,
+		protected readonly string $plugins_on_page_table
 	)
 	{
 	}
 
-	public function load(string|array $name = null, string $type = 'section'): void
+	public function get_sections(): array
 	{
-		if (!in_array($type, $this->type))
-		{
-			return;
-		}
+		return $this->sections ?? [];
+	}
 
-		if ($blocks = $this->get_requested_blocks($name, $type))
+	public function load_available_plugins(string $page_name): void
+	{
+		$this->get_requested_plugins($page_name);
+
+		if (count($this->plugins))
 		{
-			foreach ($blocks as $block)
+			foreach ($this->plugins as $item)
 			{
-				$block->load_plugin();
+				$item->load_plugin();
 			}
 		}
 	}
 
-	protected function get_requested_blocks(string|array $name = null, string $type): array
+	protected function get_requested_plugins(string $page_name): void
 	{
-		$where = (null !== $name) ? $this->where_clause($name, $type) : 'active = 1';
+		$sql_array = [
+			'SELECT'	=> 'p.name, p.ext_name, p.section, op.page_name',
+			'FROM'		=> [
+				$this->plugins_table => 'p',
+				$this->plugins_on_page_table => 'op',
+			],
+			'WHERE'		=> "p.name = op.name
+				AND op.page_name = '" . $this->db->sql_escape($page_name)  . "'" . '
+				AND op.active = 1',
+			'ORDER_BY'	=> 'p.position',
+		];
 
-		$sql = 'SELECT name, ext_name, section
-				FROM ' . $this->plugins_table . '
-				WHERE ' . $where . '
-				ORDER BY position';
+		$sql = $this->db->sql_build_query('SELECT', $sql_array);
 		$result = $this->db->sql_query($sql, 86400);
 
-		$blocks = [];
 		while ($row = $this->db->sql_fetchrow($result))
 		{
-			$block = $this->collection[$this->get_service_name($row['name'], $row['ext_name'])];
+			$plugin = $this->plugins_collection[$this->get_service_name($row['name'], $row['ext_name'])];
 
-			if ($block->loadable)
+			if ($plugin->loadable)
 			{
-				$blocks[$row['name']] = $block;
+				$this->plugins[$row['name']] = $plugin;
 			}
 
-			// Set section data for twig blocks tag/function
+			// Set template data for twig blocks
 			if ($row['section'])
 			{
+				$this->sections[] = $row['section'];
+
 				$data = [
-					'name'	   => (string) $row['name'],
-					'ext_name' => (string) $row['ext_name'],
+					'name'	   => $row['name'],
+					'ext_name' => $row['ext_name'],
 				];
 
 				$data['name'] = $this->vendor($data);
-				$this->data->set_template_data($row['section'], [$data['name'] => $data['ext_name']]);
+				$this->data->set_template_data($row['section'], $data['name'], $data['ext_name']);
 			}
+
+			$this->testing[$row['page_name']][ $row['section']][$row['name']] = $row['ext_name'];
 		}
 		$this->db->sql_freeresult($result);
 
-		return $blocks;
-	}
-
-	protected function where_clause(string|array $name, string $type): string
-	{
-		if (is_array($name))
-		{
-			return $this->db->sql_in_set($type, $name) . ' AND active = 1';
-		}
-		else if (is_string($name))
-		{
-			return "{$type} = '" . $this->db->sql_escape($name) . "' AND active = 1";
-		}
+		var_dump($this->testing);
 	}
 
 	public function get_service_name(string $service, string $ext_name): string
@@ -101,7 +102,7 @@ final class loader
 
 	public function vendor(array $data): string
 	{
-		if (strstr($data['ext_name'], '_', true) === 'ganstaz')
+		if (str_contains($data['ext_name'], 'ganstaz'))
 		{
 			$data['name'] = str_replace('ganstaz_', '', $data['name']);
 		}
