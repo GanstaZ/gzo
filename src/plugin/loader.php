@@ -87,7 +87,7 @@ final class loader
 				$this->data->set_template_data($row['section'], $data['name'], $data['ext_name']);
 			}
 
-			$this->testing[$row['page_name']][ $row['section']][$row['name']] = $row['ext_name'];
+			$this->testing[$row['page_name']][$row['section']][$row['name']] = $row['ext_name'];
 		}
 		$this->db->sql_freeresult($result);
 
