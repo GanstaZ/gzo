@@ -15,32 +15,32 @@ use ganstaz\gzo\src\enum\gzo;
 class m1_main extends \phpbb\db\migration\migration
 {
 	/**
-	* {@inheritdoc}
-	*/
+	 * {@inheritdoc}
+	 */
 	public function effectively_installed(): bool
 	{
-		return $this->check(gzo::AREA) && $this->check(gzo::PLUGINS) && $this->check(gzo::PAGES);
+		return $this->check(gzo::AREA) && $this->check(gzo::PLUGINS) && $this->check(gzo::PLUGINS_ON_PAGE);
 	}
 
 	/**
-	* Check condition exists for a given table name
-	*/
+	 * Check if given table exists or not
+	 */
 	public function check(string $name): bool
 	{
 		return $this->db_tools->sql_table_exists($this->table_prefix . $name);
 	}
 
 	/**
-	* {@inheritdoc}
-	*/
+	 * {@inheritdoc}
+	 */
 	public static function depends_on(): array
 	{
 		return ['\phpbb\db\migration\data\v400\dev'];
 	}
 
 	/**
-	* Add the table schemas to the database:
-	*/
+	 * {@inheritdoc}
+	 */
 	public function update_schema(): array
 	{
 		return [
@@ -63,25 +63,18 @@ class m1_main extends \phpbb\db\migration\migration
 					'COLUMNS' => [
 						'id'	   => ['UINT', null, 'auto_increment'],
 						'name'	   => ['VCHAR', ''],
-						'type'     => ['VCHAR', ''],
 						'ext_name' => ['VCHAR', ''],
 						'position' => ['UINT', 0],
-						'active'   => ['BOOL', 0],
-						// To be removed?
 						'section'  => ['VCHAR', ''],
 					],
 					'PRIMARY_KEY' => ['id'],
 				],
-				$this->table_prefix . gzo::PAGES => [
+				$this->table_prefix . gzo::PLUGINS_ON_PAGE => [
 					'COLUMNS' => [
-						'id'		 => ['UINT', null, 'auto_increment'],
-						'name'		 => ['VCHAR', ''],
-						'active'	 => ['BOOL', 0],
-						'allow'		 => ['BOOL', 0],
-
-						'gzo_side'	 => ['BOOL', 0],
-						'gzo_announcement' => ['BOOL', 0],
-						'gzo_online' => ['BOOL', 0],
+						'id'		=> ['UINT', null, 'auto_increment'],
+						'name'		=> ['VCHAR', ''],
+						'page_name' => ['VCHAR', ''],
+						'active'	=> ['BOOL', 0],
 					],
 					'PRIMARY_KEY' => ['id'],
 				],
@@ -90,15 +83,15 @@ class m1_main extends \phpbb\db\migration\migration
 	}
 
 	/**
-	* Drop the schemas from the database
-	*/
+	 * {@inheritdoc}
+	 */
 	public function revert_schema(): array
 	{
 		return [
 			'drop_tables' => [
 				$this->table_prefix . gzo::AREA,
 				$this->table_prefix . gzo::PLUGINS,
-				$this->table_prefix . gzo::PAGES,
+				$this->table_prefix . gzo::PLUGINS_ON_PAGE,
 			],
 		];
 	}

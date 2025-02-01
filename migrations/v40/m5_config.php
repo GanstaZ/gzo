@@ -12,19 +12,19 @@ namespace ganstaz\gzo\migrations\v40;
 
 use ganstaz\gzo\src\enum\gzo;
 
-class m4_config extends \phpbb\db\migration\migration
+class m5_config extends \phpbb\db\migration\migration
 {
 	/**
-	* {@inheritdoc}
-	*/
+	 * {@inheritdoc}
+	 */
 	public static function depends_on(): array
 	{
 		return [gzo::MAIN_MIGRATION];
 	}
 
 	/**
-	* Add the initial data in the database
-	*/
+	 * {@inheritdoc}
+	 */
 	public function update_data(): array
 	{
 		return [
@@ -40,6 +40,7 @@ class m4_config extends \phpbb\db\migration\migration
 			['config.add', ['gzo_limit', 5]],
 			['config.add', ['gzo_user_limit', 5]],
 
+			['config.add', ['gzo_app_global', 0]],
 			// Plugins
 			['config.add', ['gzo_the_team_fid', 8]],
 			['config.add', ['gzo_top_posters_fid', 0]],
@@ -49,7 +50,6 @@ class m4_config extends \phpbb\db\migration\migration
 			['config.add', ['gzo_plugins', 1]],
 			['config.add', ['gzo_side', 1]],
 			['config.add', ['gzo_announcement', 1]],
-
 			['config.add', ['gzo_online', 1]],
 		];
 	}
