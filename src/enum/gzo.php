@@ -29,4 +29,5 @@ final class gzo
 	// Tables
 	public const AREA = 'gzo_area';
 	public const PLUGINS = 'gzo_plugins';
+	public const PLUGINS_ON_PAGE = 'gzo_plugins_on_page';
 }

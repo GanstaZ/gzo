@@ -1,3 +1,4 @@
 parameters:
     ganstaz.gzo.tables.area: '%core.table_prefix%gzo_area'
     ganstaz.gzo.tables.plugins: '%core.table_prefix%gzo_plugins'
+    ganstaz.gzo.tables.plugins_on_page: '%core.table_prefix%gzo_plugins_on_page'

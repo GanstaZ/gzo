@@ -6,6 +6,7 @@ services:
             - '@ganstaz.gzo.plugin.collection'
             - '@ganstaz.gzo.plugin.data'
             - '%ganstaz.gzo.tables.plugins%'
+            - '%ganstaz.gzo.tables.plugins_on_page%'
 
     ganstaz.gzo.plugin.data:
         class: ganstaz\gzo\src\plugin\data
