@@ -14,9 +14,9 @@ class data
 {
 	protected static array $data = [];
 
-	public function set_template_data(string $section, array $data): void
+	public function set_template_data(string $section, string $name, string $ext_name): void
 	{
-		$this->get($section) ? self::$data[$section] = array_merge(self::$data[$section], $data) : self::$data[$section] = $data;
+		self::$data[$section][$name] = $ext_name;
 	}
 
 	public function get(string $section): array
