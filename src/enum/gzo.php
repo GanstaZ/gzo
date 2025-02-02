@@ -15,6 +15,8 @@ final class gzo
 	// Common
 	public const VERSION = '4.0.0-dev';
 	public const STYLE = 'Tempest';
+	public const VENDOR = 'ganstaz';
+	public const EXT_NAME = 'ganstaz_gzo';
 	public const DATE_FORMAT = 'Y-m-d H:i';
 	public const MAIN_MIGRATION = '\ganstaz\gzo\migrations\v40\m1_main';
 
@@ -30,4 +32,16 @@ final class gzo
 	public const AREA = 'gzo_area';
 	public const PLUGINS = 'gzo_plugins';
 	public const PLUGINS_ON_PAGE = 'gzo_plugins_on_page';
+
+	// Pages
+	public const PAGE = [
+		'app' => 'app',
+	];
+
+	// Sections
+	public const SECTION = [
+		'announcement' => 'gzo_announcement',
+		'sidebar' => 'gzo_side',
+		'online' => 'gzo_online',
+	];
 }

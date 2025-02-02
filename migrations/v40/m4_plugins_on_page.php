@@ -39,42 +39,42 @@ class m4_plugins_on_page extends \phpbb\db\migration\migration
 			$on_page = [
 				[
 					'name'      => 'ganstaz_mini_profile',
-					'page_name' => 'app',
+					'page_name' => gzo::PAGE['app'],
 					'active'    => 1,
 				],
 				[
 					'name'      => 'ganstaz_information',
-					'page_name' => 'app',
+					'page_name' => gzo::PAGE['app'],
 					'active'    => 1,
 				],
 				[
 					'name'      => 'ganstaz_the_team',
-					'page_name' => 'app',
+					'page_name' => gzo::PAGE['app'],
 					'active'    => 1,
 				],
 				[
 					'name'      => 'ganstaz_top_posters',
-					'page_name' => 'app',
+					'page_name' => gzo::PAGE['app'],
 					'active'    => 1,
 				],
 				[
 					'name'      => 'ganstaz_recent_posts',
-					'page_name' => 'app',
+					'page_name' => gzo::PAGE['app'],
 					'active'    => 1,
 				],
 				[
 					'name'      => 'ganstaz_recent_topics',
-					'page_name' => 'app',
+					'page_name' => gzo::PAGE['app'],
 					'active'    => 0,
 				],
 				[
 					'name'      => 'ganstaz_whos_online',
-					'page_name' => 'app',
+					'page_name' => gzo::PAGE['app'],
 					'active'    => 1,
 				],
 				[
 					'name'      => 'ganstaz_announcement',
-					'page_name' => 'app',
+					'page_name' => gzo::PAGE['app'],
 					'active'    => 1,
 				],
 			];
