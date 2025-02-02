@@ -48,7 +48,8 @@ services:
         shared: false
         parent: ganstaz.gzo.plugin.base
         calls:
-            - [is_loadable, [false]]
+            - [loadable, [false]]
+            - [set_type, [event]]
         tags:
             - { name: gzo.plugin }
 
@@ -57,7 +58,8 @@ services:
         shared: false
         parent: ganstaz.gzo.plugin.base
         calls:
-            - [is_loadable, [false]]
+            - [loadable, [false]]
+            - [set_type, [block]]
         tags:
             - { name: gzo.plugin }
 
@@ -66,7 +68,8 @@ services:
         shared: false
         parent: ganstaz.gzo.plugin.base
         calls:
-            - [is_loadable, [true]]
+            - [loadable, [true]]
+            - [set_type, [block]]
         tags:
             - { name: gzo.plugin }
 
@@ -75,7 +78,8 @@ services:
         shared: false
         parent: ganstaz.gzo.plugin.base
         calls:
-            - [is_loadable, [true]]
+            - [loadable, [true]]
+            - [set_type, [block]]
         tags:
             - { name: gzo.plugin }
 
@@ -84,7 +88,8 @@ services:
         shared: false
         parent: ganstaz.gzo.plugin.base
         calls:
-            - [is_loadable, [true]]
+            - [loadable, [true]]
+            - [set_type, [block]]
         tags:
             - { name: gzo.plugin }
 
@@ -93,7 +98,8 @@ services:
         shared: false
         parent: ganstaz.gzo.plugin.base
         calls:
-            - [is_loadable, [true]]
+            - [loadable, [true]]
+            - [set_type, [block]]
         tags:
             - { name: gzo.plugin }
 
@@ -102,7 +108,8 @@ services:
         shared: false
         parent: ganstaz.gzo.plugin.base
         calls:
-            - [is_loadable, [true]]
+            - [loadable, [true]]
+            - [set_type, [block]]
         tags:
             - { name: gzo.plugin }
 
@@ -113,6 +120,7 @@ services:
         arguments:
             - '@ganstaz.gzo.info'
         calls:
-            - [is_loadable, [true]]
+            - [loadable, [true]]
+            - [set_type, [block]]
         tags:
             - { name: gzo.plugin }

@@ -22,6 +22,9 @@ abstract class plugin_base
 	/** @var bool Returns true if plugin service is loadable  */
 	public readonly bool $loadable;
 
+	/** @var string Plugin type (blocks, block or event)  */
+	public readonly string $type;
+
 	public function __construct(
 		protected config $config,
 		protected controller $controller,
@@ -36,11 +39,19 @@ abstract class plugin_base
 	}
 
 	/**
-	 * @param string $set Is plugin loadable
+	 * @param bool $set Is plugin loadable
 	 */
-	public function is_loadable(bool $set): void
+	public function loadable(bool $set): void
 	{
 		$this->loadable = $set;
+	}
+
+	/**
+	 * @param string $type Plugin type
+	 */
+	public function set_type(string $type): void
+	{
+		$this->type = $type;
 	}
 
 	/**
