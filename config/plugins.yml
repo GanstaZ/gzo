@@ -53,7 +53,7 @@ services:
             - { name: gzo.plugin }
 
     ganstaz.gzo.plugin.mini_profile:
-        class: ganstaz\gzo\src\plugin\blocks\mini_profile
+        class: ganstaz\gzo\src\plugin\sidebar\mini_profile
         shared: false
         parent: ganstaz.gzo.plugin.base
         calls:
@@ -62,7 +62,7 @@ services:
             - { name: gzo.plugin }
 
     ganstaz.gzo.plugin.information:
-        class: ganstaz\gzo\src\plugin\blocks\information
+        class: ganstaz\gzo\src\plugin\sidebar\information
         shared: false
         parent: ganstaz.gzo.plugin.base
         calls:
@@ -71,7 +71,7 @@ services:
             - { name: gzo.plugin }
 
     ganstaz.gzo.plugin.the_team:
-        class: ganstaz\gzo\src\plugin\blocks\the_team
+        class: ganstaz\gzo\src\plugin\sidebar\the_team
         shared: false
         parent: ganstaz.gzo.plugin.base
         calls:
@@ -80,7 +80,7 @@ services:
             - { name: gzo.plugin }
 
     ganstaz.gzo.plugin.top_posters:
-        class: ganstaz\gzo\src\plugin\blocks\top_posters
+        class: ganstaz\gzo\src\plugin\sidebar\top_posters
         shared: false
         parent: ganstaz.gzo.plugin.base
         calls:
@@ -89,7 +89,7 @@ services:
             - { name: gzo.plugin }
 
     ganstaz.gzo.plugin.recent_posts:
-        class: ganstaz\gzo\src\plugin\blocks\recent_posts
+        class: ganstaz\gzo\src\plugin\sidebar\recent_posts
         shared: false
         parent: ganstaz.gzo.plugin.base
         calls:
@@ -98,7 +98,7 @@ services:
             - { name: gzo.plugin }
 
     ganstaz.gzo.plugin.recent_topics:
-        class: ganstaz\gzo\src\plugin\blocks\recent_topics
+        class: ganstaz\gzo\src\plugin\sidebar\recent_topics
         shared: false
         parent: ganstaz.gzo.plugin.base
         calls:
@@ -107,7 +107,7 @@ services:
             - { name: gzo.plugin }
 
     ganstaz.gzo.plugin.whos_online:
-        class: ganstaz\gzo\src\plugin\blocks\whos_online
+        class: ganstaz\gzo\src\plugin\online\whos_online
         shared: false
         parent: ganstaz.gzo.plugin.base
         arguments:

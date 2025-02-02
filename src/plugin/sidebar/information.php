@@ -8,7 +8,7 @@
 *
 */
 
-namespace ganstaz\gzo\src\plugin\blocks;
+namespace ganstaz\gzo\src\plugin\sidebar;
 
 use ganstaz\gzo\src\enum\gzo;
 use ganstaz\gzo\src\event\events;

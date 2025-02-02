@@ -8,7 +8,7 @@
 *
 */
 
-namespace ganstaz\gzo\src\plugin\blocks;
+namespace ganstaz\gzo\src\plugin\online;
 
 use ganstaz\gzo\src\event\events;
 use ganstaz\gzo\src\plugin\plugin_base;
