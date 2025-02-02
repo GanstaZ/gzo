@@ -13,10 +13,8 @@ namespace ganstaz\gzo\src\user;
 use phpbb\config\config;
 use phpbb\user;
 
-final class page
+class page
 {
-	public readonly string $page_name;
-
 	public function __construct(
 		protected config $config,
 		protected user $user,
@@ -29,7 +27,6 @@ final class page
 	{
 		$on_page = explode('/', str_replace('.' . $this->php_ext, '', $this->user->page['page_name']));
 		$page_name = $on_page[0];
-		// var_dump($on_page);
 
 		if ($page_name === 'app')
 		{
@@ -39,8 +36,6 @@ final class page
 
 			// Is it second or last param?
 			$second_last_param = count($on_page) > 2 && is_numeric($last_param) ? $page_name : $last_param;
-			// var_dump($second_last_param);
-
 			$page_name = $page_name ?? $second_last_param;
 
 			// This is global for app.php & will apply to all route params.
