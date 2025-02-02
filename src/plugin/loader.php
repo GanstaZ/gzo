@@ -10,6 +10,7 @@
 
 namespace ganstaz\gzo\src\plugin;
 
+use ganstaz\gzo\src\enum\gzo;
 use phpbb\db\driver\driver_interface;
 use phpbb\di\service_collection;
 
@@ -70,14 +71,9 @@ final class loader
 			// Set template data for twig blocks
 			if ($row['section'])
 			{
+				$name = $this->remove_gzo_prefix($row['name'], $row['ext_name']);
 
-				$data = [
-					'name'	   => $row['name'],
-					'ext_name' => $row['ext_name'],
-				];
-
-				$data['name'] = $this->vendor($data);
-				$this->data->set_template_data($row['section'], $data['name'], $data['ext_name']);
+				$this->data->set_template_data($row['section'], $name, $row['ext_name']);
 			}
 
 			$this->testing[$row['page_name']][$row['section']][$row['name']] = $row['ext_name'];
@@ -93,13 +89,8 @@ final class loader
 		return "{$ext_name}.plugin." . utf8_substr($service, utf8_strpos($service, '_') + 1);
 	}
 
-	public function vendor(array $data): string
+	public function remove_gzo_prefix(string $name, string $ext_name): string
 	{
-		if (str_contains($data['ext_name'], 'ganstaz'))
-		{
-			$data['name'] = str_replace('ganstaz_', '', $data['name']);
-		}
-
-		return $data['name'];
+		return str_contains($ext_name, gzo::VENDOR) ? str_replace(gzo::VENDOR . '_', '', $name) : $name;
 	}
 }
