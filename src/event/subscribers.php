@@ -69,8 +69,6 @@ class subscribers implements EventSubscriberInterface
 	*/
 	public function load_available_plugins(): void
 	{
-		var_dump($this->page->get_current_page());
-
 		if ($this->config['gzo_plugins'] && $page_name = $this->page->get_current_page())
 		{
 			// Set page variable
@@ -78,13 +76,6 @@ class subscribers implements EventSubscriberInterface
 
 			// Load available plugins for a given page
 			$this->plugins->load_available_plugins($page_name);
-
-			foreach ($this->plugins->get_sections() as $section)
-			{
-				$this->twig->assign_vars([
-					$section => $this->plugins->data->has($section),
-				]);
-			}
 		}
 	}
 
