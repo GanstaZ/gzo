@@ -38,14 +38,6 @@ class whos_online extends plugin_base
 		parent::__construct($config, $controller, $db, $dispatcher, $template, $users_loader, $root_path, $php_ext);
 	}
 
-	public function get_block_data(): array
-	{
-		return [
-			'section'  => 'gzo_bottom',
-			'ext_name' => 'ganstaz_gzo',
-		];
-	}
-
 	/**
 	* {@inheritdoc}
 	*/

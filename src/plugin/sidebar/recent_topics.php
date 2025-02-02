@@ -14,14 +14,6 @@ use ganstaz\gzo\src\plugin\plugin_base;
 
 class recent_topics extends plugin_base
 {
-	public function get_block_data(): array
-	{
-		return [
-			'section'  => 'gzo_right',
-			'ext_name' => 'ganstaz_gzo',
-		];
-	}
-
 	/**
 	* {@inheritdoc}
 	*/

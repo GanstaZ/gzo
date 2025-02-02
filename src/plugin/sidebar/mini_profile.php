@@ -14,11 +14,4 @@ use ganstaz\gzo\src\plugin\plugin_base;
 
 class mini_profile extends plugin_base
 {
-	public function get_block_data(): array
-	{
-		return [
-			'section'  => 'gzo_right',
-			'ext_name' => 'ganstaz_gzo',
-		];
-	}
 }
