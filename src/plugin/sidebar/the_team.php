@@ -14,20 +14,13 @@ use ganstaz\gzo\src\plugin\plugin_base;
 
 class the_team extends plugin_base
 {
-	public function get_block_data(): array
-	{
-		return [
-			'section'  => 'gzo_right',
-			'ext_name' => 'ganstaz_gzo',
-		];
-	}
-
 	/**
 	* {@inheritdoc}
 	*/
 	public function load_plugin(): void
 	{
-		$group_id = (int) $this->config['gzo_the_team_fid'] ?? 5;
+		// Will have a dynamic config value later
+		$group_id = 8 ?: 5;
 
 		$sql = 'SELECT group_name
 				FROM ' . GROUPS_TABLE . '
