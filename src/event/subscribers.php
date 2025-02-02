@@ -75,7 +75,7 @@ class subscribers implements EventSubscriberInterface
 			$this->twig->assign_var('S_GZO_PAGE', true);
 
 			// Load available plugins for a given page
-			$this->plugins->load_available_plugins($page_name);
+			$this->plugins->load_available_plugins($page_name, $this->config);
 		}
 	}
 

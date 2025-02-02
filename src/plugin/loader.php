@@ -11,12 +11,14 @@
 namespace ganstaz\gzo\src\plugin;
 
 use ganstaz\gzo\src\enum\gzo;
+use phpbb\config\config;
 use phpbb\db\driver\driver_interface;
 use phpbb\di\service_collection;
 
-final class loader
+use ganstaz\test\src\helper\tester;
+
+final class loader extends tester
 {
-	protected array $testing = [];
 	protected array $plugins = [];
 
 	public function __construct(
@@ -29,9 +31,13 @@ final class loader
 	{
 	}
 
-	public function load_available_plugins(string $page_name): void
+	/**
+	 * @param string $page_name
+	 * @param object $config
+	 */
+	public function load_available_plugins(string $page_name, config $config): void
 	{
-		$this->get_requested_plugins($page_name);
+		$this->get_requested_plugins($page_name, $config);
 
 		if (count($this->plugins))
 		{
@@ -42,7 +48,11 @@ final class loader
 		}
 	}
 
-	protected function get_requested_plugins(string $page_name): void
+	/**
+	 * @param string $page_name
+	 * @param object $config
+	 */
+	protected function get_requested_plugins(string $page_name, config $config): void
 	{
 		$sql_array = [
 			'SELECT'	=> 'p.name, p.ext_name, p.section, op.page_name',
@@ -61,26 +71,38 @@ final class loader
 
 		while ($row = $this->db->sql_fetchrow($result))
 		{
-			$plugin = $this->plugins_collection[$this->get_service_name($row['name'], $row['ext_name'])];
-
-			if ($plugin->loadable)
+			if (!isset($config[$row['section']]) || $config[$row['section']])
 			{
-				$this->plugins[$row['name']] = $plugin;
+				$this->set_plugin_data($row);
 			}
-
-			// Set section data for twig blocks function
-			if ($row['section'])
-			{
-				$name = $this->remove_gzo_prefix($row['name'], $row['ext_name']);
-
-				$this->data->set_section_data($row['section'], $name, $row['ext_name']);
-			}
-
-			$this->testing[$row['page_name']][$row['section']][$row['name']] = $row['ext_name'];
 		}
 		$this->db->sql_freeresult($result);
 
+		var_dump($this->data->all());
 		var_dump($this->testing);
+	}
+
+	/**
+	 * @param array $row Plugins data array
+	 */
+	private function set_plugin_data(array $row): void
+	{
+		$plugin = $this->plugins_collection[$this->get_service_name($row['name'], $row['ext_name'])];
+
+		if ($plugin->loadable)
+		{
+			$this->plugins[$row['name']] = $plugin;
+		}
+
+		if ($plugin->type === 'block')
+		{
+			$name = $this->remove_gzo_prefix($row['name'], $row['ext_name']);
+
+			$this->data->set_section_data($row['section'], $name, $row['ext_name']);
+		}
+
+		// Testing
+		$this->set_data($row['section'], $row['name'], $row['ext_name']);
 	}
 
 	public function get_service_name(string $service, string $ext_name): string
