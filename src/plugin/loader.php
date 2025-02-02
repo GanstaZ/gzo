@@ -17,7 +17,6 @@ final class loader
 {
 	protected array $testing = [];
 	protected array $plugins = [];
-	protected array $sections = [];
 
 	public function __construct(
 		protected driver_interface $db,
@@ -27,11 +26,6 @@ final class loader
 		protected readonly string $plugins_on_page_table
 	)
 	{
-	}
-
-	public function get_sections(): array
-	{
-		return $this->sections ?? [];
 	}
 
 	public function load_available_plugins(string $page_name): void
@@ -76,7 +70,6 @@ final class loader
 			// Set template data for twig blocks
 			if ($row['section'])
 			{
-				$this->sections[] = $row['section'];
 
 				$data = [
 					'name'	   => $row['name'],
