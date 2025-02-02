@@ -14,7 +14,7 @@ class data
 {
 	protected static array $data = [];
 
-	public function set_template_data(string $section, string $name, string $ext_name): void
+	public function set_section_data(string $section, string $name, string $ext_name): void
 	{
 		self::$data[$section][$name] = $ext_name;
 	}

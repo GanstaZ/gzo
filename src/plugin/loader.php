@@ -68,12 +68,12 @@ final class loader
 				$this->plugins[$row['name']] = $plugin;
 			}
 
-			// Set template data for twig blocks
+			// Set section data for twig blocks function
 			if ($row['section'])
 			{
 				$name = $this->remove_gzo_prefix($row['name'], $row['ext_name']);
 
-				$this->data->set_template_data($row['section'], $name, $row['ext_name']);
+				$this->data->set_section_data($row['section'], $name, $row['ext_name']);
 			}
 
 			$this->testing[$row['page_name']][$row['section']][$row['name']] = $row['ext_name'];
