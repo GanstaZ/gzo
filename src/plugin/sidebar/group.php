@@ -11,16 +11,19 @@
 namespace ganstaz\gzo\src\plugin\sidebar;
 
 use ganstaz\gzo\src\plugin\plugin_base;
+use ganstaz\gzo\src\trait\plugin_trait;
 
-class the_team extends plugin_base
+class group extends plugin_base
 {
+	use plugin_trait;
+
 	/**
 	* {@inheritdoc}
 	*/
 	public function load_plugin(): void
 	{
 		// Will have a dynamic config value later
-		$group_id = 8 ?: 5;
+		$group_id = (int) $this->config['gzo_the_team_fid'] ?? 8;
 
 		$sql = 'SELECT group_name
 				FROM ' . GROUPS_TABLE . '

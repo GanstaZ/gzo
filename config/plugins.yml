@@ -73,8 +73,8 @@ services:
         tags:
             - { name: gzo.plugin }
 
-    ganstaz.gzo.plugin.the_team:
-        class: ganstaz\gzo\src\plugin\sidebar\the_team
+    ganstaz.gzo.plugin.group:
+        class: ganstaz\gzo\src\plugin\sidebar\group
         shared: false
         parent: ganstaz.gzo.plugin.base
         calls:
