@@ -10,99 +10,108 @@
 
 namespace ganstaz\gzo\src\plugin;
 
+use ganstaz\gzo\src\enum\gzo;
+use phpbb\config\config;
 use phpbb\db\driver\driver_interface;
 use phpbb\di\service_collection;
 
-class loader
+final class loader
 {
-	protected array $type = ['section', 'name'];
+	protected array $plugins = [];
 
 	public function __construct(
-		private driver_interface $db,
-		private service_collection $collection,
+		protected driver_interface $db,
+		protected service_collection $plugins_collection,
 		public readonly data $data,
-		private string $blocks_table
+		protected readonly string $plugins_table,
+		protected readonly string $plugins_on_page_table
 	)
 	{
 	}
 
-	public function load(string|array $name = null, string $type = 'section'): void
+	/**
+	 * @param string $page_name
+	 * @param object $config
+	 */
+	public function load_available_plugins(string $page_name, config $config): void
 	{
-		if (!in_array($type, $this->type))
-		{
-			return;
-		}
+		$this->get_requested_plugins($page_name, $config);
 
-		if ($blocks = $this->get_requested_blocks($name, $type))
+		if (count($this->plugins))
 		{
-			foreach ($blocks as $block)
+			foreach ($this->plugins as $item)
 			{
-				$block->load_plugin();
+				$item->load_plugin();
 			}
 		}
 	}
 
-	protected function get_requested_blocks(string|array $name = null, string $type): array
+	/**
+	 * @param string $page_name
+	 * @param object $config
+	 */
+	protected function get_requested_plugins(string $page_name, config $config): void
 	{
-		$where = (null !== $name) ? $this->where_clause($name, $type) : 'active = 1';
+		$sql_array = [
+			'SELECT'	=> 'p.name, p.ext_name, p.section, op.page_name',
+			'FROM'		=> [
+				$this->plugins_table => 'p',
+				$this->plugins_on_page_table => 'op',
+			],
+			'WHERE'		=> "p.name = op.name
+				AND op.page_name = '" . $this->db->sql_escape($page_name)  . "'" . '
+				AND op.active = 1',
+			'ORDER_BY'	=> 'p.position',
+		];
 
-		$sql = 'SELECT name, ext_name, section
-				FROM ' . $this->blocks_table . '
-				WHERE ' . $where . '
-				ORDER BY position';
+		$sql = $this->db->sql_build_query('SELECT', $sql_array);
 		$result = $this->db->sql_query($sql, 86400);
 
-		$blocks = [];
 		while ($row = $this->db->sql_fetchrow($result))
 		{
-			$block = $this->collection[$this->get_service_name($row['name'], $row['ext_name'])];
-
-			if ($block->loadable)
+			if ($config[$row['section']])
 			{
-				$blocks[$row['name']] = $block;
-			}
-
-			// Set section data for twig blocks tag/function
-			if ($row['section'])
-			{
-				$data = [
-					'name'	   => (string) $row['name'],
-					'ext_name' => (string) $row['ext_name'],
-				];
-
-				$data['name'] = $this->vendor($data);
-				$this->data->set_template_data($row['section'], [$data['name'] => $data['ext_name']]);
+				$this->set_plugin_data($row);
 			}
 		}
 		$this->db->sql_freeresult($result);
-
-		return $blocks;
 	}
 
-	protected function where_clause(string|array $name, string $type): string
+	/**
+	 * @param array $row Plugins data array
+	 */
+	private function set_plugin_data(array $row): void
 	{
-		if (is_array($name))
+		$plugin = $this->plugins_collection[$this->get_service_name($row['name'], $row['ext_name'])];
+
+		if ($plugin->loadable)
 		{
-			return $this->db->sql_in_set($type, $name) . ' AND active = 1';
+			$this->plugins[$row['name']] = $plugin;
 		}
-		else if (is_string($name))
+
+		if ($plugin->type === 'block')
 		{
-			return "{$type} = '" . $this->db->sql_escape($name) . "' AND active = 1";
+			$name = $this->remove_gzo_prefix($row['name'], $row['ext_name']);
+
+			$this->data->set_section_data($row['section'], $name, $row['ext_name']);
 		}
 	}
 
+	/**
+	 * @param string $service
+	 * @param string $ext_name
+	 */
 	public function get_service_name(string $service, string $ext_name): string
 	{
-		return str_replace('_', '.', "{$ext_name}.blocks." . utf8_substr($service, utf8_strpos($service, '_') + 1));
+		return str_replace('_', '.', $ext_name) . '.plugin.' . utf8_substr($service, utf8_strpos($service, '_') + 1);
 	}
 
-	public function vendor(array $data): string
+	/**
+	 * @param string $name
+	 * @param string $ext_name
+	 */
+	public function remove_gzo_prefix(string $name, string $ext_name): string
 	{
-		if (strstr($data['ext_name'], '_', true) === 'ganstaz')
-		{
-			$data['name'] = str_replace('ganstaz_', '', $data['name']);
-		}
-
-		return $data['name'];
+		return str_contains($ext_name, gzo::VENDOR) ? str_replace(gzo::VENDOR . '_', '', $name) : $name;
 	}
 }

@@ -8,26 +8,19 @@
 *
 */
 
-namespace ganstaz\gzo\src\plugin\blocks;
+namespace ganstaz\gzo\src\plugin\sidebar;
 
-use ganstaz\gzo\src\plugin\plugin_base;
+use ganstaz\gzo\src\plugin\plugin;
 
-class the_team extends plugin_base
+class group extends plugin
 {
-	public function get_block_data(): array
-	{
-		return [
-			'section'  => 'gzo_right',
-			'ext_name' => 'ganstaz_gzo',
-		];
-	}
-
 	/**
 	* {@inheritdoc}
 	*/
 	public function load_plugin(): void
 	{
-		$group_id = (int) $this->config['gzo_the_team_fid'] ?? 5;
+		// Will have a dynamic config value later
+		$group_id = (int) $this->config['gzo_the_team_fid'] ?: 5;
 
 		$sql = 'SELECT group_name
 				FROM ' . GROUPS_TABLE . '

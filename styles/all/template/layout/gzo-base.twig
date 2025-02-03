@@ -73,19 +73,15 @@
 							{% block gzo_main_content %}{% endblock %}
 
 							{% block gzo_main_content_bottom %}
-
-								{% if gzo_middle %}
-									{{ gzo_blocks('gzo_middle') }}
-									{# {% EVENT gzo_main_middle %} #}
-								{% endif %}
-
+								{{ gzo_block('gzo_bottom') }}
+								{# {% EVENT gzo_main_middle %} #}
 							{% endblock %}
 						</div>
 
 						{% block gzo_main_right %}
-							{% if gzo_right %}
+							{% if config('gzo_side') %}
 								<div class="gzo-section-side">
-									{{ gzo_blocks('gzo_right') }}
+									{{ gzo_block('gzo_side') }}
 								</div>
 							{% endif %}
 						{% endblock %}
@@ -137,7 +133,7 @@
 		{% INCLUDEJS '@ganstaz_gzo/js/gzo.js' %}
 		{% INCLUDEJS '@ganstaz_gzo/js/core.js' %}
 
-		{% if gzo_middle %}
+		{% if config('gzo_bottom') %}
 			{% INCLUDEJS '@ganstaz_gzo/js/tabs.js' %}
 		{% endif %}
 

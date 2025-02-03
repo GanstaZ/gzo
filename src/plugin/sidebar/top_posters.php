@@ -8,20 +8,12 @@
 *
 */
 
-namespace ganstaz\gzo\src\plugin\blocks;
+namespace ganstaz\gzo\src\plugin\sidebar;
 
-use ganstaz\gzo\src\plugin\plugin_base;
+use ganstaz\gzo\src\plugin\plugin;
 
-class top_posters extends plugin_base
+class top_posters extends plugin
 {
-	public function get_block_data(): array
-	{
-		return [
-			'section'  => 'gzo_right',
-			'ext_name' => 'ganstaz_gzo',
-		];
-	}
-
 	/**
 	* {@inheritdoc}
 	*/
@@ -33,7 +25,7 @@ class top_posters extends plugin_base
 					AND user_type <> ' . (int) USER_IGNORE . '
 					AND user_posts > 0
 				ORDER BY user_posts DESC';
-		$result = $this->db->sql_query_limit($sql, (int) $this->config['gzo_user_limit'], 0, 3600);
+		$result = $this->db->sql_query_limit($sql, (int) $this->config['gzo_users_per_list'], 0, 3600);
 
 		while ($row = $this->db->sql_fetchrow($result))
 		{

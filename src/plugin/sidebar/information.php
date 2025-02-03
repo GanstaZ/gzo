@@ -8,22 +8,14 @@
 *
 */
 
-namespace ganstaz\gzo\src\plugin\blocks;
+namespace ganstaz\gzo\src\plugin\sidebar;
 
 use ganstaz\gzo\src\enum\gzo;
 use ganstaz\gzo\src\event\events;
-use ganstaz\gzo\src\plugin\plugin_base;
+use ganstaz\gzo\src\plugin\plugin;
 
-class information extends plugin_base
+class information extends plugin
 {
-	public function get_block_data(): array
-	{
-		return [
-			'section'  => 'gzo_right',
-			'ext_name' => 'ganstaz_gzo',
-		];
-	}
-
 	/**
 	* {@inheritdoc}
 	*/

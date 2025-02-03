@@ -8,10 +8,10 @@
 *
 */
 
-namespace ganstaz\gzo\src\plugin\blocks;
+namespace ganstaz\gzo\src\plugin\block;
 
 use ganstaz\gzo\src\event\events;
-use ganstaz\gzo\src\plugin\plugin_base;
+use ganstaz\gzo\src\plugin\plugin;
 use ganstaz\gzo\src\user\loader as users_loader;
 use phpbb\config\config;
 use phpbb\controller\helper as controller;
@@ -21,7 +21,7 @@ use phpbb\template\template;
 
 use ganstaz\gzo\src\info;
 
-class whos_online extends plugin_base
+class online extends plugin
 {
 	public function __construct(
 		config $config,
@@ -36,14 +36,6 @@ class whos_online extends plugin_base
 	)
 	{
 		parent::__construct($config, $controller, $db, $dispatcher, $template, $users_loader, $root_path, $php_ext);
-	}
-
-	public function get_block_data(): array
-	{
-		return [
-			'section'  => 'gzo_bottom',
-			'ext_name' => 'ganstaz_gzo',
-		];
 	}
 
 	/**

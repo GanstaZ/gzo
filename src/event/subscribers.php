@@ -12,8 +12,8 @@ namespace ganstaz\gzo\src\event;
 
 use ganstaz\gzo\src\enum\admin;
 use ganstaz\gzo\src\helper;
-use ganstaz\gzo\src\pages;
-use ganstaz\gzo\src\plugin\loader as blocks_loader;
+use ganstaz\gzo\src\plugin\loader as plugins;
+use ganstaz\gzo\src\user\page;
 use ganstaz\gzo\src\user\loader as users_loader;
 use phpbb\config\config;
 use phpbb\controller\helper as controller;
@@ -31,9 +31,9 @@ class subscribers implements EventSubscriberInterface
 		protected language $language,
 		protected request $request,
 		protected twig $twig,
-		protected blocks_loader $blocks_loader,
+		protected plugins $plugins,
 		protected helper $helper,
-		protected pages $pages,
+		protected page $page,
 		protected users_loader $users_loader
 	)
 	{
@@ -43,7 +43,7 @@ class subscribers implements EventSubscriberInterface
 	{
 		return [
 			'core.user_setup'		 => 'add_language',
-			'core.user_setup_after'	 => 'load_available_blocks',
+			'core.user_setup_after'	 => 'load_available_plugins',
 			'core.page_header'		 => 'add_gzo_data',
 			'core.page_header_after' => 'change_index',
 			'core.acp_manage_forums_request_data'	 => 'manage_forums_request_data',
@@ -67,21 +67,15 @@ class subscribers implements EventSubscriberInterface
 	/**
 	* Event core.user_setup_after
 	*/
-	public function load_available_blocks(): void
+	public function load_available_plugins(): void
 	{
-		if ($this->config['gzo_blocks'] && $get_page_data = $this->pages->get_page_data())
+		if ($this->config['gzo_plugins'] && $page_name = $this->page->get_current_page())
 		{
-			// Set page var
+			// Set page variable
 			$this->twig->assign_var('S_GZO_PAGE', true);
 
-			$this->blocks_loader->load($get_page_data);
-
-			foreach ($get_page_data as $s_page)
-			{
-				$this->twig->assign_vars([
-					$s_page => $this->blocks_loader->data->has($s_page),
-				]);
-			}
+			// Load available plugins for a given page
+			$this->plugins->load_available_plugins($page_name, $this->config);
 		}
 	}
 
@@ -90,9 +84,9 @@ class subscribers implements EventSubscriberInterface
 	*/
 	public function add_gzo_data(): void
 	{
-		$current = $this->pages->get_current_page();
+		//$current = $this->page->get_current_page();
 
-		// if (!$this->pages->is_cp($current) && $current === 'index')
+		// if (!$this->page->is_control_panel($current) && $current === 'index')
 		// {
 		//	$url = $this->controller->route('ganstaz_gzo_forum');
 
@@ -149,7 +143,7 @@ class subscribers implements EventSubscriberInterface
 	*/
 	public function redirect_profile($event): void
 	{
-		if ($this->pages->get_current_page() === 'memberlist')
+		if ($this->page->get_current_page() === 'memberlist')
 		{
 			$url = $this->controller->route('ganstaz_gzo_member', ['username' => $this->users_loader->get_username((int) $event['user_id'])]);
 

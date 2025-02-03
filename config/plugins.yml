@@ -1,5 +1,17 @@
 services:
-    ganstaz.gzo.plugins.base:
+    ganstaz.gzo.plugin.loader:
+        class: ganstaz\gzo\src\plugin\loader
+        arguments:
+            - '@dbal.conn'
+            - '@ganstaz.gzo.plugin.collection'
+            - '@ganstaz.gzo.plugin.data'
+            - '%ganstaz.gzo.tables.plugins%'
+            - '%ganstaz.gzo.tables.plugins_on_page%'
+
+    ganstaz.gzo.plugin.data:
+        class: ganstaz\gzo\src\plugin\data
+
+    ganstaz.gzo.plugin.base:
         abstract: true
         arguments:
             - '@config'
@@ -14,7 +26,7 @@ services:
     ganstaz.gzo.posts:
         class: ganstaz\gzo\src\plugin\article\posts
         shared: false
-        parent: ganstaz.gzo.plugins.base
+        parent: ganstaz.gzo.plugin.base
         arguments:
             - '@auth'
             - '@language'
@@ -22,3 +34,101 @@ services:
             - '@text_formatter.renderer'
             - '@user'
             - '@ganstaz.gzo.helper'
+
+# ----- Plugins -----
+    ganstaz.gzo.plugin.collection:
+        class: phpbb\di\service_collection
+        arguments:
+            - '@service_container'
+        tags:
+            - { name: service_collection, tag: gzo.plugin }
+
+    ganstaz.gzo.plugin.announcement:
+        class: ganstaz\gzo\src\plugin\block\announcement
+        shared: false
+        parent: ganstaz.gzo.plugin.base
+        calls:
+            - [loadable, [false]]
+            - [dynamic_id, [false]]
+            - [set_type, [event]]
+        tags:
+            - { name: gzo.plugin }
+
+    ganstaz.gzo.plugin.mini_profile:
+        class: ganstaz\gzo\src\plugin\sidebar\mini_profile
+        shared: false
+        parent: ganstaz.gzo.plugin.base
+        calls:
+            - [loadable, [false]]
+            - [dynamic_id, [false]]
+            - [set_type, [block]]
+        tags:
+            - { name: gzo.plugin }
+
+    ganstaz.gzo.plugin.information:
+        class: ganstaz\gzo\src\plugin\sidebar\information
+        shared: false
+        parent: ganstaz.gzo.plugin.base
+        calls:
+            - [loadable, [true]]
+            - [dynamic_id, [false]]
+            - [set_type, [block]]
+        tags:
+            - { name: gzo.plugin }
+
+    ganstaz.gzo.plugin.group:
+        class: ganstaz\gzo\src\plugin\sidebar\group
+        shared: false
+        parent: ganstaz.gzo.plugin.base
+        calls:
+            - [loadable, [true]]
+            - [dynamic_id, [true]]
+            - [set_type, [block]]
+        tags:
+            - { name: gzo.plugin }
+
+    ganstaz.gzo.plugin.top_posters:
+        class: ganstaz\gzo\src\plugin\sidebar\top_posters
+        shared: false
+        parent: ganstaz.gzo.plugin.base
+        calls:
+            - [loadable, [true]]
+            - [dynamic_id, [false]]
+            - [set_type, [block]]
+        tags:
+            - { name: gzo.plugin }
+
+    ganstaz.gzo.plugin.recent_posts:
+        class: ganstaz\gzo\src\plugin\sidebar\recent_posts
+        shared: false
+        parent: ganstaz.gzo.plugin.base
+        calls:
+            - [loadable, [true]]
+            - [dynamic_id, [true]]
+            - [set_type, [block]]
+        tags:
+            - { name: gzo.plugin }
+
+    ganstaz.gzo.plugin.recent_topics:
+        class: ganstaz\gzo\src\plugin\sidebar\recent_topics
+        shared: false
+        parent: ganstaz.gzo.plugin.base
+        calls:
+            - [loadable, [true]]
+            - [dynamic_id, [true]]
+            - [set_type, [block]]
+        tags:
+            - { name: gzo.plugin }
+
+    ganstaz.gzo.plugin.online:
+        class: ganstaz\gzo\src\plugin\block\online
+        shared: false
+        parent: ganstaz.gzo.plugin.base
+        arguments:
+            - '@ganstaz.gzo.info'
+        calls:
+            - [loadable, [true]]
+            - [dynamic_id, [false]]
+            - [set_type, [block]]
+        tags:
+            - { name: gzo.plugin }

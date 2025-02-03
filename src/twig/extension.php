@@ -30,13 +30,13 @@ class extension extends \Twig\Extension\AbstractExtension
 	public function getFunctions(): array
 	{
 		return [
-			new TwigFunction('gzo_blocks', [$this, 'load_blocks'], ['needs_environment' => true, 'needs_context' => true]),
+			new TwigFunction('gzo_block', [$this, 'load_block'], ['needs_environment' => true, 'needs_context' => true]),
 			new TwigFunction('link', [$this, 'link'], ['needs_environment' => true]),
 			new TwigFunction('get_group_name', [$this, 'get_group_name']),
 		];
 	}
 
-	public function load_blocks(environment $environment, $context, string $section): void
+	public function load_block(environment $environment, $context, string $section): void
 	{
 		foreach ($this->data->get($section) as $name => $path)
 		{

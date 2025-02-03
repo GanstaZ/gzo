@@ -12,7 +12,7 @@ namespace ganstaz\gzo\src\plugin\article;
 
 use ganstaz\gzo\src\event\events;
 use ganstaz\gzo\src\helper;
-use ganstaz\gzo\src\plugin\plugin_base;
+use ganstaz\gzo\src\plugin\plugin;
 use ganstaz\gzo\src\user\loader as users_loader;
 use phpbb\auth\auth;
 use phpbb\config\config;
@@ -26,7 +26,7 @@ use phpbb\template\template;
 use phpbb\textformatter\s9e\renderer;
 use phpbb\user;
 
-final class posts extends plugin_base
+final class posts extends plugin
 {
 	protected int $page = 0;
 	public readonly array $breadcrumb;

@@ -92,11 +92,11 @@ class m2_area extends \phpbb\db\migration\migration
 				],
 				[
 					'cat'	 => gzo::AREAS['config'],
-					'title'	 => 'GZO_BLOCKS',
+					'title'	 => 'GZO_PLUGINS',
 					'type'	 => gzo::TYPE,
 					'parent' => 0,
 					'auth'	 => '',
-					'route'	 => 'gzo_blocks',
+					'route'	 => 'gzo_plugins',
 					'crud'	 => 0,
 					'icon'	 => '',
 				],

@@ -1,6 +1,5 @@
 imports:
     - { resource: area.yml }
-    - { resource: blocks.yml }
     - { resource: controller.yml }
     - { resource: entity.yml }
     - { resource: event.yml }
@@ -40,14 +39,11 @@ services:
             - '%core.root_path%'
             - '%core.php_ext%'
 
-    ganstaz.gzo.pages:
-        class: ganstaz\gzo\src\pages
+    ganstaz.gzo.page:
+        class: ganstaz\gzo\src\user\page
         arguments:
-            - '@cache'
             - '@config'
-            - '@dbal.conn'
             - '@user'
-            - '%ganstaz.gzo.tables.pages%'
             - '%core.php_ext%'
 
     ganstaz.gzo.time:
