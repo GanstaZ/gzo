@@ -3,10 +3,8 @@
 
 	{% block block_content %}
 		<ul class="gzo-block-stats">
-			{% for post in recent_posts %}
-				<li>
-					{{ Icon('gzo', 'mdi--file-outline', lang('IN_TOPIC'), true) ~ link({'class': 'gzo-block-stats-link', 'href': post.link, 'title': post.title}, post.title) }}
-				</li>
+			{% for recent in recent_posts %}
+				{{ include('@ganstaz_gzo/includes/recent-item.twig') }}
 			{% endfor %}
 		</ul>
 	{% endblock %}
