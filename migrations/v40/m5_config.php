@@ -40,15 +40,18 @@ class m5_config extends \phpbb\db\migration\migration
 			['config.add', ['gzo_limit', 5]],
 			['config.add', ['gzo_user_limit', 5]],
 
-			['config.add', ['gzo_app_global', 0]],
+			['config.add', ['gzo_app_global', false]],
 			// Plugins
-			['config.add', ['gzo_the_team_fid', 0]],
+			['config.add', ['gzo_the_team_fid', 5]],
 			['config.add', ['gzo_top_posters_fid', 0]],
 			['config.add', ['gzo_recent_posts_fid', 0]],
 			['config.add', ['gzo_recent_topics_fid', 0]],
 
 			['config.add', ['gzo_plugins', 1]],
-			['config.add', [gzo::SECTION['sidebar'], true]],
+			['config.add', [gzo::SECTION['side'], true]],
+			['config.add', [gzo::SECTION['top'], true]],
+			['config.add', [gzo::SECTION['bottom'], true]],
+			['config.add', [gzo::SECTION['block'], true]],
 		];
 	}
 }

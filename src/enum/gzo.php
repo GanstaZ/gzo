@@ -33,6 +33,18 @@ final class gzo
 	public const PLUGINS = 'gzo_plugins';
 	public const PLUGINS_ON_PAGE = 'gzo_plugins_on_page';
 
+	// Plugins
+	public const PLUGIN = [
+		'profile' => 'ganstaz_mini_profile',
+		'info' => 'ganstaz_information',
+		'group' => 'ganstaz_group',
+		'poster' => 'ganstaz_top_posters',
+		'posts' => 'ganstaz_recent_posts',
+		'topics' => 'ganstaz_recent_topics',
+		'online' => 'ganstaz_online',
+		'announcement' => 'ganstaz_announcement',
+	];
+
 	// Pages
 	public const PAGE = [
 		'app' => 'app',
@@ -40,8 +52,9 @@ final class gzo
 
 	// Sections
 	public const SECTION = [
-		'announcement' => 'gzo_announcement',
-		'sidebar' => 'gzo_side',
-		'online' => 'gzo_online',
+		'top' => 'gzo_top',
+		'side' => 'gzo_side',
+		'block' => 'gzo_block',
+		'bottom' => 'gzo_bottom',
 	];
 }

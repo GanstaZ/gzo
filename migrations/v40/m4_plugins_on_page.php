@@ -38,44 +38,44 @@ class m4_plugins_on_page extends \phpbb\db\migration\migration
 		{
 			$on_page = [
 				[
-					'name'      => 'ganstaz_mini_profile',
+					'name'		=> gzo::PLUGIN['profile'],
 					'page_name' => gzo::PAGE['app'],
-					'active'    => 1,
+					'active'	=> 1,
 				],
 				[
-					'name'      => 'ganstaz_information',
+					'name'		=> gzo::PLUGIN['info'],
 					'page_name' => gzo::PAGE['app'],
-					'active'    => 1,
+					'active'	=> 1,
 				],
 				[
-					'name'      => 'ganstaz_the_team',
+					'name'		=> gzo::PLUGIN['group'],
 					'page_name' => gzo::PAGE['app'],
-					'active'    => 1,
+					'active'	=> 1,
 				],
 				[
-					'name'      => 'ganstaz_top_posters',
+					'name'		=> gzo::PLUGIN['poster'],
 					'page_name' => gzo::PAGE['app'],
-					'active'    => 1,
+					'active'	=> 1,
 				],
 				[
-					'name'      => 'ganstaz_recent_posts',
+					'name'		=> gzo::PLUGIN['posts'],
 					'page_name' => gzo::PAGE['app'],
-					'active'    => 1,
+					'active'	=> 1,
 				],
 				[
-					'name'      => 'ganstaz_recent_topics',
+					'name'		=> gzo::PLUGIN['topics'],
 					'page_name' => gzo::PAGE['app'],
-					'active'    => 0,
+					'active'	=> 0,
 				],
 				[
-					'name'      => 'ganstaz_whos_online',
+					'name'		=> gzo::PLUGIN['online'],
 					'page_name' => gzo::PAGE['app'],
-					'active'    => 1,
+					'active'	=> 1,
 				],
 				[
-					'name'      => 'ganstaz_announcement',
+					'name'		=> gzo::PLUGIN['announcement'],
 					'page_name' => gzo::PAGE['app'],
-					'active'    => 1,
+					'active'	=> 1,
 				],
 			];
 

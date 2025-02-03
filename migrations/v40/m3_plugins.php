@@ -38,52 +38,52 @@ class m3_plugins extends \phpbb\db\migration\migration
 		{
 			$plugins = [
 				[
-					'name'	   => 'ganstaz_announcement',
+					'name'	   => gzo::PLUGIN['profile'],
 					'ext_name' => gzo::EXT_NAME,
 					'position' => 1,
-					'section'  => gzo::SECTION['announcement'],
+					'section'  => gzo::SECTION['side'],
 				],
 				[
-					'name'	   => 'ganstaz_mini_profile',
-					'ext_name' => gzo::EXT_NAME,
-					'position' => 1,
-					'section'  => gzo::SECTION['sidebar'],
-				],
-				[
-					'name'	   => 'ganstaz_information',
+					'name'	   => gzo::PLUGIN['info'],
 					'ext_name' => gzo::EXT_NAME,
 					'position' => 2,
-					'section'  => gzo::SECTION['sidebar'],
+					'section'  => gzo::SECTION['side'],
 				],
 				[
-					'name'	   => 'ganstaz_the_team',
+					'name'	   => gzo::PLUGIN['group'],
 					'ext_name' => gzo::EXT_NAME,
 					'position' => 3,
-					'section'  => gzo::SECTION['sidebar'],
+					'section'  => gzo::SECTION['side'],
 				],
 				[
-					'name'	   => 'ganstaz_top_posters',
+					'name'	   => gzo::PLUGIN['poster'],
 					'ext_name' => gzo::EXT_NAME,
 					'position' => 4,
-					'section'  => gzo::SECTION['sidebar'],
+					'section'  => gzo::SECTION['side'],
 				],
 				[
-					'name'	   => 'ganstaz_recent_posts',
+					'name'	   => gzo::PLUGIN['posts'],
 					'ext_name' => gzo::EXT_NAME,
 					'position' => 5,
-					'section'  => gzo::SECTION['sidebar'],
+					'section'  => gzo::SECTION['side'],
 				],
 				[
-					'name'	   => 'ganstaz_recent_topics',
+					'name'	   => gzo::PLUGIN['topics'],
 					'ext_name' => gzo::EXT_NAME,
 					'position' => 6,
-					'section'  => gzo::SECTION['sidebar'],
+					'section'  => gzo::SECTION['side'],
 				],
 				[
-					'name'	   => 'ganstaz_whos_online',
+					'name'	   => gzo::PLUGIN['online'],
 					'ext_name' => gzo::EXT_NAME,
 					'position' => 1,
-					'section'  => gzo::SECTION['online'],
+					'section'  => gzo::SECTION['bottom'],
+				],
+				[
+					'name'	   => gzo::PLUGIN['announcement'],
+					'ext_name' => gzo::EXT_NAME,
+					'position' => 1,
+					'section'  => gzo::SECTION['top'],
 				],
 			];
 
