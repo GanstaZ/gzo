@@ -11,7 +11,6 @@
 namespace ganstaz\gzo\src\plugin\sidebar;
 
 use ganstaz\gzo\src\plugin\plugin;
-use ganstaz\gzo\src\trait\plugin_trait;
 
 class group extends plugin
 {
