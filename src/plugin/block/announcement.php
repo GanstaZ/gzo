@@ -8,7 +8,7 @@
 *
 */
 
-namespace ganstaz\gzo\src\plugin\announcement;
+namespace ganstaz\gzo\src\plugin\block;
 
 use ganstaz\gzo\src\plugin\plugin_base;
 

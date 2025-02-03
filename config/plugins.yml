@@ -44,7 +44,7 @@ services:
             - { name: service_collection, tag: gzo.plugin }
 
     ganstaz.gzo.plugin.announcement:
-        class: ganstaz\gzo\src\plugin\announcement\announcement
+        class: ganstaz\gzo\src\plugin\block\announcement
         shared: false
         parent: ganstaz.gzo.plugin.base
         calls:
@@ -113,8 +113,8 @@ services:
         tags:
             - { name: gzo.plugin }
 
-    ganstaz.gzo.plugin.whos_online:
-        class: ganstaz\gzo\src\plugin\online\whos_online
+    ganstaz.gzo.plugin.online:
+        class: ganstaz\gzo\src\plugin\block\online
         shared: false
         parent: ganstaz.gzo.plugin.base
         arguments:

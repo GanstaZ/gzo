@@ -8,7 +8,7 @@
 *
 */
 
-namespace ganstaz\gzo\src\plugin\online;
+namespace ganstaz\gzo\src\plugin\block;
 
 use ganstaz\gzo\src\event\events;
 use ganstaz\gzo\src\plugin\plugin_base;
@@ -21,7 +21,7 @@ use phpbb\template\template;
 
 use ganstaz\gzo\src\info;
 
-class whos_online extends plugin_base
+class online extends plugin_base
 {
 	public function __construct(
 		config $config,
