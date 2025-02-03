@@ -50,7 +50,7 @@ class settings
 					'values' => [1 => 'ENABLED', 0 => 'DISABLED'],
 				],
 			],
-			'gzo_user_limit' => [
+			'gzo_users_per_list' => [
 				'type'		 => 'number',
 				'options'	 => [
 					'attributes' => ['min' => 1, 'max' => 10],

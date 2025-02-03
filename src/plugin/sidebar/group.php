@@ -20,7 +20,7 @@ class group extends plugin
 	public function load_plugin(): void
 	{
 		// Will have a dynamic config value later
-		$group_id = (int) $this->config['gzo_the_team_fid'] ?? 8;
+		$group_id = (int) $this->config['gzo_the_team_fid'] ?: 5;
 
 		$sql = 'SELECT group_name
 				FROM ' . GROUPS_TABLE . '

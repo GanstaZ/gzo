@@ -25,7 +25,7 @@ class top_posters extends plugin
 					AND user_type <> ' . (int) USER_IGNORE . '
 					AND user_posts > 0
 				ORDER BY user_posts DESC';
-		$result = $this->db->sql_query_limit($sql, (int) $this->config['gzo_user_limit'], 0, 3600);
+		$result = $this->db->sql_query_limit($sql, (int) $this->config['gzo_users_per_list'], 0, 3600);
 
 		while ($row = $this->db->sql_fetchrow($result))
 		{

@@ -38,11 +38,11 @@ class m5_config extends \phpbb\db\migration\migration
 			['config.add', ['gzo_content_length', 150]],
 
 			['config.add', ['gzo_limit', 5]],
-			['config.add', ['gzo_user_limit', 5]],
+			['config.add', ['gzo_users_per_list', 10]],
 
 			['config.add', ['gzo_app_global', false]],
 			// Plugins
-			['config.add', ['gzo_the_team_fid', 5]],
+			['config.add', ['gzo_the_team_fid', 8]],
 			['config.add', ['gzo_top_posters_fid', 0]],
 			['config.add', ['gzo_recent_posts_fid', 0]],
 			['config.add', ['gzo_recent_topics_fid', 0]],

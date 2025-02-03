@@ -79,12 +79,6 @@ class m3_plugins extends \phpbb\db\migration\migration
 					'position' => 1,
 					'section'  => gzo::SECTION['bottom'],
 				],
-				[
-					'name'	   => gzo::PLUGIN['announcement'],
-					'ext_name' => gzo::EXT_NAME,
-					'position' => 1,
-					'section'  => gzo::SECTION['top'],
-				],
 			];
 
 			$insert_buffer = new \phpbb\db\sql_insert_buffer($this->db, $this->table_prefix . gzo::PLUGINS);

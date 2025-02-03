@@ -72,11 +72,6 @@ class m4_plugins_on_page extends \phpbb\db\migration\migration
 					'page_name' => gzo::PAGE['main'],
 					'active'	=> 1,
 				],
-				[
-					'name'		=> gzo::PLUGIN['announcement'],
-					'page_name' => gzo::PAGE['main'],
-					'active'	=> 1,
-				],
 			];
 
 			$insert_buffer = new \phpbb\db\sql_insert_buffer($this->db, $this->table_prefix . gzo::PLUGINS_ON_PAGE);
