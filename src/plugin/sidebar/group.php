@@ -15,8 +15,6 @@ use ganstaz\gzo\src\trait\plugin_trait;
 
 class group extends plugin
 {
-	use plugin_trait;
-
 	/**
 	* {@inheritdoc}
 	*/

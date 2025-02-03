@@ -15,9 +15,7 @@ use phpbb\config\config;
 use phpbb\db\driver\driver_interface;
 use phpbb\di\service_collection;
 
-use ganstaz\test\src\helper\tester;
-
-final class loader extends tester
+final class loader
 {
 	protected array $plugins = [];
 
@@ -77,9 +75,6 @@ final class loader extends tester
 			}
 		}
 		$this->db->sql_freeresult($result);
-
-		var_dump($this->data->all());
-		var_dump($this->testing);
 	}
 
 	/**
@@ -100,9 +95,6 @@ final class loader extends tester
 
 			$this->data->set_section_data($row['section'], $name, $row['ext_name']);
 		}
-
-		// Testing
-		$this->set_data($row['section'], $row['name'], $row['ext_name']);
 	}
 
 	/**
