@@ -49,6 +49,7 @@ services:
         parent: ganstaz.gzo.plugin.base
         calls:
             - [loadable, [false]]
+            - [dynamic_id, [false]]
             - [set_type, [event]]
         tags:
             - { name: gzo.plugin }
@@ -59,6 +60,7 @@ services:
         parent: ganstaz.gzo.plugin.base
         calls:
             - [loadable, [false]]
+            - [dynamic_id, [false]]
             - [set_type, [block]]
         tags:
             - { name: gzo.plugin }
@@ -69,6 +71,7 @@ services:
         parent: ganstaz.gzo.plugin.base
         calls:
             - [loadable, [true]]
+            - [dynamic_id, [false]]
             - [set_type, [block]]
         tags:
             - { name: gzo.plugin }
@@ -79,6 +82,7 @@ services:
         parent: ganstaz.gzo.plugin.base
         calls:
             - [loadable, [true]]
+            - [dynamic_id, [true]]
             - [set_type, [block]]
         tags:
             - { name: gzo.plugin }
@@ -89,6 +93,7 @@ services:
         parent: ganstaz.gzo.plugin.base
         calls:
             - [loadable, [true]]
+            - [dynamic_id, [false]]
             - [set_type, [block]]
         tags:
             - { name: gzo.plugin }
@@ -99,6 +104,7 @@ services:
         parent: ganstaz.gzo.plugin.base
         calls:
             - [loadable, [true]]
+            - [dynamic_id, [true]]
             - [set_type, [block]]
         tags:
             - { name: gzo.plugin }
@@ -109,6 +115,7 @@ services:
         parent: ganstaz.gzo.plugin.base
         calls:
             - [loadable, [true]]
+            - [dynamic_id, [true]]
             - [set_type, [block]]
         tags:
             - { name: gzo.plugin }
@@ -121,6 +128,7 @@ services:
             - '@ganstaz.gzo.info'
         calls:
             - [loadable, [true]]
+            - [dynamic_id, [false]]
             - [set_type, [block]]
         tags:
             - { name: gzo.plugin }
