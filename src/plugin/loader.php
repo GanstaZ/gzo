@@ -71,7 +71,7 @@ final class loader extends tester
 
 		while ($row = $this->db->sql_fetchrow($result))
 		{
-			if (!isset($config[$row['section']]) || $config[$row['section']])
+			if ($config[$row['section']])
 			{
 				$this->set_plugin_data($row);
 			}
@@ -105,12 +105,19 @@ final class loader extends tester
 		$this->set_data($row['section'], $row['name'], $row['ext_name']);
 	}
 
+	/**
+	 * @param string $service
+	 * @param string $ext_name
+	 */
 	public function get_service_name(string $service, string $ext_name): string
 	{
-		$ext_name = str_replace('_', '.', $ext_name);
-		return "{$ext_name}.plugin." . utf8_substr($service, utf8_strpos($service, '_') + 1);
+		return str_replace('_', '.', $ext_name) . '.plugin.' . utf8_substr($service, utf8_strpos($service, '_') + 1);
 	}
 
+	/**
+	 * @param string $name
+	 * @param string $ext_name
+	 */
 	public function remove_gzo_prefix(string $name, string $ext_name): string
 	{
 		return str_contains($ext_name, gzo::VENDOR) ? str_replace(gzo::VENDOR . '_', '', $name) : $name;
