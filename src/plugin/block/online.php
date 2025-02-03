@@ -11,7 +11,7 @@
 namespace ganstaz\gzo\src\plugin\block;
 
 use ganstaz\gzo\src\event\events;
-use ganstaz\gzo\src\plugin\plugin_base;
+use ganstaz\gzo\src\plugin\plugin;
 use ganstaz\gzo\src\user\loader as users_loader;
 use phpbb\config\config;
 use phpbb\controller\helper as controller;
@@ -21,7 +21,7 @@ use phpbb\template\template;
 
 use ganstaz\gzo\src\info;
 
-class online extends plugin_base
+class online extends plugin
 {
 	public function __construct(
 		config $config,

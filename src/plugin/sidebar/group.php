@@ -10,10 +10,10 @@
 
 namespace ganstaz\gzo\src\plugin\sidebar;
 
-use ganstaz\gzo\src\plugin\plugin_base;
+use ganstaz\gzo\src\plugin\plugin;
 use ganstaz\gzo\src\trait\plugin_trait;
 
-class group extends plugin_base
+class group extends plugin
 {
 	use plugin_trait;
 

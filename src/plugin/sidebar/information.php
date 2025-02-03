@@ -12,9 +12,9 @@ namespace ganstaz\gzo\src\plugin\sidebar;
 
 use ganstaz\gzo\src\enum\gzo;
 use ganstaz\gzo\src\event\events;
-use ganstaz\gzo\src\plugin\plugin_base;
+use ganstaz\gzo\src\plugin\plugin;
 
-class information extends plugin_base
+class information extends plugin
 {
 	/**
 	* {@inheritdoc}

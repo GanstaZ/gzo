@@ -10,9 +10,9 @@
 
 namespace ganstaz\gzo\src\plugin\block;
 
-use ganstaz\gzo\src\plugin\plugin_base;
+use ganstaz\gzo\src\plugin\plugin;
 
-class announcement extends plugin_base
+class announcement extends plugin
 {
 	/**
 	* {@inheritdoc}

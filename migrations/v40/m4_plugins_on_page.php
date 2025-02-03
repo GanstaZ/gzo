@@ -39,42 +39,42 @@ class m4_plugins_on_page extends \phpbb\db\migration\migration
 			$on_page = [
 				[
 					'name'		=> gzo::PLUGIN['profile'],
-					'page_name' => gzo::PAGE['app'],
+					'page_name' => gzo::PAGE['main'],
 					'active'	=> 1,
 				],
 				[
 					'name'		=> gzo::PLUGIN['info'],
-					'page_name' => gzo::PAGE['app'],
+					'page_name' => gzo::PAGE['main'],
 					'active'	=> 1,
 				],
 				[
 					'name'		=> gzo::PLUGIN['group'],
-					'page_name' => gzo::PAGE['app'],
+					'page_name' => gzo::PAGE['main'],
 					'active'	=> 1,
 				],
 				[
 					'name'		=> gzo::PLUGIN['poster'],
-					'page_name' => gzo::PAGE['app'],
+					'page_name' => gzo::PAGE['main'],
 					'active'	=> 1,
 				],
 				[
 					'name'		=> gzo::PLUGIN['posts'],
-					'page_name' => gzo::PAGE['app'],
+					'page_name' => gzo::PAGE['main'],
 					'active'	=> 1,
 				],
 				[
 					'name'		=> gzo::PLUGIN['topics'],
-					'page_name' => gzo::PAGE['app'],
+					'page_name' => gzo::PAGE['main'],
 					'active'	=> 0,
 				],
 				[
 					'name'		=> gzo::PLUGIN['online'],
-					'page_name' => gzo::PAGE['app'],
+					'page_name' => gzo::PAGE['main'],
 					'active'	=> 1,
 				],
 				[
 					'name'		=> gzo::PLUGIN['announcement'],
-					'page_name' => gzo::PAGE['app'],
+					'page_name' => gzo::PAGE['main'],
 					'active'	=> 1,
 				],
 			];

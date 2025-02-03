@@ -10,9 +10,9 @@
 
 namespace ganstaz\gzo\src\plugin\sidebar;
 
-use ganstaz\gzo\src\plugin\plugin_base;
+use ganstaz\gzo\src\plugin\plugin;
 
-class recent_topics extends plugin_base
+class recent_topics extends plugin
 {
 	/**
 	* {@inheritdoc}

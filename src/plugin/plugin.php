@@ -17,10 +17,13 @@ use phpbb\db\driver\driver_interface;
 use phpbb\event\dispatcher;
 use phpbb\template\template;
 
-abstract class plugin_base
+abstract class plugin
 {
 	/** @var bool Returns true if plugin service is loadable  */
 	public readonly bool $loadable;
+
+	/** @var bool Returns true if plugin id is changeable  */
+	public readonly bool $dynamic_id;
 
 	/** @var string Plugin type (blocks, block or event)  */
 	public readonly string $type;
@@ -44,6 +47,14 @@ abstract class plugin_base
 	public function loadable(bool $set): void
 	{
 		$this->loadable = $set;
+	}
+
+	/**
+	 * @param bool $set Is id changeable
+	 */
+	public function dynamic_id(bool $set): void
+	{
+		$this->dynamic_id = $set;
 	}
 
 	/**

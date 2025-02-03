@@ -10,8 +10,8 @@
 
 namespace ganstaz\gzo\src\plugin\sidebar;
 
-use ganstaz\gzo\src\plugin\plugin_base;
+use ganstaz\gzo\src\plugin\plugin;
 
-class mini_profile extends plugin_base
+class mini_profile extends plugin
 {
 }
