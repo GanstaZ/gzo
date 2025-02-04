@@ -21,7 +21,7 @@ use phpbb\template\template;
 use phpbb\user;
 use Symfony\Component\HttpFoundation\Response;
 
-class index extends abstract_controller
+class index_controller extends abstract_controller
 {
 	public function __construct(
 		config $config,
@@ -40,7 +40,7 @@ class index extends abstract_controller
 		parent::__construct($config, $dispatcher, $language, $template, $user, $controller_helper, $em, $form, $root_path, $php_ext);
 	}
 
-	public function handle(): Response
+	public function index(): Response
 	{
 		$id = (int) $this->config['gzo_main_fid'];
 

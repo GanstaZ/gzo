@@ -5,7 +5,7 @@ ganstaz_gzo:
 # Main page
 ganstaz_gzo_index:
     path: /
-    controller: ganstaz.gzo.index_controller:handle
+    controller: ganstaz.gzo.index_controller:index
 
 ganstaz_gzo_forum:
     path: /forum

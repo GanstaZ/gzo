@@ -15,7 +15,7 @@ services:
             - '%core.php_ext%'
 
     ganstaz.gzo.index_controller:
-        class: ganstaz\gzo\src\controller\index
+        class: ganstaz\gzo\src\controller\index_controller
         shared: false
         parent: ganstaz.gzo.abstract_controller
         arguments:
