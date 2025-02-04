@@ -103,15 +103,14 @@ final class posts extends plugin
 	*/
 	public function base(int $forum_id): void
 	{
+		$category_ids = $this->helper->get_forum_ids();
 		$default = [(int) $this->config['gzo_main_fid'], (int) $this->config['gzo_news_fid'],];
 
-		/** @event events::GZO_POSTS_ADD_CATEGORY */
-		$vars = ['default'];
-		extract($this->dispatcher->trigger_event(events::GZO_POSTS_ADD_CATEGORY, compact($vars)));
+		/** @event events::GZO_POSTS_MODIFY_CATEGORY_DATA */
+		$vars = ['category_ids', 'default'];
+		extract($this->dispatcher->trigger_event(events::GZO_POSTS_MODIFY_CATEGORY_DATA, compact($vars)));
 
-		$category_ids = $this->helper->get_forum_ids();
-
-		// Check news id
+		// Validate category id
 		if (!in_array($forum_id, $category_ids) && !in_array($forum_id, $default))
 		{
 			throw new http_exception(404, 'NO_FORUM', [$forum_id]);
@@ -131,20 +130,7 @@ final class posts extends plugin
 		// Assign breadcrumb
 		$this->controller->assign_breadcrumb($this->categories($forum_id), 'ganstaz_gzo_articles', ['id' => $forum_id]);
 
-		$categories = [];
-		foreach ($category_ids as $cid)
-		{
-			$categories[$this->categories($cid)] = $this->controller->route('ganstaz_gzo_articles', ['id' => $cid]);
-		}
-
-		// Set template vars
-		$this->template->assign_vars([
-			'GZO_NEW_POST'		  => $this->controller->route('ganstaz_gzo_post_article', ['fid' => $forum_id]),
-			'S_DISPLAY_POST_INFO' => $this->auth->acl_get('f_post', $forum_id) || $this->user->data['user_id'] === ANONYMOUS,
-			'S_CATEGORIES'		  => $categories,
-		]);
-
-		// Do the sql thang
+		// Build sql data
 		$sql_ary = $this->get_sql_data($forum_id);
 		$sql = $this->db->sql_build_query('SELECT', $sql_ary);
 		$result = $this->db->sql_query_limit($sql, (int) $this->config['gzo_limit'], $this->page, 60);
