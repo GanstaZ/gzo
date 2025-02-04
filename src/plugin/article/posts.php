@@ -10,13 +10,13 @@
 
 namespace ganstaz\gzo\src\plugin\article;
 
+use ganstaz\gzo\src\helper\controller_helper as controller;
 use ganstaz\gzo\src\event\events;
 use ganstaz\gzo\src\helper;
 use ganstaz\gzo\src\plugin\plugin;
 use ganstaz\gzo\src\user\loader as users_loader;
 use phpbb\auth\auth;
 use phpbb\config\config;
-use phpbb\controller\helper as controller;
 use phpbb\db\driver\driver_interface;
 use phpbb\event\dispatcher;
 use phpbb\exception\http_exception;
@@ -29,7 +29,6 @@ use phpbb\user;
 final class posts extends plugin
 {
 	protected int $page = 0;
-	public readonly array $breadcrumb;
 	protected bool $trim_messages = false;
 	protected bool $is_trimmed = false;
 	protected string $news_order = 'p.post_id DESC';
@@ -60,15 +59,6 @@ final class posts extends plugin
 		$this->page = ($page - 1) * (int) $this->config['gzo_limit'];
 
 		return $this;
-	}
-
-	public function set_breadcrumb_data(string $name, string $route, array $params = []): void
-	{
-		$this->breadcrumb = [
-			'name'	 => $name,
-			'route'	 => $route,
-			'params' => $params
-		];
 	}
 
 	/**
@@ -138,11 +128,8 @@ final class posts extends plugin
 			login_box('', $this->language->lang('LOGIN_VIEWFORUM'));
 		}
 
-		$category = $this->categories($forum_id);
-
-		// TODO: Change news to article
 		// Assign breadcrumb
-		$this->set_breadcrumb_data($category, 'ganstaz_gzo_articles', ['id' => $forum_id]);
+		$this->controller->assign_breadcrumb($this->categories($forum_id), 'ganstaz_gzo_articles', ['id' => $forum_id]);
 
 		$categories = [];
 		foreach ($category_ids as $cid)

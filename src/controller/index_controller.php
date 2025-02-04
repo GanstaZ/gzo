@@ -47,9 +47,6 @@ class index_controller extends abstract_controller
 		$this->posts->trim_messages(true)
 			->base($id);
 
-		$data = $this->posts->breadcrumb;
-		$this->controller_helper->assign_breadcrumb($data['name'], $data['route'], $data['params']);
-
 		return $this->controller_helper->render('index.twig', $this->language->lang('HOME', $id), 200, true);
 	}
 }
