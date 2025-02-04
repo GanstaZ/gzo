@@ -278,21 +278,6 @@ final class posts extends plugin
 	}
 
 	/**
-	* Get forum id
-	*/
-	public function get_forum_id(int $topic_id): string
-	{
-		$sql = 'SELECT forum_id
-				FROM ' . TOPICS_TABLE . '
-				WHERE topic_id = ' . $topic_id;
-		$result = $this->db->sql_query($sql, 3600);
-		$row = (int) $this->db->sql_fetchfield('forum_id');
-		$this->db->sql_freeresult($result);
-
-		return $row ?? '';
-	}
-
-	/**
 	* Get first post (without any comments)
 	*/
 	public function get_first_post(int $topic_id): void
