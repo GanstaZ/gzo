@@ -16,6 +16,27 @@ services:
             - '@service_container'
             - '@auth'
 
+    ganstaz.gzo.controller.helper:
+        class: ganstaz\gzo\src\helper\controller_helper
+        decorates: controller.helper
+        arguments:
+            - '@auth'
+            - '@cache.driver'
+            - '@config'
+            - '@cron.manager'
+            - '@dbal.conn'
+            - '@event_dispatcher'
+            - '@language'
+            - '@request'
+            - '@routing.helper'
+            - '@symfony_request'
+            - '@template'
+            - '@user'
+            - '%core.root_path%'
+            - '%core.adm_relative_path%'
+            - '%core.php_ext%'
+            - '%debug.sql_explain%'
+
     ganstaz.gzo.form:
         class: ganstaz\gzo\src\form\form
         arguments:
