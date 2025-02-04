@@ -15,8 +15,6 @@ use ganstaz\gzo\src\entity\manager as em;
 use ganstaz\gzo\src\form\form;
 use ganstaz\gzo\src\plugin\article\posts;
 use phpbb\event\dispatcher;
-use phpbb\exception\http_exception;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 
 class articles extends abstract_controller
@@ -51,28 +49,6 @@ class articles extends abstract_controller
 		$this->helper->assign_breadcrumb($data['name'], $data['route'], $data['params']);
 
 		return $this->helper->controller_helper->render('news.twig', $this->helper->language->lang('VIEW_NEWS', $id), 200, true);
-	}
-
-	/**
-	* Article controller for route /article-full/{aid}
-	*/
-	public function article(int $aid): RedirectResponse
-	{
-		$forum_id = $this->posts->get_forum_id($aid);
-
-		if (!$forum_id)
-		{
-			throw new http_exception(404, 'NO_TOPICS', [$forum_id]);
-		}
-
-		$params = [
-			'f' => $forum_id,
-			't' => $aid
-		];
-
-		$url = append_sid(generate_board_url() . "/viewtopic.{$this->php_ext}", $params, false);
-
-		return new RedirectResponse($url);
 	}
 
 	/**

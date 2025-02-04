@@ -1,10 +1,13 @@
-{% extends '@ganstaz_gzo/layout/app-base.twig' %}
+{% extends '@ganstaz_gzo/layout/gzo-base.twig' %}
 
-{% block mid_content %}
-	{% if article %}
-		{% for news in article %}
-			{{ include('@ganstaz_gzo/includes/news-item.twig') }}
+{% block gzo_main_content %}
+
+	{% if articles %}
+		{% for article in articles %}
+			{{ include('@ganstaz_gzo/includes/article-item.twig') }}
 		{% endfor %}
 	{% endif %}
+
 {% endblock %}
 
+{% block gzo_main_right %}{% endblock %}
