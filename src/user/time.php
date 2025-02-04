@@ -8,7 +8,7 @@
 *
 */
 
-namespace ganstaz\gzo\src;
+namespace ganstaz\gzo\src\user;
 
 use phpbb\language\language;
 
