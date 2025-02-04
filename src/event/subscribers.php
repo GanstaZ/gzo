@@ -102,7 +102,7 @@ class subscribers implements EventSubscriberInterface
 		if ($this->config['gzo_news_link'])
 		{
 			$this->twig->assign_vars([
-				'U_NEWS' => $this->controller->route('ganstaz_gzo_news'),
+				'U_NEWS' => $this->controller->route('ganstaz_gzo_articles'),
 			]);
 		}
 	}
@@ -211,7 +211,7 @@ class subscribers implements EventSubscriberInterface
 		// Will redirect to our controller
 		if (in_array($forum_id, $this->helper->get_forum_ids()) && $forum_id !== (int) $this->config['gzo_main_fid'])
 		{
-			$url = $this->controller->route('ganstaz_gzo_news', ['id' => $forum_id]);
+			$url = $this->controller->route('ganstaz_gzo_articles', ['id' => $forum_id]);
 
 			$response = new RedirectResponse($url);
 			$response->send();

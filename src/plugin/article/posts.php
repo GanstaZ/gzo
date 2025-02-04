@@ -142,12 +142,12 @@ final class posts extends plugin
 
 		// TODO: Change news to article
 		// Assign breadcrumb
-		$this->set_breadcrumb_data($category, 'ganstaz_gzo_news', ['id' => $forum_id]);
+		$this->set_breadcrumb_data($category, 'ganstaz_gzo_articles', ['id' => $forum_id]);
 
 		$categories = [];
 		foreach ($category_ids as $cid)
 		{
-			$categories[$this->categories($cid)] = $this->controller->route('ganstaz_gzo_news', ['id' => $cid]);
+			$categories[$this->categories($cid)] = $this->controller->route('ganstaz_gzo_articles', ['id' => $cid]);
 		}
 
 		// Set template vars
@@ -180,8 +180,8 @@ final class posts extends plugin
 
 			$base = [
 				'routes' => [
-					'ganstaz_gzo_news',
-					'ganstaz_gzo_news_page',
+					'ganstaz_gzo_articles',
+					'ganstaz_gzo_articles_page',
 				],
 				'params' => ['id' => $forum_id],
 			];

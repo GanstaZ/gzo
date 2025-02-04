@@ -12,8 +12,8 @@ ganstaz_gzo_forum:
     controller: ganstaz.gzo.forum_controller:handle
 
 # Articles
-ganstaz_gzo_news:
-    path: /news/{id}
+ganstaz_gzo_articles:
+    path: /articles/{id}
     controller: ganstaz.gzo.articles_controller:handle
     defaults:
         id: 3
@@ -21,8 +21,8 @@ ganstaz_gzo_news:
     requirements:
         id: \d+
 
-ganstaz_gzo_news_page:
-    path: /news/{id}/page/{page}
+ganstaz_gzo_articles_page:
+    path: /articles/{id}/page/{page}
     controller: ganstaz.gzo.articles_controller:handle
     requirements:
         id: \d+
@@ -59,7 +59,7 @@ ganstaz_gzo_recent_topic:
 # Article - redirect to post page
 ganstaz_gzo_post_article:
     path: /post/article/{fid}
-    controller: ganstaz.gzo.post_controller:handle
+    controller: ganstaz.gzo.posts_controller:post
     requirements:
         fid: \d+
 

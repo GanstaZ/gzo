@@ -34,6 +34,28 @@ class posts_controller extends abstract_controller
 		return new RedirectResponse($url);
 	}
 
+	/**
+	* Post controller for /post/article{fid}
+	*	  Redirects to right forum's posting page
+	*/
+	public function post(int $fid): RedirectResponse
+	{
+		// Borrowed from Ideas extension (phpBB)
+		if ($this->user->data['user_id'] == ANONYMOUS)
+		{
+			throw new http_exception(404, 'LOGIN_REQUIRED');
+		}
+
+		$params = [
+			'mode' => 'post',
+			'f'	   => $fid,
+		];
+
+		$url = append_sid(generate_board_url() . "/posting.{$this->php_ext}", $params, false);
+
+		return new RedirectResponse($url);
+	}
+
 	public function recent_post(int $aid, int $post_id): RedirectResponse
 	{
 		if (!$aid)
