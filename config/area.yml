@@ -18,6 +18,7 @@ services:
             - '@cache'
             - '@dbal.conn'
             - '@event_dispatcher'
+            - '@template'
             - '@ganstaz.gzo.controller.helper'
             - '%core.table_prefix%'
 
