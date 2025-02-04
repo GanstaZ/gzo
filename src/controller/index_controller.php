@@ -45,7 +45,7 @@ class index_controller extends abstract_controller
 		$id = (int) $this->config['gzo_main_fid'];
 
 		$this->posts->trim_messages(true)
-			->base($id);
+			->load($id);
 
 		return $this->controller_helper->render('index.twig', $this->language->lang('HOME'), 200, true);
 	}

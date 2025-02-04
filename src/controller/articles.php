@@ -51,7 +51,7 @@ class articles extends abstract_controller
 	{
 		$this->posts->set_page_offset($page)
 			->trim_messages(true)
-			->base($id);
+			->load($id);
 
 		return $this->controller_helper->render('news.twig', $this->language->lang('VIEW_NEWS', $id), 200, true);
 	}

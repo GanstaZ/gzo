@@ -31,7 +31,7 @@ final class posts extends plugin
 	protected int $page = 0;
 	protected bool $trim_messages = false;
 	protected bool $is_trimmed = false;
-	protected string $news_order = 'p.post_id DESC';
+	protected string $order_by = 'p.post_id DESC';
 
 	public function __construct
 	(
@@ -101,7 +101,7 @@ final class posts extends plugin
 	/**
 	* Articles base
 	*/
-	public function base(int $forum_id): void
+	public function load(int $forum_id): void
 	{
 		$category_ids = $this->helper->get_forum_ids();
 		$default = [(int) $this->config['gzo_main_fid'], (int) $this->config['gzo_news_fid'],];
@@ -110,7 +110,7 @@ final class posts extends plugin
 		$vars = ['category_ids', 'default'];
 		extract($this->dispatcher->trigger_event(events::GZO_POSTS_MODIFY_CATEGORY_DATA, compact($vars)));
 
-		// Validate category id
+		// Validate category
 		if (!in_array($forum_id, $category_ids) && !in_array($forum_id, $default))
 		{
 			throw new http_exception(404, 'NO_FORUM', [$forum_id]);
@@ -195,7 +195,7 @@ final class posts extends plugin
 
 		if ($type === 'forum')
 		{
-			$sql_ary['ORDER_BY'] = $this->news_order;
+			$sql_ary['ORDER_BY'] = $this->order_by;
 		}
 
 		return $sql_ary;
