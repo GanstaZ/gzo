@@ -316,7 +316,7 @@ final class posts extends plugin
 		// Assign breadcrumb data
 		$this->set_breadcrumb_data($template_data['title'], 'ganstaz_gzo_first_post', ['aid' => $topic_id]);
 
-		$this->template->assign_block_vars('article', $template_data);
+		$this->template->assign_block_vars('articles', $template_data);
 
 		$this->db->sql_freeresult($result);
 	}
