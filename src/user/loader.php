@@ -28,6 +28,24 @@ final class loader
 	{
 	}
 
+	/**
+	* @param int $user_id
+	*/
+	public function load_by_id(int $user_id): void
+	{
+		$sql = 'SELECT *
+				FROM ' . $this->users_table . '
+				WHERE user_id = ' . $user_id;
+		$result = $this->db->sql_query($sql);
+		$row = $this->db->sql_fetchrow($result);
+		$this->db->sql_freeresult($result);
+
+		if ($row)
+		{
+			$this->users[$row['user_id']] = $row;
+		}
+	}
+
 	public function load_user(array $data): void
 	{
 		if (!isset($this->users[$data['user_id']]))
@@ -42,6 +60,10 @@ final class loader
 		{
 			return $this->users[$user_id];
 		}
+
+		$this->load_by_id($user_id);
+
+		return $this->get_user($user_id);
 	}
 
 	public function get_username(int $user_id): string
