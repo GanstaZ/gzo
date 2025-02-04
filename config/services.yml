@@ -1,9 +1,9 @@
 imports:
+    - { resource: admin.yml }
     - { resource: area.yml }
     - { resource: controller.yml }
     - { resource: entity.yml }
     - { resource: event.yml }
-    - { resource: gzo.yml }
     - { resource: member.yml }
     - { resource: plugins.yml }
     - { resource: tables.yml }

@@ -15,13 +15,10 @@ use ganstaz\gzo\src\enum\gzo;
 use Symfony\Component\HttpFoundation\Response;
 
 #[\ganstaz\gzo\src\attribute\auth('ROLE_ADMIN', 'a_board', 'GZO_NO_ADMIN', 403)]
-class index extends abstract_controller
+class index_controller extends abstract_controller
 {
-	public function main(): Response
+	public function index(): Response
 	{
-		// $this->helper->language->add_lang('area_gzo', 'ganstaz/gzo');
-		//$this->helper->assign_breadcrumb('GZO_MAIN_PAGE', 'gzo_main');
-
 		$this->template->assign_vars([
 			'GZO_VERSION'      => gzo::VERSION,
 			'GZO_STYLE'        => gzo::STYLE,

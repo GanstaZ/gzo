@@ -1,5 +1,5 @@
 ganstaz_gzo:
-    resource: admin.yml
+    resource: gzo.yml
     prefix: /admin
 
 # Main page

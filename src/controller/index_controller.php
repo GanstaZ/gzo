@@ -47,6 +47,6 @@ class index_controller extends abstract_controller
 		$this->posts->trim_messages(true)
 			->base($id);
 
-		return $this->controller_helper->render('index.twig', $this->language->lang('HOME', $id), 200, true);
+		return $this->controller_helper->render('index.twig', $this->language->lang('HOME'), 200, true);
 	}
 }
