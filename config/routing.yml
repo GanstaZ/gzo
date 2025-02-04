@@ -37,7 +37,7 @@ ganstaz_gzo_first_post:
 # Article - redirect to topic page
 ganstaz_gzo_article:
     path: /article-full/{aid}
-    controller: ganstaz.gzo.articles_controller:article
+    controller: ganstaz.gzo.posts_controller:article
     requirements:
         aid: \d+
 
