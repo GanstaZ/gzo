@@ -46,3 +46,8 @@ services:
         parent: ganstaz.gzo.abstract_controller
         arguments:
             - '@user'
+
+    ganstaz.gzo.posts_controller:
+        class: ganstaz\gzo\src\controller\posts_controller
+        shared: false
+        parent: ganstaz.gzo.abstract_controller

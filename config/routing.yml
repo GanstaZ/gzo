@@ -2,50 +2,74 @@ ganstaz_gzo:
     resource: admin.yml
     prefix: /admin
 
+# Main page
 ganstaz_gzo_index:
     path: /
-    defaults: { _controller: ganstaz.gzo.index_controller:handle }
+    controller: ganstaz.gzo.index_controller:handle
 
 ganstaz_gzo_forum:
     path: /forum
-    defaults: { _controller: ganstaz.gzo.forum_controller:handle }
+    controller: ganstaz.gzo.forum_controller:handle
 
+# Articles
 ganstaz_gzo_news:
     path: /news/{id}
-    defaults: { _controller: ganstaz.gzo.articles_controller:handle, id: 3, page: 1 }
+    controller: ganstaz.gzo.articles_controller:handle
+    defaults:
+        id: 3
+        page: 1
     requirements:
         id: \d+
 
 ganstaz_gzo_news_page:
     path: /news/{id}/page/{page}
-    defaults: { _controller: ganstaz.gzo.articles_controller:handle }
+    controller: ganstaz.gzo.articles_controller:handle
     requirements:
         id: \d+
         page: \d+
 
-ganstaz_gzo_article:
-    path: /article-full/{aid}
-    defaults: { _controller: ganstaz.gzo.articles_controller:article }
-    requirements:
-        aid: \d+
-
 ganstaz_gzo_first_post:
     path: /article/{aid}
-    defaults: { _controller: ganstaz.gzo.articles_controller:first_post }
+    controller: ganstaz.gzo.articles_controller:first_post
     requirements:
         aid: \d+
 
+# Article - redirect to topic page
+ganstaz_gzo_article:
+    path: /article-full/{aid}
+    controller: ganstaz.gzo.articles_controller:article
+    requirements:
+        aid: \d+
+
+# Article - redirect to recent post
+ganstaz_gzo_recent_post:
+    path: /recent-post/aid-{aid}-p-{post_id}
+    controller: ganstaz.gzo.posts_controller:recent_post
+    requirements:
+        aid: \d+
+        post_id: \d+
+
+# Article - redirect to recent topic
+ganstaz_gzo_recent_topic:
+    path: /recent-article/{aid}
+    controller: ganstaz.gzo.posts_controller:recent_topic
+    requirements:
+        aid: \d+
+
+# Article - redirect to post page
 ganstaz_gzo_post_article:
     path: /post/article/{fid}
-    defaults: { _controller: ganstaz.gzo.post_controller:handle }
+    controller: ganstaz.gzo.post_controller:handle
     requirements:
         fid: \d+
 
+# Members
 ganstaz_gzo_member:
     path: /u/{username}
-    defaults: { _controller: ganstaz.gzo.profile_controller:handle, tab: profile }
+    controller: ganstaz.gzo.profile_controller:handle
+    defaults:
+        tab: profile
 
 ganstaz_gzo_member_tab:
     path: /u/{username}/tab/{tab}
-    defaults:
-        _controller: ganstaz.gzo.profile_controller:handle
+    controller: ganstaz.gzo.profile_controller:handle
