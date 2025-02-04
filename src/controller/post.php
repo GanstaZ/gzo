@@ -10,10 +10,13 @@
 
 namespace ganstaz\gzo\src\controller;
 
-use ganstaz\gzo\src\controller\helper;
+use ganstaz\gzo\src\helper\controller_helper;
 use ganstaz\gzo\src\entity\manager as em;
 use ganstaz\gzo\src\form\form;
+use phpbb\config\config;
 use phpbb\event\dispatcher;
+use phpbb\language\language;
+use phpbb\template\template;
 use phpbb\user;
 use phpbb\exception\http_exception;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -21,16 +24,19 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 class post extends abstract_controller
 {
 	public function __construct(
+		config $config,
 		dispatcher $dispatcher,
-		helper $helper,
+		language $language,
+		template $template,
+		user $user,
+		controller_helper $controller_helper,
 		em $em,
 		form $form,
 		$root_path,
 		$php_ext,
-		private readonly user $user,
 	)
 	{
-		parent::__construct($dispatcher, $helper, $em, $form, $root_path, $php_ext);
+		parent::__construct($config, $dispatcher, $language, $template, $user, $controller_helper, $em, $form, $root_path, $php_ext);
 	}
 
 	/**

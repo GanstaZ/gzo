@@ -10,52 +10,32 @@
 
 namespace ganstaz\gzo\src\controller;
 
-use phpbb\event\dispatcher;
-use ganstaz\gzo\src\controller\helper;
+use ganstaz\gzo\src\helper\controller_helper;
 use ganstaz\gzo\src\entity\manager as em;
 use ganstaz\gzo\src\form\form;
+use phpbb\config\config;
+use phpbb\event\dispatcher;
+use phpbb\language\language;
+use phpbb\template\template;
+use phpbb\user;
 
 /**
 * Base controller class
 */
 abstract class abstract_controller
 {
-	/** @deprecated 2.4.0-a30 */
-	protected string $u_action;
-
 	public function __construct(
+		protected config $config,
 		protected dispatcher $dispatcher,
-		protected helper $helper,
+		protected language $language,
+		protected template $template,
+		protected user $user,
+		protected controller_helper $controller_helper,
 		protected em $em,
 		protected form $form,
 		protected readonly string $root_path,
 		protected readonly string $php_ext
 	)
 	{
-	}
-
-	/**
-	* Show user confirmation of success and provide link back to the previous screen
-	*
-	* @deprecated 2.4.0-a30
-	* @return bool
-	*/
-	protected function settings_saved_message(): bool
-	{
-		return trigger_error($this->helper->language->lang('ACP_GZO_SETTINGS_SAVED') . adm_back_link($this->u_action));
-	}
-
-	/**
-	* Set page url
-	*
-	* @param string $u_action Custom form action
-	* @deprecated 2.4.0-a30
-	* @return self
-	*/
-	public function set_page_url(string $u_action): self
-	{
-		$this->u_action = $u_action;
-
-		return $this;
 	}
 }

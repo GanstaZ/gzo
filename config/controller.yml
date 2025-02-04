@@ -1,16 +1,13 @@
 services:
-    ganstaz.gzo.controller.helper:
-        class: ganstaz\gzo\src\controller\helper
-        arguments:
-            - '@controller.helper'
-            - '@language'
-            - '@template'
-
     # Controllers
     ganstaz.gzo.abstract_controller:
         abstract: true
         arguments:
+            - '@config'
             - '@event_dispatcher'
+            - '@language'
+            - '@template'
+            - '@user'
             - '@ganstaz.gzo.controller.helper'
             - '@ganstaz.gzo.entity.manager'
             - '@ganstaz.gzo.form'
@@ -22,7 +19,6 @@ services:
         shared: false
         parent: ganstaz.gzo.abstract_controller
         arguments:
-            - '@config'
             - '@ganstaz.gzo.posts'
 
     ganstaz.gzo.articles_controller:
@@ -37,15 +33,12 @@ services:
         shared: false
         parent: ganstaz.gzo.abstract_controller
         arguments:
-            - '@config'
             - '@ganstaz.gzo.main'
 
     ganstaz.gzo.post_controller:
         class: ganstaz\gzo\src\controller\post
         shared: false
         parent: ganstaz.gzo.abstract_controller
-        arguments:
-            - '@user'
 
     ganstaz.gzo.posts_controller:
         class: ganstaz\gzo\src\controller\posts_controller
