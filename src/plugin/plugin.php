@@ -10,9 +10,9 @@
 
 namespace ganstaz\gzo\src\plugin;
 
+use ganstaz\gzo\src\helper\controller_helper as controller;
 use ganstaz\gzo\src\user\loader as users_loader;
 use phpbb\config\config;
-use phpbb\controller\helper as controller;
 use phpbb\db\driver\driver_interface;
 use phpbb\event\dispatcher;
 use phpbb\template\template;

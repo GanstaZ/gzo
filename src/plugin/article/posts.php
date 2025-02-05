@@ -10,13 +10,13 @@
 
 namespace ganstaz\gzo\src\plugin\article;
 
+use ganstaz\gzo\src\helper\controller_helper as controller;
 use ganstaz\gzo\src\event\events;
 use ganstaz\gzo\src\helper;
 use ganstaz\gzo\src\plugin\plugin;
 use ganstaz\gzo\src\user\loader as users_loader;
 use phpbb\auth\auth;
 use phpbb\config\config;
-use phpbb\controller\helper as controller;
 use phpbb\db\driver\driver_interface;
 use phpbb\event\dispatcher;
 use phpbb\exception\http_exception;
@@ -29,10 +29,9 @@ use phpbb\user;
 final class posts extends plugin
 {
 	protected int $page = 0;
-	public readonly array $breadcrumb;
 	protected bool $trim_messages = false;
 	protected bool $is_trimmed = false;
-	protected string $news_order = 'p.post_id DESC';
+	protected string $order = 'p.post_id DESC';
 
 	public function __construct
 	(
@@ -60,15 +59,6 @@ final class posts extends plugin
 		$this->page = ($page - 1) * (int) $this->config['gzo_limit'];
 
 		return $this;
-	}
-
-	public function set_breadcrumb_data(string $name, string $route, array $params = []): void
-	{
-		$this->breadcrumb = [
-			'name'	 => $name,
-			'route'	 => $route,
-			'params' => $params
-		];
 	}
 
 	/**
@@ -111,17 +101,16 @@ final class posts extends plugin
 	/**
 	* Articles base
 	*/
-	public function base(int $forum_id): void
+	public function load(int $forum_id): void
 	{
+		$category_ids = $this->helper->get_forum_ids();
 		$default = [(int) $this->config['gzo_main_fid'], (int) $this->config['gzo_news_fid'],];
 
-		/** @event events::GZO_POSTS_ADD_CATEGORY */
-		$vars = ['default'];
-		extract($this->dispatcher->trigger_event(events::GZO_POSTS_ADD_CATEGORY, compact($vars)));
+		/** @event events::GZO_POSTS_MODIFY_CATEGORY_DATA */
+		$vars = ['category_ids', 'default'];
+		extract($this->dispatcher->trigger_event(events::GZO_POSTS_MODIFY_CATEGORY_DATA, compact($vars)));
 
-		$category_ids = $this->helper->get_forum_ids();
-
-		// Check news id
+		// Validate category
 		if (!in_array($forum_id, $category_ids) && !in_array($forum_id, $default))
 		{
 			throw new http_exception(404, 'NO_FORUM', [$forum_id]);
@@ -138,26 +127,10 @@ final class posts extends plugin
 			login_box('', $this->language->lang('LOGIN_VIEWFORUM'));
 		}
 
-		$category = $this->categories($forum_id);
-
-		// TODO: Change news to article
 		// Assign breadcrumb
-		$this->set_breadcrumb_data($category, 'ganstaz_gzo_news', ['id' => $forum_id]);
+		$this->controller->assign_breadcrumb($this->categories($forum_id), 'ganstaz_gzo_articles', ['fid' => $forum_id]);
 
-		$categories = [];
-		foreach ($category_ids as $cid)
-		{
-			$categories[$this->categories($cid)] = $this->controller->route('ganstaz_gzo_news', ['id' => $cid]);
-		}
-
-		// Set template vars
-		$this->template->assign_vars([
-			'GZO_NEW_POST'		  => $this->controller->route('ganstaz_gzo_post_article', ['fid' => $forum_id]),
-			'S_DISPLAY_POST_INFO' => $this->auth->acl_get('f_post', $forum_id) || $this->user->data['user_id'] === ANONYMOUS,
-			'S_CATEGORIES'		  => $categories,
-		]);
-
-		// Do the sql thang
+		// Build sql data
 		$sql_ary = $this->get_sql_data($forum_id);
 		$sql = $this->db->sql_build_query('SELECT', $sql_ary);
 		$result = $this->db->sql_query_limit($sql, (int) $this->config['gzo_limit'], $this->page, 60);
@@ -180,8 +153,8 @@ final class posts extends plugin
 
 			$base = [
 				'routes' => [
-					'ganstaz_gzo_news',
-					'ganstaz_gzo_news_page',
+					'ganstaz_gzo_articles',
+					'ganstaz_gzo_articles_page',
 				],
 				'params' => ['id' => $forum_id],
 			];
@@ -198,34 +171,20 @@ final class posts extends plugin
 	*/
 	public function get_sql_data(int $id, string $type = 'forum'): array
 	{
-		$sql_where = 't.' . $type . '_id = ' . $id;
-
-		$sql_ary = [
-			'SELECT'	=> 't.topic_id, t.topic_title, t.topic_time, t.topic_views, t.topic_posts_approved,
-			p.post_id, p.poster_id, p.post_text',
-
-			'FROM'		=> [
+		$build = new \ganstaz\gzo\src\db\helper($this->db);
+		$build
+			->select('t.topic_id, t.topic_title, t.topic_time, t.topic_views, t.topic_posts_approved, p.post_id, p.poster_id, p.post_text')
+			->from([
 				TOPICS_TABLE => 't',
-			],
-
-			'LEFT_JOIN' => [
-				[
-					'FROM' => [POSTS_TABLE => 'p'],
-					'ON'   => 'p.post_id = t.topic_first_post_id'
-				],
-			],
-
-			'WHERE'		=> $sql_where . '
+				POSTS_TABLE => 'p',
+			])
+			->where('t.' . $type . '_id = ' . $id . '
+				AND p.post_id = t.topic_first_post_id
 				AND t.topic_status <> ' . ITEM_MOVED . '
-				AND t.topic_visibility = 1',
-		];
+				AND t.topic_visibility = 1')
+			->order($this->order, $type === 'forum');
 
-		if ($type === 'forum')
-		{
-			$sql_ary['ORDER_BY'] = $this->news_order;
-		}
-
-		return $sql_ary;
+		return $build->get_sql_data();
 	}
 
 	/**
@@ -278,21 +237,6 @@ final class posts extends plugin
 	}
 
 	/**
-	* Get forum id
-	*/
-	public function get_forum_id(int $topic_id): string
-	{
-		$sql = 'SELECT forum_id
-				FROM ' . TOPICS_TABLE . '
-				WHERE topic_id = ' . $topic_id;
-		$result = $this->db->sql_query($sql, 3600);
-		$row = (int) $this->db->sql_fetchfield('forum_id');
-		$this->db->sql_freeresult($result);
-
-		return $row ?? '';
-	}
-
-	/**
 	* Get first post (without any comments)
 	*/
 	public function get_first_post(int $topic_id): void
@@ -314,9 +258,9 @@ final class posts extends plugin
 		extract($this->dispatcher->trigger_event(events::GZO_ARTICLE_MODIFY_TEMPLATE_DATA, compact($vars)));
 
 		// Assign breadcrumb data
-		$this->set_breadcrumb_data($template_data['title'], 'ganstaz_gzo_first_post', ['aid' => $topic_id]);
+		$this->controller->assign_breadcrumb($template_data['title'], 'ganstaz_gzo_first_post', ['aid' => $topic_id]);
 
-		$this->template->assign_block_vars('article', $template_data);
+		$this->template->assign_block_vars('articles', $template_data);
 
 		$this->db->sql_freeresult($result);
 	}

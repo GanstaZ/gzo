@@ -10,7 +10,7 @@
 
 namespace ganstaz\gzo\src\controller;
 
-use ganstaz\gzo\src\controller\helper;
+use ganstaz\gzo\src\helper\controller_helper;
 use ganstaz\gzo\src\entity\manager as em;
 use ganstaz\gzo\src\form\form;
 use ganstaz\gzo\src\model\main;
@@ -21,17 +21,17 @@ use Symfony\Component\HttpFoundation\Response;
 class forum extends abstract_controller
 {
 	public function __construct(
+		config $config,
 		dispatcher $dispatcher,
-		helper $helper,
+		controller_helper $controller_helper,
 		em $em,
 		form $form,
 		$root_path,
 		$php_ext,
-		private readonly config $config,
 		private readonly main $main
 	)
 	{
-		parent::__construct($dispatcher, $helper, $em, $form, $root_path, $php_ext);
+		parent::__construct($config, $dispatcher, $language, $template, $user, $controller_helper, $em, $form, $root_path, $php_ext);
 	}
 
 	/**
@@ -41,7 +41,7 @@ class forum extends abstract_controller
 	{
 		$this->main->load();
 
-		$page_title = ($this->config['board_index_text'] !== '') ? $this->config['board_index_text'] : $this->helper->language->lang('INDEX');
+		$page_title = ($this->config['board_index_text'] !== '') ? $this->config['board_index_text'] : $this->language->lang('INDEX');
 
 		/**
 		* You can use this event to modify the page title and load data for the index
@@ -53,6 +53,6 @@ class forum extends abstract_controller
 		$vars = ['page_title'];
 		extract($this->dispatcher->trigger_event('core.index_modify_page_title', compact($vars)));
 
-		return $this->helper->controller_helper->render('forum.twig', $this->helper->language->lang($page_title), 200, true);
+		return $this->controller_helper->render('forum.twig', $this->language->lang($page_title), 200, true);
 	}
 }

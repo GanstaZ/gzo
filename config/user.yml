@@ -1,0 +1,20 @@
+services:
+    ganstaz.gzo.page:
+        class: ganstaz\gzo\src\user\page
+        arguments:
+            - '@config'
+            - '@user'
+            - '%core.php_ext%'
+
+    ganstaz.gzo.time:
+        class: ganstaz\gzo\src\user\time
+        arguments:
+            - '@language'
+
+    ganstaz.gzo.users_loader:
+        class: ganstaz\gzo\src\user\loader
+        arguments:
+            - '@dbal.conn'
+            - '%core.root_path%'
+            - '%core.php_ext%'
+            - '%tables.users%'

@@ -10,12 +10,13 @@
 
 namespace ganstaz\gzo\src\area\type;
 
-use ganstaz\gzo\src\controller\helper;
+use ganstaz\gzo\src\helper\controller_helper;
 use ganstaz\gzo\src\enum\gzo;
 use ganstaz\gzo\src\event\events;
 use phpbb\cache\service as cache;
 use phpbb\db\driver\driver_interface;
 use phpbb\event\dispatcher;
+use phpbb\template\template;
 
 abstract class area_base
 {
@@ -28,10 +29,19 @@ abstract class area_base
 		protected cache $cache,
 		protected driver_interface $db,
 		protected dispatcher $dispatcher,
-		protected helper $helper,
+		protected template $template,
+		protected controller_helper $controller_helper,
 		protected readonly string $table
 	)
 	{
+	}
+
+	/**
+	* @param string $type Area type
+	*/
+	public function set_type(string $type)
+	{
+		$this->type = $type;
 	}
 
 	abstract public function load_navigation(): void;
@@ -82,7 +92,7 @@ abstract class area_base
 
 	protected function create_view(string $breadcrumb_name, string $breadcrumb_route): void
 	{
-		$this->helper->assign_breadcrumb($breadcrumb_name, $breadcrumb_route);
+		$this->controller_helper->assign_breadcrumb($breadcrumb_name, $breadcrumb_route);
 
 		$icons = $this->icons;
 		$type = $this->type;
@@ -98,35 +108,20 @@ abstract class area_base
 
 		foreach ($this->navigation as $category => $data)
 		{
-			$this->helper->twig->assign_block_vars('menu', [
+			$this->template->assign_block_vars('menu', [
 				'heading' => $category,
 				'icon'	  => $this->icons[$category] ?? $this->icons['GZO_DEFAULT'],
 			]);
 
 			foreach ($data as $item)
 			{
-				$this->helper->twig->assign_block_vars('menu.item', [
+				$this->template->assign_block_vars('menu.item', [
 					'title' => $item['title'],
 					'route' => $item['route'],
-					'icon'  => $item['icon'] ?? ''
+					'icon'	=> $item['icon'] ?? ''
 				]);
 			}
 		}
-	}
-
-	/**
-	* @param string $type Area type
-	*/
-	public function set_type(string $type)
-	{
-		$this->type = $type;
-	}
-
-	protected function add_language(string $name, string $path): self
-	{
-		$this->helper->language->add_lang($name, $path);
-
-		return $this;
 	}
 
 	protected function set_category_icon(string $name, string $icon): self

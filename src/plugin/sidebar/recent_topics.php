@@ -29,7 +29,7 @@ class recent_topics extends plugin
 		while ($row = $this->db->sql_fetchrow($result))
 		{
 			$this->template->assign_block_vars('recent_topics', [
-				'link'	=> append_sid("{$this->root_path}viewtopic.{$this->php_ext}", 't=' . $row['topic_id']),
+				'link'	=> $this->controller->route('ganstaz_gzo_recent_topic', ['t' => $row['topic_id']]),
 				'title' => $this->truncate($row['topic_title'], $this->config['gzo_title_length']),
 			]);
 		}

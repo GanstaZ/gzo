@@ -1,13 +1,15 @@
-services:
-    # Admin Controllers
-    ganstaz.gzo.admin_controller:
-        class: ganstaz\gzo\src\controller\admin\index
-        shared: false
-        parent: ganstaz.gzo.abstract_controller
+gzo_main:
+    path: /index
+    controller: ganstaz.gzo.admin_controller:index
 
-    ganstaz.gzo.admin.settings_controller:
-        class: ganstaz\gzo\src\controller\admin\settings
-        shared: false
-        parent: ganstaz.gzo.abstract_controller
-        arguments:
-            - '@ganstaz.gzo.settings'
+gzo_settings:
+    path: /gzo-settings
+    controller: ganstaz.gzo.admin_controller:index
+
+gzo_pages:
+    path: /gzo-pages
+    controller: ganstaz.gzo.admin_controller:index
+
+gzo_plugins:
+    path: /gzo-plugins
+    controller: ganstaz.gzo.admin_controller:index

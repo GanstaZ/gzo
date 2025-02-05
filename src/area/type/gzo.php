@@ -15,7 +15,7 @@ class gzo extends area_base
 {
 	public function load_navigation(): void
 	{
-		$this->add_language('area_gzo', 'ganstaz/gzo')
-			->create_view('GZO_DASHBOARD', 'gzo_main');
+		$this->controller_helper->add_language('area_gzo', 'ganstaz/gzo');
+		$this->create_view('GZO_DASHBOARD', 'gzo_main');
 	}
 }

@@ -52,7 +52,6 @@ class subscribers implements EventSubscriberInterface
 			'core.memberlist_prepare_profile_data'	 => 'modify_profile_data',
 			'core.modify_username_string'			 => 'modify_username_string',
 			'core.posting_modify_template_vars'		 => 'submit_post_template',
-			'core.viewforum_get_topic_data'			 => 'news_forum_redirect',
 		];
 	}
 
@@ -97,13 +96,6 @@ class subscribers implements EventSubscriberInterface
 		if (defined(admin::GZO_IN_AREA))
 		{
 			$this->twig->assign_var('GZO_IN_AREA', true);
-		}
-
-		if ($this->config['gzo_news_link'])
-		{
-			$this->twig->assign_vars([
-				'U_NEWS' => $this->controller->route('ganstaz_gzo_news'),
-			]);
 		}
 	}
 
@@ -199,22 +191,5 @@ class subscribers implements EventSubscriberInterface
 			'BREADCRUMB_NAME' => $this->language->lang('HOME'),
 			'U_BREADCRUMB'	  => $this->controller->route('ganstaz_gzo_index'),
 		], false, 'change');
-	}
-
-	/**
-	* Redirect users from the forum to the right controller
-	*/
-	public function news_forum_redirect($event): void
-	{
-		$forum_id = (int) $event['forum_id'];
-
-		// Will redirect to our controller
-		if (in_array($forum_id, $this->helper->get_forum_ids()) && $forum_id !== (int) $this->config['gzo_main_fid'])
-		{
-			$url = $this->controller->route('ganstaz_gzo_news', ['id' => $forum_id]);
-
-			$response = new RedirectResponse($url);
-			$response->send();
-		}
 	}
 }
