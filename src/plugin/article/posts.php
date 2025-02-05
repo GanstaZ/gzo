@@ -173,13 +173,13 @@ final class posts extends plugin
 	{
 		$build = new \ganstaz\gzo\src\db\helper($this->db);
 		$build
-		    ->select('t.topic_id, t.topic_title, t.topic_time, t.topic_views, t.topic_posts_approved, p.post_id, p.poster_id, p.post_text')
+			->select('t.topic_id, t.topic_title, t.topic_time, t.topic_views, t.topic_posts_approved, p.post_id, p.poster_id, p.post_text')
 			->from([
 				TOPICS_TABLE => 't',
 				POSTS_TABLE => 'p',
 			])
 			->where('t.' . $type . '_id = ' . $id . '
-			    AND p.post_id = t.topic_first_post_id
+				AND p.post_id = t.topic_first_post_id
 				AND t.topic_status <> ' . ITEM_MOVED . '
 				AND t.topic_visibility = 1')
 			->order($this->order, $type === 'forum');
