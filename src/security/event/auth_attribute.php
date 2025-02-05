@@ -32,7 +32,8 @@ class auth_attribute implements EventSubscriberInterface
 	 */
 	public function on_kernel_controller_arguments(ControllerArgumentsEvent $event): void
 	{
-		if (!\is_array($attributes = $event->getAttributes()[auth::class] ?? null)) {
+		if (!\is_array($attributes = $event->getAttributes()[auth::class] ?? null))
+		{
 			return;
 		}
 
