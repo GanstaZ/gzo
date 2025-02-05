@@ -128,7 +128,7 @@ final class posts extends plugin
 		}
 
 		// Assign breadcrumb
-		$this->controller->assign_breadcrumb($this->categories($forum_id), 'ganstaz_gzo_articles', ['id' => $forum_id]);
+		$this->controller->assign_breadcrumb($this->categories($forum_id), 'ganstaz_gzo_articles', ['fid' => $forum_id]);
 
 		// Build sql data
 		$sql_ary = $this->get_sql_data($forum_id);

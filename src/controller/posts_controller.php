@@ -35,6 +35,25 @@ class posts_controller extends abstract_controller
 	}
 
 	/**
+	* Article controller for route /articles/{fid}
+	*/
+	public function articles(int $fid): RedirectResponse
+	{
+		if (!$fid)
+		{
+			throw new http_exception(404, 'NO_FORUM', [$fid]);
+		}
+
+		$params = [
+			'f' => $fid
+		];
+
+		$url = append_sid(generate_board_url() . "/viewforum.{$this->php_ext}", $params, false);
+
+		return new RedirectResponse($url);
+	}
+
+	/**
 	* Post controller for /post/article{fid}
 	*	  Redirects to right forum's posting page
 	*/
