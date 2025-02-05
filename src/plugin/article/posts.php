@@ -272,7 +272,7 @@ final class posts extends plugin
 		extract($this->dispatcher->trigger_event(events::GZO_ARTICLE_MODIFY_TEMPLATE_DATA, compact($vars)));
 
 		// Assign breadcrumb data
-		$this->set_breadcrumb_data($template_data['title'], 'ganstaz_gzo_first_post', ['aid' => $topic_id]);
+		$this->controller->assign_breadcrumb($template_data['title'], 'ganstaz_gzo_first_post', ['aid' => $topic_id]);
 
 		$this->template->assign_block_vars('articles', $template_data);
 
