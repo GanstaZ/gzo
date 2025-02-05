@@ -3,17 +3,8 @@ services:
         class: ganstaz\gzo\src\security\event\auth_attribute
         arguments:
             - '@ganstaz.gzo.security.check_auth'
-            - '@ganstaz.gzo.area.loader'
         tags:
             - { name: kernel.event_subscriber }
-
-    # kernel_request_subscriber:
-    #     class: ganstaz\gzo\src\event\kernel_request
-    #     arguments:
-    #         - '@ganstaz.gzo.check_auth'
-    #         - '@ganstaz.gzo.area.loader'
-    #     tags:
-    #         - { name: kernel.event_subscriber }
 
     ganstaz.gzo.subscribers:
         class: ganstaz\gzo\src\event\subscribers

@@ -8,25 +8,21 @@
 *
 */
 
-namespace ganstaz\gzo\src\event;
+namespace ganstaz\gzo\src\area\event;
 
 use ganstaz\gzo\src\area\loader;
-use ganstaz\gzo\src\auth\auth;
 use ganstaz\gzo\src\enum\admin;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\HttpKernel\Event\RequestEvent;
+use Symfony\Component\HttpKernel\Event\ControllerArgumentsEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 
-class kernel_request implements EventSubscriberInterface
+class area_navigation implements EventSubscriberInterface
 {
-	public function __construct(protected auth $auth, protected loader $loader)
+	public function __construct(protected loader $loader)
 	{
 	}
 
-	/**
-	* KernelEvents::REQUEST
-	*/
-	public function on_kernel_request(RequestEvent $event): void
+	public function on_kernel_controller_arguments(ControllerArgumentsEvent $event): void
 	{
 		$route = $event->getRequest()->attributes->get('_route');
 		$type = strstr($route, '_', true);
@@ -34,21 +30,19 @@ class kernel_request implements EventSubscriberInterface
 		if ($this->loader->available($type))
 		{
 			$area = $this->loader->get($type);
-			$this->auth->authorize($area);
 
 			define(admin::GZO_IN_AREA, true);
 
-			$area->build_navigation_data($this->auth->phpbb_auth)
+			$area->build_navigation_data()
 				->load_navigation();
 		}
-
-		$this->auth->authorize($event->getRequest()->attributes->get('_controller'));
+		var_dump('Navigation');
 	}
 
 	public static function getSubscribedEvents(): array
 	{
 		return [
-			KernelEvents::REQUEST => 'on_kernel_request',
+			KernelEvents::CONTROLLER_ARGUMENTS => 'on_kernel_controller_arguments',
 		];
 	}
 }

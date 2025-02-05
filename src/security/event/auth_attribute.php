@@ -10,8 +10,6 @@
 
 namespace ganstaz\gzo\src\security\event;
 
-use ganstaz\gzo\src\area\loader;
-use ganstaz\gzo\src\enum\admin;
 use ganstaz\gzo\src\security\attribute\auth;
 use ganstaz\gzo\src\security\check_auth;
 use phpbb\exception\http_exception;
@@ -21,7 +19,7 @@ use Symfony\Component\HttpKernel\KernelEvents;
 
 class auth_attribute implements EventSubscriberInterface
 {
-	public function __construct(protected check_auth $check_auth, protected loader $loader)
+	public function __construct(protected check_auth $check_auth)
 	{
 	}
 
@@ -45,19 +43,6 @@ class auth_attribute implements EventSubscriberInterface
 			{
 				throw new http_exception($attribute->status_code, $attribute->message);
 			}
-		}
-
-		$route = $event->getRequest()->attributes->get('_route');
-		$type = strstr($route, '_', true);
-
-		if ($this->loader->available($type))
-		{
-			$area = $this->loader->get($type);
-
-			define(admin::GZO_IN_AREA, true);
-
-			$area->build_navigation_data($this->check_auth->auth)
-				->load_navigation();
 		}
 	}
 
