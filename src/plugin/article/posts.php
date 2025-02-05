@@ -31,7 +31,7 @@ final class posts extends plugin
 	protected int $page = 0;
 	protected bool $trim_messages = false;
 	protected bool $is_trimmed = false;
-	protected string $order_by = 'p.post_id DESC';
+	protected string $order = 'p.post_id DESC';
 
 	public function __construct
 	(
@@ -171,34 +171,20 @@ final class posts extends plugin
 	*/
 	public function get_sql_data(int $id, string $type = 'forum'): array
 	{
-		$sql_where = 't.' . $type . '_id = ' . $id;
-
-		$sql_ary = [
-			'SELECT'	=> 't.topic_id, t.topic_title, t.topic_time, t.topic_views, t.topic_posts_approved,
-			p.post_id, p.poster_id, p.post_text',
-
-			'FROM'		=> [
+		$build = new \ganstaz\gzo\src\db\helper($this->db);
+		$build
+		    ->select('t.topic_id, t.topic_title, t.topic_time, t.topic_views, t.topic_posts_approved, p.post_id, p.poster_id, p.post_text')
+			->from([
 				TOPICS_TABLE => 't',
-			],
-
-			'LEFT_JOIN' => [
-				[
-					'FROM' => [POSTS_TABLE => 'p'],
-					'ON'   => 'p.post_id = t.topic_first_post_id'
-				],
-			],
-
-			'WHERE'		=> $sql_where . '
+				POSTS_TABLE => 'p',
+			])
+			->where('t.' . $type . '_id = ' . $id . '
+			    AND p.post_id = t.topic_first_post_id
 				AND t.topic_status <> ' . ITEM_MOVED . '
-				AND t.topic_visibility = 1',
-		];
+				AND t.topic_visibility = 1')
+			->order($this->order, $type === 'forum');
 
-		if ($type === 'forum')
-		{
-			$sql_ary['ORDER_BY'] = $this->order_by;
-		}
-
-		return $sql_ary;
+		return $build->get_sql_data();
 	}
 
 	/**
