@@ -22,7 +22,7 @@ final class events
 	public const GZO_INFORMATION_BEFORE = 'ganstaz.gzo.information_before';
 
 	/** Who's Online plugin */
-	public const GZO_MAIN_BLOCKS_AFTER = 'ganstaz.gzo.main_blocks_after';
+	public const GZO_ONLINE_DATA_AFTER = 'ganstaz.gzo.online_data_after';
 
 	/** Posts plugin */
 	public const GZO_POSTS_MODIFY_CATEGORY_DATA = 'ganstaz.gzo.posts_modify_category_data';
