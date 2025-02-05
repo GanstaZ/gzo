@@ -8,7 +8,7 @@
 *
 */
 
-namespace ganstaz\gzo\src\attribute;
+namespace ganstaz\gzo\src\security\attribute;
 
 #[\Attribute(\Attribute::IS_REPEATABLE | \Attribute::TARGET_CLASS | \Attribute::TARGET_METHOD)]
 final class auth
