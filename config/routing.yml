@@ -13,26 +13,10 @@ ganstaz_gzo_forum:
 
 # Articles
 ganstaz_gzo_articles:
-    path: /articles/{id}
-    controller: ganstaz.gzo.articles_controller:handle
-    defaults:
-        id: 3
-        page: 1
+    path: /articles/{fid}
+    controller: ganstaz.gzo.posts_controller:articles
     requirements:
         id: \d+
-
-ganstaz_gzo_articles_page:
-    path: /articles/{id}/page/{page}
-    controller: ganstaz.gzo.articles_controller:handle
-    requirements:
-        id: \d+
-        page: \d+
-
-ganstaz_gzo_first_post:
-    path: /article/{aid}
-    controller: ganstaz.gzo.articles_controller:first_post
-    requirements:
-        aid: \d+
 
 # Article - redirect to topic page
 ganstaz_gzo_article:
