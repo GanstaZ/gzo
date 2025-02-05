@@ -11,12 +11,6 @@ imports:
     - { resource: user.yml }
 
 services:
-    ganstaz.gzo.auth:
-        class: ganstaz\gzo\src\auth\auth
-        arguments:
-            - '@service_container'
-            - '@auth'
-
     ganstaz.gzo.controller.helper:
         class: ganstaz\gzo\src\helper\controller_helper
         decorates: controller.helper
@@ -65,6 +59,11 @@ services:
             - '@user'
             - '%core.root_path%'
             - '%core.php_ext%'
+
+    ganstaz.gzo.security.check_auth:
+        class: ganstaz\gzo\src\security\check_auth
+        arguments:
+            - '@auth'
 
 # ----- Models -----
     ganstaz.gzo.main:

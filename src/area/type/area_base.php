@@ -13,6 +13,7 @@ namespace ganstaz\gzo\src\area\type;
 use ganstaz\gzo\src\helper\controller_helper;
 use ganstaz\gzo\src\enum\gzo;
 use ganstaz\gzo\src\event\events;
+use phpbb\auth\auth;
 use phpbb\cache\service as cache;
 use phpbb\db\driver\driver_interface;
 use phpbb\event\dispatcher;
@@ -26,6 +27,7 @@ abstract class area_base
 	protected array $icons = ['GZO_DEFAULT' => 'ic--outline-home'];
 
 	public function __construct(
+		protected auth $auth,
 		protected cache $cache,
 		protected driver_interface $db,
 		protected dispatcher $dispatcher,
@@ -46,7 +48,7 @@ abstract class area_base
 
 	abstract public function load_navigation(): void;
 
-	public function build_navigation_data(?object $auth): self
+	public function build_navigation_data(): self
 	{
 		if (($this->navigation = $this->cache->get('_gzo_area')) === false)
 		{
@@ -66,13 +68,13 @@ abstract class area_base
 
 		foreach ($this->navigation[$this->type] as $cat => $data)
 		{
-			$this->filter_navigation_data($cat, $data, $auth);
+			$this->filter_navigation_data($cat, $data);
 		}
 
 		return $this;
 	}
 
-	protected function filter_navigation_data(string $cat, array $data, ?object $auth): void
+	protected function filter_navigation_data(string $cat, array $data): void
 	{
 		foreach ($data as $key => $row)
 		{
@@ -83,7 +85,7 @@ abstract class area_base
 			}
 
 			// Unset Area controller if user doesn't have permissions to view it
-			if ($row['auth'] && !$auth->acl_get($row['auth']))
+			if ($row['auth'] && !$this->auth->acl_get($row['auth']))
 			{
 				unset($this->navigation[$this->type][$cat][$key]);
 			}

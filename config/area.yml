@@ -4,7 +4,14 @@ services:
         arguments:
             - '@ganstaz.gzo.area_collection'
 
-    # Area collection
+    kernel_controller_arguments_area_navigation_subscriber:
+        class: ganstaz\gzo\src\area\event\area_navigation
+        arguments:
+            - '@ganstaz.gzo.area.loader'
+        tags:
+            - { name: kernel.event_subscriber }
+
+# ----- Area -----
     ganstaz.gzo.area_collection:
         class: phpbb\di\service_collection
         arguments:
@@ -15,6 +22,7 @@ services:
     ganstaz.gzo.area.base:
         abstract: true
         arguments:
+            - '@auth'
             - '@cache'
             - '@dbal.conn'
             - '@event_dispatcher'
